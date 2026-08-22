@@ -82,12 +82,12 @@ function Index() {
       </div>
 
       <section id="top" className="relative min-h-[94svh] bg-foreground px-5 pb-24 pt-16 text-background md:px-10 md:pt-10 lg:px-16">
-        <div className="mx-auto grid min-h-[calc(94svh-7rem)] max-w-[1600px] grid-cols-12 content-center">
+        <div className="mx-auto grid min-h-[calc(94svh-7rem)] w-full max-w-[1600px] grid-cols-12 content-center">
           <div className="hero-image col-span-12 row-start-1 self-center md:col-span-8 md:col-start-2 lg:col-span-7 lg:col-start-3">
             <img src={heroAsset.url} alt="Moshe Ganelin за органом" className="aspect-[16/10] w-full object-cover object-center grayscale contrast-125 brightness-75" />
           </div>
-          <h1 className="hero-name col-span-12 row-start-1 z-10 self-end pb-4 font-display text-[clamp(4.4rem,12vw,11rem)] leading-[0.78] uppercase mix-blend-difference md:pb-0">
-            Moshe<br /><span className="ml-[12vw] md:ml-[18vw]">Ganelin</span>
+          <h1 className="hero-name col-span-12 row-start-1 z-10 self-end pb-4 font-display text-[clamp(3.7rem,12vw,11rem)] leading-[0.78] uppercase mix-blend-difference md:pb-0">
+            Moshe<br /><span className="block text-right md:pr-[4vw]">Ganelin</span>
           </h1>
           <div className="col-span-5 col-start-8 row-start-1 z-20 hidden self-end translate-y-1/3 md:block lg:col-span-3 lg:col-start-10">
             <img src={consoleAsset.url} alt="Органная консоль" className="aspect-[3/4] w-full object-cover grayscale contrast-125" />
