@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight, Play } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import pianoAsset from "@/assets/moshe-piano.webp.asset.json";
 import organAsset from "@/assets/moshe-organ-wide.webp.asset.json";
@@ -8,6 +8,8 @@ import architectureAsset from "@/assets/organ-architecture.webp.asset.json";
 import stageAsset from "@/assets/moshe-stage.webp.asset.json";
 import consoleAsset from "@/assets/moshe-console.webp.asset.json";
 import logoAsset from "@/assets/moshe-ganelin-logo.png.asset.json";
+import heroVideoAsset from "@/assets/hero-reger.mp4.asset.json";
+import heroPosterAsset from "@/assets/hero-poster.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -39,6 +41,11 @@ const menuItems = [
 
 function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (heroVideoRef.current) heroVideoRef.current.playbackRate = 0.85;
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -52,9 +59,9 @@ function Index() {
         aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
         aria-expanded={menuOpen}
         onClick={() => setMenuOpen((open) => !open)}
-        className="group fixed right-4 top-4 z-50 inline-flex size-[144px] items-center justify-center rounded-full border border-background/20 bg-background/5 p-0 text-background shadow-none backdrop-blur-md transition-colors duration-300 hover:bg-background/10 hover:text-background focus:outline-none md:right-8 md:top-8 md:size-[176px]"
+        className="group fixed right-3 top-3 z-50 inline-flex items-center justify-center bg-transparent p-3 text-background opacity-90 [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.5))] transition-opacity duration-300 hover:opacity-100 focus:outline-none md:right-6 md:top-5"
       >
-        <span className={`organ-menu-mark relative block size-[72px] md:size-[88px] ${menuOpen ? "organ-menu-mark-open" : ""}`} aria-hidden="true">
+        <span className={`organ-menu-mark relative block size-[56px] md:size-[68px] ${menuOpen ? "organ-menu-mark-open" : ""}`} aria-hidden="true">
           <svg viewBox="0 0 80 80" className="size-full" focusable="false">
             <g fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
               <path d="M18 64V44a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v20" />
@@ -65,9 +72,9 @@ function Index() {
               <path d="M21 41v-6M35 31v-6M49 23v-6M63 35v-6" />
             </g>
           </svg>
-          <span className="organ-menu-close absolute inset-0 m-auto h-14 w-14">
-            <span className="absolute left-0 top-1/2 h-[4px] w-14 -translate-y-1/2 rotate-45 bg-current" />
-            <span className="absolute left-0 top-1/2 h-[4px] w-14 -translate-y-1/2 -rotate-45 bg-current" />
+          <span className="organ-menu-close absolute inset-0 m-auto h-10 w-10">
+            <span className="absolute left-0 top-1/2 h-[3px] w-10 -translate-y-1/2 rotate-45 bg-current" />
+            <span className="absolute left-0 top-1/2 h-[3px] w-10 -translate-y-1/2 -rotate-45 bg-current" />
           </span>
         </span>
       </button>
@@ -90,8 +97,20 @@ function Index() {
         </nav>
       </div>
 
-      <section id="top" className="relative min-h-[94svh] bg-hero text-background">
+      <section id="top" className="relative min-h-[94svh] overflow-hidden bg-hero text-background">
         <h1 className="sr-only">Moshe Ganelin</h1>
+        <video
+          ref={heroVideoRef}
+          className="absolute inset-0 h-full w-full object-cover"
+          src={heroVideoAsset.url}
+          poster={heroPosterAsset.url}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+        />
+        <div className="absolute inset-0 bg-hero/35" />
         <img
           src={logoAsset.url}
           alt="Moshe Ganelin"
