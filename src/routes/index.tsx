@@ -52,10 +52,10 @@ function Index() {
   useEffect(() => {
     if (menuOpen) {
       setMenuVisible(true);
-    } else {
-      const timer = setTimeout(() => setMenuVisible(false), 650);
-      return () => clearTimeout(timer);
+      return;
     }
+    const timer = setTimeout(() => setMenuVisible(false), 650);
+    return () => clearTimeout(timer);
   }, [menuOpen]);
 
   useEffect(() => {
