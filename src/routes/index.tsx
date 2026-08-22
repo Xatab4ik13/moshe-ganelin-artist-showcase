@@ -114,10 +114,11 @@ function Index() {
           preload="auto"
         />
         <div className="absolute inset-0 bg-hero/35" />
+        <div className="hero-blur absolute bottom-0 left-0 z-10 h-32 w-full md:h-48" />
         <img
           src={logoAsset.url}
           alt="Moshe Ganelin"
-          className="hero-logo absolute top-[calc(1.25rem-1cm)] left-1/2 z-10 w-[min(70vw,620px)] -translate-x-1/2 object-contain"
+          className="hero-logo absolute top-[calc(1.25rem-1cm)] left-1/2 z-20 w-[min(70vw,620px)] -translate-x-1/2 object-contain"
         />
       </section>
 
