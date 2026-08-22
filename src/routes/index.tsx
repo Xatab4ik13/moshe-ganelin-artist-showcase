@@ -79,7 +79,7 @@ function Index() {
           <ol className="grid gap-x-16 lg:grid-cols-2">
             {menuItems.map(([label, href], index) => (
               <li key={label} className="overflow-hidden">
-                <a href={href} tabIndex={menuOpen ? 0 : -1} onClick={() => setMenuOpen(false)} className="menu-link group flex items-baseline gap-5 py-2 font-display text-[clamp(2rem,5.5vw,5.5rem)] leading-none transition-colors hover:text-primary md:py-3">
+                <a href={href} tabIndex={menuOpen ? 0 : -1} onClick={() => setMenuOpen(false)} className="menu-link group flex items-baseline gap-5 py-2 font-display text-[clamp(2rem,5.5vw,5.5rem)] leading-none transition-colors hover:text-background/70 md:py-3">
                    <span className="w-5 font-sans text-[9px] text-background/35">{String(index + 1).padStart(2, "0")}</span>
                   {label}
                 </a>
