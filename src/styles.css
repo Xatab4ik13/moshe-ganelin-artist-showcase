@@ -147,6 +147,7 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     letter-spacing: 0;
+    --scrollbar-width: 0px;
   }
 
   html { scroll-behavior: smooth; }
@@ -172,9 +173,9 @@
 .organ-menu-close { opacity: 0; transform: rotate(-45deg) scale(0.7); }
 .organ-menu-mark-open > svg { opacity: 0; transform: rotate(12deg) scale(0.75); }
 .organ-menu-mark-open .organ-menu-close { opacity: 1; transform: rotate(0) scale(1); }
-.menu-stroke { transition: transform 420ms cubic-bezier(0.76, 0, 0.24, 1), opacity 220ms ease; transform-origin: center; }
-.menu-panel { clip-path: inset(0 0 100% 0); pointer-events: none; transition: clip-path 650ms cubic-bezier(0.76, 0, 0.24, 1); }
-.menu-panel-open { clip-path: inset(0 0 0 0); pointer-events: auto; }
+.menu-stroke { transition: transform 420ms cubic-bezier(0.76, 0, 0.24, 1), opacity 220ms ease; transform-origin: center; will-change: transform; }
+.menu-panel { transform: translateY(-100%); pointer-events: none; transition: transform 650ms cubic-bezier(0.76, 0, 0.24, 1); will-change: transform; }
+.menu-panel-open { transform: translateY(0); pointer-events: auto; }
 .menu-link { opacity: 0; transform: translateY(35px); transition: opacity 350ms ease, transform 500ms cubic-bezier(0.22, 1, 0.36, 1), color 200ms ease; }
 .menu-panel-open .menu-link { opacity: 1; transform: translateY(0); }
 .menu-panel-open li:nth-child(2) .menu-link { transition-delay: 40ms; }
