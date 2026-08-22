@@ -65,9 +65,9 @@ function Index() {
               <path d="M21 41v-6M35 31v-6M49 23v-6M63 35v-6" />
             </g>
           </svg>
-          <span className="organ-menu-close absolute inset-0 m-auto h-14 w-14">
-            <span className="absolute left-0 top-1/2 h-[4px] w-14 -translate-y-1/2 rotate-45 bg-current" />
-            <span className="absolute left-0 top-1/2 h-[4px] w-14 -translate-y-1/2 -rotate-45 bg-current" />
+          <span className="organ-menu-close absolute inset-0 m-auto h-10 w-10">
+            <span className="absolute left-0 top-1/2 h-[3px] w-10 -translate-y-1/2 rotate-45 bg-current" />
+            <span className="absolute left-0 top-1/2 h-[3px] w-10 -translate-y-1/2 -rotate-45 bg-current" />
           </span>
         </span>
       </button>
