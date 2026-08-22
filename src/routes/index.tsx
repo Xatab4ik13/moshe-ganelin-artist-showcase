@@ -10,6 +10,7 @@ import consoleAsset from "@/assets/moshe-console.webp.asset.json";
 import logoAsset from "@/assets/moshe-ganelin-logo.png.asset.json";
 import heroVideoAsset from "@/assets/hero-reger.mp4.asset.json";
 import heroPosterAsset from "@/assets/hero-poster.jpg.asset.json";
+import menuBgAsset from "@/assets/menu-bg.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
