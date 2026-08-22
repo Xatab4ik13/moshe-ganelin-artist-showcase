@@ -59,7 +59,7 @@ function Index() {
         aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
         aria-expanded={menuOpen}
         onClick={() => setMenuOpen((open) => !open)}
-        className="group fixed right-3 top-3 z-50 inline-flex items-center justify-center bg-transparent p-3 text-background opacity-90 transition-opacity duration-300 hover:opacity-100 focus:outline-none md:right-6 md:top-5"
+        className="group fixed right-3 top-3 z-50 inline-flex items-center justify-center bg-transparent p-3 text-background opacity-90 [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.5))] transition-opacity duration-300 hover:opacity-100 focus:outline-none md:right-6 md:top-5"
       >
         <span className={`organ-menu-mark relative block size-[56px] md:size-[68px] ${menuOpen ? "organ-menu-mark-open" : ""}`} aria-hidden="true">
           <svg viewBox="0 0 80 80" className="size-full" focusable="false">
