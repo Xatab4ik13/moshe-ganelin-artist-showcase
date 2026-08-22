@@ -47,14 +47,12 @@ function Index() {
 
   return (
     <main className="overflow-hidden bg-background text-foreground">
-      <Button
+      <button
         type="button"
-        variant="ghost"
-        size="icon"
         aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
         aria-expanded={menuOpen}
         onClick={() => setMenuOpen((open) => !open)}
-        className="group fixed right-4 top-4 z-50 size-[144px] rounded-full border border-background/20 bg-background/5 p-0 text-background shadow-none backdrop-blur-md transition-colors duration-300 hover:bg-background/10 hover:text-background focus-visible:ring-0 focus-visible:ring-offset-0 md:right-8 md:top-8 md:size-[176px]"
+        className="group fixed right-4 top-4 z-50 inline-flex size-[144px] items-center justify-center rounded-full border border-background/20 bg-background/5 p-0 text-background shadow-none backdrop-blur-md transition-colors duration-300 hover:bg-background/10 hover:text-background focus:outline-none md:right-8 md:top-8 md:size-[176px]"
       >
         <span className={`organ-menu-mark relative block size-[72px] md:size-[88px] ${menuOpen ? "organ-menu-mark-open" : ""}`} aria-hidden="true">
           <svg viewBox="0 0 80 80" className="size-full" focusable="false">
@@ -72,7 +70,7 @@ function Index() {
             <span className="absolute left-0 top-1/2 h-[4px] w-14 -translate-y-1/2 -rotate-45 bg-current" />
           </span>
         </span>
-      </Button>
+      </button>
 
       <div className={`menu-panel fixed inset-0 z-40 bg-hero text-background ${menuOpen ? "menu-panel-open" : ""}`} aria-hidden={!menuOpen}>
         <nav aria-label="Основная навигация" className="mx-auto flex h-full max-w-[1600px] flex-col justify-center px-6 py-20 md:px-16 lg:px-24">
