@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowDown, ArrowUpRight, Play } from "lucide-react";
+import { ArrowUpRight, Play } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import heroAsset from "@/assets/moshe-hero.webp.asset.json";
 import pianoAsset from "@/assets/moshe-piano.webp.asset.json";
@@ -11,9 +12,9 @@ import consoleAsset from "@/assets/moshe-console.webp.asset.json";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Moshe Ganelin — композитор, органист, пианист" },
-      { name: "description", content: "Официальный сайт Moshe Ganelin: концерты, музыка, видео, публикации и фотографии композитора, органиста и пианиста." },
-      { property: "og:title", content: "Moshe Ganelin — композитор, органист, пианист" },
+      { title: "Moshe Ganelin — официальный сайт" },
+      { name: "description", content: "Официальный сайт Moshe Ganelin: концерты, музыка, видео, публикации и фотографии." },
+      { property: "og:title", content: "Moshe Ganelin — официальный сайт" },
       { property: "og:description", content: "Концерты, музыка, видео и публикации Moshe Ganelin." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://moshearielganelin.com/" },
@@ -30,112 +31,130 @@ const concerts = [
   { day: "12", month: "ОКТ", city: "Москва", venue: "Зал имени Рахманинова", title: "Авторский вечер Moshe Ganelin" },
 ];
 
+const menuItems = [
+  ["Главная", "#top"], ["О музыканте", "#about"], ["Афиша", "#concerts"],
+  ["Музыка", "#selected"], ["Видео", "#selected"], ["Блог", "#publications"],
+  ["Галерея", "#gallery"], ["Контакты", "#contacts"],
+] as const;
+
 function Index() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
+
   return (
     <main className="overflow-hidden bg-background text-foreground">
-      <header className="absolute inset-x-0 top-0 z-20 border-b border-background/25 text-background">
-        <div className="mx-auto flex h-20 max-w-[1600px] items-center justify-between px-5 md:px-10 lg:px-16">
-          <a href="#top" className="font-display text-xl">MG</a>
-          <nav aria-label="Основная навигация" className="hidden items-center gap-7 text-[11px] font-semibold uppercase md:flex">
-            <a className="transition-colors hover:text-primary" href="#concerts">Афиша</a>
-            <a className="transition-colors hover:text-primary" href="#selected">Музыка</a>
-            <a className="transition-colors hover:text-primary" href="#selected">Видео</a>
-            <a className="transition-colors hover:text-primary" href="#publications">Блог</a>
-            <a className="transition-colors hover:text-primary" href="#gallery">Галерея</a>
-            <a className="transition-colors hover:text-primary" href="#contacts">Контакты</a>
-          </nav>
-          <span className="text-[10px] font-semibold uppercase md:hidden">Меню</span>
-        </div>
-      </header>
+      <Button
+        type="button"
+        variant="ghost"
+        size="icon"
+        aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
+        aria-expanded={menuOpen}
+        onClick={() => setMenuOpen((open) => !open)}
+        className="group fixed right-5 top-5 z-50 size-14 rounded-none bg-primary text-primary-foreground shadow-none hover:bg-primary md:right-10 md:top-8 md:size-16"
+      >
+        <span className="relative block h-5 w-7" aria-hidden="true">
+          <span className={`menu-stroke absolute left-0 top-0 h-px w-7 bg-current ${menuOpen ? "translate-y-[9px] rotate-45" : ""}`} />
+          <span className={`menu-stroke absolute left-0 top-[9px] h-px w-7 bg-current ${menuOpen ? "scale-x-0 opacity-0" : ""}`} />
+          <span className={`menu-stroke absolute bottom-0 left-0 h-px w-7 bg-current ${menuOpen ? "-translate-y-[9px] -rotate-45" : ""}`} />
+        </span>
+      </Button>
 
-      <section id="top" className="relative min-h-[92svh] bg-foreground text-background">
-        <img src={heroAsset.url} alt="Moshe Ganelin за органом" className="absolute inset-0 h-full w-full object-cover object-[62%_center] opacity-80" />
-        <div className="absolute inset-0 bg-linear-to-r from-foreground/90 via-foreground/35 to-transparent" />
-        <div className="relative mx-auto flex min-h-[92svh] max-w-[1600px] flex-col justify-end px-5 pb-10 pt-32 md:px-10 md:pb-14 lg:px-16">
-          <div className="hero-reveal max-w-5xl">
-            <p className="mb-6 flex items-center gap-4 text-[10px] font-semibold uppercase"><span className="h-px w-10 bg-primary" />Композитор · Органист · Пианист</p>
-            <h1 className="font-display text-[clamp(4rem,11vw,10rem)] leading-[0.84]">Moshe<br />Ganelin</h1>
+      <div className={`menu-panel fixed inset-0 z-40 bg-foreground text-background ${menuOpen ? "menu-panel-open" : ""}`} aria-hidden={!menuOpen}>
+        <nav aria-label="Основная навигация" className="mx-auto flex h-full max-w-[1600px] flex-col justify-center px-6 py-20 md:px-16 lg:px-24">
+          <ol className="grid gap-x-16 lg:grid-cols-2">
+            {menuItems.map(([label, href], index) => (
+              <li key={label} className="overflow-hidden">
+                <a href={href} tabIndex={menuOpen ? 0 : -1} onClick={() => setMenuOpen(false)} className="menu-link group flex items-baseline gap-5 py-2 font-display text-[clamp(2rem,5.5vw,5.5rem)] leading-none transition-colors hover:text-primary md:py-3">
+                  <span className="w-5 font-sans text-[9px] text-primary">{String(index + 1).padStart(2, "0")}</span>
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ol>
+          <div className="mt-10 flex flex-wrap gap-8 font-sans text-[10px] uppercase text-background/50 md:mt-14">
+            <a href="#">YouTube</a><a href="#">Telegram</a><a href="#">VK</a><a href="#">SoundCloud</a>
           </div>
-          <div className="mt-9 flex items-end justify-between border-t border-background/30 pt-5">
-            <p className="max-w-xs text-sm leading-6 text-background/75">Музыка между архитектурой звука, импровизацией и живой традицией.</p>
-            <a href="#concerts" aria-label="Перейти к афише" className="flex size-11 items-center justify-center border border-background/40 transition-colors hover:border-primary hover:text-primary"><ArrowDown className="size-4" /></a>
-          </div>
-        </div>
-      </section>
+        </nav>
+      </div>
 
-      <section id="concerts" className="mx-auto max-w-[1600px] px-5 py-24 md:px-10 lg:px-16 lg:py-32">
-        <SectionHeading number="01" title="Ближайшие концерты" aside="Сезон 2026 / 27" />
-        <div className="mt-14 border-t border-border">
-          {concerts.map((concert) => (
-            <article key={concert.day} className="group grid gap-5 border-b border-border py-7 md:grid-cols-[110px_1fr_1.3fr_auto] md:items-center md:gap-8">
-              <div className="flex items-baseline gap-3"><span className="font-display text-4xl">{concert.day}</span><span className="text-[10px] font-semibold text-primary">{concert.month}</span></div>
-              <div><p className="text-sm font-semibold">{concert.city}</p><p className="mt-1 text-xs text-muted-foreground">{concert.venue}</p></div>
-              <h3 className="font-display text-xl leading-snug md:text-2xl">{concert.title}</h3>
-              <a href="#contacts" className="flex items-center gap-2 text-[10px] font-semibold uppercase transition-colors group-hover:text-primary">Подробнее <ArrowUpRight className="size-3.5" /></a>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section id="selected" className="bg-foreground py-20 text-background lg:py-28">
-        <div className="mx-auto grid max-w-[1600px] gap-10 px-5 md:px-10 lg:grid-cols-[0.72fr_1.28fr] lg:px-16">
-          <div className="flex flex-col justify-between py-2">
-            <div>
-              <p className="text-[10px] font-semibold text-primary">02 / ИЗБРАННОЕ</p>
-              <h2 className="mt-8 max-w-lg font-display text-4xl leading-tight md:text-6xl">Орган как целый оркестр</h2>
-              <p className="mt-7 max-w-md text-sm leading-7 text-background/60">Фрагмент сольного концерта. Музыка Иоганна Себастьяна Баха в пространстве кафедрального собора.</p>
-            </div>
-            <p className="mt-12 text-[10px] uppercase text-background/45">Видео · 18:42 · Концертная запись</p>
+      <section id="top" className="relative min-h-[94svh] bg-foreground px-5 pb-24 pt-16 text-background md:px-10 md:pt-10 lg:px-16">
+        <div className="relative mx-auto min-h-[calc(94svh-7rem)] w-full max-w-[1600px]">
+          <div className="absolute left-0 top-1/2 w-full -translate-y-1/2 md:left-[8%] md:w-[66%] lg:left-[16%] lg:w-[58%]">
+            <img src={heroAsset.url} alt="Moshe Ganelin за органом" className="hero-image aspect-[16/10] w-full object-cover object-center grayscale contrast-125 brightness-75" />
           </div>
-          <div className="group relative aspect-[4/3] overflow-hidden">
-            <img src={pianoAsset.url} alt="Moshe Ganelin во время выступления" loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.015]" />
-            <div className="absolute inset-0 bg-foreground/15" />
-            <Button aria-label="Смотреть видео" size="icon" className="absolute bottom-6 left-6 size-14 rounded-none bg-primary text-primary-foreground shadow-none hover:bg-primary/90"><Play className="fill-current" /></Button>
+          <h1 className="absolute inset-x-0 top-1/2 z-10 -translate-y-1/2 font-display text-[clamp(3.4rem,12vw,11rem)] leading-[0.78] uppercase mix-blend-difference">
+            <span className="hero-name block">Moshe<br /><span className="block text-right md:pr-[4vw]">Ganelin</span></span>
+          </h1>
+          <div className="absolute bottom-[5%] right-0 z-20 hidden w-[24%] md:block lg:w-[20%]">
+            <img src={consoleAsset.url} alt="Органная консоль" className="aspect-[3/4] w-full object-cover grayscale contrast-125" />
           </div>
         </div>
       </section>
 
-      <section id="publications" className="mx-auto max-w-[1600px] px-5 py-24 md:px-10 lg:px-16 lg:py-32">
-        <SectionHeading number="03" title="Публикации" aside="Мысли о музыке и времени" />
-        <div className="mt-16 grid gap-14 lg:grid-cols-[1fr_1fr_0.55fr]">
-          <Publication type="Эссе" date="18.08.2026" title="Тишина до первой ноты" text="О паузе как части музыкальной формы и о том, почему слушание начинается раньше звука." />
-          <Publication type="Интервью" date="02.07.2026" title="Инструмент, который дышит зданием" text="Разговор об органе, пространстве собора и свободе исполнителя внутри многовековой традиции." />
-          <a href="#contacts" className="group flex items-end justify-between border-t border-primary pt-5 text-xs font-semibold uppercase text-primary lg:ml-8">Все публикации <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></a>
-        </div>
-      </section>
-
-      <section id="gallery" className="border-y border-border py-20">
-        <div className="mx-auto max-w-[1600px] px-5 md:px-10 lg:px-16">
-          <div className="mb-10 flex items-end justify-between"><h2 className="font-display text-4xl md:text-5xl">Фотографии</h2><span className="text-[10px] font-semibold text-primary">04 / АРХИВ</span></div>
-          <div className="grid grid-cols-12 gap-3 md:gap-5">
-            <img src={organAsset.url} alt="Moshe Ganelin за органом в соборе" loading="lazy" className="col-span-5 h-full max-h-[620px] w-full object-cover" />
-            <img src={architectureAsset.url} alt="Исторический орган в концертном зале" loading="lazy" className="col-span-3 mt-16 h-[75%] w-full object-cover" />
-            <div className="col-span-4 grid gap-3 md:gap-5">
-              <img src={stageAsset.url} alt="Moshe Ganelin на сцене" loading="lazy" className="aspect-[3/2] w-full object-cover" />
-              <img src={consoleAsset.url} alt="Moshe Ganelin играет на органе" loading="lazy" className="aspect-[3/2] w-full object-cover" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <footer id="contacts" className="bg-foreground px-5 py-20 text-background md:px-10 lg:px-16 lg:py-24">
+      <section id="concerts" className="bg-background px-5 py-24 md:px-10 lg:px-16 lg:py-32">
         <div className="mx-auto max-w-[1600px]">
-          <p className="text-[10px] font-semibold text-primary">05 / СВЯЗЬ</p>
-          <div className="mt-8 grid gap-14 lg:grid-cols-[1.4fr_0.6fr] lg:items-end">
-            <div><h2 className="font-display text-[clamp(3rem,7vw,7rem)] leading-none">Moshe Ganelin</h2><a href="mailto:concerts@moshearielganelin.com" className="mt-8 inline-block border-b border-background/35 pb-2 text-sm transition-colors hover:border-primary hover:text-primary">concerts@moshearielganelin.com</a></div>
-            <div className="grid grid-cols-2 gap-x-8 gap-y-5 border-t border-background/20 pt-6 text-xs uppercase"><a href="#" className="hover:text-primary">YouTube</a><a href="#" className="hover:text-primary">Telegram</a><a href="#" className="hover:text-primary">VK</a><a href="#" className="hover:text-primary">SoundCloud</a></div>
+          <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
+            <h2 className="font-display text-5xl leading-none md:text-7xl">Ближайшие<br />концерты</h2>
+            <span className="text-[10px] uppercase text-muted-foreground">Сезон 2026 / 27</span>
           </div>
-          <div className="mt-20 flex flex-wrap justify-between gap-4 border-t border-background/20 pt-5 text-[9px] uppercase text-background/40"><span>© 2026 Moshe Ganelin</span><span>Композитор · Органист · Пианист</span></div>
+          <div className="mt-16 grid gap-px bg-border lg:grid-cols-3">
+            {concerts.map((concert) => (
+              <article key={concert.day} className="group flex min-h-80 flex-col justify-between bg-background p-6 transition-colors hover:bg-foreground hover:text-background md:p-8">
+                <div className="flex items-start justify-between"><span className="font-display text-6xl">{concert.day}</span><span className="text-[10px] text-primary">{concert.month}</span></div>
+                <div><p className="mb-8 text-xs text-muted-foreground group-hover:text-background/55">{concert.city} · {concert.venue}</p><h3 className="font-display text-2xl leading-snug">{concert.title}</h3></div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="selected" className="bg-foreground py-24 text-background lg:py-32">
+        <div className="mx-auto grid max-w-[1600px] gap-12 px-5 md:px-10 lg:grid-cols-[0.55fr_1.45fr] lg:px-16">
+          <div className="flex flex-col justify-between"><span className="text-[10px] text-primary">01 / ИЗБРАННОЕ</span><h2 className="mt-12 font-display text-4xl leading-tight md:text-6xl">Орган как целый оркестр</h2></div>
+          <div className="group relative aspect-[16/10] overflow-hidden">
+            <img src={pianoAsset.url} alt="Moshe Ganelin во время выступления" loading="lazy" className="h-full w-full object-cover grayscale transition duration-700 group-hover:scale-[1.02] group-hover:grayscale-0" />
+            <Button aria-label="Смотреть видео" size="icon" className="absolute bottom-0 left-0 size-16 rounded-none bg-primary text-primary-foreground shadow-none hover:bg-primary/90"><Play className="fill-current" /></Button>
+          </div>
+        </div>
+      </section>
+
+      <section id="publications" className="bg-background px-5 py-24 md:px-10 lg:px-16 lg:py-32">
+        <div className="mx-auto max-w-[1600px]">
+          <div className="grid gap-12 lg:grid-cols-3">
+            <h2 className="font-display text-5xl md:text-7xl">Публикации</h2>
+            <Publication type="Эссе" date="18.08.2026" title="Тишина до первой ноты" />
+            <Publication type="Интервью" date="02.07.2026" title="Инструмент, который дышит зданием" />
+          </div>
+        </div>
+      </section>
+
+      <section id="gallery" className="bg-foreground py-24 text-background">
+        <div className="mx-auto max-w-[1600px] px-5 md:px-10 lg:px-16">
+          <div className="grid grid-cols-12 gap-3 md:gap-5">
+            <img src={organAsset.url} alt="Moshe Ganelin за органом в соборе" loading="lazy" className="col-span-7 aspect-[4/5] h-full w-full object-cover grayscale md:col-span-5" />
+            <img src={architectureAsset.url} alt="Исторический орган" loading="lazy" className="col-span-5 mt-20 aspect-[3/4] w-full object-cover grayscale md:col-span-3" />
+            <div className="col-span-12 mt-4 grid grid-cols-2 gap-3 md:col-span-4 md:mt-40 md:grid-cols-1 md:gap-5">
+              <img src={stageAsset.url} alt="Moshe Ganelin на сцене" loading="lazy" className="aspect-[3/2] w-full object-cover grayscale" />
+              <img src={consoleAsset.url} alt="Moshe Ganelin играет на органе" loading="lazy" className="aspect-[3/2] w-full object-cover grayscale" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer id="contacts" className="bg-primary px-5 py-20 text-primary-foreground md:px-10 lg:px-16">
+        <div className="mx-auto max-w-[1600px]">
+          <h2 className="font-display text-[clamp(3.2rem,9vw,9rem)] leading-none">Moshe Ganelin</h2>
+          <div className="mt-14 flex flex-col justify-between gap-8 text-xs md:flex-row md:items-end"><a href="mailto:concerts@moshearielganelin.com">concerts@moshearielganelin.com</a><span>© 2026</span></div>
         </div>
       </footer>
     </main>
   );
 }
 
-function SectionHeading({ number, title, aside }: { number: string; title: string; aside: string }) {
-  return <div className="grid items-end gap-5 md:grid-cols-[90px_1fr_auto]"><span className="text-[10px] font-semibold text-primary">{number} /</span><h2 className="font-display text-4xl md:text-6xl">{title}</h2><p className="text-[10px] font-semibold uppercase text-muted-foreground">{aside}</p></div>;
-}
-
-function Publication({ type, date, title, text }: { type: string; date: string; title: string; text: string }) {
-  return <article className="border-t border-border pt-5"><div className="flex justify-between text-[10px] font-semibold uppercase"><span className="text-primary">{type}</span><time className="text-muted-foreground">{date}</time></div><h3 className="mt-8 max-w-lg font-display text-2xl leading-snug md:text-3xl">{title}</h3><p className="mt-5 max-w-lg text-sm leading-7 text-muted-foreground">{text}</p><a href="#contacts" className="mt-8 inline-flex items-center gap-2 text-[10px] font-semibold uppercase">Читать <ArrowUpRight className="size-3.5" /></a></article>;
+function Publication({ type, date, title }: { type: string; date: string; title: string }) {
+  return <article className="flex min-h-64 flex-col justify-between border-t border-border pt-5"><div className="flex justify-between text-[10px] uppercase"><span className="text-primary">{type}</span><time className="text-muted-foreground">{date}</time></div><a href="#contacts" className="group flex items-end justify-between gap-4"><h3 className="font-display text-3xl leading-tight">{title}</h3><ArrowUpRight className="size-5 shrink-0 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></a></article>;
 }
