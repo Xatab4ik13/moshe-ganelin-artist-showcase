@@ -54,16 +54,22 @@ function Index() {
         aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
         aria-expanded={menuOpen}
         onClick={() => setMenuOpen((open) => !open)}
-        className="group fixed right-5 top-5 z-50 size-14 rounded-none border-0 bg-transparent p-0 text-background shadow-none hover:bg-transparent hover:text-background focus-visible:ring-background md:right-10 md:top-8 md:size-16"
+        className="group fixed right-4 top-4 z-50 size-[72px] rounded-full border border-background/10 bg-background/5 p-0 text-background shadow-none backdrop-blur-sm transition-colors duration-300 hover:bg-background/10 hover:text-background focus-visible:ring-0 focus-visible:ring-offset-0 md:right-8 md:top-8 md:size-[88px]"
       >
-        <span className={`organ-menu-mark relative block size-12 ${menuOpen ? "organ-menu-mark-open" : ""}`} aria-hidden="true">
-          <svg viewBox="0 0 64 64" className="size-full" focusable="false">
-            <path d="M10 53V35h7v18M17 53V25h7v28M24 53V15h8v38M32 53V7h8v46M40 53V19h7v34M47 53V30h7v23" fill="none" stroke="currentColor" strokeWidth="2.4" />
-            <path d="M7 53h50M13.5 35v-3M20.5 25v-3M28 15v-3M36 7V4M43.5 19v-3M50.5 30v-3" fill="none" stroke="currentColor" strokeWidth="2.4" />
+        <span className={`organ-menu-mark relative block size-[34px] md:size-[42px] ${menuOpen ? "organ-menu-mark-open" : ""}`} aria-hidden="true">
+          <svg viewBox="0 0 56 56" className="size-full" focusable="false">
+            <g fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M13 46V29a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v17" />
+              <path d="M22 46V23a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v23" />
+              <path d="M31 46V18a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v28" />
+              <path d="M40 46V26a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v20" />
+              <path d="M10 46h46" />
+              <path d="M15 27v-3M24 21v-3M33 16v-3M42 24v-3" />
+            </g>
           </svg>
-          <span className="organ-menu-close absolute inset-0 m-auto h-7 w-7">
-            <span className="absolute left-0 top-1/2 h-px w-7 rotate-45 bg-current" />
-            <span className="absolute left-0 top-1/2 h-px w-7 -rotate-45 bg-current" />
+          <span className="organ-menu-close absolute inset-0 m-auto h-8 w-8">
+            <span className="absolute left-0 top-1/2 h-[2px] w-8 -translate-y-1/2 rotate-45 bg-current" />
+            <span className="absolute left-0 top-1/2 h-[2px] w-8 -translate-y-1/2 -rotate-45 bg-current" />
           </span>
         </span>
       </Button>
