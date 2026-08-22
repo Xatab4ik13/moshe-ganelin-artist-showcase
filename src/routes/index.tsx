@@ -59,23 +59,13 @@ function Index() {
         aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
         aria-expanded={menuOpen}
         onClick={() => setMenuOpen((open) => !open)}
-        className="group fixed right-3 top-3 z-50 inline-flex items-center justify-center bg-transparent p-3 text-background opacity-90 [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.5))] transition-opacity duration-300 hover:opacity-100 focus:outline-none md:right-6 md:top-5"
+        className="group fixed right-3 top-3 z-50 inline-flex items-center gap-3 bg-transparent p-3 text-background opacity-90 [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.5))] transition-opacity duration-300 hover:opacity-100 focus:outline-none md:right-6 md:top-5"
       >
-        <span className={`organ-menu-mark relative block size-[56px] md:size-[68px] ${menuOpen ? "organ-menu-mark-open" : ""}`} aria-hidden="true">
-          <svg viewBox="0 0 80 80" className="size-full" focusable="false">
-            <g fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M18 64V44a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v20" />
-              <path d="M32 64V34a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v30" />
-              <path d="M46 64V26a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v38" />
-              <path d="M60 64V38a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v26" />
-              <path d="M12 64h68" />
-              <path d="M21 41v-6M35 31v-6M49 23v-6M63 35v-6" />
-            </g>
-          </svg>
-          <span className="organ-menu-close absolute inset-0 m-auto h-10 w-10">
-            <span className="absolute left-0 top-1/2 h-[3px] w-10 -translate-y-1/2 rotate-45 bg-current" />
-            <span className="absolute left-0 top-1/2 h-[3px] w-10 -translate-y-1/2 -rotate-45 bg-current" />
-          </span>
+        <span className="hidden text-[10px] font-medium uppercase tracking-[0.2em] text-background md:inline">Меню</span>
+        <span className="relative block h-11 w-14 md:h-14 md:w-[72px]" aria-hidden="true">
+          <span className={`absolute left-0 top-0 h-[3px] w-full rounded-full bg-current transition-all duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] ${menuOpen ? "top-1/2 -translate-y-1/2 rotate-45" : ""}`} />
+          <span className={`absolute left-0 top-1/2 h-[3px] w-full -translate-y-1/2 rounded-full bg-current transition-all duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] ${menuOpen ? "opacity-0" : "opacity-100"}`} />
+          <span className={`absolute left-0 bottom-0 h-[3px] w-full rounded-full bg-current transition-all duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] ${menuOpen ? "bottom-1/2 translate-y-1/2 -rotate-45" : ""}`} />
         </span>
       </button>
 
@@ -114,7 +104,7 @@ function Index() {
         <img
           src={logoAsset.url}
           alt="Moshe Ganelin"
-          className="hero-logo absolute bottom-8 left-5 w-[min(78vw,760px)] object-contain object-left md:bottom-12 md:left-10 lg:bottom-16 lg:left-16"
+          className="hero-logo absolute bottom-10 left-7 w-[min(78vw,760px)] object-contain object-left md:bottom-16 md:left-14 lg:bottom-[7.5rem] lg:left-[6.5rem]"
         />
       </section>
 
