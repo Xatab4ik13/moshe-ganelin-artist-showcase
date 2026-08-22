@@ -41,6 +41,11 @@ const menuItems = [
 
 function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (heroVideoRef.current) heroVideoRef.current.playbackRate = 0.85;
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
