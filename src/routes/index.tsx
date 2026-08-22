@@ -8,7 +8,6 @@ import architectureAsset from "@/assets/organ-architecture.webp.asset.json";
 import stageAsset from "@/assets/moshe-stage.webp.asset.json";
 import consoleAsset from "@/assets/moshe-console.webp.asset.json";
 import logoAsset from "@/assets/moshe-ganelin-logo.png.asset.json";
-import organMenuIcon from "@/assets/organ-menu.svg?url";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -59,7 +58,8 @@ function Index() {
       >
         <span className={`organ-menu-mark relative block size-12 ${menuOpen ? "organ-menu-mark-open" : ""}`} aria-hidden="true">
           <svg viewBox="0 0 64 64" className="size-full" focusable="false">
-            <use href={`${organMenuIcon}#organ-mark`} />
+            <path d="M10 53V35h7v18M17 53V25h7v28M24 53V15h8v38M32 53V7h8v46M40 53V19h7v34M47 53V30h7v23" fill="none" stroke="currentColor" strokeWidth="2.4" />
+            <path d="M7 53h50M13.5 35v-3M20.5 25v-3M28 15v-3M36 7V4M43.5 19v-3M50.5 30v-3" fill="none" stroke="currentColor" strokeWidth="2.4" />
           </svg>
           <span className="organ-menu-close absolute inset-0 m-auto h-7 w-7">
             <span className="absolute left-0 top-1/2 h-px w-7 rotate-45 bg-current" />
