@@ -147,6 +147,7 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     letter-spacing: 0;
+    --scrollbar-width: 0px;
   }
 
   html { scroll-behavior: smooth; }
