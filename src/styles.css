@@ -149,8 +149,8 @@
   html { scroll-behavior: smooth; }
 
   ::selection {
-    background: var(--color-primary);
-    color: var(--color-primary-foreground);
+    background: var(--color-foreground);
+    color: var(--color-background);
   }
 }
 
@@ -164,8 +164,11 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-.hero-image { animation: hero-image-reveal 1200ms cubic-bezier(0.22, 1, 0.36, 1) both; }
-.hero-name { animation: hero-name-reveal 900ms 180ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.hero-logo { animation: hero-name-reveal 900ms 180ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.organ-menu-mark, .organ-menu-close { transition: opacity 280ms ease, transform 520ms cubic-bezier(0.76, 0, 0.24, 1); }
+.organ-menu-close { opacity: 0; transform: rotate(-45deg) scale(0.7); }
+.organ-menu-mark-open > img { opacity: 0; transform: rotate(12deg) scale(0.75); }
+.organ-menu-mark-open .organ-menu-close { opacity: 1; transform: rotate(0) scale(1); }
 .menu-stroke { transition: transform 420ms cubic-bezier(0.76, 0, 0.24, 1), opacity 220ms ease; transform-origin: center; }
 .menu-panel { clip-path: inset(0 0 100% 0); pointer-events: none; transition: clip-path 650ms cubic-bezier(0.76, 0, 0.24, 1); }
 .menu-panel-open { clip-path: inset(0 0 0 0); pointer-events: auto; }
@@ -185,6 +188,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .hero-image, .hero-name { animation: none; }
-  .menu-panel, .menu-link, .menu-stroke { transition-duration: 1ms; }
+  .hero-logo { animation: none; }
+  .menu-panel, .menu-link, .menu-stroke, .organ-menu-mark, .organ-menu-close { transition-duration: 1ms; }
 }

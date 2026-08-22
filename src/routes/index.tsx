@@ -2,12 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight, Play } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import heroAsset from "@/assets/moshe-hero.webp.asset.json";
 import pianoAsset from "@/assets/moshe-piano.webp.asset.json";
 import organAsset from "@/assets/moshe-organ-wide.webp.asset.json";
 import architectureAsset from "@/assets/organ-architecture.webp.asset.json";
 import stageAsset from "@/assets/moshe-stage.webp.asset.json";
 import consoleAsset from "@/assets/moshe-console.webp.asset.json";
+import logoAsset from "@/assets/moshe-ganelin-logo.png.asset.json";
+import organMenuIcon from "@/assets/organ-menu.svg?url";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -54,12 +55,14 @@ function Index() {
         aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
         aria-expanded={menuOpen}
         onClick={() => setMenuOpen((open) => !open)}
-        className="group fixed right-5 top-5 z-50 size-14 rounded-none bg-primary text-primary-foreground shadow-none hover:bg-primary md:right-10 md:top-8 md:size-16"
+        className="group fixed right-5 top-5 z-50 size-14 rounded-none border-0 bg-transparent p-0 text-background shadow-none hover:bg-transparent hover:text-background focus-visible:ring-background md:right-10 md:top-8 md:size-16"
       >
-        <span className="relative block h-5 w-7" aria-hidden="true">
-          <span className={`menu-stroke absolute left-0 top-0 h-px w-7 bg-current ${menuOpen ? "translate-y-[9px] rotate-45" : ""}`} />
-          <span className={`menu-stroke absolute left-0 top-[9px] h-px w-7 bg-current ${menuOpen ? "scale-x-0 opacity-0" : ""}`} />
-          <span className={`menu-stroke absolute bottom-0 left-0 h-px w-7 bg-current ${menuOpen ? "-translate-y-[9px] -rotate-45" : ""}`} />
+        <span className={`organ-menu-mark relative block size-12 ${menuOpen ? "organ-menu-mark-open" : ""}`} aria-hidden="true">
+          <img src={organMenuIcon} alt="" className="size-full" />
+          <span className="organ-menu-close absolute inset-0 m-auto h-7 w-7">
+            <span className="absolute left-0 top-1/2 h-px w-7 rotate-45 bg-current" />
+            <span className="absolute left-0 top-1/2 h-px w-7 -rotate-45 bg-current" />
+          </span>
         </span>
       </Button>
 
@@ -81,18 +84,13 @@ function Index() {
         </nav>
       </div>
 
-      <section id="top" className="relative min-h-[94svh] bg-foreground px-5 pb-24 pt-16 text-background md:px-10 md:pt-10 lg:px-16">
-        <div className="relative mx-auto min-h-[calc(94svh-7rem)] w-full max-w-[1600px]">
-          <div className="absolute left-0 top-1/2 w-full -translate-y-1/2 md:left-[8%] md:w-[66%] lg:left-[16%] lg:w-[58%]">
-            <img src={heroAsset.url} alt="Moshe Ganelin за органом" className="hero-image aspect-[16/10] w-full object-cover object-center grayscale contrast-125 brightness-75" />
-          </div>
-          <h1 className="absolute inset-x-0 top-1/2 z-10 -translate-y-1/2 font-display text-[clamp(3.4rem,12vw,11rem)] leading-[0.78] uppercase mix-blend-difference">
-            <span className="hero-name block">Moshe<br /><span className="block text-right md:pr-[4vw]">Ganelin</span></span>
-          </h1>
-          <div className="absolute bottom-[5%] right-0 z-20 hidden w-[24%] md:block lg:w-[20%]">
-            <img src={consoleAsset.url} alt="Органная консоль" className="aspect-[3/4] w-full object-cover grayscale contrast-125" />
-          </div>
-        </div>
+      <section id="top" className="relative min-h-[94svh] bg-foreground text-background">
+        <h1 className="sr-only">Moshe Ganelin</h1>
+        <img
+          src={logoAsset.url}
+          alt="Moshe Ganelin"
+          className="hero-logo absolute bottom-8 left-5 w-[min(78vw,760px)] object-contain object-left md:bottom-12 md:left-10 lg:bottom-16 lg:left-16"
+        />
       </section>
 
       <section id="concerts" className="bg-background px-5 py-24 md:px-10 lg:px-16 lg:py-32">
