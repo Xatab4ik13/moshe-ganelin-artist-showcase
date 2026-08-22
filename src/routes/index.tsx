@@ -83,11 +83,11 @@ function Index() {
 
       <section id="top" className="relative min-h-[94svh] bg-foreground px-5 pb-24 pt-16 text-background md:px-10 md:pt-10 lg:px-16">
         <div className="relative mx-auto min-h-[calc(94svh-7rem)] w-full max-w-[1600px]">
-          <div className="hero-image absolute left-0 top-1/2 w-full -translate-y-1/2 md:left-[8%] md:w-[66%] lg:left-[16%] lg:w-[58%]">
-            <img src={heroAsset.url} alt="Moshe Ganelin за органом" className="aspect-[16/10] w-full object-cover object-center grayscale contrast-125 brightness-75" />
+          <div className="absolute left-0 top-1/2 w-full -translate-y-1/2 md:left-[8%] md:w-[66%] lg:left-[16%] lg:w-[58%]">
+            <img src={heroAsset.url} alt="Moshe Ganelin за органом" className="hero-image aspect-[16/10] w-full object-cover object-center grayscale contrast-125 brightness-75" />
           </div>
-          <h1 className="hero-name absolute inset-x-0 top-1/2 z-10 -translate-y-1/2 font-display text-[clamp(3.4rem,12vw,11rem)] leading-[0.78] uppercase mix-blend-difference">
-            Moshe<br /><span className="block text-right md:pr-[4vw]">Ganelin</span>
+          <h1 className="absolute inset-x-0 top-1/2 z-10 -translate-y-1/2 font-display text-[clamp(3.4rem,12vw,11rem)] leading-[0.78] uppercase mix-blend-difference">
+            <span className="hero-name block">Moshe<br /><span className="block text-right md:pr-[4vw]">Ganelin</span></span>
           </h1>
           <div className="absolute bottom-[5%] right-0 z-20 hidden w-[24%] md:block lg:w-[20%]">
             <img src={consoleAsset.url} alt="Органная консоль" className="aspect-[3/4] w-full object-cover grayscale contrast-125" />
