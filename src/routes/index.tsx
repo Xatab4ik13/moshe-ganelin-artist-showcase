@@ -104,7 +104,7 @@ function Index() {
         <img
           src={logoAsset.url}
           alt="Moshe Ganelin"
-          className="hero-logo absolute bottom-10 left-7 w-[min(78vw,760px)] object-contain object-left md:bottom-16 md:left-14 lg:bottom-28 lg:left-28"
+          className="hero-logo absolute bottom-10 left-7 w-[min(78vw,760px)] object-contain object-left md:bottom-16 md:left-14 lg:bottom-[7.5rem] lg:left-[6.5rem]"
         />
       </section>
 
