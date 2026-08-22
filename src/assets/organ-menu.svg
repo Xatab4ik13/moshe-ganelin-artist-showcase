@@ -1,4 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <path d="M10 53V35h7v18M17 53V25h7v28M24 53V15h8v38M32 53V7h8v46M40 53V19h7v34M47 53V30h7v23" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" stroke-linejoin="miter"/>
-  <path d="M7 53h50M13.5 35v-3M20.5 25v-3M28 15v-3M36 7V4M43.5 19v-3M50.5 30v-3" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"/>
+  <g id="organ-mark">
+    <path d="M10 53V35h7v18M17 53V25h7v28M24 53V15h8v38M32 53V7h8v46M40 53V19h7v34M47 53V30h7v23" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" stroke-linejoin="miter"/>
+    <path d="M7 53h50M13.5 35v-3M20.5 25v-3M28 15v-3M36 7V4M43.5 19v-3M50.5 30v-3" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"/>
+  </g>
 </svg>

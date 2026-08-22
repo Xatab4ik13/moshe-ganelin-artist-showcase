@@ -58,7 +58,9 @@ function Index() {
         className="group fixed right-5 top-5 z-50 size-14 rounded-none border-0 bg-transparent p-0 text-background shadow-none hover:bg-transparent hover:text-background focus-visible:ring-background md:right-10 md:top-8 md:size-16"
       >
         <span className={`organ-menu-mark relative block size-12 ${menuOpen ? "organ-menu-mark-open" : ""}`} aria-hidden="true">
-          <img src={organMenuIcon} alt="" className="size-full" />
+          <svg viewBox="0 0 64 64" className="size-full" focusable="false">
+            <use href={`${organMenuIcon}#organ-mark`} />
+          </svg>
           <span className="organ-menu-close absolute inset-0 m-auto h-7 w-7">
             <span className="absolute left-0 top-1/2 h-px w-7 rotate-45 bg-current" />
             <span className="absolute left-0 top-1/2 h-px w-7 -rotate-45 bg-current" />
@@ -66,13 +68,13 @@ function Index() {
         </span>
       </Button>
 
-      <div className={`menu-panel fixed inset-0 z-40 bg-foreground text-background ${menuOpen ? "menu-panel-open" : ""}`} aria-hidden={!menuOpen}>
+      <div className={`menu-panel fixed inset-0 z-40 bg-hero text-background ${menuOpen ? "menu-panel-open" : ""}`} aria-hidden={!menuOpen}>
         <nav aria-label="Основная навигация" className="mx-auto flex h-full max-w-[1600px] flex-col justify-center px-6 py-20 md:px-16 lg:px-24">
           <ol className="grid gap-x-16 lg:grid-cols-2">
             {menuItems.map(([label, href], index) => (
               <li key={label} className="overflow-hidden">
                 <a href={href} tabIndex={menuOpen ? 0 : -1} onClick={() => setMenuOpen(false)} className="menu-link group flex items-baseline gap-5 py-2 font-display text-[clamp(2rem,5.5vw,5.5rem)] leading-none transition-colors hover:text-primary md:py-3">
-                  <span className="w-5 font-sans text-[9px] text-primary">{String(index + 1).padStart(2, "0")}</span>
+                   <span className="w-5 font-sans text-[9px] text-background/35">{String(index + 1).padStart(2, "0")}</span>
                   {label}
                 </a>
               </li>
@@ -84,7 +86,7 @@ function Index() {
         </nav>
       </div>
 
-      <section id="top" className="relative min-h-[94svh] bg-foreground text-background">
+      <section id="top" className="relative min-h-[94svh] bg-hero text-background">
         <h1 className="sr-only">Moshe Ganelin</h1>
         <img
           src={logoAsset.url}
