@@ -42,24 +42,15 @@ const menuItems = [
 
 function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [menuVisible, setMenuVisible] = useState(false);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     if (heroVideoRef.current) heroVideoRef.current.playbackRate = 0.85;
   }, []);
 
-  useEffect(() => {
-    if (menuOpen) {
-      setMenuVisible(true);
-      return;
-    }
-    const timer = setTimeout(() => setMenuVisible(false), 650);
-    return () => clearTimeout(timer);
-  }, [menuOpen]);
 
   useEffect(() => {
-    if (!menuVisible) {
+    if (!menuOpen) {
       document.body.style.overflow = "";
       document.body.style.paddingRight = "";
       document.body.style.setProperty("--scrollbar-width", "0px");
@@ -69,7 +60,7 @@ function Index() {
     document.body.style.setProperty("--scrollbar-width", `${width}px`);
     document.body.style.paddingRight = `${width}px`;
     document.body.style.overflow = "hidden";
-  }, [menuVisible]);
+  }, [menuOpen]);
 
   return (
     <main className="overflow-hidden bg-background text-foreground">
@@ -87,8 +78,7 @@ function Index() {
         </span>
       </button>
 
-      {menuVisible && (
-        <div className={`menu-panel fixed inset-0 z-40 overflow-hidden bg-hero text-background ${menuOpen ? "menu-panel-open" : ""}`} aria-hidden={!menuOpen}>
+      <div className={`menu-panel fixed inset-0 z-40 overflow-hidden bg-hero text-background ${menuOpen ? "menu-panel-open" : ""}`} aria-hidden={!menuOpen}>
           <img src={menuBgAsset.url} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />
           <div className="absolute inset-0 bg-hero/70" />
           <nav aria-label="Основная навигация" className="relative mx-auto flex h-full max-w-[1600px] flex-col justify-center px-6 py-20 md:px-16 lg:px-24">
@@ -106,7 +96,8 @@ function Index() {
             </div>
           </nav>
         </div>
-      )}
+
+
 
 
       <section id="top" className="relative min-h-[94svh] overflow-hidden bg-hero text-background">
