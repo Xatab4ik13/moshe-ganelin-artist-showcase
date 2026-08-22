@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight, Play } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import pianoAsset from "@/assets/moshe-piano.webp.asset.json";
 import organAsset from "@/assets/moshe-organ-wide.webp.asset.json";
