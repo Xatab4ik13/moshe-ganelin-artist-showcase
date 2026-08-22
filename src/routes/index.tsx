@@ -91,9 +91,6 @@ function Index() {
                 </li>
               ))}
             </ol>
-            <div className="mt-10 flex flex-wrap gap-8 font-sans text-[10px] uppercase text-background/50 md:mt-14">
-              <a href="#">YouTube</a><a href="#">Telegram</a><a href="#">VK</a><a href="#">SoundCloud</a>
-            </div>
           </nav>
         </div>
 
