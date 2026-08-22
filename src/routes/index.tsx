@@ -10,6 +10,7 @@ import consoleAsset from "@/assets/moshe-console.webp.asset.json";
 import logoAsset from "@/assets/moshe-ganelin-logo.png.asset.json";
 import heroVideoAsset from "@/assets/hero-reger.mp4.asset.json";
 import heroPosterAsset from "@/assets/hero-poster.jpg.asset.json";
+import menuBgAsset from "@/assets/menu-bg.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -68,13 +69,14 @@ function Index() {
         </span>
       </button>
 
-      <div className={`menu-panel fixed inset-0 z-40 bg-hero text-background ${menuOpen ? "menu-panel-open" : ""}`} aria-hidden={!menuOpen}>
-        <nav aria-label="Основная навигация" className="mx-auto flex h-full max-w-[1600px] flex-col justify-center px-6 py-20 md:px-16 lg:px-24">
+      <div className={`menu-panel fixed inset-0 z-40 overflow-hidden bg-hero text-background ${menuOpen ? "menu-panel-open" : ""}`} aria-hidden={!menuOpen}>
+        <img src={menuBgAsset.url} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-hero/70" />
+        <nav aria-label="Основная навигация" className="relative mx-auto flex h-full max-w-[1600px] flex-col justify-center px-6 py-20 md:px-16 lg:px-24">
           <ol className="grid gap-x-16 lg:grid-cols-2">
-            {menuItems.map(([label, href], index) => (
+            {menuItems.map(([label, href]) => (
               <li key={label} className="overflow-hidden">
-                <a href={href} tabIndex={menuOpen ? 0 : -1} onClick={() => setMenuOpen(false)} className="menu-link group flex items-baseline gap-5 py-2 font-display text-[clamp(2rem,5.5vw,5.5rem)] leading-none transition-colors hover:text-background/70 md:py-3">
-                   <span className="w-5 font-sans text-[9px] text-background/35">{String(index + 1).padStart(2, "0")}</span>
+                <a href={href} tabIndex={menuOpen ? 0 : -1} onClick={() => setMenuOpen(false)} className="menu-link block py-2 font-display text-[clamp(2rem,5.5vw,5.5rem)] leading-none transition-colors hover:text-background/70 md:py-3">
                   {label}
                 </a>
               </li>
@@ -85,6 +87,7 @@ function Index() {
           </div>
         </nav>
       </div>
+
 
       <section id="top" className="relative min-h-[94svh] overflow-hidden bg-hero text-background">
         <h1 className="sr-only">Moshe Ganelin</h1>
@@ -126,7 +129,7 @@ function Index() {
 
       <section id="selected" className="bg-foreground py-24 text-background lg:py-32">
         <div className="mx-auto grid max-w-[1600px] gap-12 px-5 md:px-10 lg:grid-cols-[0.55fr_1.45fr] lg:px-16">
-          <div className="flex flex-col justify-between"><span className="text-[10px] text-muted-foreground">01 / ИЗБРАННОЕ</span><h2 className="mt-12 font-display text-4xl leading-tight md:text-6xl">Орган как целый оркестр</h2></div>
+          <div className="flex flex-col justify-end"><h2 className="font-display text-4xl leading-tight md:text-6xl">Орган как целый оркестр</h2></div>
           <div className="group relative aspect-[16/10] overflow-hidden">
             <img src={pianoAsset.url} alt="Moshe Ganelin во время выступления" loading="lazy" className="h-full w-full object-cover grayscale transition duration-700 group-hover:scale-[1.02] group-hover:grayscale-0" />
             <Button aria-label="Смотреть видео" size="icon" className="absolute bottom-0 left-0 size-16 rounded-none bg-primary text-primary-foreground shadow-none hover:bg-primary/90"><Play className="fill-current" /></Button>
