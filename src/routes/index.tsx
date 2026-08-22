@@ -42,6 +42,7 @@ const menuItems = [
 
 function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [menuVisible, setMenuVisible] = useState(false);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -49,9 +50,26 @@ function Index() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    if (menuOpen) {
+      setMenuVisible(true);
+    } else {
+      const timer = setTimeout(() => setMenuVisible(false), 650);
+      return () => clearTimeout(timer);
+    }
   }, [menuOpen]);
+
+  useEffect(() => {
+    if (!menuVisible) {
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+      document.body.style.setProperty("--scrollbar-width", "0px");
+      return;
+    }
+    const width = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.setProperty("--scrollbar-width", `${width}px`);
+    document.body.style.paddingRight = `${width}px`;
+    document.body.style.overflow = "hidden";
+  }, [menuVisible]);
 
   return (
     <main className="overflow-hidden bg-background text-foreground">
@@ -60,33 +78,35 @@ function Index() {
         aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
         aria-expanded={menuOpen}
         onClick={() => setMenuOpen((open) => !open)}
-        className="group fixed right-3 top-3 z-50 inline-block p-3 text-background opacity-90 [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.5))] transition-opacity duration-300 hover:opacity-100 focus:outline-none md:right-6 md:top-5"
+        className="group fixed right-[calc(0.75rem+var(--scrollbar-width))] top-3 z-50 inline-block p-3 text-background opacity-90 [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.5))] transition-opacity duration-300 hover:opacity-100 focus:outline-none md:right-[calc(1.5rem+var(--scrollbar-width))] md:top-5"
       >
         <span className="relative block h-11 w-14 md:h-14 md:w-[72px]" aria-hidden="true">
-          <span className={`absolute left-0 top-0 h-[3px] w-full rounded-full bg-current transition-all duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] ${menuOpen ? "top-1/2 -translate-y-1/2 rotate-45" : ""}`} />
-          <span className={`absolute left-0 top-1/2 h-[3px] w-full -translate-y-1/2 rounded-full bg-current transition-all duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] ${menuOpen ? "opacity-0" : "opacity-100"}`} />
-          <span className={`absolute left-0 bottom-0 h-[3px] w-full rounded-full bg-current transition-all duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] ${menuOpen ? "bottom-1/2 translate-y-1/2 -rotate-45" : ""}`} />
+          <span className={`menu-stroke absolute left-0 top-1/2 h-[3px] w-full -translate-y-1/2 rounded-full bg-current ${menuOpen ? "-translate-y-1/2 rotate-45" : "-translate-y-[9px] md:-translate-y-[11px]"}`} />
+          <span className={`menu-stroke absolute left-0 top-1/2 h-[3px] w-full -translate-y-1/2 rounded-full bg-current ${menuOpen ? "opacity-0" : "opacity-100"}`} />
+          <span className={`menu-stroke absolute left-0 top-1/2 h-[3px] w-full -translate-y-1/2 rounded-full bg-current ${menuOpen ? "translate-y-1/2 -rotate-45" : "translate-y-[9px] md:translate-y-[11px]"}`} />
         </span>
       </button>
 
-      <div className={`menu-panel fixed inset-0 z-40 overflow-hidden bg-hero text-background ${menuOpen ? "menu-panel-open" : ""}`} aria-hidden={!menuOpen}>
-        <img src={menuBgAsset.url} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-hero/70" />
-        <nav aria-label="Основная навигация" className="relative mx-auto flex h-full max-w-[1600px] flex-col justify-center px-6 py-20 md:px-16 lg:px-24">
-          <ol className="grid gap-x-16 lg:grid-cols-2">
-            {menuItems.map(([label, href]) => (
-              <li key={label} className="overflow-hidden">
-                <a href={href} tabIndex={menuOpen ? 0 : -1} onClick={() => setMenuOpen(false)} className="menu-link block py-2 font-display text-[clamp(2rem,5.5vw,5.5rem)] leading-none transition-colors hover:text-background/70 md:py-3">
-                  {label}
-                </a>
-              </li>
-            ))}
-          </ol>
-          <div className="mt-10 flex flex-wrap gap-8 font-sans text-[10px] uppercase text-background/50 md:mt-14">
-            <a href="#">YouTube</a><a href="#">Telegram</a><a href="#">VK</a><a href="#">SoundCloud</a>
-          </div>
-        </nav>
-      </div>
+      {menuVisible && (
+        <div className={`menu-panel fixed inset-0 z-40 overflow-hidden bg-hero text-background ${menuOpen ? "menu-panel-open" : ""}`} aria-hidden={!menuOpen}>
+          <img src={menuBgAsset.url} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-hero/70" />
+          <nav aria-label="Основная навигация" className="relative mx-auto flex h-full max-w-[1600px] flex-col justify-center px-6 py-20 md:px-16 lg:px-24">
+            <ol className="grid gap-x-16 lg:grid-cols-2">
+              {menuItems.map(([label, href]) => (
+                <li key={label} className="overflow-hidden">
+                  <a href={href} tabIndex={menuOpen ? 0 : -1} onClick={() => setMenuOpen(false)} className="menu-link block py-2 font-display text-[clamp(2rem,5.5vw,5.5rem)] leading-none transition-colors hover:text-background/70 md:py-3">
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ol>
+            <div className="mt-10 flex flex-wrap gap-8 font-sans text-[10px] uppercase text-background/50 md:mt-14">
+              <a href="#">YouTube</a><a href="#">Telegram</a><a href="#">VK</a><a href="#">SoundCloud</a>
+            </div>
+          </nav>
+        </div>
+      )}
 
 
       <section id="top" className="relative min-h-[94svh] overflow-hidden bg-hero text-background">
