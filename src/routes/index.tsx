@@ -129,7 +129,7 @@ function Index() {
 
       <section id="selected" className="bg-foreground py-24 text-background lg:py-32">
         <div className="mx-auto grid max-w-[1600px] gap-12 px-5 md:px-10 lg:grid-cols-[0.55fr_1.45fr] lg:px-16">
-          <div className="flex flex-col justify-between"><span className="text-[10px] text-muted-foreground">01 / ИЗБРАННОЕ</span><h2 className="mt-12 font-display text-4xl leading-tight md:text-6xl">Орган как целый оркестр</h2></div>
+          <div className="flex flex-col justify-end"><h2 className="font-display text-4xl leading-tight md:text-6xl">Орган как целый оркестр</h2></div>
           <div className="group relative aspect-[16/10] overflow-hidden">
             <img src={pianoAsset.url} alt="Moshe Ganelin во время выступления" loading="lazy" className="h-full w-full object-cover grayscale transition duration-700 group-hover:scale-[1.02] group-hover:grayscale-0" />
             <Button aria-label="Смотреть видео" size="icon" className="absolute bottom-0 left-0 size-16 rounded-none bg-primary text-primary-foreground shadow-none hover:bg-primary/90"><Play className="fill-current" /></Button>
