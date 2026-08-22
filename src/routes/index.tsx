@@ -29,9 +29,9 @@ export const Route = createFileRoute("/")({
 });
 
 const concerts = [
-  { day: "14", month: "СЕН", city: "Москва", venue: "Кафедральный собор", title: "Органный вечер: от Баха до наших дней" },
-  { day: "28", month: "СЕН", city: "Санкт-Петербург", venue: "Петрикирхе", title: "Музыка соборов. Сольный концерт" },
-  { day: "12", month: "ОКТ", city: "Москва", venue: "Зал имени Рахманинова", title: "Авторский вечер Moshe Ganelin" },
+  { day: "14", month: "сентября", city: "Москва", venue: "Кафедральный собор", title: "Органный вечер: от Баха до наших дней" },
+  { day: "28", month: "сентября", city: "Санкт-Петербург", venue: "Петрикирхе", title: "Музыка соборов. Сольный концерт" },
+  { day: "12", month: "сентября", city: "Москва", venue: "Зал имени Рахманинова", title: "Авторский вечер Moshe Ganelin" },
 ];
 
 const menuItems = [
@@ -114,10 +114,11 @@ function Index() {
           preload="auto"
         />
         <div className="absolute inset-0 bg-hero/35" />
+        <div className="hero-blur absolute bottom-0 left-0 z-10 h-32 w-full md:h-48" />
         <img
           src={logoAsset.url}
           alt="Moshe Ganelin"
-          className="hero-logo absolute top-[calc(1.25rem-1cm)] left-1/2 z-10 w-[min(70vw,620px)] -translate-x-1/2 object-contain"
+          className="hero-logo absolute top-[calc(1.25rem-1cm)] left-1/2 z-20 w-[min(70vw,620px)] -translate-x-1/2 object-contain"
         />
       </section>
 
@@ -129,9 +130,13 @@ function Index() {
           </div>
           <div className="mt-16 grid gap-px bg-border lg:grid-cols-3">
             {concerts.map((concert) => (
-              <article key={concert.day} className="group flex min-h-80 flex-col justify-between bg-background p-6 transition-colors hover:bg-foreground hover:text-background md:p-8">
-                <div className="flex items-start justify-between"><span className="font-display text-6xl">{concert.day}</span><span className="text-[10px] text-muted-foreground">{concert.month}</span></div>
-                <div><p className="mb-8 text-xs text-muted-foreground group-hover:text-background/55">{concert.city} · {concert.venue}</p><h3 className="font-display text-2xl leading-snug">{concert.title}</h3></div>
+              <article key={concert.day} className="group flex min-h-80 flex-col justify-between bg-background p-6 transition-colors duration-300 hover:bg-foreground hover:text-background md:p-8">
+                <div className="space-y-1">
+                  <span className="font-display text-6xl leading-none">{concert.day}</span>
+                  <span className="block font-sans text-sm text-muted-foreground group-hover:text-background/70">{concert.month}</span>
+                  <p className="mt-6 text-base leading-snug text-foreground group-hover:text-background/85">{concert.city}, {concert.venue}</p>
+                </div>
+                <h3 className="font-display text-2xl leading-snug">{concert.title}</h3>
               </article>
             ))}
           </div>

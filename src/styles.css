@@ -186,6 +186,13 @@
 .menu-panel-open li:nth-child(7) .menu-link { transition-delay: 240ms; }
 .menu-panel-open li:nth-child(8) .menu-link { transition-delay: 280ms; }
 
+.hero-blur {
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, var(--color-background) 82%);
+  backdrop-filter: blur(20px) saturate(140%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 55%);
+}
+
 @media (max-width: 767px) {
   .menu-panel nav { overflow-y: auto; }
 }
