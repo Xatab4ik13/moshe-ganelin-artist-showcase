@@ -90,8 +90,20 @@ function Index() {
         </nav>
       </div>
 
-      <section id="top" className="relative min-h-[94svh] bg-hero text-background">
+      <section id="top" className="relative min-h-[94svh] overflow-hidden bg-hero text-background">
         <h1 className="sr-only">Moshe Ganelin</h1>
+        <video
+          ref={heroVideoRef}
+          className="absolute inset-0 h-full w-full object-cover"
+          src={heroVideoAsset.url}
+          poster={heroPosterAsset.url}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+        />
+        <div className="absolute inset-0 bg-hero/35" />
         <img
           src={logoAsset.url}
           alt="Moshe Ganelin"
