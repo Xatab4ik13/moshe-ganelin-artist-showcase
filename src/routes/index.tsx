@@ -59,9 +59,8 @@ function Index() {
         aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
         aria-expanded={menuOpen}
         onClick={() => setMenuOpen((open) => !open)}
-        className="group fixed right-3 top-3 z-50 inline-flex items-center gap-3 bg-transparent p-3 text-background opacity-90 [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.5))] transition-opacity duration-300 hover:opacity-100 focus:outline-none md:right-6 md:top-5"
+        className="group fixed right-3 top-3 z-50 inline-block p-3 text-background opacity-90 [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.5))] transition-opacity duration-300 hover:opacity-100 focus:outline-none md:right-6 md:top-5"
       >
-        <span className="hidden text-[10px] font-medium uppercase tracking-[0.2em] text-background md:inline">Меню</span>
         <span className="relative block h-11 w-14 md:h-14 md:w-[72px]" aria-hidden="true">
           <span className={`absolute left-0 top-0 h-[3px] w-full rounded-full bg-current transition-all duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] ${menuOpen ? "top-1/2 -translate-y-1/2 rotate-45" : ""}`} />
           <span className={`absolute left-0 top-1/2 h-[3px] w-full -translate-y-1/2 rounded-full bg-current transition-all duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] ${menuOpen ? "opacity-0" : "opacity-100"}`} />
@@ -104,7 +103,7 @@ function Index() {
         <img
           src={logoAsset.url}
           alt="Moshe Ganelin"
-          className="hero-logo absolute bottom-10 left-7 w-[min(78vw,760px)] object-contain object-left md:bottom-16 md:left-14 lg:bottom-[7.5rem] lg:left-[6.5rem]"
+          className="hero-logo absolute bottom-12 left-5 w-[min(78vw,760px)] object-contain object-left md:bottom-20 md:left-8 lg:bottom-[10rem] lg:left-[4rem]"
         />
       </section>
 
