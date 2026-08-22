@@ -129,9 +129,13 @@ function Index() {
           </div>
           <div className="mt-16 grid gap-px bg-border lg:grid-cols-3">
             {concerts.map((concert) => (
-              <article key={concert.day} className="group flex min-h-80 flex-col justify-between bg-background p-6 transition-colors hover:bg-foreground hover:text-background md:p-8">
-                <div className="flex items-start justify-between"><span className="font-display text-6xl">{concert.day}</span><span className="text-[10px] text-muted-foreground">{concert.month}</span></div>
-                <div><p className="mb-8 text-xs text-muted-foreground group-hover:text-background/55">{concert.city} · {concert.venue}</p><h3 className="font-display text-2xl leading-snug">{concert.title}</h3></div>
+              <article key={concert.day} className="group flex min-h-80 flex-col justify-between bg-background p-6 transition-colors duration-300 hover:bg-foreground hover:text-background md:p-8">
+                <div className="space-y-1">
+                  <span className="font-display text-6xl leading-none">{concert.day}</span>
+                  <span className="block font-sans text-sm uppercase tracking-widest text-muted-foreground group-hover:text-background/70">{concert.month}</span>
+                  <p className="mt-6 text-base leading-snug text-foreground group-hover:text-background/85">{concert.city} · {concert.venue}</p>
+                </div>
+                <h3 className="font-display text-2xl leading-snug">{concert.title}</h3>
               </article>
             ))}
           </div>
