@@ -54,22 +54,22 @@ function Index() {
         aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
         aria-expanded={menuOpen}
         onClick={() => setMenuOpen((open) => !open)}
-        className="group fixed right-4 top-4 z-50 size-[120px] rounded-full border border-background/20 bg-background/5 p-0 text-background shadow-none backdrop-blur-md transition-colors duration-300 hover:bg-background/10 hover:text-background focus-visible:ring-0 focus-visible:ring-offset-0 md:right-8 md:top-8 md:size-[152px]"
+        className="group fixed right-4 top-4 z-50 size-[144px] rounded-full border border-background/20 bg-background/5 p-0 text-background shadow-none backdrop-blur-md transition-colors duration-300 hover:bg-background/10 hover:text-background focus-visible:ring-0 focus-visible:ring-offset-0 md:right-8 md:top-8 md:size-[176px]"
       >
-        <span className={`organ-menu-mark relative block size-[56px] md:size-[72px] ${menuOpen ? "organ-menu-mark-open" : ""}`} aria-hidden="true">
-          <svg viewBox="0 0 64 64" className="size-full" focusable="false">
-            <g fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M14 52V34a2.5 2.5 0 0 1 2.5-2.5h3a2.5 2.5 0 0 1 2.5 2.5v18" />
-              <path d="M25 52V27a2.5 2.5 0 0 1 2.5-2.5h3a2.5 2.5 0 0 1 2.5 2.5v25" />
-              <path d="M36 52V21a2.5 2.5 0 0 1 2.5-2.5h3a2.5 2.5 0 0 1 2.5 2.5v31" />
-              <path d="M47 52V30a2.5 2.5 0 0 1 2.5-2.5h3a2.5 2.5 0 0 1 2.5 2.5v22" />
-              <path d="M10 52h54" />
-              <path d="M16.5 31.5v-5M27.5 24.5v-5M38.5 18.5v-5M49.5 27.5v-5" />
+        <span className={`organ-menu-mark relative block size-[72px] md:size-[88px] ${menuOpen ? "organ-menu-mark-open" : ""}`} aria-hidden="true">
+          <svg viewBox="0 0 80 80" className="size-full" focusable="false">
+            <g fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M18 64V44a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v20" />
+              <path d="M32 64V34a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v30" />
+              <path d="M46 64V26a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v38" />
+              <path d="M60 64V38a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v26" />
+              <path d="M12 64h68" />
+              <path d="M21 41v-6M35 31v-6M49 23v-6M63 35v-6" />
             </g>
           </svg>
-          <span className="organ-menu-close absolute inset-0 m-auto h-12 w-12">
-            <span className="absolute left-0 top-1/2 h-[3px] w-12 -translate-y-1/2 rotate-45 bg-current" />
-            <span className="absolute left-0 top-1/2 h-[3px] w-12 -translate-y-1/2 -rotate-45 bg-current" />
+          <span className="organ-menu-close absolute inset-0 m-auto h-14 w-14">
+            <span className="absolute left-0 top-1/2 h-[4px] w-14 -translate-y-1/2 rotate-45 bg-current" />
+            <span className="absolute left-0 top-1/2 h-[4px] w-14 -translate-y-1/2 -rotate-45 bg-current" />
           </span>
         </span>
       </Button>
