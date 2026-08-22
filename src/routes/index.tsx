@@ -47,33 +47,37 @@ function Index() {
 
   return (
     <main className="overflow-hidden bg-background text-foreground">
-      <Button
+      <button
         type="button"
-        variant="ghost"
-        size="icon"
         aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
         aria-expanded={menuOpen}
         onClick={() => setMenuOpen((open) => !open)}
-        className="group fixed right-5 top-5 z-50 size-14 rounded-none border-0 bg-transparent p-0 text-background shadow-none hover:bg-transparent hover:text-background focus-visible:ring-background md:right-10 md:top-8 md:size-16"
+        className="group fixed right-4 top-4 z-50 inline-flex size-[144px] items-center justify-center rounded-full border border-background/20 bg-background/5 p-0 text-background shadow-none backdrop-blur-md transition-colors duration-300 hover:bg-background/10 hover:text-background focus:outline-none md:right-8 md:top-8 md:size-[176px]"
       >
-        <span className={`organ-menu-mark relative block size-12 ${menuOpen ? "organ-menu-mark-open" : ""}`} aria-hidden="true">
-          <svg viewBox="0 0 64 64" className="size-full" focusable="false">
-            <path d="M10 53V35h7v18M17 53V25h7v28M24 53V15h8v38M32 53V7h8v46M40 53V19h7v34M47 53V30h7v23" fill="none" stroke="currentColor" strokeWidth="2.4" />
-            <path d="M7 53h50M13.5 35v-3M20.5 25v-3M28 15v-3M36 7V4M43.5 19v-3M50.5 30v-3" fill="none" stroke="currentColor" strokeWidth="2.4" />
+        <span className={`organ-menu-mark relative block size-[72px] md:size-[88px] ${menuOpen ? "organ-menu-mark-open" : ""}`} aria-hidden="true">
+          <svg viewBox="0 0 80 80" className="size-full" focusable="false">
+            <g fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M18 64V44a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v20" />
+              <path d="M32 64V34a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v30" />
+              <path d="M46 64V26a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v38" />
+              <path d="M60 64V38a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v26" />
+              <path d="M12 64h68" />
+              <path d="M21 41v-6M35 31v-6M49 23v-6M63 35v-6" />
+            </g>
           </svg>
-          <span className="organ-menu-close absolute inset-0 m-auto h-7 w-7">
-            <span className="absolute left-0 top-1/2 h-px w-7 rotate-45 bg-current" />
-            <span className="absolute left-0 top-1/2 h-px w-7 -rotate-45 bg-current" />
+          <span className="organ-menu-close absolute inset-0 m-auto h-14 w-14">
+            <span className="absolute left-0 top-1/2 h-[4px] w-14 -translate-y-1/2 rotate-45 bg-current" />
+            <span className="absolute left-0 top-1/2 h-[4px] w-14 -translate-y-1/2 -rotate-45 bg-current" />
           </span>
         </span>
-      </Button>
+      </button>
 
       <div className={`menu-panel fixed inset-0 z-40 bg-hero text-background ${menuOpen ? "menu-panel-open" : ""}`} aria-hidden={!menuOpen}>
         <nav aria-label="Основная навигация" className="mx-auto flex h-full max-w-[1600px] flex-col justify-center px-6 py-20 md:px-16 lg:px-24">
           <ol className="grid gap-x-16 lg:grid-cols-2">
             {menuItems.map(([label, href], index) => (
               <li key={label} className="overflow-hidden">
-                <a href={href} tabIndex={menuOpen ? 0 : -1} onClick={() => setMenuOpen(false)} className="menu-link group flex items-baseline gap-5 py-2 font-display text-[clamp(2rem,5.5vw,5.5rem)] leading-none transition-colors hover:text-primary md:py-3">
+                <a href={href} tabIndex={menuOpen ? 0 : -1} onClick={() => setMenuOpen(false)} className="menu-link group flex items-baseline gap-5 py-2 font-display text-[clamp(2rem,5.5vw,5.5rem)] leading-none transition-colors hover:text-background/70 md:py-3">
                    <span className="w-5 font-sans text-[9px] text-background/35">{String(index + 1).padStart(2, "0")}</span>
                   {label}
                 </a>
@@ -104,7 +108,7 @@ function Index() {
           <div className="mt-16 grid gap-px bg-border lg:grid-cols-3">
             {concerts.map((concert) => (
               <article key={concert.day} className="group flex min-h-80 flex-col justify-between bg-background p-6 transition-colors hover:bg-foreground hover:text-background md:p-8">
-                <div className="flex items-start justify-between"><span className="font-display text-6xl">{concert.day}</span><span className="text-[10px] text-primary">{concert.month}</span></div>
+                <div className="flex items-start justify-between"><span className="font-display text-6xl">{concert.day}</span><span className="text-[10px] text-muted-foreground">{concert.month}</span></div>
                 <div><p className="mb-8 text-xs text-muted-foreground group-hover:text-background/55">{concert.city} · {concert.venue}</p><h3 className="font-display text-2xl leading-snug">{concert.title}</h3></div>
               </article>
             ))}
@@ -114,7 +118,7 @@ function Index() {
 
       <section id="selected" className="bg-foreground py-24 text-background lg:py-32">
         <div className="mx-auto grid max-w-[1600px] gap-12 px-5 md:px-10 lg:grid-cols-[0.55fr_1.45fr] lg:px-16">
-          <div className="flex flex-col justify-between"><span className="text-[10px] text-primary">01 / ИЗБРАННОЕ</span><h2 className="mt-12 font-display text-4xl leading-tight md:text-6xl">Орган как целый оркестр</h2></div>
+          <div className="flex flex-col justify-between"><span className="text-[10px] text-muted-foreground">01 / ИЗБРАННОЕ</span><h2 className="mt-12 font-display text-4xl leading-tight md:text-6xl">Орган как целый оркестр</h2></div>
           <div className="group relative aspect-[16/10] overflow-hidden">
             <img src={pianoAsset.url} alt="Moshe Ganelin во время выступления" loading="lazy" className="h-full w-full object-cover grayscale transition duration-700 group-hover:scale-[1.02] group-hover:grayscale-0" />
             <Button aria-label="Смотреть видео" size="icon" className="absolute bottom-0 left-0 size-16 rounded-none bg-primary text-primary-foreground shadow-none hover:bg-primary/90"><Play className="fill-current" /></Button>
@@ -156,5 +160,5 @@ function Index() {
 }
 
 function Publication({ type, date, title }: { type: string; date: string; title: string }) {
-  return <article className="flex min-h-64 flex-col justify-between border-t border-border pt-5"><div className="flex justify-between text-[10px] uppercase"><span className="text-primary">{type}</span><time className="text-muted-foreground">{date}</time></div><a href="#contacts" className="group flex items-end justify-between gap-4"><h3 className="font-display text-3xl leading-tight">{title}</h3><ArrowUpRight className="size-5 shrink-0 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></a></article>;
+  return <article className="flex min-h-64 flex-col justify-between border-t border-border pt-5"><div className="flex justify-between text-[10px] uppercase"><span className="text-muted-foreground">{type}</span><time className="text-muted-foreground">{date}</time></div><a href="#contacts" className="group flex items-end justify-between gap-4"><h3 className="font-display text-3xl leading-tight">{title}</h3><ArrowUpRight className="size-5 shrink-0 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></a></article>;
 }
