@@ -1,9 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 
+import { MiniBar } from "@/components/site/MiniBar";
 import { Reveal } from "@/components/site/Reveal";
 import { SiteMenu } from "@/components/site/SiteMenu";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import { StaffDivider } from "@/components/site/StaffDivider";
 import { upcomingConcerts, type Concert } from "@/lib/site-data";
 import logoAsset from "@/assets/moshe-ganelin-logo.png.asset.json";
 import heroVideoAsset from "@/assets/hero-reger.mp4.asset.json";
@@ -30,37 +32,36 @@ export const Route = createFileRoute("/")({
 
 const venueImages = [venueHall, venueCathedral, venuePetrikirche];
 
-function ConcertCard({ concert, index }: { concert: Concert; index: number }) {
+export function ConcertCard({ concert, index }: { concert: Concert; index: number }) {
   const image = venueImages[index % venueImages.length];
 
   return (
-    <Reveal delay={index * 90} className="flip-card min-h-80">
-      <div className="flip-card-inner">
-        <article className="flip-face flex flex-col justify-between border border-border bg-card p-6 md:p-8">
-          <div className="space-y-1">
-            <span className="font-display text-6xl leading-none">{concert.day}</span>
-            <span className="block font-sans text-sm text-muted-foreground">{concert.month} {concert.year}</span>
-            <p className="mt-6 text-base leading-snug text-foreground">{concert.city}, {concert.venue}</p>
-          </div>
-          <h3 className="font-display text-2xl leading-snug">{concert.title}</h3>
-        </article>
-        <article className="flip-face flip-face-back overflow-hidden border border-border bg-hero text-background">
+    <Reveal delay={(index % 3) * 90} className="h-full">
+      <article
+        tabIndex={0}
+        className="slide-card flex h-full min-h-80 flex-col justify-between border border-border bg-card p-6 focus:outline-none md:p-8"
+      >
+        <div className="slide-card-media">
           <img
             src={image}
             alt={`${concert.city}, ${concert.venue}`}
             loading="lazy"
             width={1024}
             height={1280}
-            className="absolute inset-0 h-full w-full object-cover"
+            className="h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-hero/55" />
-          <div className="relative flex h-full flex-col justify-end gap-2 p-6 md:p-8">
-            <span className="text-sm text-background/70">{concert.day} {concert.month} {concert.year}</span>
-            <h3 className="font-display text-2xl leading-snug">{concert.venue}</h3>
-            <p className="text-sm text-background/80">{concert.city}</p>
-          </div>
-        </article>
-      </div>
+        </div>
+
+        <div className="slide-card-body space-y-1">
+          <span className="font-display text-6xl leading-none">{concert.day}</span>
+          <span className="slide-card-muted block font-sans text-sm text-muted-foreground">
+            {concert.month} {concert.year}
+          </span>
+          <p className="mt-6 text-base leading-snug">{concert.city}, {concert.venue}</p>
+        </div>
+        <h3 className="slide-card-body mt-8 font-display text-2xl leading-snug">{concert.title}</h3>
+      </article>
     </Reveal>
   );
 }
@@ -84,8 +85,9 @@ function Index() {
   return (
     <main className="overflow-hidden bg-background text-foreground">
       <SiteMenu tone="light" />
+      <MiniBar />
 
-      <section id="top" className="relative min-h-[94svh] overflow-hidden bg-hero text-background">
+      <section id="top" data-snap className="relative min-h-[100svh] overflow-hidden bg-hero text-background">
         <h1 className="sr-only">Moshe Ganelin</h1>
         <video
           ref={heroVideoRef}
@@ -106,10 +108,9 @@ function Index() {
           alt="Moshe Ganelin"
           className="hero-logo absolute top-[calc(1.25rem-1cm)] left-1/2 z-20 w-[min(70vw,620px)] -translate-x-1/2 object-contain p-3"
         />
-
       </section>
 
-      <section id="concerts" className="bg-background px-5 py-24 md:px-10 lg:px-16 lg:py-32">
+      <section id="concerts" data-snap className="bg-background px-5 py-24 md:px-10 lg:px-16 lg:py-32">
         <div className="mx-auto max-w-[1600px]">
           <Reveal>
             <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
@@ -118,9 +119,13 @@ function Index() {
             </div>
           </Reveal>
 
-          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <StaffDivider className="mt-8" />
+
+          <div className="-mx-5 mt-8 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-4 md:mx-0 md:mt-14 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-3">
             {upcomingConcerts.slice(0, 3).map((concert, index) => (
-              <ConcertCard key={`${concert.day}-${concert.city}`} concert={concert} index={index} />
+              <div key={`${concert.day}-${concert.city}`} className="w-[82%] shrink-0 snap-start md:w-auto md:shrink">
+                <ConcertCard concert={concert} index={index} />
+              </div>
             ))}
           </div>
         </div>
