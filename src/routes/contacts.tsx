@@ -54,9 +54,9 @@ function ContactsPage() {
               </p>
             </div>
             <div className="space-y-2 text-sm">
-              <p><a className="line-link" href="https://www.youtube.com/@mosheganelin" target="_blank" rel="noreferrer">YouTube</a></p>
-              <p><a className="line-link" href="#">Telegram</a></p>
-              <p><a className="line-link" href="#">Instagram</a></p>
+              <p><a className="line-link" href="https://youtube.com/@mosheganelin" target="_blank" rel="noreferrer">YouTube</a></p>
+              <p><a className="line-link" href="https://www.instagram.com/moshearielganelin" target="_blank" rel="noreferrer">Instagram</a></p>
+              <p><a className="line-link" href="https://www.facebook.com/mosheganelin/" target="_blank" rel="noreferrer">Facebook</a></p>
             </div>
           </div>
         </Reveal>
