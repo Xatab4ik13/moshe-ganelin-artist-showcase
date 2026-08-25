@@ -62,6 +62,16 @@ const menuItems = [
 function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  const scrollCarousel = (direction: number) => {
+    const rail = carouselRef.current;
+    if (!rail) return;
+    const step = rail.querySelector("article")?.clientWidth ?? rail.clientWidth * 0.6;
+    rail.scrollBy({ left: direction * (step + 28), behavior: "smooth" });
+  };
+
+
 
   useEffect(() => {
     if (heroVideoRef.current) heroVideoRef.current.playbackRate = 0.85;
