@@ -31,7 +31,6 @@ const milestones = [
 function AboutPage() {
   return (
     <PageShell
-      eyebrow="О музыканте"
       title="Биография"
       lead="Короткое вступление о музыканте — пример текста, который будет заменён финальной редакцией."
       image={organAsset.url}
@@ -69,8 +68,7 @@ function AboutPage() {
       <section className="bg-hero py-24 text-background lg:py-32">
         <div className="mx-auto max-w-[1600px] px-5 md:px-10 lg:px-16">
           <Reveal>
-            <p className="text-[10px] uppercase tracking-[0.4em] text-brass">Хронология</p>
-            <h2 className="mt-5 font-display text-4xl leading-none md:text-6xl">Этапы пути</h2>
+            <h2 className="font-display text-4xl leading-none md:text-6xl">Этапы пути</h2>
           </Reveal>
           <ol className="mt-14 border-t border-background/15">
             {milestones.map((item, index) => (

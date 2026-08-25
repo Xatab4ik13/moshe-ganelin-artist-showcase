@@ -27,7 +27,6 @@ const blocks = [
 function ContactsPage() {
   return (
     <PageShell
-      eyebrow="Контакты"
       title="Связаться"
       lead="Ниже — контактные направления. Тексты и адреса будут заменены финальными."
     >
@@ -55,7 +54,6 @@ function ContactsPage() {
               </p>
             </div>
             <div className="space-y-2 text-sm">
-              <p className="text-[10px] uppercase tracking-[0.4em] text-petrol">Соцсети</p>
               <p><a className="line-link" href="https://www.youtube.com/@mosheganelin" target="_blank" rel="noreferrer">YouTube</a></p>
               <p><a className="line-link" href="#">Telegram</a></p>
               <p><a className="line-link" href="#">Instagram</a></p>

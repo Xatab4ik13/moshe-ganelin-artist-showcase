@@ -38,7 +38,6 @@ const photos = [
 function GalleryPage() {
   return (
     <PageShell
-      eyebrow="Галерея"
       title="Фотографии"
       lead="Подписи к фотографиям — пример текста, будут заменены."
     >
