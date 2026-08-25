@@ -9,6 +9,8 @@ export function SiteFooter() {
       <div className="mx-auto max-w-[1600px]">
         <img src={logoAsset.url} alt="Moshe Ganelin" className="w-[min(52vw,260px)] object-contain" />
 
+        <div className="bellows mt-10" aria-hidden="true"><i /></div>
+
         <div className="mt-12 grid gap-10 border-t border-background/20 pt-10 md:grid-cols-3">
           <div className="space-y-2 text-sm text-background/75">
             <a className="line-link block" href="mailto:concerts@moshearielganelin.com">
