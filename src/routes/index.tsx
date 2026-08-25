@@ -186,19 +186,23 @@ function Index() {
       <section id="selected" className="bg-foreground py-24 text-background lg:py-32">
         <div className="mx-auto max-w-[1600px] px-5 md:px-10 lg:px-16">
           <div className="flex flex-wrap items-end justify-between gap-6">
-            <h2 className="font-display text-5xl leading-none md:text-7xl">Видео</h2>
+            <div>
+              <span className="text-[10px] uppercase tracking-[0.4em] text-background/50">Видеоархив</span>
+              <h2 className="mt-4 font-display text-5xl leading-none md:text-7xl">Избранные<br />записи</h2>
+            </div>
             <div className="flex gap-3">
               <Button aria-label="Предыдущие видео" size="icon" variant="ghost" onClick={() => scrollCarousel(-1)} className="size-12 rounded-full border border-background/25 text-background hover:bg-background/10"><ChevronLeft /></Button>
               <Button aria-label="Следующие видео" size="icon" variant="ghost" onClick={() => scrollCarousel(1)} className="size-12 rounded-full border border-background/25 text-background hover:bg-background/10"><ChevronRight /></Button>
             </div>
           </div>
-          <div ref={carouselRef} className="video-rail mt-12 flex snap-x snap-mandatory gap-7 overflow-x-auto pb-14 pt-6">
+          <div ref={carouselRef} className="video-rail mt-14 flex snap-x snap-mandatory gap-7 overflow-x-auto pb-16 pt-6">
             {videos.map((video) => (
               <VideoCard key={video.id} video={video} />
             ))}
           </div>
         </div>
       </section>
+
 
 
       <section id="publications" className="bg-background px-5 py-24 md:px-10 lg:px-16 lg:py-32">
@@ -257,12 +261,12 @@ function VideoCard({ video }: { video: Video }) {
 
   return (
     <article
-      className="video-tilt w-[86vw] shrink-0 snap-center sm:w-[62vw] lg:w-[46%] xl:w-[38%]"
+      className="video-tilt w-[82vw] shrink-0 snap-center sm:w-[26rem] xl:w-[30rem]"
       onMouseMove={handleMove}
       onMouseLeave={reset}
     >
-      <div ref={cardRef} className="video-tilt-inner">
-        <div className="relative aspect-video overflow-hidden rounded-[1.5rem] bg-black">
+      <div ref={cardRef} className="video-frame">
+        <div className="relative aspect-video overflow-hidden rounded-[0.75rem] bg-black">
           {playing ? (
             <iframe
               src={`https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&rel=0`}
@@ -286,11 +290,12 @@ function VideoCard({ video }: { video: Video }) {
             </button>
           )}
         </div>
-        <h3 className="mt-5 font-display text-xl leading-snug text-background">{video.title}</h3>
+        <h3 className="mt-5 line-clamp-2 min-h-[3.4rem] font-display text-lg leading-snug text-background">{video.title}</h3>
       </div>
     </article>
   );
 }
+
 
 
 function Publication({ type, date, title }: { type: string; date: string; title: string }) {
