@@ -1,14 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { ConcertCard } from "@/components/site/ConcertCard";
 import { Reveal } from "@/components/site/Reveal";
 import { SiteMenu } from "@/components/site/SiteMenu";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import { SitePreloader } from "@/components/site/SitePreloader";
 import { upcomingConcerts } from "@/lib/site-data";
 import logoAsset from "@/assets/moshe-ganelin-logo.png.asset.json";
 import heroVideoAsset from "@/assets/hero-reger.mp4.asset.json";
 import heroPosterAsset from "@/assets/hero-poster.jpg.asset.json";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
