@@ -226,5 +226,5 @@
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .hero-logo { animation: none; }
-  .menu-panel, .menu-link, .menu-stroke, .organ-menu-mark, .organ-menu-close { transition-duration: 1ms; }
+  .menu-panel, .menu-link, .menu-stroke, .organ-menu-mark, .organ-menu-close, .flip-card-inner { transition-duration: 1ms; }
 }
