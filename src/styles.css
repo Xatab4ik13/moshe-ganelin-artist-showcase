@@ -175,7 +175,11 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-.hero-logo { animation: hero-name-reveal 900ms 180ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.hero-logo {
+  animation: hero-name-reveal 900ms 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  filter: drop-shadow(0 2px 18px oklch(0 0 0 / 0.55)) drop-shadow(0 0 42px oklch(0 0 0 / 0.4));
+}
+
 .organ-menu-mark, .organ-menu-close { transition: opacity 280ms ease, transform 520ms cubic-bezier(0.76, 0, 0.24, 1); }
 .organ-menu-close { opacity: 0; transform: rotate(-45deg) scale(0.7); }
 .organ-menu-mark-open > svg { opacity: 0; transform: rotate(12deg) scale(0.75); }
@@ -311,4 +315,30 @@
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
   .media-zoom img, .row-item, .line-link, .line-link::before { transition-duration: 1ms; }
+}
+
+/* --- Milestones: шахматный порядок, неровные формы --- */
+.reveal-left { transform: translate3d(-56px, 20px, 0) rotate(-1.2deg); }
+.reveal-right { transform: translate3d(56px, 20px, 0) rotate(1.2deg); }
+.reveal-in.reveal-left,
+.reveal-in.reveal-right { transform: none; }
+
+.milestone-card {
+  border: 1px solid color-mix(in oklab, var(--color-background) 22%, transparent);
+  background: color-mix(in oklab, var(--color-background) 6%, transparent);
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1), background-color 500ms ease, border-color 500ms ease;
+}
+.milestone-card:hover {
+  transform: translateY(-8px);
+  background: color-mix(in oklab, var(--color-brass) 12%, transparent);
+  border-color: color-mix(in oklab, var(--color-brass) 45%, transparent);
+}
+.milestone-shape-a { border-radius: 2.5rem 0.25rem 2.5rem 0.25rem; }
+.milestone-shape-b { border-radius: 0.25rem 3rem 0.25rem 3rem; }
+.milestone-shape-c { border-radius: 3rem 3rem 0.25rem 2rem; }
+.milestone-shape-d { border-radius: 0.25rem 2rem 3rem 0.25rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-left, .reveal-right { transform: none; }
+  .milestone-card { transition-duration: 1ms; }
 }
