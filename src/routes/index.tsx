@@ -9,6 +9,7 @@ import { SitePreloader } from "@/components/site/SitePreloader";
 import { upcomingConcerts } from "@/lib/site-data";
 import logoAsset from "@/assets/moshe-ganelin-logo.png.asset.json";
 import heroVideoAsset from "@/assets/hero-reger.mp4.asset.json";
+import heroVideoLightAsset from "@/assets/hero-reger-light.mp4.asset.json";
 import heroPosterAsset from "@/assets/hero-poster.jpg.asset.json";
 
 
@@ -36,6 +37,14 @@ function Index() {
     const video = heroVideoRef.current;
     if (!video) return;
     const apply = () => { video.playbackRate = 0.85; };
+
+    const connection = (navigator as any).connection;
+    const slow =
+      connection?.saveData === true ||
+      ["slow-2g", "2g", "3g"].includes(connection?.effectiveType ?? "");
+    video.src = slow ? heroVideoLightAsset.url : heroVideoAsset.url;
+    video.load();
+
     const markReady = () => { apply(); setVideoReady(true); };
     apply();
     if (video.readyState >= 2) setVideoReady(true);
@@ -59,7 +68,6 @@ function Index() {
         <video
           ref={heroVideoRef}
           className="absolute inset-0 h-full w-full object-cover object-[58%_center] [transform:translateZ(0)] md:object-center"
-          src={heroVideoAsset.url}
           poster={heroPosterAsset.url}
           autoPlay
           loop
