@@ -262,5 +262,5 @@
 
 
 @media (prefers-reduced-motion: reduce) {
-  .video-tilt-inner { transform: none !important; transition-duration: 1ms; }
+  .video-frame { transform: none !important; transition-duration: 1ms; }
 }
