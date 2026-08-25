@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import menuBgAsset from "@/assets/menu-bg.jpg.asset.json";
 import logoAsset from "@/assets/moshe-ganelin-logo.png.asset.json";
+import { haptic } from "@/lib/haptics";
 import { SocialIconSvg, socialLinks } from "./social-icons";
 
 export const menuItems = [
@@ -21,9 +22,31 @@ export const menuItems = [
   { label: "Контакты", to: "/contacts" },
 ] as const;
 
+type PanelState = "closed" | "open" | "closing";
+
 export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [panel, setPanel] = useState<PanelState>("closed");
   const [mediaOpen, setMediaOpen] = useState(false);
+  const timer = useRef<number | null>(null);
+  const menuOpen = panel === "open";
+
+  const close = useCallback(() => {
+    setPanel((current) => (current === "open" ? "closing" : current));
+    haptic(8);
+  }, []);
+
+  const open = useCallback(() => {
+    setPanel("open");
+    haptic(14);
+  }, []);
+
+  useEffect(() => {
+    if (panel !== "closing") return;
+    timer.current = window.setTimeout(() => setPanel("closed"), 650);
+    return () => {
+      if (timer.current) window.clearTimeout(timer.current);
+    };
+  }, [panel]);
 
   useEffect(() => {
     if (!menuOpen) {
@@ -40,14 +63,15 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuOpen(false);
+      if (event.key === "Escape") close();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [close]);
 
   const barTone = menuOpen || tone === "light" ? "text-background" : "text-foreground";
-  const close = () => setMenuOpen(false);
+  const panelClass =
+    panel === "open" ? "menu-panel-open" : panel === "closing" ? "menu-panel-closing" : "menu-panel-reset";
 
   return (
     <>
@@ -55,7 +79,7 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
         type="button"
         aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
         aria-expanded={menuOpen}
-        onClick={() => setMenuOpen((open) => !open)}
+        onClick={() => (menuOpen ? close() : open())}
         className={`group fixed right-[calc(0.75rem_+_var(--scrollbar-width))] top-3 z-50 inline-block p-3 opacity-90 [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.35))] transition-opacity duration-300 hover:opacity-100 focus:outline-none md:right-[calc(1.5rem_+_var(--scrollbar-width))] md:top-5 ${barTone}`}
       >
         <span className="relative block h-11 w-14 md:h-14 md:w-[72px]" aria-hidden="true">
@@ -66,7 +90,7 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
       </button>
 
       <div
-        className={`menu-panel fixed inset-0 z-40 overflow-hidden bg-hero text-background ${menuOpen ? "menu-panel-open" : ""}`}
+        className={`menu-panel fixed inset-0 z-40 overflow-hidden bg-hero text-background ${panelClass}`}
         aria-hidden={!menuOpen}
       >
         <img src={menuBgAsset.url} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />
@@ -89,7 +113,7 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
                   <button
                     type="button"
                     tabIndex={menuOpen ? 0 : -1}
-                    onClick={() => setMediaOpen((open) => !open)}
+                    onClick={() => setMediaOpen((value) => !value)}
                     aria-expanded={mediaOpen}
                     className="menu-link block py-1.5 font-display text-[clamp(1.7rem,4vw,3.4rem)] leading-tight transition-colors hover:text-brass md:py-2"
                   >
