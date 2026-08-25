@@ -36,6 +36,23 @@ const photos = [
 ];
 
 function GalleryPage() {
+  const [active, setActive] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (active === null) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setActive(null);
+      if (event.key === "ArrowRight") setActive((i) => (i === null ? i : (i + 1) % photos.length));
+      if (event.key === "ArrowLeft") setActive((i) => (i === null ? i : (i - 1 + photos.length) % photos.length));
+    };
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [active]);
+
   return (
     <PageShell
       title="Фотографии"
@@ -46,7 +63,14 @@ function GalleryPage() {
           {photos.map((photo, index) => (
             <Reveal key={photo.alt} delay={(index % 2) * 90} className={`media-zoom overflow-hidden ${photo.span}`}>
               <figure className="group relative">
-                <img src={photo.src} alt={photo.alt} loading="lazy" className={`w-full object-cover ${photo.ratio}`} />
+                <button
+                  type="button"
+                  onClick={() => setActive(index)}
+                  aria-label={`Открыть фото: ${photo.alt}`}
+                  className="block w-full cursor-zoom-in"
+                >
+                  <img src={photo.src} alt={photo.alt} loading="lazy" className={`w-full object-cover ${photo.ratio}`} />
+                </button>
                 <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-3 bg-gradient-to-t from-hero/85 to-transparent p-5 text-sm text-background opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
                   {photo.alt} — подпись, пример текста
                 </figcaption>
@@ -55,6 +79,33 @@ function GalleryPage() {
           ))}
         </div>
       </section>
+
+      {active !== null && (
+        <div
+          className="fixed inset-0 z-[100] flex animate-fade-in items-center justify-center bg-hero/95 p-4 md:p-10"
+          onClick={() => setActive(null)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <button
+            type="button"
+            aria-label="Закрыть"
+            onClick={() => setActive(null)}
+            className="absolute right-5 top-5 flex size-11 items-center justify-center rounded-full border border-background/30 text-background transition-colors hover:border-brass hover:text-brass"
+          >
+            <X className="size-5" />
+          </button>
+          <figure className="max-h-full" onClick={(event) => event.stopPropagation()}>
+            <img
+              src={photos[active].src}
+              alt={photos[active].alt}
+              className="max-h-[82vh] w-auto max-w-full animate-scale-in object-contain"
+            />
+            <figcaption className="mt-4 text-center text-sm text-background/70">{photos[active].alt}</figcaption>
+          </figure>
+        </div>
+      )}
     </PageShell>
   );
 }
+
