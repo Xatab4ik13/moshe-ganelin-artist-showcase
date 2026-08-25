@@ -159,14 +159,22 @@ function Index() {
       </section>
 
       <section id="selected" className="bg-foreground py-24 text-background lg:py-32">
-        <div className="mx-auto grid max-w-[1600px] gap-12 px-5 md:px-10 lg:grid-cols-[0.55fr_1.45fr] lg:px-16">
-          <div className="flex flex-col justify-end"><h2 className="font-display text-4xl leading-tight md:text-6xl">Орган как целый оркестр</h2></div>
-          <div className="group relative aspect-[16/10] overflow-hidden">
-            <img src={pianoAsset.url} alt="Moshe Ganelin во время выступления" loading="lazy" className="h-full w-full object-cover grayscale transition duration-700 group-hover:scale-[1.02] group-hover:grayscale-0" />
-            <Button aria-label="Смотреть видео" size="icon" className="absolute bottom-0 left-0 size-16 rounded-none bg-primary text-primary-foreground shadow-none hover:bg-primary/90"><Play className="fill-current" /></Button>
+        <div className="mx-auto max-w-[1600px] px-5 md:px-10 lg:px-16">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <h2 className="font-display text-5xl leading-none md:text-7xl">Видео</h2>
+            <div className="flex gap-3">
+              <Button aria-label="Предыдущие видео" size="icon" variant="ghost" onClick={() => scrollCarousel(-1)} className="size-12 rounded-full border border-background/25 text-background hover:bg-background/10"><ChevronLeft /></Button>
+              <Button aria-label="Следующие видео" size="icon" variant="ghost" onClick={() => scrollCarousel(1)} className="size-12 rounded-full border border-background/25 text-background hover:bg-background/10"><ChevronRight /></Button>
+            </div>
+          </div>
+          <div ref={carouselRef} className="video-rail mt-12 flex snap-x snap-mandatory gap-7 overflow-x-auto pb-14 pt-6">
+            {videos.map((video) => (
+              <VideoCard key={video.id} video={video} />
+            ))}
           </div>
         </div>
       </section>
+
 
       <section id="publications" className="bg-background px-5 py-24 md:px-10 lg:px-16 lg:py-32">
         <div className="mx-auto max-w-[1600px]">
