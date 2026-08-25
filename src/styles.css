@@ -193,7 +193,6 @@
   min-height: inherit;
   transform-style: preserve-3d;
   border-radius: 1.5rem;
-  overflow: hidden;
   transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 500ms ease;
   will-change: transform;
   box-shadow:
@@ -211,11 +210,13 @@
   position: absolute;
   inset: 0;
   height: 100%;
+  border-radius: 1.5rem;
+  overflow: hidden;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  border-radius: 1.5rem;
+  transform: translateZ(0);
 }
-.flip-face-back { transform: rotateY(180deg); }
+.flip-face-back { transform: translateZ(0) rotateY(180deg); }
 
 .hero-blur {
 
