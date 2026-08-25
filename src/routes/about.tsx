@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react";
 
 import { PageShell, Placeholder } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
-import { StaffDivider } from "@/components/site/StaffDivider";
 import organAsset from "@/assets/moshe-organ-wide.webp.asset.json";
 import consoleAsset from "@/assets/moshe-console.webp.asset.json";
 import pianoAsset from "@/assets/moshe-piano.webp.asset.json";
@@ -128,7 +127,6 @@ function AboutPage() {
           </Reveal>
         </div>
 
-        <StaffDivider className="mt-16" />
       </section>
 
       <section className="flex min-h-[80svh] items-center bg-hero px-5 py-24 text-background md:px-10 lg:px-16">

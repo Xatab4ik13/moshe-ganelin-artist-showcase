@@ -6,7 +6,6 @@ import { ConcertCard } from "@/components/site/ConcertCard";
 import { Reveal } from "@/components/site/Reveal";
 import { SiteMenu } from "@/components/site/SiteMenu";
 import { SiteFooter } from "@/components/site/SiteFooter";
-import { StaffDivider } from "@/components/site/StaffDivider";
 import { upcomingConcerts } from "@/lib/site-data";
 import logoAsset from "@/assets/moshe-ganelin-logo.png.asset.json";
 import heroVideoAsset from "@/assets/hero-reger.mp4.asset.json";
@@ -68,7 +67,7 @@ function Index() {
         <img
           src={logoAsset.url}
           alt="Moshe Ganelin"
-          className="hero-logo absolute top-[calc(1.25rem-1cm)] left-1/2 z-20 w-[min(70vw,620px)] -translate-x-1/2 object-contain p-3"
+          className="hero-logo absolute top-[calc(1.25rem+1cm)] left-1/2 z-20 w-[min(80.5vw,620px)] md:top-[calc(1.25rem-1cm)] md:w-[min(70vw,620px)] -translate-x-1/2 object-contain p-3"
         />
       </section>
 
@@ -81,7 +80,6 @@ function Index() {
             </div>
           </Reveal>
 
-          <StaffDivider className="mt-8" />
 
           <div className="-mx-5 mt-8 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-4 md:mx-0 md:mt-14 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-3">
             {upcomingConcerts.slice(0, 3).map((concert, index) => (
