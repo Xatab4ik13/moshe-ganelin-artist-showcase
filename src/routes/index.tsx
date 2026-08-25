@@ -38,8 +38,8 @@ function Index() {
     const apply = () => { video.playbackRate = 0.85; };
     const markReady = () => { apply(); setVideoReady(true); };
     apply();
-    if (video.readyState >= 3) setVideoReady(true);
-    video.addEventListener("loadeddata", apply);
+    if (video.readyState >= 2) setVideoReady(true);
+    video.addEventListener("loadeddata", markReady);
     video.addEventListener("canplay", markReady);
     video.addEventListener("play", apply);
     return () => {
