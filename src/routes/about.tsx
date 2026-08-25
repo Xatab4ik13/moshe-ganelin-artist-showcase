@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
 
 import { PageShell, Placeholder } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
+import { StaffDivider } from "@/components/site/StaffDivider";
 import organAsset from "@/assets/moshe-organ-wide.webp.asset.json";
 import consoleAsset from "@/assets/moshe-console.webp.asset.json";
 import pianoAsset from "@/assets/moshe-piano.webp.asset.json";
@@ -30,6 +32,65 @@ const milestones = [
 
 const shapes = ["milestone-shape-a", "milestone-shape-b", "milestone-shape-c", "milestone-shape-d"];
 
+function Timeline() {
+  const listRef = useRef<HTMLUListElement>(null);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    let frame = 0;
+    const onScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        const node = listRef.current;
+        if (!node) return;
+        const rect = node.getBoundingClientRect();
+        const total = rect.height + window.innerHeight * 0.4;
+        const passed = window.innerHeight * 0.75 - rect.top;
+        setProgress(Math.min(1, Math.max(0, passed / total)));
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  return (
+    <div className="relative mt-14 pl-8 md:pl-0">
+      <div className="timeline-track left-1 md:left-1/2">
+        <div className="timeline-progress" style={{ height: `${progress * 100}%` }} />
+      </div>
+
+      <ul ref={listRef} className="space-y-10 md:space-y-16">
+        {milestones.map((item, index) => (
+          <Reveal
+            as="li"
+            key={index}
+            delay={index * 90}
+            className={`relative w-full md:w-[46%] ${
+              index % 2 === 0 ? "reveal-left md:mr-auto md:ml-0 md:pr-2" : "reveal-right md:ml-auto md:mr-0 md:pl-2"
+            }`}
+          >
+            <span
+              className={`timeline-dot -left-[1.85rem] md:left-auto ${
+                index % 2 === 0 ? "md:-right-[calc(8.7%+0.34rem)]" : "md:-left-[calc(8.7%+0.34rem)]"
+              }`}
+            />
+            <div className={`milestone-card p-8 md:p-10 ${shapes[index % shapes.length]}`}>
+              <h3 className="font-display text-2xl md:text-3xl">{item.title}</h3>
+              <p className="mt-4 text-sm leading-relaxed text-background/80">{item.text}</p>
+            </div>
+          </Reveal>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 function AboutPage() {
   return (
@@ -66,35 +127,33 @@ function AboutPage() {
             <img src={consoleAsset.url} alt="Moshe Ganelin за органной кафедрой" loading="lazy" className="aspect-[4/5] w-full object-cover" />
           </Reveal>
         </div>
+
+        <StaffDivider className="mt-16" />
+      </section>
+
+      <section className="flex min-h-[80svh] items-center bg-hero px-5 py-24 text-background md:px-10 lg:px-16">
+        <div className="mx-auto max-w-4xl">
+          <Reveal>
+            <blockquote className="font-display text-[clamp(1.7rem,4.4vw,3.4rem)] leading-[1.15]">
+              «Цитата музыканта — пример текста, который будет заменён финальной редакцией.»
+            </blockquote>
+            <p className="mt-8 text-sm tracking-wide text-background/60">Moshe Ganelin</p>
+          </Reveal>
+        </div>
       </section>
 
       <section className="relative overflow-hidden py-24 text-background lg:py-32">
         <img src={pianoAsset.url} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-hero/82" />
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background via-background/55 to-transparent md:h-56" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-hero via-hero/55 to-transparent md:h-56" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-hero via-hero/55 to-transparent md:h-44" />
         <div className="relative mx-auto max-w-[1600px] px-5 md:px-10 lg:px-16">
           <Reveal>
             <h2 className="font-display text-4xl leading-none md:text-6xl">Этапы пути</h2>
           </Reveal>
-          <ul className="mt-14 space-y-10 md:space-y-14">
-            {milestones.map((item, index) => (
-              <Reveal
-                as="li"
-                key={index}
-                delay={index * 90}
-                className={`${index % 2 === 0 ? "reveal-left md:mr-auto md:ml-0" : "reveal-right md:ml-auto md:mr-0"} w-full md:w-[62%]`}
-              >
-                <div className={`milestone-card p-8 md:p-10 ${shapes[index % shapes.length]}`}>
-                  <h3 className="font-display text-2xl md:text-3xl">{item.title}</h3>
-                  <p className="mt-4 text-sm leading-relaxed text-background/80">{item.text}</p>
-                </div>
-              </Reveal>
-            ))}
-          </ul>
+          <Timeline />
         </div>
       </section>
-
     </PageShell>
   );
 }

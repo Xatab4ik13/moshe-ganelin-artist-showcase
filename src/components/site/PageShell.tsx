@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 
+import { MiniBar } from "./MiniBar";
 import { Reveal } from "./Reveal";
 import { SiteFooter } from "./SiteFooter";
 import { SiteMenu } from "./SiteMenu";
@@ -18,6 +19,7 @@ export function PageShell({
   return (
     <main className="overflow-hidden bg-background text-foreground">
       <SiteMenu tone={image ? "light" : "dark"} />
+      <MiniBar />
 
       {image ? (
         <header className="relative flex min-h-[62svh] items-end overflow-hidden bg-hero text-background">
