@@ -4,10 +4,13 @@ import { useEffect, useRef } from "react";
 import { Reveal } from "@/components/site/Reveal";
 import { SiteMenu } from "@/components/site/SiteMenu";
 import { SiteFooter } from "@/components/site/SiteFooter";
-import { upcomingConcerts } from "@/lib/site-data";
+import { upcomingConcerts, type Concert } from "@/lib/site-data";
 import logoAsset from "@/assets/moshe-ganelin-logo.png.asset.json";
 import heroVideoAsset from "@/assets/hero-reger.mp4.asset.json";
 import heroPosterAsset from "@/assets/hero-poster.jpg.asset.json";
+import venueCathedral from "@/assets/venue-cathedral.jpg";
+import venuePetrikirche from "@/assets/venue-petrikirche.jpg";
+import venueHall from "@/assets/venue-hall.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -24,6 +27,43 @@ export const Route = createFileRoute("/")({
   }),
   component: Index,
 });
+
+const venueImages = [venueHall, venueCathedral, venuePetrikirche];
+
+function ConcertCard({ concert, index }: { concert: Concert; index: number }) {
+  const image = venueImages[index % venueImages.length];
+
+  return (
+    <Reveal delay={index * 90} className="flip-card min-h-80">
+      <div className="flip-card-inner">
+        <article className="flip-face flex flex-col justify-between border border-border bg-card p-6 md:p-8">
+          <div className="space-y-1">
+            <span className="font-display text-6xl leading-none">{concert.day}</span>
+            <span className="block font-sans text-sm text-muted-foreground">{concert.month} {concert.year}</span>
+            <p className="mt-6 text-base leading-snug text-foreground">{concert.city}, {concert.venue}</p>
+          </div>
+          <h3 className="font-display text-2xl leading-snug">{concert.title}</h3>
+        </article>
+        <article className="flip-face flip-face-back overflow-hidden border border-border bg-hero text-background">
+          <img
+            src={image}
+            alt={`${concert.city}, ${concert.venue}`}
+            loading="lazy"
+            width={1024}
+            height={1280}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-hero/55" />
+          <div className="relative flex h-full flex-col justify-end gap-2 p-6 md:p-8">
+            <span className="text-sm text-background/70">{concert.day} {concert.month} {concert.year}</span>
+            <h3 className="font-display text-2xl leading-snug">{concert.venue}</h3>
+            <p className="text-sm text-background/80">{concert.city}</p>
+          </div>
+        </article>
+      </div>
+    </Reveal>
+  );
+}
 
 function Index() {
   const heroVideoRef = useRef<HTMLVideoElement>(null);
@@ -67,23 +107,11 @@ function Index() {
             </div>
           </Reveal>
 
-          <ul className="mt-14 border-t border-border">
-            {upcomingConcerts.slice(0, 4).map((concert, index) => (
-              <Reveal as="li" key={`${concert.day}-${concert.city}`} delay={index * 70}>
-                <Link
-                  to="/concerts"
-                  className="row-item group grid items-baseline gap-2 border-b border-border px-2 py-7 md:grid-cols-[12rem_1fr_1.2fr]"
-                >
-                  <span className="font-display text-3xl leading-none">
-                    {concert.day} {concert.month}
-                    <span className="ml-2 text-sm text-muted-foreground">{concert.year}</span>
-                  </span>
-                  <span className="text-base text-foreground">{concert.city}, {concert.venue}</span>
-                  <span className="font-display text-xl leading-snug text-muted-foreground">{concert.title}</span>
-                </Link>
-              </Reveal>
+          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {upcomingConcerts.slice(0, 3).map((concert, index) => (
+              <ConcertCard key={`${concert.day}-${concert.city}`} concert={concert} index={index} />
             ))}
-          </ul>
+          </div>
         </div>
       </section>
 
