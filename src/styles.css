@@ -403,6 +403,5 @@ body::after {
 
 @media (prefers-reduced-motion: reduce) {
   .slide-card, .slide-card-media, .row-thumb, .mini-bar, .lightbox-figure { transition-duration: 1ms; }
-  .slide-card, .slide-card-media, .row-thumb, .mini-bar, .lightbox-figure { transition-duration: 1ms; }
   html { scroll-snap-type: none; }
 }
