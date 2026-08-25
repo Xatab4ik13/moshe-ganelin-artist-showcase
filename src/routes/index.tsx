@@ -43,7 +43,7 @@ function Index() {
     video.addEventListener("canplay", markReady);
     video.addEventListener("play", apply);
     return () => {
-      video.removeEventListener("loadeddata", apply);
+      video.removeEventListener("loadeddata", markReady);
       video.removeEventListener("canplay", markReady);
       video.removeEventListener("play", apply);
     };
