@@ -72,7 +72,7 @@ function Index() {
       </section>
 
 
-      <section id="concerts" data-snap className="bg-background px-5 py-24 md:px-10 lg:px-16 lg:py-32">
+      <section id="concerts" className="bg-background px-5 py-24 md:px-10 lg:px-16 lg:py-32">
         <div className="mx-auto max-w-[1600px]">
           <Reveal>
             <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
