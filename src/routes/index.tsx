@@ -30,22 +30,28 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
 
   useEffect(() => {
     const video = heroVideoRef.current;
     if (!video) return;
     const apply = () => { video.playbackRate = 0.85; };
+    const markReady = () => { apply(); setVideoReady(true); };
     apply();
+    if (video.readyState >= 3) setVideoReady(true);
     video.addEventListener("loadeddata", apply);
+    video.addEventListener("canplay", markReady);
     video.addEventListener("play", apply);
     return () => {
       video.removeEventListener("loadeddata", apply);
+      video.removeEventListener("canplay", markReady);
       video.removeEventListener("play", apply);
     };
   }, []);
 
   return (
     <main className="overflow-hidden bg-background text-foreground">
+      <SitePreloader ready={videoReady} />
       <SiteMenu tone="light" />
 
       <section id="top" className="relative min-h-[100svh] overflow-hidden bg-hero text-background">
@@ -64,6 +70,7 @@ function Index() {
         />
         <div className="absolute inset-0 bg-hero/15 md:bg-hero/35" />
         <div className="hero-blur absolute bottom-0 left-0 z-10 h-20 w-full md:h-48" />
+
         <img
           src={logoAsset.url}
           alt="Moshe Ganelin"
