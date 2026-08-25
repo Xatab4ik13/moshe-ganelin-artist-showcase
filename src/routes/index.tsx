@@ -29,10 +29,11 @@ export const Route = createFileRoute("/")({
 });
 
 const concerts = [
-  { day: "14", month: "сентября", city: "Москва", venue: "Кафедральный собор", title: "Органный вечер: от Баха до наших дней" },
-  { day: "28", month: "сентября", city: "Санкт-Петербург", venue: "Петрикирхе", title: "Музыка соборов. Сольный концерт" },
-  { day: "12", month: "сентября", city: "Москва", venue: "Зал имени Рахманинова", title: "Авторский вечер Moshe Ganelin" },
+  { day: "14", month: "сентября", city: "Москва", venue: "Кафедральный собор", title: "Органный вечер: от Баха до наших дней", image: venueCathedral },
+  { day: "28", month: "сентября", city: "Санкт-Петербург", venue: "Петрикирхе", title: "Музыка соборов. Сольный концерт", image: venuePetrikirche },
+  { day: "12", month: "сентября", city: "Москва", venue: "Зал имени Рахманинова", title: "Авторский вечер Moshe Ganelin", image: venueHall },
 ];
+
 
 const menuItems = [
   ["Главная", "#top"], ["О музыканте", "#about"], ["Афиша", "#concerts"],
