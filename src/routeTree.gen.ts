@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as ConcertsRouteImport } from './routes/concerts'
+import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as MusicRouteImport } from './routes/music'
 import { Route as VideoRouteImport } from './routes/video'
 
@@ -36,6 +37,11 @@ const ConcertsRoute = ConcertsRouteImport.update({
   path: '/concerts',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MusicRoute = MusicRouteImport.update({
   id: '/music',
   path: '/music',
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/blog': typeof BlogRoute
   '/concerts': typeof ConcertsRoute
+  '/gallery': typeof GalleryRoute
   '/music': typeof MusicRoute
   '/video': typeof VideoRoute
 }
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/blog': typeof BlogRoute
   '/concerts': typeof ConcertsRoute
+  '/gallery': typeof GalleryRoute
   '/music': typeof MusicRoute
   '/video': typeof VideoRoute
 }
@@ -69,15 +77,25 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/blog': typeof BlogRoute
   '/concerts': typeof ConcertsRoute
+  '/gallery': typeof GalleryRoute
   '/music': typeof MusicRoute
   '/video': typeof VideoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/blog' | '/concerts' | '/music' | '/video'
+  fullPaths:
+    '/' | '/about' | '/blog' | '/concerts' | '/gallery' | '/music' | '/video'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/blog' | '/concerts' | '/music' | '/video'
-  id: '__root__' | '/' | '/about' | '/blog' | '/concerts' | '/music' | '/video'
+  to: '/' | '/about' | '/blog' | '/concerts' | '/gallery' | '/music' | '/video'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/blog'
+    | '/concerts'
+    | '/gallery'
+    | '/music'
+    | '/video'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -85,6 +103,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   BlogRoute: typeof BlogRoute
   ConcertsRoute: typeof ConcertsRoute
+  GalleryRoute: typeof GalleryRoute
   MusicRoute: typeof MusicRoute
   VideoRoute: typeof VideoRoute
 }
@@ -119,6 +138,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConcertsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/music': {
       id: '/music'
       path: '/music'
@@ -141,6 +167,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   BlogRoute: BlogRoute,
   ConcertsRoute: ConcertsRoute,
+  GalleryRoute: GalleryRoute,
   MusicRoute: MusicRoute,
   VideoRoute: VideoRoute,
 }
