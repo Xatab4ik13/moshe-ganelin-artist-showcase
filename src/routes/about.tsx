@@ -71,6 +71,8 @@ function AboutPage() {
       <section className="relative overflow-hidden py-24 text-background lg:py-32">
         <img src={pianoAsset.url} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-hero/82" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background via-background/55 to-transparent md:h-56" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-hero via-hero/55 to-transparent md:h-44" />
         <div className="relative mx-auto max-w-[1600px] px-5 md:px-10 lg:px-16">
           <Reveal>
             <h2 className="font-display text-4xl leading-none md:text-6xl">Этапы пути</h2>
