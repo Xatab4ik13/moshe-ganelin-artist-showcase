@@ -1,8 +1,12 @@
 import { Reveal } from "./Reveal";
 import type { Concert } from "@/lib/site-data";
-import venueCathedral from "@/assets/venue-cathedral.jpg";
-import venuePetrikirche from "@/assets/venue-petrikirche.jpg";
-import venueHall from "@/assets/venue-hall.jpg";
+import venueCathedralAsset from "@/assets/venue-cathedral.webp.asset.json";
+import venuePetrikircheAsset from "@/assets/venue-petrikirche.webp.asset.json";
+import venueHallAsset from "@/assets/venue-hall.webp.asset.json";
+
+const venueCathedral = venueCathedralAsset.url;
+const venuePetrikirche = venuePetrikircheAsset.url;
+const venueHall = venueHallAsset.url;
 
 const venueImages = [venueHall, venueCathedral, venuePetrikirche];
 
