@@ -234,6 +234,65 @@ function Index() {
   );
 }
 
+function VideoCard({ video }: { video: Video }) {
+  const [playing, setPlaying] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const handleMove = (event: React.MouseEvent<HTMLElement>) => {
+    const card = cardRef.current;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+    card.style.setProperty("--rx", `${(-y * 9).toFixed(2)}deg`);
+    card.style.setProperty("--ry", `${(x * 12).toFixed(2)}deg`);
+  };
+
+  const reset = () => {
+    const card = cardRef.current;
+    if (!card) return;
+    card.style.setProperty("--rx", "0deg");
+    card.style.setProperty("--ry", "0deg");
+  };
+
+  return (
+    <article
+      className="video-tilt w-[86vw] shrink-0 snap-center sm:w-[62vw] lg:w-[46%] xl:w-[38%]"
+      onMouseMove={handleMove}
+      onMouseLeave={reset}
+    >
+      <div ref={cardRef} className="video-tilt-inner">
+        <div className="relative aspect-video overflow-hidden rounded-[1.5rem] bg-black">
+          {playing ? (
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&rel=0`}
+              title={video.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="absolute inset-0 h-full w-full"
+            />
+          ) : (
+            <button type="button" onClick={() => setPlaying(true)} aria-label={`Смотреть: ${video.title}`} className="group absolute inset-0 h-full w-full">
+              <img
+                src={`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`}
+                alt={video.title}
+                loading="lazy"
+                className="h-full w-full scale-[1.35] object-cover transition duration-700 group-hover:scale-[1.4]"
+              />
+              <span className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+              <span className="absolute left-1/2 top-1/2 flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/50 bg-black/35 backdrop-blur-sm transition group-hover:scale-110">
+                <Play className="size-6 fill-white text-white" />
+              </span>
+            </button>
+          )}
+        </div>
+        <h3 className="mt-5 font-display text-xl leading-snug text-background">{video.title}</h3>
+      </div>
+    </article>
+  );
+}
+
+
 function Publication({ type, date, title }: { type: string; date: string; title: string }) {
   return <article className="flex min-h-64 flex-col justify-between border-t border-border pt-5"><div className="flex justify-between text-[10px] uppercase"><span className="text-muted-foreground">{type}</span><time className="text-muted-foreground">{date}</time></div><a href="#contacts" className="group flex items-end justify-between gap-4"><h3 className="font-display text-3xl leading-tight">{title}</h3><ArrowUpRight className="size-5 shrink-0 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></a></article>;
 }
