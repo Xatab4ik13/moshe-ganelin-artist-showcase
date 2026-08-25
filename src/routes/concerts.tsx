@@ -142,7 +142,7 @@ function ConcertsPage() {
         className={`row-thumb hidden md:block ${thumb ? "row-thumb-visible" : ""}`}
         style={{ left: thumb?.x ?? -400, top: thumb?.y ?? -400 }}
       >
-        {thumb ? <img src={thumb.src} alt="" className="h-full w-full object-cover" /> : null}
+        {thumb ? <img src={thumb.src} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" /> : null}
       </div>
     </PageShell>
   );
