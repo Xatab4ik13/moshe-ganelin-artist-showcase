@@ -73,23 +73,30 @@ function AboutPage() {
           <Reveal>
             <h2 className="font-display text-4xl leading-none md:text-6xl">Этапы пути</h2>
           </Reveal>
-          <ol className="mt-14 border-t border-background/15">
+          <ul className="mt-14 space-y-10 md:space-y-14">
             {milestones.map((item, index) => (
-              <Reveal as="li" key={index} delay={index * 70} className="grid gap-4 border-b border-background/15 py-8 md:grid-cols-[8rem_1fr_1.2fr] md:items-baseline">
-                <span className="font-display text-3xl text-brass">{item.year}</span>
-                <h3 className="font-display text-xl">{item.title}</h3>
-                <p className="text-sm text-background/70">{item.text}</p>
+              <Reveal
+                as="li"
+                key={index}
+                delay={index * 90}
+                className={`${index % 2 === 0 ? "reveal-left md:mr-auto md:ml-0" : "reveal-right md:ml-auto md:mr-0"} w-full md:w-[62%]`}
+              >
+                <div className={`milestone-card p-8 md:p-10 ${shapes[index % shapes.length]}`}>
+                  <h3 className="font-display text-2xl md:text-3xl">{item.title}</h3>
+                  <p className="mt-4 text-sm leading-relaxed text-background/70">{item.text}</p>
+                </div>
               </Reveal>
             ))}
-          </ol>
+          </ul>
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1600px] px-5 py-24 md:px-10 lg:px-16">
+      <section className="py-0">
         <Reveal className="media-zoom overflow-hidden">
-          <img src={pianoAsset.url} alt="Moshe Ganelin за роялем" loading="lazy" className="aspect-[16/7] w-full object-cover" />
+          <img src={pianoAsset.url} alt="Moshe Ganelin за роялем" loading="lazy" className="h-[60svh] w-full object-cover md:h-[80svh]" />
         </Reveal>
       </section>
+
     </PageShell>
   );
 }
