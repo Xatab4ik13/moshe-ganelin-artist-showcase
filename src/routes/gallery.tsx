@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { X } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
@@ -42,8 +44,8 @@ function GalleryPage() {
     if (active === null) return;
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") setActive(null);
-      if (event.key === "ArrowRight") setActive((i) => (i === null ? i : (i + 1) % photos.length));
-      if (event.key === "ArrowLeft") setActive((i) => (i === null ? i : (i - 1 + photos.length) % photos.length));
+      if (event.key === "ArrowRight") setActive((i: number | null) => (i === null ? i : (i + 1) % photos.length));
+      if (event.key === "ArrowLeft") setActive((i: number | null) => (i === null ? i : (i - 1 + photos.length) % photos.length));
     };
     window.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
@@ -97,11 +99,11 @@ function GalleryPage() {
           </button>
           <figure className="max-h-full" onClick={(event) => event.stopPropagation()}>
             <img
-              src={photos[active].src}
-              alt={photos[active].alt}
+              src={photos[active]!.src}
+              alt={photos[active]!.alt}
               className="max-h-[82vh] w-auto max-w-full animate-scale-in object-contain"
             />
-            <figcaption className="mt-4 text-center text-sm text-background/70">{photos[active].alt}</figcaption>
+            <figcaption className="mt-4 text-center text-sm text-background/70">{photos[active]!.alt}</figcaption>
           </figure>
         </div>
       )}
