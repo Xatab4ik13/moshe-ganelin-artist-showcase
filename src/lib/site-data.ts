@@ -45,32 +45,32 @@ export const musicSections: { section: string; description: string; works: Work[
     section: "Органные сочинения",
     description: "Описание раздела — пример текста.",
     works: [
-      { title: "Organ Symphony No. 4", year: "2017", duration: "32′", links: [{ label: "Слушать", href: "#" }, { label: "Ноты (PDF)", href: "#" }] },
-      { title: "Prelude and Fugue «Nun komm»", year: "2019", duration: "11′", links: [{ label: "Слушать", href: "#" }, { label: "Ноты (PDF)", href: "#" }] },
+      { title: "Organ Symphony No. 4", year: "2017", duration: "32′", links: [{ label: "Ноты (PDF)", href: "#" }] },
+      { title: "Prelude and Fugue «Nun komm»", year: "2019", duration: "11′", links: [{ label: "Ноты (PDF)", href: "#" }] },
     ],
   },
   {
     section: "Фортепианная музыка",
     description: "Описание раздела — пример текста.",
     works: [
-      { title: "Six Preludes", year: "2021", duration: "18′", links: [{ label: "Слушать", href: "#" }, { label: "Ноты (PDF)", href: "#" }] },
-      { title: "Nocturne in memoriam", year: "2023", duration: "7′", links: [{ label: "Слушать", href: "#" }] },
+      { title: "Six Preludes", year: "2021", duration: "18′", links: [{ label: "Ноты (PDF)", href: "#" }] },
+      { title: "Nocturne in memoriam", year: "2023", duration: "7′", links: [] },
     ],
   },
   {
     section: "Оркестровые и камерные",
     description: "Описание раздела — пример текста.",
     works: [
-      { title: "The Celtic Lovesong — концерт для органа с оркестром", year: "2015", duration: "24′", links: [{ label: "Слушать", href: "#" }, { label: "Партитура", href: "#" }] },
-      { title: "Quartet «Architecture»", year: "2020", duration: "16′", links: [{ label: "Слушать", href: "#" }] },
+      { title: "The Celtic Lovesong — концерт для органа с оркестром", year: "2015", duration: "24′", links: [{ label: "Партитура", href: "#" }] },
+      { title: "Quartet «Architecture»", year: "2020", duration: "16′", links: [] },
     ],
   },
   {
     section: "Транскрипции и импровизации",
     description: "Описание раздела — пример текста.",
     works: [
-      { title: "A. Mosolov — Iron Foundry", year: "2018", duration: "9′", links: [{ label: "Слушать", href: "#" }] },
-      { title: "Improvisation on Christmas themes", year: "2022", duration: "13′", links: [{ label: "Слушать", href: "#" }] },
+      { title: "A. Mosolov — Iron Foundry", year: "2018", duration: "9′", links: [] },
+      { title: "Improvisation on Christmas themes", year: "2022", duration: "13′", links: [] },
     ],
   },
 ];
