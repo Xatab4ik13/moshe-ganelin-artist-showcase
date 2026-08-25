@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight } from "lucide-react";
 
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
@@ -30,7 +29,7 @@ function BlogPage() {
         <ul className="border-t border-border">
           {posts.map((post, index) => (
             <Reveal as="li" key={post.slug} delay={index * 70}>
-              <a href="#contacts" className="row-item group grid gap-4 border-b border-border px-3 py-10 md:grid-cols-[10rem_1fr_2rem] md:items-baseline">
+              <div className="row-item group grid gap-4 border-b border-border px-3 py-10 md:grid-cols-[10rem_1fr] md:items-baseline">
                 <div className="text-[10px] uppercase tracking-[0.3em] text-petrol">
                   {post.type}
                   <time className="mt-2 block text-muted-foreground">{post.date}</time>
@@ -39,8 +38,7 @@ function BlogPage() {
                   <h2 className="font-display text-3xl leading-tight md:text-4xl">{post.title}</h2>
                   <p className="mt-3 max-w-2xl text-sm text-muted-foreground">{post.excerpt}</p>
                 </div>
-                <ArrowUpRight className="row-arrow size-5 justify-self-end text-brass" />
-              </a>
+              </div>
             </Reveal>
           ))}
         </ul>

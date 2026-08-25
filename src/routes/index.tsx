@@ -69,7 +69,16 @@ function Index() {
   const heroVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (heroVideoRef.current) heroVideoRef.current.playbackRate = 0.85;
+    const video = heroVideoRef.current;
+    if (!video) return;
+    const apply = () => { video.playbackRate = 0.85; };
+    apply();
+    video.addEventListener("loadeddata", apply);
+    video.addEventListener("play", apply);
+    return () => {
+      video.removeEventListener("loadeddata", apply);
+      video.removeEventListener("play", apply);
+    };
   }, []);
 
   return (
@@ -80,13 +89,14 @@ function Index() {
         <h1 className="sr-only">Moshe Ganelin</h1>
         <video
           ref={heroVideoRef}
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover [transform:translateZ(0)]"
           src={heroVideoAsset.url}
           poster={heroPosterAsset.url}
           autoPlay
           loop
           muted
           playsInline
+          disablePictureInPicture
           preload="auto"
         />
         <div className="absolute inset-0 bg-hero/35" />
@@ -94,8 +104,9 @@ function Index() {
         <img
           src={logoAsset.url}
           alt="Moshe Ganelin"
-          className="hero-logo absolute top-[calc(1.25rem-1cm)] left-1/2 z-20 w-[min(70vw,620px)] -translate-x-1/2 object-contain"
+          className="hero-logo absolute top-[calc(1.25rem-1cm)] left-1/2 z-20 w-[min(70vw,620px)] -translate-x-1/2 border border-hero object-contain p-3"
         />
+
       </section>
 
       <section id="concerts" className="bg-background px-5 py-24 md:px-10 lg:px-16 lg:py-32">

@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight } from "lucide-react";
 
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
@@ -56,18 +55,14 @@ function ConcertCard({ concert, index }: { concert: Concert; index: number }) {
 function ArchiveRow({ concert, index }: { concert: Concert; index: number }) {
   return (
     <Reveal as="li" delay={index * 60}>
-      <a
-        href="#contacts"
-        className="row-item group grid items-baseline gap-3 border-b border-border/60 px-3 py-7 text-muted-foreground md:grid-cols-[10rem_1fr_1.1fr_2rem]"
-      >
+      <div className="row-item group grid items-baseline gap-3 border-b border-border/60 px-3 py-7 text-muted-foreground md:grid-cols-[10rem_1fr_1.1fr]">
         <span className="font-display text-2xl leading-none">
           {concert.day} {concert.month}
           <span className="ml-2 text-sm">{concert.year}</span>
         </span>
         <span className="text-base">{concert.city}, {concert.venue}</span>
         <span className="font-display text-lg leading-snug">{concert.title}</span>
-        <ArrowUpRight className="row-arrow size-5 justify-self-end text-brass" />
-      </a>
+      </div>
     </Reveal>
   );
 }
