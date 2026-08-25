@@ -68,8 +68,10 @@ function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-hero py-24 text-background lg:py-32">
-        <div className="mx-auto max-w-[1600px] px-5 md:px-10 lg:px-16">
+      <section className="relative overflow-hidden py-24 text-background lg:py-32">
+        <img src={pianoAsset.url} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-hero/82" />
+        <div className="relative mx-auto max-w-[1600px] px-5 md:px-10 lg:px-16">
           <Reveal>
             <h2 className="font-display text-4xl leading-none md:text-6xl">Этапы пути</h2>
           </Reveal>
@@ -83,18 +85,12 @@ function AboutPage() {
               >
                 <div className={`milestone-card p-8 md:p-10 ${shapes[index % shapes.length]}`}>
                   <h3 className="font-display text-2xl md:text-3xl">{item.title}</h3>
-                  <p className="mt-4 text-sm leading-relaxed text-background/70">{item.text}</p>
+                  <p className="mt-4 text-sm leading-relaxed text-background/80">{item.text}</p>
                 </div>
               </Reveal>
             ))}
           </ul>
         </div>
-      </section>
-
-      <section className="py-0">
-        <Reveal className="media-zoom overflow-hidden">
-          <img src={pianoAsset.url} alt="Moshe Ganelin за роялем" loading="lazy" className="h-[60svh] w-full object-cover md:h-[80svh]" />
-        </Reveal>
       </section>
 
     </PageShell>
