@@ -261,12 +261,12 @@ function VideoCard({ video }: { video: Video }) {
 
   return (
     <article
-      className="video-tilt w-[86vw] shrink-0 snap-center sm:w-[62vw] lg:w-[46%] xl:w-[38%]"
+      className="video-tilt w-[82vw] shrink-0 snap-center sm:w-[26rem] xl:w-[30rem]"
       onMouseMove={handleMove}
       onMouseLeave={reset}
     >
-      <div ref={cardRef} className="video-tilt-inner">
-        <div className="relative aspect-video overflow-hidden rounded-[1.5rem] bg-black">
+      <div ref={cardRef} className="video-frame">
+        <div className="relative aspect-video overflow-hidden rounded-[0.75rem] bg-black">
           {playing ? (
             <iframe
               src={`https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&rel=0`}
@@ -290,11 +290,12 @@ function VideoCard({ video }: { video: Video }) {
             </button>
           )}
         </div>
-        <h3 className="mt-5 font-display text-xl leading-snug text-background">{video.title}</h3>
+        <h3 className="mt-5 line-clamp-2 min-h-[3.4rem] font-display text-lg leading-snug text-background">{video.title}</h3>
       </div>
     </article>
   );
 }
+
 
 
 function Publication({ type, date, title }: { type: string; date: string; title: string }) {
