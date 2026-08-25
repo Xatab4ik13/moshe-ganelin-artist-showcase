@@ -115,7 +115,7 @@ function GalleryPage() {
   return (
     <PageShell title="Фотографии" lead="Подписи к фотографиям — пример текста, будут заменены.">
       <section className="mx-auto max-w-[1600px] px-5 pb-32 pt-10 md:px-10 lg:px-16 lg:pb-44">
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3 md:items-start">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5 md:items-start">
           {columns.map((column, columnIndex) => (
             <div
               key={columnIndex}
