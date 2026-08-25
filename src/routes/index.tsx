@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, Play } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import pianoAsset from "@/assets/moshe-piano.webp.asset.json";
@@ -37,6 +37,21 @@ const concerts = [
   { day: "12", month: "сентября", city: "Москва", venue: "Зал имени Рахманинова", title: "Авторский вечер Moshe Ganelin", image: venueHall },
 ];
 
+
+type Video = { id: string; title: string };
+
+const videos: Video[] = [
+  { id: "WBZdF8B2wpU", title: "Ganelin — Reger in Harlem" },
+  { id: "Q88Nv7ToyN0", title: "Rachmaninoff — Moment musical op. 16 no. 4 (organ)" },
+  { id: "jNyTRlUBOks", title: "Improvisation on Christmas themes" },
+  { id: "qnOAs0JhL8w", title: "Louis Vierne — Final, Organ Symphony no. 6 op. 59" },
+  { id: "yEJB7s02L9c", title: "Ganelin — Organ Symphony No. 4 (2017)" },
+  { id: "GoNfKFTRTvU", title: "Chopin — Revolutionary Etude on organ" },
+  { id: "iAKPA7E9fY8", title: "The Celtic Lovesong — concerto for organ and orchestra" },
+  { id: "2i9yR_80YDI", title: "Prelude and Fugue «Nun komm, der Heiden Heiland»" },
+  { id: "LaUCiNaGKws", title: "Scriabin — Le Poème de l'Extase" },
+  { id: "Vs56W0_2n7M", title: "A. Mosolov — Iron Foundry (transcription for organ)" },
+];
 
 const menuItems = [
   ["Главная", "#top"], ["О музыканте", "#about"], ["Афиша", "#concerts"],
