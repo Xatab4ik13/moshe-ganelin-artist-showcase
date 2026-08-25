@@ -99,7 +99,7 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
         <img
           src={logoAsset.url}
           alt="Moshe Ganelin"
-          className="hero-logo pointer-events-none absolute top-[calc(1.25rem-1cm)] left-1/2 z-10 w-[min(70vw,620px)] -translate-x-1/2 object-contain"
+          className="hero-logo pointer-events-none absolute top-[calc(1.25rem+1cm)] left-1/2 z-10 w-[min(80.5vw,620px)] md:top-[calc(1.25rem-1cm)] md:w-[min(70vw,620px)] -translate-x-1/2 object-contain"
         />
 
         <nav

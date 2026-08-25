@@ -4,7 +4,6 @@ import { useRef, useState } from "react";
 import { ConcertCard } from "@/components/site/ConcertCard";
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
-import { StaffDivider } from "@/components/site/StaffDivider";
 import { archiveConcerts, upcomingConcerts, type Concert } from "@/lib/site-data";
 import stageAsset from "@/assets/moshe-stage.webp.asset.json";
 import venueCathedral from "@/assets/venue-cathedral.jpg";
@@ -87,7 +86,6 @@ function ConcertsPage() {
           <h2 className="font-display text-4xl leading-none md:text-6xl">Ближайшие концерты</h2>
         </Reveal>
 
-        <StaffDivider className="mt-6" />
 
         <div className="grid gap-10 lg:grid-cols-[1fr_18rem]">
           <div className="-mx-5 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-4 md:mx-0 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:pb-0">
