@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 
-import { MiniBar } from "@/components/site/MiniBar";
 import { ConcertCard } from "@/components/site/ConcertCard";
 import { Reveal } from "@/components/site/Reveal";
 import { SiteMenu } from "@/components/site/SiteMenu";
@@ -46,7 +45,6 @@ function Index() {
   return (
     <main className="overflow-hidden bg-background text-foreground">
       <SiteMenu tone="light" />
-      <MiniBar />
 
       <section id="top" className="relative min-h-[100svh] overflow-hidden bg-hero text-background">
         <h1 className="sr-only">Moshe Ganelin</h1>

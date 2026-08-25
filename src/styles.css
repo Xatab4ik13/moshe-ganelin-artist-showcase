@@ -391,10 +391,6 @@ body::after {
 /* --- 34. Лайтбокс --- */
 .lightbox-figure { transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1), opacity 320ms ease; }
 
-/* --- 46. Мобильная мини-шапка --- */
-.mini-bar { transition: transform 480ms cubic-bezier(0.22, 1, 0.36, 1), opacity 320ms ease; }
-.mini-bar-hidden { transform: translateY(-110%); opacity: 0; }
-
 /* --- Скроллбары: скрыты по всему сайту --- */
 html, body, * {
   scrollbar-width: none;
