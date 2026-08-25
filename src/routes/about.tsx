@@ -106,7 +106,7 @@ function AboutPage() {
       </section>
 
       <section className="relative overflow-hidden py-24 text-background lg:py-32">
-        <img src={pianoAsset.url} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />
+        <img src={pianoAsset.url} alt="" aria-hidden="true" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-hero/82" />
         <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-hero via-hero/55 to-transparent md:h-56" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-hero via-hero/55 to-transparent md:h-44" />

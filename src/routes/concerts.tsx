@@ -6,9 +6,13 @@ import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { archiveConcerts, upcomingConcerts, type Concert } from "@/lib/site-data";
 import stageAsset from "@/assets/moshe-stage.webp.asset.json";
-import venueCathedral from "@/assets/venue-cathedral.jpg";
-import venuePetrikirche from "@/assets/venue-petrikirche.jpg";
-import venueHall from "@/assets/venue-hall.jpg";
+import venueCathedralAsset from "@/assets/venue-cathedral.webp.asset.json";
+import venuePetrikircheAsset from "@/assets/venue-petrikirche.webp.asset.json";
+import venueHallAsset from "@/assets/venue-hall.webp.asset.json";
+
+const venueCathedral = venueCathedralAsset.url;
+const venuePetrikirche = venuePetrikircheAsset.url;
+const venueHall = venueHallAsset.url;
 
 export const Route = createFileRoute("/concerts")({
   head: () => ({
@@ -138,7 +142,7 @@ function ConcertsPage() {
         className={`row-thumb hidden md:block ${thumb ? "row-thumb-visible" : ""}`}
         style={{ left: thumb?.x ?? -400, top: thumb?.y ?? -400 }}
       >
-        {thumb ? <img src={thumb.src} alt="" className="h-full w-full object-cover" /> : null}
+        {thumb ? <img src={thumb.src} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" /> : null}
       </div>
     </PageShell>
   );
