@@ -1,14 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { ConcertCard } from "@/components/site/ConcertCard";
 import { Reveal } from "@/components/site/Reveal";
 import { SiteMenu } from "@/components/site/SiteMenu";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import { SitePreloader } from "@/components/site/SitePreloader";
 import { upcomingConcerts } from "@/lib/site-data";
 import logoAsset from "@/assets/moshe-ganelin-logo.png.asset.json";
 import heroVideoAsset from "@/assets/hero-reger.mp4.asset.json";
 import heroPosterAsset from "@/assets/hero-poster.jpg.asset.json";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -28,22 +30,28 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
 
   useEffect(() => {
     const video = heroVideoRef.current;
     if (!video) return;
     const apply = () => { video.playbackRate = 0.85; };
+    const markReady = () => { apply(); setVideoReady(true); };
     apply();
-    video.addEventListener("loadeddata", apply);
+    if (video.readyState >= 2) setVideoReady(true);
+    video.addEventListener("loadeddata", markReady);
+    video.addEventListener("canplay", markReady);
     video.addEventListener("play", apply);
     return () => {
-      video.removeEventListener("loadeddata", apply);
+      video.removeEventListener("loadeddata", markReady);
+      video.removeEventListener("canplay", markReady);
       video.removeEventListener("play", apply);
     };
   }, []);
 
   return (
     <main className="overflow-hidden bg-background text-foreground">
+      <SitePreloader ready={videoReady} />
       <SiteMenu tone="light" />
 
       <section id="top" className="relative min-h-[100svh] overflow-hidden bg-hero text-background">
@@ -62,6 +70,7 @@ function Index() {
         />
         <div className="absolute inset-0 bg-hero/15 md:bg-hero/35" />
         <div className="hero-blur absolute bottom-0 left-0 z-10 h-20 w-full md:h-48" />
+
         <img
           src={logoAsset.url}
           alt="Moshe Ganelin"
