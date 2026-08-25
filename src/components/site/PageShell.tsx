@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 
+import { MiniBar } from "./MiniBar";
 import { Reveal } from "./Reveal";
 import { SiteFooter } from "./SiteFooter";
 import { SiteMenu } from "./SiteMenu";
