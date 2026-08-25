@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, Play } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import pianoAsset from "@/assets/moshe-piano.webp.asset.json";
@@ -38,6 +38,21 @@ const concerts = [
 ];
 
 
+type Video = { id: string; title: string };
+
+const videos: Video[] = [
+  { id: "WBZdF8B2wpU", title: "Ganelin — Reger in Harlem" },
+  { id: "Q88Nv7ToyN0", title: "Rachmaninoff — Moment musical op. 16 no. 4 (organ)" },
+  { id: "jNyTRlUBOks", title: "Improvisation on Christmas themes" },
+  { id: "qnOAs0JhL8w", title: "Louis Vierne — Final, Organ Symphony no. 6 op. 59" },
+  { id: "yEJB7s02L9c", title: "Ganelin — Organ Symphony No. 4 (2017)" },
+  { id: "GoNfKFTRTvU", title: "Chopin — Revolutionary Etude on organ" },
+  { id: "iAKPA7E9fY8", title: "The Celtic Lovesong — concerto for organ and orchestra" },
+  { id: "2i9yR_80YDI", title: "Prelude and Fugue «Nun komm, der Heiden Heiland»" },
+  { id: "LaUCiNaGKws", title: "Scriabin — Le Poème de l'Extase" },
+  { id: "Vs56W0_2n7M", title: "A. Mosolov — Iron Foundry (transcription for organ)" },
+];
+
 const menuItems = [
   ["Главная", "#top"], ["О музыканте", "#about"], ["Афиша", "#concerts"],
   ["Музыка", "#selected"], ["Видео", "#selected"], ["Блог", "#publications"],
@@ -47,6 +62,16 @@ const menuItems = [
 function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  const scrollCarousel = (direction: number) => {
+    const rail = carouselRef.current;
+    if (!rail) return;
+    const step = rail.querySelector("article")?.clientWidth ?? rail.clientWidth * 0.6;
+    rail.scrollBy({ left: direction * (step + 28), behavior: "smooth" });
+  };
+
+
 
   useEffect(() => {
     if (heroVideoRef.current) heroVideoRef.current.playbackRate = 0.85;
@@ -159,14 +184,22 @@ function Index() {
       </section>
 
       <section id="selected" className="bg-foreground py-24 text-background lg:py-32">
-        <div className="mx-auto grid max-w-[1600px] gap-12 px-5 md:px-10 lg:grid-cols-[0.55fr_1.45fr] lg:px-16">
-          <div className="flex flex-col justify-end"><h2 className="font-display text-4xl leading-tight md:text-6xl">Орган как целый оркестр</h2></div>
-          <div className="group relative aspect-[16/10] overflow-hidden">
-            <img src={pianoAsset.url} alt="Moshe Ganelin во время выступления" loading="lazy" className="h-full w-full object-cover grayscale transition duration-700 group-hover:scale-[1.02] group-hover:grayscale-0" />
-            <Button aria-label="Смотреть видео" size="icon" className="absolute bottom-0 left-0 size-16 rounded-none bg-primary text-primary-foreground shadow-none hover:bg-primary/90"><Play className="fill-current" /></Button>
+        <div className="mx-auto max-w-[1600px] px-5 md:px-10 lg:px-16">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <h2 className="font-display text-5xl leading-none md:text-7xl">Видео</h2>
+            <div className="flex gap-3">
+              <Button aria-label="Предыдущие видео" size="icon" variant="ghost" onClick={() => scrollCarousel(-1)} className="size-12 rounded-full border border-background/25 text-background hover:bg-background/10"><ChevronLeft /></Button>
+              <Button aria-label="Следующие видео" size="icon" variant="ghost" onClick={() => scrollCarousel(1)} className="size-12 rounded-full border border-background/25 text-background hover:bg-background/10"><ChevronRight /></Button>
+            </div>
+          </div>
+          <div ref={carouselRef} className="video-rail mt-12 flex snap-x snap-mandatory gap-7 overflow-x-auto pb-14 pt-6">
+            {videos.map((video) => (
+              <VideoCard key={video.id} video={video} />
+            ))}
           </div>
         </div>
       </section>
+
 
       <section id="publications" className="bg-background px-5 py-24 md:px-10 lg:px-16 lg:py-32">
         <div className="mx-auto max-w-[1600px]">
@@ -200,6 +233,65 @@ function Index() {
     </main>
   );
 }
+
+function VideoCard({ video }: { video: Video }) {
+  const [playing, setPlaying] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const handleMove = (event: React.MouseEvent<HTMLElement>) => {
+    const card = cardRef.current;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+    card.style.setProperty("--rx", `${(-y * 9).toFixed(2)}deg`);
+    card.style.setProperty("--ry", `${(x * 12).toFixed(2)}deg`);
+  };
+
+  const reset = () => {
+    const card = cardRef.current;
+    if (!card) return;
+    card.style.setProperty("--rx", "0deg");
+    card.style.setProperty("--ry", "0deg");
+  };
+
+  return (
+    <article
+      className="video-tilt w-[86vw] shrink-0 snap-center sm:w-[62vw] lg:w-[46%] xl:w-[38%]"
+      onMouseMove={handleMove}
+      onMouseLeave={reset}
+    >
+      <div ref={cardRef} className="video-tilt-inner">
+        <div className="relative aspect-video overflow-hidden rounded-[1.5rem] bg-black">
+          {playing ? (
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&rel=0`}
+              title={video.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="absolute inset-0 h-full w-full"
+            />
+          ) : (
+            <button type="button" onClick={() => setPlaying(true)} aria-label={`Смотреть: ${video.title}`} className="group absolute inset-0 h-full w-full">
+              <img
+                src={`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`}
+                alt={video.title}
+                loading="lazy"
+                className="h-full w-full scale-[1.35] object-cover transition duration-700 group-hover:scale-[1.4]"
+              />
+              <span className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+              <span className="absolute left-1/2 top-1/2 flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/50 bg-black/35 backdrop-blur-sm transition group-hover:scale-110">
+                <Play className="size-6 fill-white text-white" />
+              </span>
+            </button>
+          )}
+        </div>
+        <h3 className="mt-5 font-display text-xl leading-snug text-background">{video.title}</h3>
+      </div>
+    </article>
+  );
+}
+
 
 function Publication({ type, date, title }: { type: string; date: string; title: string }) {
   return <article className="flex min-h-64 flex-col justify-between border-t border-border pt-5"><div className="flex justify-between text-[10px] uppercase"><span className="text-muted-foreground">{type}</span><time className="text-muted-foreground">{date}</time></div><a href="#contacts" className="group flex items-end justify-between gap-4"><h3 className="font-display text-3xl leading-tight">{title}</h3><ArrowUpRight className="size-5 shrink-0 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></a></article>;
