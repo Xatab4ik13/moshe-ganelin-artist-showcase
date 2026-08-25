@@ -226,12 +226,8 @@
 .flip-face-back { transform: translateZ(0) rotateY(180deg); }
 
 .hero-blur {
-
   pointer-events: none;
-  background: linear-gradient(to bottom, transparent 0%, var(--color-background) 92%);
-  backdrop-filter: blur(7px) saturate(110%);
-  mask-image: linear-gradient(to bottom, transparent 0%, black 40%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 40%);
+  background: linear-gradient(to bottom, transparent 0%, color-mix(in oklab, var(--color-background) 45%, transparent) 55%, var(--color-background) 100%);
 }
 
 @media (max-width: 767px) {
@@ -314,5 +310,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
-  .media-zoom img, .row-item, .row-arrow, .line-link::after { transition-duration: 1ms; }
+  .media-zoom img, .row-item, .line-link, .line-link::before { transition-duration: 1ms; }
 }
