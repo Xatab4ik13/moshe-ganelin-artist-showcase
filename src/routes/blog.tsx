@@ -23,7 +23,6 @@ export const Route = createFileRoute("/blog")({
 function BlogPage() {
   return (
     <PageShell
-      eyebrow="Блог"
       title="Публикации"
       lead="Эссе, интервью и заметки — пример текста, который будет заменён."
     >

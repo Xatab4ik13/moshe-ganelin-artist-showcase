@@ -24,7 +24,6 @@ export const Route = createFileRoute("/video")({
 function VideoPage() {
   return (
     <PageShell
-      eyebrow="Видео"
       title="Видеоархив"
       lead="Каталог записей выступлений с короткими описаниями — пример текста."
       image={architectureAsset.url}

@@ -5,13 +5,11 @@ import { SiteFooter } from "./SiteFooter";
 import { SiteMenu } from "./SiteMenu";
 
 export function PageShell({
-  eyebrow,
   title,
   lead,
   image,
   children,
 }: {
-  eyebrow: string;
   title: string;
   lead?: string;
   image?: string;
@@ -27,8 +25,7 @@ export function PageShell({
           <div className="absolute inset-0 bg-gradient-to-t from-hero via-hero/50 to-hero/20" />
           <div className="relative mx-auto w-full max-w-[1600px] px-5 pb-16 md:px-10 lg:px-16 lg:pb-24">
             <Reveal>
-              <p className="text-[10px] uppercase tracking-[0.4em] text-brass">{eyebrow}</p>
-              <h1 className="mt-5 font-display text-[clamp(2.6rem,7vw,6rem)] leading-[0.95]">{title}</h1>
+              <h1 className=" font-display text-[clamp(2.6rem,7vw,6rem)] leading-[0.95]">{title}</h1>
               {lead ? <p className="mt-6 max-w-2xl text-base text-background/75 md:text-lg">{lead}</p> : null}
             </Reveal>
           </div>
@@ -36,8 +33,7 @@ export function PageShell({
       ) : (
         <header className="mx-auto max-w-[1600px] px-5 pb-10 pt-32 md:px-10 lg:px-16 lg:pt-44">
           <Reveal>
-            <p className="text-[10px] uppercase tracking-[0.4em] text-petrol">{eyebrow}</p>
-            <h1 className="mt-5 font-display text-[clamp(2.6rem,7vw,6rem)] leading-[0.95]">{title}</h1>
+            <h1 className=" font-display text-[clamp(2.6rem,7vw,6rem)] leading-[0.95]">{title}</h1>
             {lead ? <p className="mt-6 max-w-2xl text-base text-muted-foreground md:text-lg">{lead}</p> : null}
           </Reveal>
         </header>

@@ -23,7 +23,6 @@ export const Route = createFileRoute("/music")({
 function MusicPage() {
   return (
     <PageShell
-      eyebrow="Музыка"
       title="Сочинения и записи"
       lead="Разделы по направлениям, ссылки на записи и ноты — пример текста."
       image={pianoAsset.url}
@@ -34,9 +33,6 @@ function MusicPage() {
             <Reveal>
               <div className="flex flex-wrap items-baseline justify-between gap-4 border-b border-border pb-6">
                 <h2 className="font-display text-3xl leading-none md:text-5xl">{section.section}</h2>
-                <span className="text-[10px] uppercase tracking-[0.4em] text-petrol">
-                  {String(sectionIndex + 1).padStart(2, "0")} / {section.works.length} произведения
-                </span>
               </div>
               <p className="mt-5 max-w-2xl text-sm text-muted-foreground">{section.description}</p>
             </Reveal>
