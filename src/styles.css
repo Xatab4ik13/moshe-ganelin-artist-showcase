@@ -66,28 +66,31 @@
 
 :root {
   --radius: 0.125rem;
-  --background: oklch(0.96 0.008 85);
-  --foreground: oklch(0.20 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.52 0.205 27);
-  --primary-foreground: oklch(0.96 0.008 85);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.94 0.004 80);
-  --muted-foreground: oklch(0.62 0 0);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.73 0 0);
-  --input: oklch(0.73 0 0);
-  --ring: oklch(0.52 0.205 27);
-  --hero: oklch(0.08 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
+  /* Гамма из хиро: тёплая бумага, синевато-графитовые тени, латунь органных труб, глубокий петроль */
+  --background: oklch(0.963 0.007 85);
+  --foreground: oklch(0.215 0.014 250);
+  --card: oklch(0.985 0.004 85);
+  --card-foreground: oklch(0.215 0.014 250);
+  --popover: oklch(0.985 0.004 85);
+  --popover-foreground: oklch(0.215 0.014 250);
+  --primary: oklch(0.70 0.118 72);
+  --primary-foreground: oklch(0.19 0.014 250);
+  --secondary: oklch(0.93 0.012 230);
+  --secondary-foreground: oklch(0.26 0.02 250);
+  --muted: oklch(0.925 0.008 85);
+  --muted-foreground: oklch(0.52 0.018 250);
+  --accent: oklch(0.46 0.065 215);
+  --accent-foreground: oklch(0.965 0.006 85);
+  --destructive: oklch(0.52 0.13 35);
+  --destructive-foreground: oklch(0.98 0.004 85);
+  --border: oklch(0.79 0.012 250);
+  --input: oklch(0.79 0.012 250);
+  --ring: oklch(0.70 0.118 72);
+  --hero: oklch(0.155 0.018 250);
+  --brass: oklch(0.70 0.118 72);
+  --petrol: oklch(0.46 0.065 215);
+  --chart-1: oklch(0.70 0.118 72);
+  --chart-2: oklch(0.46 0.065 215);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
@@ -100,6 +103,7 @@
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
 }
+
 
 .dark {
   --background: oklch(0.129 0.042 264.695);
