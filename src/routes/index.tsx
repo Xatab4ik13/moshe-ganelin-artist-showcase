@@ -11,6 +11,9 @@ import logoAsset from "@/assets/moshe-ganelin-logo.png.asset.json";
 import heroVideoAsset from "@/assets/hero-reger.mp4.asset.json";
 import heroPosterAsset from "@/assets/hero-poster.jpg.asset.json";
 import menuBgAsset from "@/assets/menu-bg.jpg.asset.json";
+import venueCathedral from "@/assets/venue-cathedral.jpg";
+import venuePetrikirche from "@/assets/venue-petrikirche.jpg";
+import venueHall from "@/assets/venue-hall.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -29,10 +32,11 @@ export const Route = createFileRoute("/")({
 });
 
 const concerts = [
-  { day: "14", month: "сентября", city: "Москва", venue: "Кафедральный собор", title: "Органный вечер: от Баха до наших дней" },
-  { day: "28", month: "сентября", city: "Санкт-Петербург", venue: "Петрикирхе", title: "Музыка соборов. Сольный концерт" },
-  { day: "12", month: "сентября", city: "Москва", venue: "Зал имени Рахманинова", title: "Авторский вечер Moshe Ganelin" },
+  { day: "14", month: "сентября", city: "Москва", venue: "Кафедральный собор", title: "Органный вечер: от Баха до наших дней", image: venueCathedral },
+  { day: "28", month: "сентября", city: "Санкт-Петербург", venue: "Петрикирхе", title: "Музыка соборов. Сольный концерт", image: venuePetrikirche },
+  { day: "12", month: "сентября", city: "Москва", venue: "Зал имени Рахманинова", title: "Авторский вечер Moshe Ganelin", image: venueHall },
 ];
+
 
 const menuItems = [
   ["Главная", "#top"], ["О музыканте", "#about"], ["Афиша", "#concerts"],
@@ -125,18 +129,32 @@ function Index() {
             <h2 className="font-display text-5xl leading-none md:text-7xl">Ближайшие<br />концерты</h2>
             <span className="text-[10px] uppercase text-muted-foreground">Сезон 2026 / 27</span>
           </div>
-          <div className="mt-16 grid gap-px bg-border lg:grid-cols-3">
+          <div className="mt-16 grid gap-6 lg:grid-cols-3">
             {concerts.map((concert) => (
-              <article key={concert.day} className="group flex min-h-80 flex-col justify-between bg-background p-6 transition-colors duration-300 hover:bg-foreground hover:text-background md:p-8">
-                <div className="space-y-1">
-                  <span className="font-display text-6xl leading-none">{concert.day}</span>
-                  <span className="block font-sans text-sm text-muted-foreground group-hover:text-background/70">{concert.month}</span>
-                  <p className="mt-6 text-base leading-snug text-foreground group-hover:text-background/85">{concert.city}, {concert.venue}</p>
+              <div key={concert.day} className="flip-card min-h-80">
+                <div className="flip-card-inner">
+                  <article className="flip-face flex flex-col justify-between border border-border bg-background p-6 md:p-8">
+                    <div className="space-y-1">
+                      <span className="font-display text-6xl leading-none">{concert.day}</span>
+                      <span className="block font-sans text-sm text-muted-foreground">{concert.month}</span>
+                      <p className="mt-6 text-base leading-snug text-foreground">{concert.city}, {concert.venue}</p>
+                    </div>
+                    <h3 className="font-display text-2xl leading-snug">{concert.title}</h3>
+                  </article>
+                  <article className="flip-face flip-face-back overflow-hidden border border-border bg-foreground text-background">
+                    <img src={concert.image} alt={`${concert.city}, ${concert.venue}`} loading="lazy" width={1024} height={1280} className="absolute inset-0 h-full w-full object-cover" />
+                    <div className="absolute inset-0 bg-hero/55" />
+                    <div className="relative flex h-full flex-col justify-end gap-2 p-6 md:p-8">
+                      <span className="text-[10px] uppercase tracking-widest text-background/70">{concert.day} {concert.month}</span>
+                      <h3 className="font-display text-2xl leading-snug">{concert.venue}</h3>
+                      <p className="text-sm text-background/80">{concert.city}</p>
+                    </div>
+                  </article>
                 </div>
-                <h3 className="font-display text-2xl leading-snug">{concert.title}</h3>
-              </article>
+              </div>
             ))}
           </div>
+
         </div>
       </section>
 
