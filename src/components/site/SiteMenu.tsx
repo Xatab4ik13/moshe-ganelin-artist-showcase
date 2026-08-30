@@ -146,11 +146,15 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
         <img src={menuBgAsset.url} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-hero/70" />
 
-        <img
-          src={logoAsset.url}
-          alt="Moshe Ariel Ganelin"
-          className="hero-logo pointer-events-none absolute top-[calc(1.25rem+1cm)] left-1/2 z-10 w-[min(80.5vw,620px)] md:top-[calc(1.25rem-1cm)] md:w-[min(70vw,620px)] -translate-x-1/2 object-contain"
-        />
+        <Link
+          to="/"
+          tabIndex={menuOpen ? 0 : -1}
+          onClick={close}
+          aria-label="Moshe Ariel Ganelin — Home"
+          className="hero-logo absolute top-[calc(1.25rem+1cm)] left-1/2 z-10 w-[min(80.5vw,620px)] md:top-[calc(1.25rem-1cm)] md:w-[min(70vw,620px)] -translate-x-1/2"
+        >
+          <img src={logoAsset.url} alt="Moshe Ariel Ganelin" className="w-full object-contain" />
+        </Link>
 
         <nav
           aria-label={t("mainNav")}
