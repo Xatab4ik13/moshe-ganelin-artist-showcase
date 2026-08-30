@@ -78,7 +78,12 @@
 
 @theme inline {
   --font-sans: "IBM Plex Sans", sans-serif;
-  --font-display: "Libre Baskerville", serif;
+  --font-display: "Metropolis 1920", "Libre Baskerville", serif;
+  --font-body: "Goudy Old Style", Georgia, serif;
+  --font-deco: "Partita Deco", "Metropolis 1920", serif;
+  --font-coxxon: "Coxxon", sans-serif;
+  --font-poiret: "Poiret One", sans-serif;
+  --font-copilot: "Copilot", monospace;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
