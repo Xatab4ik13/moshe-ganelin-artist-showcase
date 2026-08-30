@@ -16,10 +16,10 @@ import menuBgAsset from "@/assets/menu-bg.jpg.asset.json";
 export const Route = createFileRoute("/gallery")({
   head: () => ({
     meta: [
-      { title: "Галерея — Moshe Ganelin" },
-      { name: "description", content: "Фотографии Moshe Ganelin: концерты, репетиции, органы и залы." },
-      { property: "og:title", content: "Галерея — Moshe Ganelin" },
-      { property: "og:description", content: "Фотографии: концерты, репетиции, органы и залы." },
+      { title: "Gallery — Moshe Ariel Ganelin" },
+      { name: "description", content: "Photographs of Moshe Ariel Ganelin: concerts, rehearsals, organs and halls." },
+      { property: "og:title", content: "Gallery — Moshe Ariel Ganelin" },
+      { property: "og:description", content: "Photographs: concerts, rehearsals, organs and halls." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
