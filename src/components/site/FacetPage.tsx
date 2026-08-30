@@ -85,26 +85,68 @@ export function FacetPage({
       <section className="bg-hero px-5 py-24 text-background md:px-10 lg:px-16 lg:py-32">
         <div className="mx-auto max-w-[1600px]">
           <Reveal>
-            <SectionTitle tone="light">{t("facetSelected")}</SectionTitle>
+            <SectionTitle tone="light">{t(variant === "press" ? "pressQuotes" : variant === "awards" ? "awardsTimeline" : "facetSelected")}</SectionTitle>
             <DecoRule tone="light" className="mt-8" />
           </Reveal>
 
-          <ul className="mt-12 divide-y divide-background/15 border-y border-background/15">
-            {Array.from({ length: itemCount }).map((_, index) => (
-              <Reveal as="li" key={index} delay={index * 70}>
-                <div className="grid gap-3 py-7 md:grid-cols-[auto_1fr_auto] md:items-baseline md:gap-8">
-                  <span className="font-display text-sm tracking-[0.25em] text-brass">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <div>
-                    <h3 className="font-display text-2xl leading-tight md:text-3xl">{t("facetItem")}</h3>
-                    <p className="mt-2 text-base leading-relaxed text-background/70">{t("facetItemNote")}</p>
+          {variant === "press" && (
+            <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {Array.from({ length: quoteCount }).map((_, index) => (
+                <Reveal key={index} delay={index * 70}>
+                  <figure className="relative flex h-full flex-col border border-brass/40 p-8">
+                    <DecoCorner className="pointer-events-none absolute -left-px -top-px h-10 w-10 text-brass" />
+                    <DecoCorner className="pointer-events-none absolute -bottom-px -right-px h-10 w-10 rotate-180 text-brass" />
+                    <span aria-hidden className="font-display text-5xl leading-none text-brass">“</span>
+                    <blockquote className="mt-4 flex-1 font-display text-xl leading-snug md:text-2xl">
+                      {t("pressQuoteText")}
+                    </blockquote>
+                    <figcaption className="mt-6 border-t border-background/15 pt-4">
+                      <p className="text-sm tracking-[0.25em] text-brass">{t("pressQuoteSource")}</p>
+                      <p className="mt-1 text-sm text-background/50">2026</p>
+                    </figcaption>
+                  </figure>
+                </Reveal>
+              ))}
+            </div>
+          )}
+
+          {variant === "awards" && (
+            <ol className="relative mt-12 space-y-10 border-l border-brass/40 pl-8 md:pl-12">
+              {Array.from({ length: awardCount }).map((_, index) => (
+                <Reveal as="li" key={index} delay={index * 70}>
+                  <div className="relative">
+                    <span
+                      aria-hidden
+                      className="absolute -left-8 top-2 block h-3 w-3 -translate-x-1/2 rotate-45 border border-brass bg-hero md:-left-12"
+                    />
+                    <span className="absolute -left-8 top-[0.35rem] block h-1.5 w-1.5 -translate-x-1/2 rotate-45 bg-brass md:-left-12" />
+                    <p className="font-display text-sm tracking-[0.3em] text-brass">2026</p>
+                    <h3 className="mt-2 font-display text-2xl leading-tight md:text-3xl">{t("facetItem")}</h3>
+                    <p className="mt-2 max-w-2xl text-base leading-relaxed text-background/70">{t("facetItemNote")}</p>
                   </div>
-                  <span className="text-sm tracking-[0.2em] text-background/50">2026</span>
-                </div>
-              </Reveal>
-            ))}
-          </ul>
+                </Reveal>
+              ))}
+            </ol>
+          )}
+
+          {variant === "default" && (
+            <ul className="mt-12 divide-y divide-background/15 border-y border-background/15">
+              {Array.from({ length: itemCount }).map((_, index) => (
+                <Reveal as="li" key={index} delay={index * 70}>
+                  <div className="grid gap-3 py-7 md:grid-cols-[auto_1fr_auto] md:items-baseline md:gap-8">
+                    <span className="font-display text-sm tracking-[0.25em] text-brass">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <div>
+                      <h3 className="font-display text-2xl leading-tight md:text-3xl">{t("facetItem")}</h3>
+                      <p className="mt-2 text-base leading-relaxed text-background/70">{t("facetItemNote")}</p>
+                    </div>
+                    <span className="text-sm tracking-[0.2em] text-background/50">2026</span>
+                  </div>
+                </Reveal>
+              ))}
+            </ul>
+          )}
         </div>
       </section>
 
