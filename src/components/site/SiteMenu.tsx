@@ -88,7 +88,7 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
 
   useEffect(() => {
     if (panel !== "closing") return;
-    timer.current = window.setTimeout(() => setPanel("closed"), 650);
+    timer.current = window.setTimeout(() => setPanel("closed"), 520);
     return () => {
       if (timer.current) window.clearTimeout(timer.current);
     };
