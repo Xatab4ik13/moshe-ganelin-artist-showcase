@@ -25,5 +25,5 @@ const related: FacetLink[] = [
 ];
 
 function PressPage() {
-  return <FacetPage titleKey="pressTitle" leadKey="pressLead" image={heroImage.url} related={related} />;
+  return <FacetPage variant="press" titleKey="pressTitle" leadKey="pressLead" image={heroImage.url} related={related} />;
 }
