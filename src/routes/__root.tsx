@@ -93,9 +93,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preload", href: "/fonts/metropolis-1920.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" },
       { rel: "preload", href: "/fonts/goudy-old-style.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" },
       { rel: "preload", href: "/fonts/partita-deco.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" },
-      { rel: "icon", href: "/favicon.png?v=2", type: "image/png" },
-      { rel: "shortcut icon", href: "/favicon.png?v=2", type: "image/png" },
-      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+      { rel: "icon", href: "/favicon.png?v=3", type: "image/png" },
+      { rel: "shortcut icon", href: "/favicon.png?v=3", type: "image/png" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png?v=3" },
     ],
   }),
   shellComponent: RootShell,
@@ -120,12 +120,15 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <Outlet />
+        <div key={pathname} className="route-fade">
+          <Outlet />
+        </div>
       </LanguageProvider>
     </QueryClientProvider>
   );
