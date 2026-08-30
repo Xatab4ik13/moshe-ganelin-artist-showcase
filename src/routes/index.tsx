@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 
 import { ConcertCard } from "@/components/site/ConcertCard";
+import { DecoRule } from "@/components/site/Deco";
 import { Reveal } from "@/components/site/Reveal";
 import { SiteMenu } from "@/components/site/SiteMenu";
 import { SiteFooter } from "@/components/site/SiteFooter";
@@ -96,6 +97,7 @@ function Index() {
               <h2 className="font-display text-5xl leading-none md:text-7xl">{t("homeUpcoming")}</h2>
               <Link to="/concerts" className="line-link text-base text-petrol">{t("homeAllConcerts")}</Link>
             </div>
+            <DecoRule className="mt-8" />
           </Reveal>
 
 
