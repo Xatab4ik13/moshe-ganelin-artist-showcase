@@ -29,19 +29,20 @@ export const Route = createFileRoute("/gallery")({
 });
 
 const photos = [
-  { src: organAsset.url, alt: "Moshe Ganelin за органом в соборе", ratio: "aspect-[4/3]" },
-  { src: architectureAsset.url, alt: "Исторический орган", ratio: "aspect-[3/4]" },
-  { src: stageAsset.url, alt: "Выступление на сцене", ratio: "aspect-[3/4]" },
-  { src: consoleAsset.url, alt: "Органная кафедра", ratio: "aspect-[4/3]" },
-  { src: pianoAsset.url, alt: "За роялем", ratio: "aspect-[4/5]" },
-  { src: heroAsset.url, alt: "Портрет музыканта", ratio: "aspect-[4/3]" },
-  { src: menuBgAsset.url, alt: "Интерьер зала", ratio: "aspect-[16/10]" },
+  { src: organAsset.url, alt: "Moshe Ariel Ganelin at the organ in a cathedral", ratio: "aspect-[4/3]" },
+  { src: architectureAsset.url, alt: "A historic organ", ratio: "aspect-[3/4]" },
+  { src: stageAsset.url, alt: "On stage", ratio: "aspect-[3/4]" },
+  { src: consoleAsset.url, alt: "The organ console", ratio: "aspect-[4/3]" },
+  { src: pianoAsset.url, alt: "At the grand piano", ratio: "aspect-[4/5]" },
+  { src: heroAsset.url, alt: "Portrait of the musician", ratio: "aspect-[4/3]" },
+  { src: menuBgAsset.url, alt: "Concert hall interior", ratio: "aspect-[16/10]" },
 ];
 
 const columnsCount = 3;
 const speeds = [0, -46, 26];
 
 function GalleryPage() {
+  const { t } = useLanguage();
   const [active, setActive] = useState<number | null>(null);
   const [origin, setOrigin] = useState<{ x: number; y: number; scale: number } | null>(null);
   const [zoomed, setZoomed] = useState(false);
@@ -113,7 +114,7 @@ function GalleryPage() {
   }, [active]);
 
   return (
-    <PageShell title="Фотографии" lead="Подписи к фотографиям — пример текста, будут заменены.">
+    <PageShell title={t("galleryTitle")} lead={t("galleryLead")}>
       <section className="mx-auto max-w-[1600px] px-5 pb-32 pt-10 md:px-10 lg:px-16 lg:pb-44">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5 md:items-start">
           {columns.map((column, columnIndex) => (
