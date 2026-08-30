@@ -4,29 +4,75 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import menuBgAsset from "@/assets/menu-bg.jpg.asset.json";
 import logoAsset from "@/assets/moshe-ganelin-logo.png.asset.json";
 import { haptic } from "@/lib/haptics";
+import { langOptions, useLanguage, type DictKey } from "@/lib/i18n";
 import { SocialIconSvg, socialLinks } from "./social-icons";
 
-export const menuItems = [
-  { label: "Главная", to: "/" },
-  { label: "О музыканте", to: "/about" },
-  { label: "Афиша", to: "/concerts" },
+type MenuChild = { labelKey: DictKey; to: string; hash?: string };
+type MenuItem = { labelKey: DictKey; to?: string; children?: MenuChild[] };
+
+const menuItems: MenuItem[] = [
+  { labelKey: "navHome", to: "/" },
   {
-    label: "Медиа",
+    labelKey: "navAbout",
     children: [
-      { label: "Музыка", to: "/music" },
-      { label: "Видео", to: "/video" },
-      { label: "Галерея", to: "/gallery" },
+      { labelKey: "navBio", to: "/about" },
+      { labelKey: "navPublications", to: "/about", hash: "publications" },
     ],
   },
-  { label: "Блог", to: "/blog" },
-  { label: "Контакты", to: "/contacts" },
-] as const;
+  {
+    labelKey: "navMusic",
+    children: [
+      { labelKey: "navOrgan", to: "/music", hash: "organ" },
+      { labelKey: "navOrchestra", to: "/music", hash: "orchestra" },
+      { labelKey: "navPiano", to: "/music", hash: "piano" },
+      { labelKey: "navTranscriptions", to: "/music", hash: "transcriptions" },
+      { labelKey: "navRecordings", to: "/music", hash: "recordings" },
+    ],
+  },
+  {
+    labelKey: "navPoetry",
+    children: [
+      { labelKey: "langRussian", to: "/poetry", hash: "russian" },
+      { labelKey: "langEnglish", to: "/poetry", hash: "english" },
+      { labelKey: "langSpanish", to: "/poetry", hash: "spanish" },
+      { labelKey: "langPortuguese", to: "/poetry", hash: "portuguese" },
+    ],
+  },
+  { labelKey: "navConcerts", to: "/concerts" },
+  { labelKey: "navGallery", to: "/gallery" },
+  { labelKey: "navContact", to: "/contacts" },
+];
 
 type PanelState = "closed" | "open" | "closing";
 
+export function LanguageSwitcher({ className = "" }: { className?: string }) {
+  const { lang, setLang } = useLanguage();
+  return (
+    <div className={`flex items-center gap-1 ${className}`} role="group" aria-label="Language">
+      {langOptions.map((option) => (
+        <button
+          key={option.code}
+          type="button"
+          onClick={() => {
+            setLang(option.code);
+            haptic(6);
+          }}
+          aria-pressed={lang === option.code}
+          className={`px-2.5 py-1.5 text-xs tracking-[0.2em] transition-colors duration-300 ${
+            lang === option.code ? "text-brass" : "opacity-55 hover:opacity-100"
+          }`}
+        >
+          {option.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
+  const { t } = useLanguage();
   const [panel, setPanel] = useState<PanelState>("closed");
-  const [mediaOpen, setMediaOpen] = useState(false);
+  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
   const timer = useRef<number | null>(null);
   const menuOpen = panel === "open";
 
@@ -75,9 +121,13 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
 
   return (
     <>
+      <LanguageSwitcher
+        className={`fixed left-[calc(0.75rem)] top-6 z-50 md:left-6 md:top-8 ${barTone} [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.35))]`}
+      />
+
       <button
         type="button"
-        aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
+        aria-label={menuOpen ? t("closeMenu") : t("openMenu")}
         aria-expanded={menuOpen}
         onClick={() => (menuOpen ? close() : open())}
         className={`group fixed right-[calc(0.75rem_+_var(--scrollbar-width))] top-3 z-50 inline-block p-3 opacity-90 [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.35))] transition-opacity duration-300 hover:opacity-100 focus:outline-none md:right-[calc(1.5rem_+_var(--scrollbar-width))] md:top-5 ${barTone}`}
@@ -98,41 +148,44 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
 
         <img
           src={logoAsset.url}
-          alt="Moshe Ganelin"
+          alt="Moshe Ariel Ganelin"
           className="hero-logo pointer-events-none absolute top-[calc(1.25rem+1cm)] left-1/2 z-10 w-[min(80.5vw,620px)] md:top-[calc(1.25rem-1cm)] md:w-[min(70vw,620px)] -translate-x-1/2 object-contain"
         />
 
         <nav
-          aria-label="Основная навигация"
+          aria-label={t("mainNav")}
           className="relative mx-auto flex h-full max-w-[1600px] flex-col items-end justify-center gap-8 px-6 py-24 text-right md:px-16 lg:px-24"
         >
           <ol className="flex flex-col items-end">
             {menuItems.map((item) =>
-              "children" in item ? (
-                <li key={item.label} className="flex flex-col items-end">
+              item.children ? (
+                <li key={item.labelKey} className="flex flex-col items-end">
                   <button
                     type="button"
                     tabIndex={menuOpen ? 0 : -1}
-                    onClick={() => setMediaOpen((value) => !value)}
-                    aria-expanded={mediaOpen}
+                    onClick={() =>
+                      setOpenGroups((value) => ({ ...value, [item.labelKey]: !value[item.labelKey] }))
+                    }
+                    aria-expanded={!!openGroups[item.labelKey]}
                     className="menu-link block py-1.5 font-display text-[clamp(1.7rem,4vw,3.4rem)] leading-tight transition-colors hover:text-brass md:py-2"
                   >
-                    {item.label}
-                    <span className={`ml-3 inline-block text-[0.5em] transition-transform duration-300 ${mediaOpen ? "rotate-90" : ""}`}>›</span>
+                    {t(item.labelKey)}
+                    <span className={`ml-3 inline-block text-[0.5em] transition-transform duration-300 ${openGroups[item.labelKey] ? "rotate-90" : ""}`}>›</span>
                   </button>
                   <ul
-                    className={`flex flex-col items-end overflow-hidden transition-all duration-500 ${mediaOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"}`}
+                    className={`flex flex-col items-end overflow-hidden transition-all duration-500 ${openGroups[item.labelKey] ? "max-h-72 opacity-100" : "max-h-0 opacity-0"}`}
                   >
                     {item.children.map((child) => (
-                      <li key={child.to}>
+                      <li key={child.labelKey}>
                         <Link
                           to={child.to}
-                          tabIndex={menuOpen && mediaOpen ? 0 : -1}
+                          hash={child.hash}
+                          tabIndex={menuOpen && openGroups[item.labelKey] ? 0 : -1}
                           onClick={close}
                           activeProps={{ className: "text-brass" }}
                           className="block py-1 pr-1 font-sans text-base tracking-wide text-background/75 transition-colors hover:text-brass md:text-lg"
                         >
-                          {child.label}
+                          {t(child.labelKey)}
                         </Link>
                       </li>
                     ))}
@@ -141,35 +194,38 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
               ) : (
                 <li key={item.to} className="overflow-hidden">
                   <Link
-                    to={item.to}
+                    to={item.to!}
                     tabIndex={menuOpen ? 0 : -1}
                     onClick={close}
                     activeProps={{ className: "text-brass" }}
                     className="menu-link block py-1.5 font-display text-[clamp(1.7rem,4vw,3.4rem)] leading-tight transition-colors hover:text-brass md:py-2"
                   >
-                    {item.label}
+                    {t(item.labelKey)}
                   </Link>
                 </li>
               ),
             )}
           </ol>
 
-          <ul className="flex items-center gap-4">
-            {socialLinks.map((social) => (
-              <li key={social.key}>
-                <a
-                  href={social.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  tabIndex={menuOpen ? 0 : -1}
-                  aria-label={social.label}
-                  className="flex size-10 items-center justify-center rounded-full border border-background/35 text-background/85 transition-colors hover:border-brass hover:text-brass"
-                >
-                  <SocialIconSvg path={social.path} className="size-4" />
-                </a>
-              </li>
-            ))}
-          </ul>
+          <div className="flex flex-col items-end gap-6">
+            <LanguageSwitcher />
+            <ul className="flex items-center gap-4">
+              {socialLinks.map((social) => (
+                <li key={social.key}>
+                  <a
+                    href={social.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    tabIndex={menuOpen ? 0 : -1}
+                    aria-label={social.label}
+                    className="flex size-10 items-center justify-center rounded-full border border-background/35 text-background/85 transition-colors hover:border-brass hover:text-brass"
+                  >
+                    <SocialIconSvg path={social.path} className="size-4" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </nav>
       </div>
     </>

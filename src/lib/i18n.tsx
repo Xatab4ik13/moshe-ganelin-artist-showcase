@@ -97,7 +97,7 @@ const dict = {
     concertsPast: "Actuaciones pasadas",
     aboutTitle: "Biografía",
     aboutLead: "Breve introducción al músico — texto de ejemplo, será reemplazado por la versión final.",
-    aboutMilestones: "Etapaс del camino",
+    aboutMilestones: "Etapas del camino",
     aboutPublications: "Publicaciones",
     musicTitle: "Composiciones y grabaciones",
     musicLead: "Obras por disciplina, con enlaces a grabaciones y partituras — texto de ejemplo.",
