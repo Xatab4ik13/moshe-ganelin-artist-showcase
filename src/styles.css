@@ -4,6 +4,64 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ===== Client fonts (Art Deco archive) ===== */
+@font-face {
+  font-family: "Metropolis 1920";
+  src: url("/fonts/metropolis-1920.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Partita Deco";
+  src: url("/fonts/partita-deco.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Coxxon";
+  src: url("/fonts/coxxon.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Copilot";
+  src: url("/fonts/copilot.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poiret One";
+  src: url("/fonts/poiret-one.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Goudy Old Style";
+  src: url("/fonts/goudy-old-style.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Goudy Old Style";
+  src: url("/fonts/goudy-old-style-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Goudy Old Style";
+  src: url("/fonts/goudy-old-style-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /*
  * Design system definition.
  *
