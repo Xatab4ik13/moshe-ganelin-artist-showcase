@@ -140,7 +140,7 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
       </button>
 
       <div
-        className={`menu-panel fixed inset-0 z-40 overflow-hidden bg-hero text-background ${panelClass}`}
+        className={`menu-panel fixed inset-0 z-40 flex flex-col overflow-hidden bg-hero text-background ${panelClass}`}
         aria-hidden={!menuOpen}
       >
         <img src={menuBgAsset.url} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />
@@ -151,14 +151,14 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
           tabIndex={menuOpen ? 0 : -1}
           onClick={close}
           aria-label="Moshe Ariel Ganelin — Home"
-          className="hero-logo absolute top-[calc(1.25rem+1cm)] left-1/2 z-10 w-[min(80.5vw,620px)] md:top-[calc(1.25rem-1cm)] md:w-[min(70vw,620px)] -translate-x-1/2"
+          className="relative z-10 mx-auto mt-14 w-[min(52vw,240px)] shrink-0 md:mt-10 md:w-[min(30vw,300px)]"
         >
           <img src={logoAsset.url} alt="Moshe Ariel Ganelin" className="w-full object-contain" />
         </Link>
 
         <nav
           aria-label={t("mainNav")}
-          className="relative mx-auto flex h-full max-w-[1600px] flex-col items-end justify-center gap-8 px-6 py-24 text-right md:px-16 lg:px-24"
+          className="relative mx-auto flex w-full max-w-[1600px] flex-1 flex-col items-end justify-center gap-6 overflow-y-auto px-6 py-6 text-right md:px-16 lg:px-24"
         >
           <ol className="flex flex-col items-end">
             {menuItems.map((item) =>
