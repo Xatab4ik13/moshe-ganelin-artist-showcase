@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
-import logoAsset from "@/assets/moshe-ganelin-logo.png.asset.json";
 import { useLanguage } from "@/lib/i18n";
+import { LogoText } from "./LogoText";
 import { SocialIconSvg, socialLinks } from "./social-icons";
 
 export function SiteFooter() {
@@ -10,7 +10,7 @@ export function SiteFooter() {
   return (
     <footer id="contacts" className="bg-hero px-5 py-20 text-background md:px-10 lg:px-16">
       <div className="mx-auto max-w-[1600px]">
-        <img src={logoAsset.url} alt="Moshe Ariel Ganelin" className="w-[min(60vw,300px)] object-contain" />
+        <LogoText variant="brass" className="w-[min(70vw,320px)] text-[clamp(1.7rem,4.2vw,2.8rem)]" />
 
         <div className="mt-12 grid gap-10 border-t border-background/20 pt-10 md:grid-cols-3">
           <div className="space-y-2 text-base text-background/75">

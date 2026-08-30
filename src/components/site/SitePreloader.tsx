@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import logoAsset from "@/assets/moshe-ganelin-logo.png.asset.json";
+import { LogoText } from "@/components/site/LogoText";
 
 /**
  * Тёмная заставка: фон -> логотип -> уход.
@@ -41,7 +41,7 @@ export function SitePreloader({ ready }: { ready: boolean }) {
 
   return (
     <div className={`preloader${done ? " preloader-out" : ""}`} aria-hidden="true">
-      <img src={logoAsset.url} alt="" className="preloader-logo" />
+      <LogoText variant="brass" className="preloader-logo w-[min(76vw,360px)] text-[clamp(2rem,5.6vw,3.8rem)]" />
     </div>
   );
 }

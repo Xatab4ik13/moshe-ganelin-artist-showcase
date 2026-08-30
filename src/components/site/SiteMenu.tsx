@@ -2,9 +2,9 @@ import { Link } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import menuBgAsset from "@/assets/menu-bg.jpg.asset.json";
-import logoAsset from "@/assets/moshe-ganelin-logo.png.asset.json";
 import { haptic } from "@/lib/haptics";
 import { langOptions, useLanguage, type DictKey } from "@/lib/i18n";
+import { LogoText } from "./LogoText";
 import { SocialIconSvg, socialLinks } from "./social-icons";
 
 type MenuChild = { labelKey: DictKey; to: string; hash?: string };
@@ -137,7 +137,7 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
         aria-label={menuOpen ? t("closeMenu") : t("openMenu")}
         aria-expanded={menuOpen}
         onClick={() => (menuOpen ? close() : open())}
-        className={`group fixed right-[calc(0.75rem_+_var(--scrollbar-width))] top-3 z-50 inline-block p-3 opacity-90 [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.35))] transition-opacity duration-300 hover:opacity-100 focus:outline-none md:right-[calc(1.5rem_+_var(--scrollbar-width))] md:top-5 ${barTone}`}
+        className={`group menu-burger fixed right-[calc(0.75rem_+_var(--scrollbar-width))] top-3 z-50 inline-block p-3 opacity-90 transition-opacity duration-300 hover:opacity-100 focus:outline-none md:right-[calc(1.5rem_+_var(--scrollbar-width))] md:top-5 ${barTone}`}
       >
         <span className="relative block h-11 w-14 md:h-14 md:w-[72px]" aria-hidden="true">
           <span className={`menu-stroke absolute left-0 top-1/2 h-[3px] w-full -translate-y-1/2 rounded-full bg-current ${menuOpen ? "-translate-y-1/2 rotate-45" : "-translate-y-[9px] md:-translate-y-[11px]"}`} />
@@ -162,9 +162,9 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
           tabIndex={menuOpen ? 0 : -1}
           onClick={close}
           aria-label="Moshe Ariel Ganelin — Home"
-          className="relative z-10 mx-auto mt-14 w-[min(64vw,320px)] shrink-0 md:mt-10 md:w-[min(28vw,360px)]"
+          className="relative z-10 mx-auto mt-14 shrink-0 md:mt-10"
         >
-          <img src={logoAsset.url} alt="Moshe Ariel Ganelin" className="w-full object-contain" />
+          <LogoText variant="brass" className="w-[min(72vw,340px)] text-[clamp(1.8rem,4.4vw,3rem)]" />
         </Link>
 
         <nav

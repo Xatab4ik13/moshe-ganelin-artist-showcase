@@ -3,13 +3,13 @@ import { useEffect, useRef, useState } from "react";
 
 import { ConcertCard } from "@/components/site/ConcertCard";
 import { DecoRule } from "@/components/site/Deco";
+import { LogoText } from "@/components/site/LogoText";
 import { Reveal } from "@/components/site/Reveal";
 import { SiteMenu } from "@/components/site/SiteMenu";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SitePreloader } from "@/components/site/SitePreloader";
 import { upcomingConcerts } from "@/lib/site-data";
 import { useLanguage } from "@/lib/i18n";
-import logoAsset from "@/assets/moshe-ganelin-logo.png.asset.json";
 import heroVideoAsset from "@/assets/hero-reger.mp4.asset.json";
 import heroVideoLightAsset from "@/assets/hero-reger-light.mp4.asset.json";
 import heroPosterAsset from "@/assets/hero-poster.jpg.asset.json";
@@ -85,9 +85,9 @@ function Index() {
         <Link
           to="/"
           aria-label="Moshe Ariel Ganelin — Home"
-          className="hero-logo absolute left-1/2 top-[calc(3rem+1cm)] z-20 w-[min(74vw,380px)] -translate-x-1/2 md:top-10 md:w-[min(30vw,480px)]"
+          className="hero-logo absolute left-1/2 top-[calc(3rem+1cm)] z-20 -translate-x-1/2 md:top-10"
         >
-          <img src={logoAsset.url} alt="Moshe Ariel Ganelin" className="w-full object-contain" />
+          <LogoText variant="light" className="w-[min(72vw,360px)] text-[clamp(2rem,5.2vw,3.6rem)] md:w-[min(30vw,440px)]" />
         </Link>
 
       </section>
