@@ -122,7 +122,7 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [close]);
 
-  const barTone = menuOpen || tone === "light" ? "text-background" : "text-foreground";
+  const barTone = menuOpen ? "text-background" : tone === "light" ? "text-brass" : "text-foreground";
   const panelClass =
     panel === "open" ? "menu-panel-open" : panel === "closing" ? "menu-panel-closing" : "menu-panel-reset";
 
