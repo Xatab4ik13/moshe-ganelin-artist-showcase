@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { haptic } from "@/lib/haptics";
+import { useLanguage } from "@/lib/i18n";
 import organAsset from "@/assets/moshe-organ-wide.webp.asset.json";
 import architectureAsset from "@/assets/organ-architecture.webp.asset.json";
 import stageAsset from "@/assets/moshe-stage.webp.asset.json";
@@ -16,10 +17,10 @@ import menuBgAsset from "@/assets/menu-bg.jpg.asset.json";
 export const Route = createFileRoute("/gallery")({
   head: () => ({
     meta: [
-      { title: "Галерея — Moshe Ganelin" },
-      { name: "description", content: "Фотографии Moshe Ganelin: концерты, репетиции, органы и залы." },
-      { property: "og:title", content: "Галерея — Moshe Ganelin" },
-      { property: "og:description", content: "Фотографии: концерты, репетиции, органы и залы." },
+      { title: "Gallery — Moshe Ariel Ganelin" },
+      { name: "description", content: "Photographs of Moshe Ariel Ganelin: concerts, rehearsals, organs and halls." },
+      { property: "og:title", content: "Gallery — Moshe Ariel Ganelin" },
+      { property: "og:description", content: "Photographs: concerts, rehearsals, organs and halls." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -29,19 +30,20 @@ export const Route = createFileRoute("/gallery")({
 });
 
 const photos = [
-  { src: organAsset.url, alt: "Moshe Ganelin за органом в соборе", ratio: "aspect-[4/3]" },
-  { src: architectureAsset.url, alt: "Исторический орган", ratio: "aspect-[3/4]" },
-  { src: stageAsset.url, alt: "Выступление на сцене", ratio: "aspect-[3/4]" },
-  { src: consoleAsset.url, alt: "Органная кафедра", ratio: "aspect-[4/3]" },
-  { src: pianoAsset.url, alt: "За роялем", ratio: "aspect-[4/5]" },
-  { src: heroAsset.url, alt: "Портрет музыканта", ratio: "aspect-[4/3]" },
-  { src: menuBgAsset.url, alt: "Интерьер зала", ratio: "aspect-[16/10]" },
+  { src: organAsset.url, alt: "Moshe Ariel Ganelin at the organ in a cathedral", ratio: "aspect-[4/3]" },
+  { src: architectureAsset.url, alt: "A historic organ", ratio: "aspect-[3/4]" },
+  { src: stageAsset.url, alt: "On stage", ratio: "aspect-[3/4]" },
+  { src: consoleAsset.url, alt: "The organ console", ratio: "aspect-[4/3]" },
+  { src: pianoAsset.url, alt: "At the grand piano", ratio: "aspect-[4/5]" },
+  { src: heroAsset.url, alt: "Portrait of the musician", ratio: "aspect-[4/3]" },
+  { src: menuBgAsset.url, alt: "Concert hall interior", ratio: "aspect-[16/10]" },
 ];
 
 const columnsCount = 3;
 const speeds = [0, -46, 26];
 
 function GalleryPage() {
+  const { t } = useLanguage();
   const [active, setActive] = useState<number | null>(null);
   const [origin, setOrigin] = useState<{ x: number; y: number; scale: number } | null>(null);
   const [zoomed, setZoomed] = useState(false);
@@ -113,7 +115,7 @@ function GalleryPage() {
   }, [active]);
 
   return (
-    <PageShell title="Фотографии" lead="Подписи к фотографиям — пример текста, будут заменены.">
+    <PageShell title={t("galleryTitle")} lead={t("galleryLead")}>
       <section className="mx-auto max-w-[1600px] px-5 pb-32 pt-10 md:px-10 lg:px-16 lg:pb-44">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5 md:items-start">
           {columns.map((column, columnIndex) => (
@@ -132,13 +134,13 @@ function GalleryPage() {
                       <button
                         type="button"
                         onClick={(event) => openPhoto(index, event.currentTarget)}
-                        aria-label={`Открыть фото: ${photo.alt}`}
+                        aria-label={`Open photo: ${photo.alt}`}
                         className="block w-full cursor-zoom-in"
                       >
                         <img src={photo.src} alt={photo.alt} loading="lazy" className={`w-full object-cover ${photo.ratio}`} />
                       </button>
                       <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-3 bg-gradient-to-t from-hero/85 to-transparent p-5 text-sm text-background opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                        {photo.alt} — подпись, пример текста
+                        {photo.alt} — caption, sample text
                       </figcaption>
                     </figure>
                   </Reveal>
@@ -165,7 +167,7 @@ function GalleryPage() {
         >
           <button
             type="button"
-            aria-label="Закрыть"
+            aria-label="Close"
             onClick={() => setActive(null)}
             className="absolute right-5 top-5 flex size-11 items-center justify-center rounded-full border border-background/30 text-background transition-colors hover:border-brass hover:text-brass"
           >
@@ -194,7 +196,7 @@ function GalleryPage() {
               <button
                 key={photo.alt}
                 type="button"
-                aria-label={`Фото ${index + 1}`}
+                aria-label={`Photo ${index + 1}`}
                 onClick={(event) => { event.stopPropagation(); setActive(index); }}
                 className={`h-1.5 rounded-full transition-all duration-300 ${
                   index === active ? "w-6 bg-brass" : "w-1.5 bg-background/40"

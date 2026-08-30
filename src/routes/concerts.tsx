@@ -5,6 +5,7 @@ import { ConcertCard } from "@/components/site/ConcertCard";
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { archiveConcerts, upcomingConcerts, type Concert } from "@/lib/site-data";
+import { useLanguage } from "@/lib/i18n";
 import stageAsset from "@/assets/moshe-stage.webp.asset.json";
 import venueCathedralAsset from "@/assets/venue-cathedral.webp.asset.json";
 import venuePetrikircheAsset from "@/assets/venue-petrikirche.webp.asset.json";
@@ -17,10 +18,10 @@ const venueHall = venueHallAsset.url;
 export const Route = createFileRoute("/concerts")({
   head: () => ({
     meta: [
-      { title: "Афиша концертов — Moshe Ganelin" },
-      { name: "description", content: "Ближайшие концерты и архив выступлений Moshe Ganelin." },
-      { property: "og:title", content: "Афиша концертов — Moshe Ganelin" },
-      { property: "og:description", content: "Ближайшие концерты и архив выступлений Moshe Ganelin." },
+      { title: "Concerts — Moshe Ariel Ganelin" },
+      { name: "description", content: "Upcoming concerts and an archive of past performances by Moshe Ariel Ganelin." },
+      { property: "og:title", content: "Concerts — Moshe Ariel Ganelin" },
+      { property: "og:description", content: "Upcoming concerts and an archive of past performances." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -60,6 +61,7 @@ function MonthCalendar({ month, year, days }: { month: string; year: string; day
 }
 
 function ConcertsPage() {
+  const { t } = useLanguage();
   const [thumb, setThumb] = useState<{ src: string; x: number; y: number } | null>(null);
   const frame = useRef(0);
 
@@ -81,13 +83,13 @@ function ConcertsPage() {
 
   return (
     <PageShell
-      title="Концерты"
-      lead="Каталог ближайших выступлений и архив прошедших вечеров — пример текста."
+      title={t("concertsTitle")}
+      lead={t("concertsLead")}
       image={stageAsset.url}
     >
       <section className="mx-auto max-w-[1600px] px-5 py-24 md:px-10 lg:px-16 lg:py-32">
         <Reveal>
-          <h2 className="font-display text-4xl leading-none md:text-6xl">Ближайшие концерты</h2>
+          <h2 className="font-display text-4xl leading-none md:text-6xl">{t("homeUpcoming")}</h2>
         </Reveal>
 
 
@@ -113,7 +115,7 @@ function ConcertsPage() {
       <section className="bg-secondary px-5 py-24 md:px-10 lg:px-16 lg:py-32">
         <div className="mx-auto max-w-[1600px]">
           <Reveal>
-            <h2 className="font-display text-4xl leading-none md:text-6xl">Прошедшие выступления</h2>
+            <h2 className="font-display text-4xl leading-none md:text-6xl">{t("concertsPast")}</h2>
           </Reveal>
           <ul className="mt-12 border-t border-border/60">
             {archiveConcerts.map((concert: Concert, index) => (
