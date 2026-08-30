@@ -529,7 +529,7 @@ html, body, * {
 }
 .preloader-out { opacity: 0; pointer-events: none; }
 .preloader-logo {
-  width: min(58vw, 320px);
+  width: min(72vw, 400px);
   object-fit: contain;
   opacity: 0;
   transform: translate3d(0, 12px, 0);

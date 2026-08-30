@@ -10,7 +10,7 @@ export function SiteFooter() {
   return (
     <footer id="contacts" className="bg-hero px-5 py-20 text-background md:px-10 lg:px-16">
       <div className="mx-auto max-w-[1600px]">
-        <img src={logoAsset.url} alt="Moshe Ariel Ganelin" className="w-[min(52vw,260px)] object-contain" />
+        <img src={logoAsset.url} alt="Moshe Ariel Ganelin" className="w-[min(60vw,300px)] object-contain" />
 
         <div className="mt-12 grid gap-10 border-t border-background/20 pt-10 md:grid-cols-3">
           <div className="space-y-2 text-base text-background/75">

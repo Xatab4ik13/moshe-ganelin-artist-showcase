@@ -162,7 +162,7 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
           tabIndex={menuOpen ? 0 : -1}
           onClick={close}
           aria-label="Moshe Ariel Ganelin — Home"
-          className="relative z-10 mx-auto mt-14 w-[min(52vw,240px)] shrink-0 md:mt-10 md:w-[min(30vw,300px)]"
+          className="relative z-10 mx-auto mt-14 w-[min(64vw,320px)] shrink-0 md:mt-10 md:w-[min(28vw,360px)]"
         >
           <img src={logoAsset.url} alt="Moshe Ariel Ganelin" className="w-full object-contain" />
         </Link>
