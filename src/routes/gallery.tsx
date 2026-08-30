@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { haptic } from "@/lib/haptics";
+import { useLanguage } from "@/lib/i18n";
 import organAsset from "@/assets/moshe-organ-wide.webp.asset.json";
 import architectureAsset from "@/assets/organ-architecture.webp.asset.json";
 import stageAsset from "@/assets/moshe-stage.webp.asset.json";
@@ -133,13 +134,13 @@ function GalleryPage() {
                       <button
                         type="button"
                         onClick={(event) => openPhoto(index, event.currentTarget)}
-                        aria-label={`Открыть фото: ${photo.alt}`}
+                        aria-label={`Open photo: ${photo.alt}`}
                         className="block w-full cursor-zoom-in"
                       >
                         <img src={photo.src} alt={photo.alt} loading="lazy" className={`w-full object-cover ${photo.ratio}`} />
                       </button>
                       <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-3 bg-gradient-to-t from-hero/85 to-transparent p-5 text-sm text-background opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                        {photo.alt} — подпись, пример текста
+                        {photo.alt} — caption, sample text
                       </figcaption>
                     </figure>
                   </Reveal>
@@ -166,7 +167,7 @@ function GalleryPage() {
         >
           <button
             type="button"
-            aria-label="Закрыть"
+            aria-label="Close"
             onClick={() => setActive(null)}
             className="absolute right-5 top-5 flex size-11 items-center justify-center rounded-full border border-background/30 text-background transition-colors hover:border-brass hover:text-brass"
           >
@@ -195,7 +196,7 @@ function GalleryPage() {
               <button
                 key={photo.alt}
                 type="button"
-                aria-label={`Фото ${index + 1}`}
+                aria-label={`Photo ${index + 1}`}
                 onClick={(event) => { event.stopPropagation(); setActive(index); }}
                 className={`h-1.5 rounded-full transition-all duration-300 ${
                   index === active ? "w-6 bg-brass" : "w-1.5 bg-background/40"
