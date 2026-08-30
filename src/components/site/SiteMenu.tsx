@@ -171,7 +171,7 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
                       setOpenGroups((value) => ({ ...value, [item.labelKey]: !value[item.labelKey] }))
                     }
                     aria-expanded={!!openGroups[item.labelKey]}
-                    className="menu-link block py-1.5 font-display text-[clamp(1.7rem,4vw,3.4rem)] leading-tight transition-colors hover:text-brass md:py-2"
+                    className="menu-link block py-1.5 font-display text-[clamp(1.35rem,3vw,2.6rem)] leading-tight transition-colors hover:text-brass md:py-2"
                   >
                     {t(item.labelKey)}
                     <span className={`ml-3 inline-block text-[0.5em] transition-transform duration-300 ${openGroups[item.labelKey] ? "rotate-90" : ""}`}>›</span>
@@ -202,7 +202,7 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
                     tabIndex={menuOpen ? 0 : -1}
                     onClick={close}
                     activeProps={{ className: "text-brass" }}
-                    className="menu-link block py-1.5 font-display text-[clamp(1.7rem,4vw,3.4rem)] leading-tight transition-colors hover:text-brass md:py-2"
+                    className="menu-link block py-1.5 font-display text-[clamp(1.35rem,3vw,2.6rem)] leading-tight transition-colors hover:text-brass md:py-2"
                   >
                     {t(item.labelKey)}
                   </Link>
