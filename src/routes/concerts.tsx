@@ -17,10 +17,10 @@ const venueHall = venueHallAsset.url;
 export const Route = createFileRoute("/concerts")({
   head: () => ({
     meta: [
-      { title: "Афиша концертов — Moshe Ganelin" },
-      { name: "description", content: "Ближайшие концерты и архив выступлений Moshe Ganelin." },
-      { property: "og:title", content: "Афиша концертов — Moshe Ganelin" },
-      { property: "og:description", content: "Ближайшие концерты и архив выступлений Moshe Ganelin." },
+      { title: "Concerts — Moshe Ariel Ganelin" },
+      { name: "description", content: "Upcoming concerts and an archive of past performances by Moshe Ariel Ganelin." },
+      { property: "og:title", content: "Concerts — Moshe Ariel Ganelin" },
+      { property: "og:description", content: "Upcoming concerts and an archive of past performances." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
