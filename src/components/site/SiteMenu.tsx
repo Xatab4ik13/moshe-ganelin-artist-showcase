@@ -16,9 +16,16 @@ const menuItems: MenuItem[] = [
     labelKey: "navAbout",
     children: [
       { labelKey: "navBio", to: "/about" },
+      { labelKey: "navComposer", to: "/composer" },
+      { labelKey: "navPerformer", to: "/performer" },
+      { labelKey: "navImproviser", to: "/improviser" },
+      { labelKey: "navSilentFilm", to: "/silent-film" },
+      { labelKey: "navAwards", to: "/awards" },
+      { labelKey: "navPress", to: "/press" },
       { labelKey: "navPublications", to: "/about", hash: "publications" },
     ],
   },
+
   {
     labelKey: "navMusic",
     children: [
