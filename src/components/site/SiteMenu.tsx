@@ -179,7 +179,7 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
                       <li key={child.labelKey}>
                         <Link
                           to={child.to}
-                          hash={child.hash}
+                          {...(child.hash ? { hash: child.hash } : {})}
                           tabIndex={menuOpen && openGroups[item.labelKey] ? 0 : -1}
                           onClick={close}
                           activeProps={{ className: "text-brass" }}
