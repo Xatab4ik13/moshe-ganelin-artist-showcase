@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 
+import { DecoRule, DecoSunburst } from "./Deco";
 import { Reveal } from "./Reveal";
 import { SiteFooter } from "./SiteFooter";
 import { SiteMenu } from "./SiteMenu";
@@ -26,15 +27,18 @@ export function PageShell({
           <div className="relative mx-auto w-full max-w-[1600px] px-5 pb-16 md:px-10 lg:px-16 lg:pb-24">
             <Reveal>
               <h1 className=" font-display text-[clamp(2.6rem,7vw,6rem)] leading-[0.95]">{title}</h1>
-              {lead ? <p className="mt-6 max-w-2xl text-base text-background/75 md:text-lg">{lead}</p> : null}
+              {lead ? <p className="mt-6 max-w-2xl text-lg leading-relaxed text-background/80 md:text-xl">{lead}</p> : null}
+              <DecoRule tone="light" className="mt-10 max-w-3xl" />
             </Reveal>
           </div>
         </header>
       ) : (
-        <header className="mx-auto max-w-[1600px] px-5 pb-10 pt-32 md:px-10 lg:px-16 lg:pt-44">
+        <header className="relative mx-auto max-w-[1600px] overflow-hidden px-5 pb-10 pt-32 md:px-10 lg:px-16 lg:pt-44">
+          <DecoSunburst className="pointer-events-none absolute -top-24 right-0 h-[420px] w-[840px] opacity-40" />
           <Reveal>
             <h1 className=" font-display text-[clamp(2.6rem,7vw,6rem)] leading-[0.95]">{title}</h1>
-            {lead ? <p className="mt-6 max-w-2xl text-base text-muted-foreground md:text-lg">{lead}</p> : null}
+            {lead ? <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">{lead}</p> : null}
+            <DecoRule className="mt-10 max-w-3xl" />
           </Reveal>
         </header>
       )}
@@ -56,7 +60,7 @@ export function SectionTitle({ children, tone = "dark" }: { children: ReactNode;
 
 export function Placeholder({ children }: { children: ReactNode }) {
   return (
-    <p className="border-l-2 border-brass/60 pl-4 text-sm leading-relaxed text-muted-foreground">
+    <p className="border-l-2 border-brass/60 pl-4 text-base leading-relaxed text-muted-foreground md:text-lg">
       {children}
     </p>
   );
