@@ -137,6 +137,10 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
           <span className={`menu-stroke absolute left-0 top-1/2 h-[3px] w-full -translate-y-1/2 rounded-full bg-current ${menuOpen ? "opacity-0" : "opacity-100"}`} />
           <span className={`menu-stroke absolute left-0 top-1/2 h-[3px] w-full -translate-y-1/2 rounded-full bg-current ${menuOpen ? "translate-y-1/2 -rotate-45" : "translate-y-[9px] md:translate-y-[11px]"}`} />
         </span>
+        <span className="mt-1 block text-center text-[0.65rem] tracking-[0.32em] md:text-xs">
+          {menuOpen ? t("closeMenu") : "MENU"}
+        </span>
+
       </button>
 
       <div
