@@ -6,9 +6,12 @@ import { Reveal } from "./Reveal";
 import { useLanguage, type DictKey } from "@/lib/i18n";
 
 export type FacetLink = { to: string; labelKey: DictKey };
+export type FacetVariant = "default" | "press" | "awards";
 
 const highlightCount = 4;
 const itemCount = 5;
+const quoteCount = 6;
+const awardCount = 6;
 
 /**
  * Единый шаблон для профильных подстраниц (Composer, Performer, Improviser,
@@ -19,11 +22,13 @@ export function FacetPage({
   leadKey,
   image,
   related,
+  variant = "default",
 }: {
   titleKey: DictKey;
   leadKey: DictKey;
   image: string;
   related: FacetLink[];
+  variant?: FacetVariant;
 }) {
   const { t } = useLanguage();
 
