@@ -66,14 +66,9 @@ export function FacetPage({
               </h2>
               <ul className="mt-8 space-y-6">
                 {Array.from({ length: highlightCount }).map((_, index) => (
-                  <li key={index} className="flex gap-5">
-                    <span className="mt-1 h-fit shrink-0 font-display text-sm tracking-[0.25em] text-brass">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <div>
-                      <h3 className="font-display text-lg md:text-xl">{t("facetItem")}</h3>
-                      <p className="mt-2 text-base leading-relaxed text-muted-foreground">{t("facetItemNote")}</p>
-                    </div>
+                  <li key={index}>
+                    <h3 className="font-display text-lg md:text-xl">{t("facetItem")}</h3>
+                    <p className="mt-2 text-base leading-relaxed text-muted-foreground">{t("facetItemNote")}</p>
                   </li>
                 ))}
               </ul>
