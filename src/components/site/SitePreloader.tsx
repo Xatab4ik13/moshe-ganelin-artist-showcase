@@ -12,8 +12,8 @@ export function SitePreloader({ ready }: { ready: boolean }) {
   const [gone, setGone] = useState(false);
 
   useEffect(() => {
-    const min = window.setTimeout(() => setMinTimePassed(true), 1400);
-    const max = window.setTimeout(() => setTimedOut(true), 6000);
+    const min = window.setTimeout(() => setMinTimePassed(true), 900);
+    const max = window.setTimeout(() => setTimedOut(true), 4000);
     return () => {
       window.clearTimeout(min);
       window.clearTimeout(max);
@@ -24,7 +24,7 @@ export function SitePreloader({ ready }: { ready: boolean }) {
 
   useEffect(() => {
     if (!done) return;
-    const t = window.setTimeout(() => setGone(true), 800);
+    const t = window.setTimeout(() => setGone(true), 560);
     return () => window.clearTimeout(t);
   }, [done]);
 
