@@ -85,7 +85,7 @@ function Index() {
         <Link
           to="/"
           aria-label="Moshe Ariel Ganelin — Home"
-          className="hero-logo absolute left-1/2 top-[calc(3rem+1cm)] z-20 w-[min(72vw,340px)] -translate-x-1/2 md:top-10 md:w-[min(38vw,460px)]"
+          className="hero-logo absolute left-1/2 top-[calc(3rem+1cm)] z-20 w-[min(30vw,120px)] -translate-x-1/2 md:top-10 md:w-[min(13vw,160px)]"
         >
           <img src={logoAsset.url} alt="Moshe Ariel Ganelin" className="w-full object-contain" />
         </Link>
