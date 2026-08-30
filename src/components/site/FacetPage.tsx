@@ -128,10 +128,7 @@ export function FacetPage({
             <ul className="mt-12 divide-y divide-background/15 border-y border-background/15">
               {Array.from({ length: itemCount }).map((_, index) => (
                 <Reveal as="li" key={index} delay={index * 70}>
-                  <div className="grid gap-3 py-7 md:grid-cols-[auto_1fr_auto] md:items-baseline md:gap-8">
-                    <span className="font-display text-sm tracking-[0.25em] text-brass">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
+                  <div className="grid gap-3 py-7 md:grid-cols-[1fr_auto] md:items-baseline md:gap-8">
                     <div>
                       <h3 className="font-display text-2xl leading-tight md:text-3xl">{t("facetItem")}</h3>
                       <p className="mt-2 text-base leading-relaxed text-background/70">{t("facetItemNote")}</p>
