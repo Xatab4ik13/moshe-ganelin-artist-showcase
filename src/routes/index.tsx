@@ -79,16 +79,17 @@ function Index() {
           disablePictureInPicture
           preload="auto"
         />
-        <div className="absolute inset-0 bg-hero/15 md:bg-hero/35" />
+        <div className="absolute inset-0 bg-hero/30 md:bg-hero/45" />
         <div className="hero-blur absolute bottom-0 left-0 z-10 h-20 w-full md:h-48" />
 
         <Link
           to="/"
           aria-label="Moshe Ariel Ganelin — Home"
-          className="hero-logo absolute left-1/2 top-[calc(3rem+1cm)] z-20 w-[min(64vw,300px)] -translate-x-1/2 md:top-10 md:w-[min(34vw,420px)]"
+          className="hero-logo absolute left-1/2 top-[calc(3rem+1cm)] z-20 w-[min(72vw,340px)] -translate-x-1/2 md:top-10 md:w-[min(38vw,460px)]"
         >
           <img src={logoAsset.url} alt="Moshe Ariel Ganelin" className="w-full object-contain" />
         </Link>
+
       </section>
 
 
