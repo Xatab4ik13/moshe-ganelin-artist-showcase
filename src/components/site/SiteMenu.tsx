@@ -188,7 +188,7 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
                     <span className={`ml-3 inline-block text-[0.5em] transition-transform duration-300 ${openGroups[item.labelKey] ? "rotate-90" : ""}`}>›</span>
                   </button>
                   <ul
-                    className={`flex flex-col items-end overflow-hidden transition-all duration-500 ${openGroups[item.labelKey] ? "max-h-72 opacity-100" : "max-h-0 opacity-0"}`}
+                    className={`flex flex-col items-end overflow-hidden transition-all duration-500 ${openGroups[item.labelKey] ? "max-h-[34rem] opacity-100" : "max-h-0 opacity-0"}`}
                   >
                     {item.children.map((child) => (
                       <li key={child.labelKey}>
