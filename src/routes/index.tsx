@@ -7,6 +7,7 @@ import { SiteMenu } from "@/components/site/SiteMenu";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SitePreloader } from "@/components/site/SitePreloader";
 import { upcomingConcerts } from "@/lib/site-data";
+import { useLanguage } from "@/lib/i18n";
 import logoAsset from "@/assets/moshe-ganelin-logo.png.asset.json";
 import heroVideoAsset from "@/assets/hero-reger.mp4.asset.json";
 import heroVideoLightAsset from "@/assets/hero-reger-light.mp4.asset.json";
@@ -16,10 +17,10 @@ import heroPosterAsset from "@/assets/hero-poster.jpg.asset.json";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Moshe Ganelin — официальный сайт" },
-      { name: "description", content: "Официальный сайт Moshe Ganelin: концерты, музыка, видео, публикации и фотографии." },
-      { property: "og:title", content: "Moshe Ganelin — официальный сайт" },
-      { property: "og:description", content: "Концерты, музыка, видео и публикации Moshe Ganelin." },
+      { title: "Moshe Ariel Ganelin — official website" },
+      { name: "description", content: "Official website of Moshe Ariel Ganelin: concerts, music, poetry and photographs." },
+      { property: "og:title", content: "Moshe Ariel Ganelin — official website" },
+      { property: "og:description", content: "Concerts, music, poetry and publications of Moshe Ariel Ganelin." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://moshearielganelin.com/" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -30,6 +31,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const { t } = useLanguage();
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const [videoReady, setVideoReady] = useState(false);
 
@@ -64,7 +66,7 @@ function Index() {
       <SiteMenu tone="light" />
 
       <section id="top" className="relative min-h-[100svh] overflow-hidden bg-hero text-background">
-        <h1 className="sr-only">Moshe Ganelin</h1>
+        <h1 className="sr-only">Moshe Ariel Ganelin</h1>
         <video
           ref={heroVideoRef}
           className="absolute inset-0 h-full w-full object-cover object-[58%_center] [transform:translateZ(0)] md:object-center"
@@ -91,8 +93,8 @@ function Index() {
         <div className="mx-auto max-w-[1600px]">
           <Reveal>
             <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
-              <h2 className="font-display text-5xl leading-none md:text-7xl">Ближайшие<br />концерты</h2>
-              <Link to="/concerts" className="line-link text-sm text-petrol">Вся афиша и архив</Link>
+              <h2 className="font-display text-5xl leading-none md:text-7xl">{t("homeUpcoming")}</h2>
+              <Link to="/concerts" className="line-link text-base text-petrol">{t("homeAllConcerts")}</Link>
             </div>
           </Reveal>
 
