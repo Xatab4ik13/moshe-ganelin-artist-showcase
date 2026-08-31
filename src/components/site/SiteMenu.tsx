@@ -95,7 +95,7 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
 
   useEffect(() => {
     if (panel !== "closing") return;
-    timer.current = window.setTimeout(() => setPanel("closed"), 520);
+    timer.current = window.setTimeout(() => setPanel("closed"), 470);
     return () => {
       if (timer.current) window.clearTimeout(timer.current);
     };
@@ -129,7 +129,9 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
   return (
     <>
       <LanguageSwitcher
-        className={`fixed left-[calc(0.75rem)] top-6 z-50 md:left-6 md:top-8 ${barTone} [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.35))]`}
+        className={`fixed left-[calc(0.75rem)] top-6 z-50 transition-opacity duration-300 md:left-6 md:top-8 ${barTone} ${
+          menuOpen ? "pointer-events-none opacity-0" : "opacity-100"
+        } [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.35))]`}
       />
 
       <button
@@ -151,10 +153,19 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
       </button>
 
       <div
-        className={`menu-panel fixed inset-0 z-40 flex flex-col overflow-hidden bg-hero text-background ${panelClass}`}
+        className={`menu-panel fixed inset-0 z-40 flex flex-col overflow-hidden bg-hero text-background ${panelClass} ${
+          panel === "closed" ? "invisible" : "visible"
+        }`}
         aria-hidden={!menuOpen}
       >
-        <img src={menuBgAsset.url} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />
+        <img
+          src={menuBgAsset.url}
+          alt=""
+          aria-hidden="true"
+          decoding="async"
+          fetchPriority="low"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
         <div className="absolute inset-0 bg-hero/70" />
 
         <Link
@@ -162,10 +173,11 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
           tabIndex={menuOpen ? 0 : -1}
           onClick={close}
           aria-label="Moshe Ariel Ganelin — Home"
-          className="relative z-10 mx-auto mt-14 shrink-0 md:mt-10"
+          className="relative z-10 mx-auto mt-12 shrink-0 md:mt-10"
         >
-          <LogoText variant="brass" className="w-[min(72vw,340px)] text-[clamp(1.8rem,4.4vw,3rem)]" />
+          <LogoText variant="brass" className="w-[min(52vw,220px)] text-[clamp(1.15rem,3.6vw,1.8rem)] md:w-[min(34vw,340px)] md:text-[clamp(1.8rem,4.4vw,3rem)]" />
         </Link>
+
 
         <nav
           aria-label={t("mainNav")}
