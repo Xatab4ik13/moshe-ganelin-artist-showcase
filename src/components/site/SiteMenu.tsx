@@ -153,10 +153,19 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
       </button>
 
       <div
-        className={`menu-panel fixed inset-0 z-40 flex flex-col overflow-hidden bg-hero text-background ${panelClass}`}
+        className={`menu-panel fixed inset-0 z-40 flex flex-col overflow-hidden bg-hero text-background ${panelClass} ${
+          panel === "closed" ? "invisible" : "visible"
+        }`}
         aria-hidden={!menuOpen}
       >
-        <img src={menuBgAsset.url} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />
+        <img
+          src={menuBgAsset.url}
+          alt=""
+          aria-hidden="true"
+          decoding="async"
+          fetchPriority="low"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
         <div className="absolute inset-0 bg-hero/70" />
 
         <Link
@@ -164,10 +173,9 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
           tabIndex={menuOpen ? 0 : -1}
           onClick={close}
           aria-label="Moshe Ariel Ganelin — Home"
-          className="relative z-10 mx-auto mt-14 shrink-0 md:mt-10"
+          className="relative z-10 mx-auto mt-12 shrink-0 md:mt-10"
         >
-          <LogoText variant="brass" className="w-[min(72vw,340px)] text-[clamp(1.8rem,4.4vw,3rem)]" />
-        </Link>
+          <LogoText variant="brass" className="w-[min(52vw,220px)] text-[clamp(1.15rem,3.6vw,1.8rem)] md:w-[min(34vw,340px)] md:text-[clamp(1.8rem,4.4vw,3rem)]" />
 
         <nav
           aria-label={t("mainNav")}
