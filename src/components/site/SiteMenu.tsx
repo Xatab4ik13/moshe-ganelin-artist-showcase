@@ -129,7 +129,9 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
   return (
     <>
       <LanguageSwitcher
-        className={`fixed left-[calc(0.75rem)] top-6 z-50 md:left-6 md:top-8 ${barTone} [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.35))]`}
+        className={`fixed left-[calc(0.75rem)] top-6 z-50 transition-opacity duration-300 md:left-6 md:top-8 ${barTone} ${
+          menuOpen ? "pointer-events-none opacity-0" : "opacity-100"
+        } [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.35))]`}
       />
 
       <button
