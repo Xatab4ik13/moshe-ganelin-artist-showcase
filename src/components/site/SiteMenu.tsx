@@ -176,6 +176,8 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
           className="relative z-10 mx-auto mt-12 shrink-0 md:mt-10"
         >
           <LogoText variant="brass" className="w-[min(52vw,220px)] text-[clamp(1.15rem,3.6vw,1.8rem)] md:w-[min(34vw,340px)] md:text-[clamp(1.8rem,4.4vw,3rem)]" />
+        </Link>
+
 
         <nav
           aria-label={t("mainNav")}
