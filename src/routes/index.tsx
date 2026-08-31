@@ -85,7 +85,7 @@ function Index() {
         <Link
           to="/"
           aria-label="Moshe Ariel Ganelin — Home"
-          className="hero-logo absolute left-1/2 top-8 z-20 -translate-x-1/2 md:top-8"
+          className="hero-logo absolute left-1/2 top-16 z-20 -translate-x-1/2 md:top-12"
         >
           <LogoText variant="brass" className="w-[min(52vw,220px)] text-[clamp(1.25rem,4vw,1.9rem)] md:w-[min(30vw,440px)] md:text-[clamp(2rem,5.2vw,3.6rem)]" />
         </Link>
