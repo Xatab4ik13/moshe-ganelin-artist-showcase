@@ -445,8 +445,8 @@ body::after {
 /* --- 13 / 15. Меню: лесенка с наклоном и шторка --- */
 .menu-link { transform: translate3d(60px, 18px, 0) rotate(2.4deg); transform-origin: right center; }
 .menu-panel-open .menu-link { transform: none; }
-.menu-panel-closing { transform: translateY(100%); }
-.menu-panel-reset { transition: none !important; transform: translateY(-100%); }
+.menu-panel-closing { transform: translate3d(0, 100%, 0); }
+.menu-panel-reset { transition: none !important; transform: translate3d(0, -100%, 0); }
 
 /* --- 17. Карточка концерта: фото выезжает сбоку --- */
 .slide-card {
