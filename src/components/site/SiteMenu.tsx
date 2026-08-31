@@ -65,8 +65,10 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
             haptic(6);
           }}
           aria-pressed={lang === option.code}
-          className={`px-2.5 py-1.5 text-xs tracking-[0.2em] transition-colors duration-300 ${
-            lang === option.code ? "text-brass" : "opacity-55 hover:opacity-100"
+          className={`rounded-full border px-3 py-1.5 text-xs tracking-[0.2em] transition-all duration-300 ${
+            lang === option.code
+              ? "border-brass bg-brass text-foreground shadow-[0_2px_14px_rgb(198_161_87/0.35)]"
+              : "border-current/0 border-transparent opacity-55 hover:opacity-100"
           }`}
         >
           {option.label}
