@@ -6,6 +6,7 @@ import { haptic } from "@/lib/haptics";
 import { langOptions, useLanguage, type DictKey } from "@/lib/i18n";
 import { LogoText } from "./LogoText";
 import { SocialIconSvg, socialLinks } from "./social-icons";
+import { SearchButton } from "./SiteSearch";
 
 type MenuChild = { labelKey: DictKey; to: string; hash?: string };
 type MenuItem = { labelKey: DictKey; to?: string; children?: MenuChild[] };
@@ -15,25 +16,18 @@ const menuItems: MenuItem[] = [
   {
     labelKey: "navAbout",
     children: [
-      { labelKey: "navBio", to: "/about" },
-      { labelKey: "navComposer", to: "/composer" },
-      { labelKey: "navPerformer", to: "/performer" },
-      { labelKey: "navImproviser", to: "/improviser" },
-      { labelKey: "navSilentFilm", to: "/silent-film" },
-      { labelKey: "navAwards", to: "/awards" },
+      { labelKey: "navBiography", to: "/about" },
       { labelKey: "navPress", to: "/press" },
-      { labelKey: "navPublications", to: "/about", hash: "publications" },
+      { labelKey: "navGallery", to: "/gallery" },
     ],
   },
-
   {
     labelKey: "navMusic",
     children: [
-      { labelKey: "navOrgan", to: "/music", hash: "organ" },
-      { labelKey: "navOrchestra", to: "/music", hash: "orchestra" },
-      { labelKey: "navPiano", to: "/music", hash: "piano" },
-      { labelKey: "navTranscriptions", to: "/music", hash: "transcriptions" },
-      { labelKey: "navRecordings", to: "/music", hash: "recordings" },
+      { labelKey: "navGanelinMusic", to: "/music" },
+      { labelKey: "navImprovisations", to: "/music/improvisations" },
+      { labelKey: "navTranscriptions", to: "/music/transcriptions" },
+      { labelKey: "navConcertsVideo", to: "/music/concerts" },
     ],
   },
   {
@@ -45,8 +39,6 @@ const menuItems: MenuItem[] = [
       { labelKey: "langPortuguese", to: "/poetry", hash: "portuguese" },
     ],
   },
-  { labelKey: "navConcerts", to: "/concerts" },
-  { labelKey: "navGallery", to: "/gallery" },
   { labelKey: "navContact", to: "/contacts" },
 ];
 
@@ -130,8 +122,17 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
 
   return (
     <>
+      <div
+        className={`fixed left-[calc(0.75rem)] top-6 z-50 flex items-center gap-2 md:left-6 md:top-8 ${barTone} ${
+          menuOpen ? "pointer-events-none opacity-0" : "opacity-100"
+        } transition-opacity duration-300 [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.35))]`}
+      >
+        <LanguageSwitcher />
+        <SearchButton />
+      </div>
+
       <LanguageSwitcher
-        className={`fixed left-[calc(0.75rem)] top-6 z-50 transition-opacity duration-300 md:left-6 md:top-8 ${barTone} ${
+        className={`hidden fixed left-[calc(0.75rem)] top-6 z-50 transition-opacity duration-300 md:left-6 md:top-8 ${barTone} ${
           menuOpen ? "pointer-events-none opacity-0" : "opacity-100"
         } [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.35))]`}
       />
