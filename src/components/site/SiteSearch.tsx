@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 import { useLanguage, type DictKey } from "@/lib/i18n";
 import { allWorks, pressItems, upcomingConcerts } from "@/lib/site-data";
-import { DecoRule } from "./Deco";
+
 
 type Entry = { title: string; section: string; to: string; hash?: string | undefined };
 

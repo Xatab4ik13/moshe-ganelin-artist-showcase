@@ -579,3 +579,10 @@ html, body, * {
 .slide-card:focus-within .slide-card-media { will-change: transform; }
 .video-tilt-inner, .video-frame { will-change: auto; }
 .video-tilt:hover .video-frame { will-change: transform; }
+
+/* Metropolis 1920 has a tight left side bearing: give display text room so the
+   first letter is never clipped by overflow-hidden containers. */
+.font-display,
+h1, h2, h3, h4 {
+  padding-inline-start: 0.06em;
+}
