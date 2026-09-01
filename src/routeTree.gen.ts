@@ -17,6 +17,7 @@ import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as MusicRouteImport } from './routes/music'
 import { Route as PoetryRouteImport } from './routes/poetry'
 import { Route as PressRouteImport } from './routes/press'
+import { Route as MusicIndexRouteImport } from './routes/music.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -58,6 +59,11 @@ const PressRoute = PressRouteImport.update({
   path: '/press',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MusicIndexRoute = MusicIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => MusicRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -65,9 +71,10 @@ export interface FileRoutesByFullPath {
   '/concerts': typeof ConcertsRoute
   '/contacts': typeof ContactsRoute
   '/gallery': typeof GalleryRoute
-  '/music': typeof MusicRoute
+  '/music': typeof MusicRouteWithChildren
   '/poetry': typeof PoetryRoute
   '/press': typeof PressRoute
+  '/music/': typeof MusicIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -75,9 +82,9 @@ export interface FileRoutesByTo {
   '/concerts': typeof ConcertsRoute
   '/contacts': typeof ContactsRoute
   '/gallery': typeof GalleryRoute
-  '/music': typeof MusicRoute
   '/poetry': typeof PoetryRoute
   '/press': typeof PressRoute
+  '/music': typeof MusicIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -86,9 +93,10 @@ export interface FileRoutesById {
   '/concerts': typeof ConcertsRoute
   '/contacts': typeof ContactsRoute
   '/gallery': typeof GalleryRoute
-  '/music': typeof MusicRoute
+  '/music': typeof MusicRouteWithChildren
   '/poetry': typeof PoetryRoute
   '/press': typeof PressRoute
+  '/music/': typeof MusicIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +109,7 @@ export interface FileRouteTypes {
     | '/music'
     | '/poetry'
     | '/press'
+    | '/music/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -108,9 +117,9 @@ export interface FileRouteTypes {
     | '/concerts'
     | '/contacts'
     | '/gallery'
-    | '/music'
     | '/poetry'
     | '/press'
+    | '/music'
   id:
     | '__root__'
     | '/'
@@ -121,6 +130,7 @@ export interface FileRouteTypes {
     | '/music'
     | '/poetry'
     | '/press'
+    | '/music/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -129,7 +139,7 @@ export interface RootRouteChildren {
   ConcertsRoute: typeof ConcertsRoute
   ContactsRoute: typeof ContactsRoute
   GalleryRoute: typeof GalleryRoute
-  MusicRoute: typeof MusicRoute
+  MusicRoute: typeof MusicRouteWithChildren
   PoetryRoute: typeof PoetryRoute
   PressRoute: typeof PressRoute
 }
@@ -192,8 +202,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PressRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/music/': {
+      id: '/music/'
+      path: '/'
+      fullPath: '/music/'
+      preLoaderRoute: typeof MusicIndexRouteImport
+      parentRoute: typeof MusicRoute
+    }
   }
 }
+
+interface MusicRouteChildren {
+  MusicIndexRoute: typeof MusicIndexRoute
+}
+
+const MusicRouteChildren: MusicRouteChildren = {
+  MusicIndexRoute: MusicIndexRoute,
+}
+
+const MusicRouteWithChildren = MusicRoute._addFileChildren(MusicRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -201,7 +228,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConcertsRoute: ConcertsRoute,
   ContactsRoute: ContactsRoute,
   GalleryRoute: GalleryRoute,
-  MusicRoute: MusicRoute,
+  MusicRoute: MusicRouteWithChildren,
   PoetryRoute: PoetryRoute,
   PressRoute: PressRoute,
 }
