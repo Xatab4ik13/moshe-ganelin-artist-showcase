@@ -8,7 +8,7 @@ import { Reveal } from "@/components/site/Reveal";
 import { SiteMenu } from "@/components/site/SiteMenu";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SitePreloader } from "@/components/site/SitePreloader";
-import { upcomingConcerts } from "@/lib/site-data";
+import { pressItems, upcomingConcerts, videos, youtubeChannelUrl } from "@/lib/site-data";
 import { useLanguage } from "@/lib/i18n";
 import heroVideoAsset from "@/assets/hero-reger.mp4.asset.json";
 import heroVideoLightAsset from "@/assets/hero-reger-light.mp4.asset.json";
