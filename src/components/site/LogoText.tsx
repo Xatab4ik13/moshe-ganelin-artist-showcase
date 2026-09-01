@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import logoAsset from "@/assets/logo-ganelin.webp.asset.json";
 
 interface LogoTextProps {
   variant?: "brass" | "light";
@@ -6,28 +7,16 @@ interface LogoTextProps {
   showRule?: boolean;
 }
 
-export function LogoText({ variant = "brass", className = "", showRule = true }: LogoTextProps) {
-  const colorClass = variant === "light" ? "text-background" : "text-brass";
-
+export function LogoText({ className = "" }: LogoTextProps) {
   return (
-    <span
-      className={cn(
-        "inline-flex flex-col items-center leading-none tracking-[0.22em]",
-        "font-display uppercase antialiased",
-        colorClass,
-        className
-      )}
-      aria-label="Moshe Ariel Ganelin"
-    >
-      <span className="block text-[0.42em] opacity-95">Moshe Ariel</span>
-      {showRule && (
-        <span className="my-[0.18em] flex w-full items-center gap-[0.35em]">
-          <span className="h-[1px] flex-1 bg-current opacity-80" />
-          <span className="block aspect-square rotate-45 border border-current bg-current/20" style={{ width: "0.22em" }} />
-          <span className="h-[1px] flex-1 bg-current opacity-80" />
-        </span>
-      )}
-      <span className="block text-[0.72em]">Ganelin</span>
-    </span>
+    <img
+      src={logoAsset.url}
+      alt="Moshe Ariel Ganelin"
+      width={900}
+      height={900}
+      loading="eager"
+      decoding="async"
+      className={cn("block h-auto w-40 select-none", className)}
+    />
   );
 }

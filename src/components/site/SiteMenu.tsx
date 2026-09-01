@@ -173,7 +173,7 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
           aria-label="Moshe Ariel Ganelin — Home"
           className="relative z-10 mx-auto mt-12 shrink-0 md:mt-10"
         >
-          <LogoText variant="brass" className="w-[min(52vw,220px)] text-[clamp(1.15rem,3.6vw,1.8rem)] md:w-[min(34vw,340px)] md:text-[clamp(1.8rem,4.4vw,3rem)]" />
+          <LogoText variant="brass" className="w-[min(38vw,140px)] md:w-[min(18vw,200px)]" />
         </Link>
 
 
