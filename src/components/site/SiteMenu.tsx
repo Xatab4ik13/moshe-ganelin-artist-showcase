@@ -70,7 +70,7 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
   );
 }
 
-export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
+export function SiteMenu({ tone = "dark", home = false }: { tone?: "dark" | "light"; home?: boolean }) {
   const { t } = useLanguage();
   const [panel, setPanel] = useState<PanelState>("closed");
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
@@ -123,11 +123,11 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
   return (
     <>
       <div
-        className={`fixed left-[calc(0.75rem)] top-20 z-50 flex items-center gap-2 md:left-6 md:top-24 ${barTone} ${
+        className={`fixed left-[calc(0.75rem)] top-3 z-50 hidden items-center gap-2 md:left-6 md:top-5 md:flex ${barTone} ${
           menuOpen ? "pointer-events-none opacity-0" : "opacity-100"
         } transition-opacity duration-300 [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.35))]`}
       >
-        <LanguageSwitcher />
+        {!home && <LanguageSwitcher />}
         <SearchButton />
       </div>
 
@@ -233,7 +233,10 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
           </ol>
 
           <div className="flex flex-col items-end gap-6">
-            <LanguageSwitcher />
+            <div className="flex flex-wrap items-center justify-end gap-2">
+              <LanguageSwitcher />
+              <SearchButton className="md:hidden" />
+            </div>
             <ul className="flex items-center gap-4">
               {socialLinks.map((social) => (
                 <li key={social.key}>
