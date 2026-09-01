@@ -114,6 +114,67 @@ function Index() {
         </div>
       </section>
 
+      <section id="press" className="bg-card px-5 py-24 md:px-10 lg:px-16 lg:py-32">
+        <div className="mx-auto max-w-[1600px]">
+          <Reveal>
+            <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
+              <h2 className="font-display text-5xl leading-none md:text-7xl">{t("homePress")}</h2>
+              <Link to="/press" className="line-link text-base text-petrol">{t("homePressAll")}</Link>
+            </div>
+            <DecoRule className="mt-8" />
+          </Reveal>
+
+          <div className="mt-10 grid gap-8 md:mt-14 md:grid-cols-2 lg:grid-cols-4">
+            {pressItems.map((item, index) => (
+              <Reveal key={item.slug} delay={index * 60}>
+                <article className="h-full border border-border bg-background p-7">
+                  <p className="text-xs uppercase tracking-[0.32em] text-petrol">
+                    {item.outlet} · {item.date}
+                  </p>
+                  <h3 className="mt-4 font-display text-xl leading-snug md:text-2xl">{item.title}</h3>
+                  <p className="mt-4 text-base italic leading-relaxed text-muted-foreground">{item.quote}</p>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="video" className="bg-hero px-5 py-24 text-background md:px-10 lg:px-16 lg:py-32">
+        <div className="mx-auto max-w-[1600px]">
+          <Reveal>
+            <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
+              <h2 className="font-display text-5xl leading-none md:text-7xl">{t("homeVideo")}</h2>
+              <a href={youtubeChannelUrl} target="_blank" rel="noreferrer" className="line-link text-base text-brass">
+                {t("homeVideoAll")}
+              </a>
+            </div>
+            <DecoRule tone="light" className="mt-8" />
+          </Reveal>
+
+          <div className="-mx-5 mt-10 flex snap-x snap-mandatory gap-6 overflow-x-auto px-5 pb-4 md:mx-0 md:mt-14 md:grid md:grid-cols-3 md:overflow-visible md:px-0 md:pb-0">
+            {videos.slice(0, 3).map((video, index) => (
+              <Reveal key={video.id} delay={index * 70} className="w-[82%] shrink-0 snap-start md:w-auto">
+                <article className="border border-background/15 bg-background/5 p-4">
+                  <div className="aspect-video w-full overflow-hidden">
+                    <iframe
+                      src={`https://www.youtube-nocookie.com/embed/${video.id}`}
+                      title={video.title}
+                      loading="lazy"
+                      allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"
+                      allowFullScreen
+                      className="h-full w-full"
+                    />
+                  </div>
+                  <h3 className="mt-5 font-display text-lg leading-snug md:text-xl">{video.title}</h3>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
       <SiteFooter />
     </main>
   );
