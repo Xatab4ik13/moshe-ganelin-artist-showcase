@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { createPortal } from "react-dom";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { useLanguage, type DictKey } from "@/lib/i18n";
@@ -25,7 +26,9 @@ export function SearchButton({ className = "" }: { className?: string }) {
         </svg>
         <span className="hidden sm:inline">{t("navSearch").toUpperCase()}</span>
       </button>
-      {open ? <SearchOverlay onClose={() => setOpen(false)} /> : null}
+      {open && typeof document !== "undefined"
+        ? createPortal(<SearchOverlay onClose={() => setOpen(false)} />, document.body)
+        : null}
     </>
   );
 }
