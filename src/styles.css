@@ -499,9 +499,10 @@ html, body, * {
   .reveal-right { transform: translate3d(18px, 12px, 0) rotate(0.6deg); }
   .slide-card { transition-duration: 480ms; }
   .slide-card-media { transition-duration: 520ms; }
-  .slide-card:active { transform: translateY(-4px); }
-  .slide-card:active .slide-card-media { transform: translate3d(0, 0, 0); }
-  .slide-card:active .slide-card-body { color: var(--color-background); }
+  .slide-card:active, .slide-card.is-active { transform: translateY(-4px); }
+  .slide-card:active .slide-card-media, .slide-card.is-active .slide-card-media { transform: translate3d(0, 0, 0); }
+  .slide-card:active .slide-card-body, .slide-card.is-active .slide-card-body { color: var(--color-background); }
+  .slide-card.is-active .slide-card-muted { color: color-mix(in oklab, var(--color-background) 75%, transparent); }
   .media-zoom img { transition-duration: 600ms; }
   .media-zoom:hover img { transform: none; }
   .media-zoom:active img { transform: scale(1.04); }
