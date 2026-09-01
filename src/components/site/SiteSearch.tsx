@@ -102,7 +102,7 @@ function SearchOverlay({ onClose }: { onClose: () => void }) {
         onClick={onClose}
         className="absolute inset-0 cursor-default bg-hero/80"
       />
-      <div className="relative flex max-h-[76vh] w-full max-w-2xl flex-col border border-brass/35 bg-card shadow-[0_30px_80px_rgba(0,0,0,0.45)]">
+      <div className="relative flex max-h-[76vh] w-full max-w-2xl flex-col self-start border border-brass/35 bg-card shadow-[0_30px_80px_rgba(0,0,0,0.45)]">
         <div className="flex items-center gap-3 border-b border-border px-5 py-4">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-4 w-4 shrink-0 text-petrol" aria-hidden="true">
             <circle cx="11" cy="11" r="7" />
