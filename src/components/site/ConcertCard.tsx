@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { Reveal } from "./Reveal";
 import type { Concert } from "@/lib/site-data";
 import venueCathedralAsset from "@/assets/venue-cathedral.webp.asset.json";
@@ -12,13 +13,32 @@ const venueImages = [venueHall, venueCathedral, venuePetrikirche];
 
 export function ConcertCard({ concert, index }: { concert: Concert; index: number }) {
   const image = venueImages[index % venueImages.length];
+  const cardRef = useRef<HTMLElement>(null);
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(max-width: 767px)");
+    if (!mq.matches) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setActive(!!entry && entry.intersectionRatio >= 0.75),
+      { threshold: [0, 0.75, 1] }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <Reveal delay={(index % 3) * 90} className="h-full">
       <article
+        ref={cardRef}
         tabIndex={0}
-        className="slide-card flex h-full min-h-80 flex-col justify-between border border-border bg-card p-6 focus:outline-none md:p-8"
+        className={`slide-card flex h-full min-h-80 flex-col justify-between border border-border bg-card p-6 focus:outline-none md:p-8 ${active ? "is-active" : ""}`}
       >
+
         <div className="slide-card-media">
           <img
             src={image}
