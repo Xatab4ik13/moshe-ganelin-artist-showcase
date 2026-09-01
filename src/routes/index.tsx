@@ -64,7 +64,7 @@ function Index() {
   return (
     <main className="overflow-hidden bg-background text-foreground">
       <SitePreloader ready={videoReady} />
-      <SiteMenu tone="light" />
+      <SiteMenu tone="light" home />
 
       <section id="top" className="relative min-h-[100svh] overflow-hidden bg-hero text-background">
         <h1 className="sr-only">Moshe Ariel Ganelin</h1>
