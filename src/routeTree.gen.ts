@@ -11,17 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
-import { Route as AwardsRouteImport } from './routes/awards'
-import { Route as ComposerRouteImport } from './routes/composer'
 import { Route as ConcertsRouteImport } from './routes/concerts'
 import { Route as ContactsRouteImport } from './routes/contacts'
 import { Route as GalleryRouteImport } from './routes/gallery'
-import { Route as ImproviserRouteImport } from './routes/improviser'
 import { Route as MusicRouteImport } from './routes/music'
-import { Route as PerformerRouteImport } from './routes/performer'
 import { Route as PoetryRouteImport } from './routes/poetry'
 import { Route as PressRouteImport } from './routes/press'
-import { Route as SilentFilmRouteImport } from './routes/silent-film'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -31,16 +26,6 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AwardsRoute = AwardsRouteImport.update({
-  id: '/awards',
-  path: '/awards',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ComposerRoute = ComposerRouteImport.update({
-  id: '/composer',
-  path: '/composer',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConcertsRoute = ConcertsRouteImport.update({
@@ -58,19 +43,9 @@ const GalleryRoute = GalleryRouteImport.update({
   path: '/gallery',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ImproviserRoute = ImproviserRouteImport.update({
-  id: '/improviser',
-  path: '/improviser',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const MusicRoute = MusicRouteImport.update({
   id: '/music',
   path: '/music',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PerformerRoute = PerformerRouteImport.update({
-  id: '/performer',
-  path: '/performer',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PoetryRoute = PoetryRouteImport.update({
@@ -83,120 +58,80 @@ const PressRoute = PressRouteImport.update({
   path: '/press',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SilentFilmRoute = SilentFilmRouteImport.update({
-  id: '/silent-film',
-  path: '/silent-film',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/awards': typeof AwardsRoute
-  '/composer': typeof ComposerRoute
   '/concerts': typeof ConcertsRoute
   '/contacts': typeof ContactsRoute
   '/gallery': typeof GalleryRoute
-  '/improviser': typeof ImproviserRoute
   '/music': typeof MusicRoute
-  '/performer': typeof PerformerRoute
   '/poetry': typeof PoetryRoute
   '/press': typeof PressRoute
-  '/silent-film': typeof SilentFilmRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/awards': typeof AwardsRoute
-  '/composer': typeof ComposerRoute
   '/concerts': typeof ConcertsRoute
   '/contacts': typeof ContactsRoute
   '/gallery': typeof GalleryRoute
-  '/improviser': typeof ImproviserRoute
   '/music': typeof MusicRoute
-  '/performer': typeof PerformerRoute
   '/poetry': typeof PoetryRoute
   '/press': typeof PressRoute
-  '/silent-film': typeof SilentFilmRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/awards': typeof AwardsRoute
-  '/composer': typeof ComposerRoute
   '/concerts': typeof ConcertsRoute
   '/contacts': typeof ContactsRoute
   '/gallery': typeof GalleryRoute
-  '/improviser': typeof ImproviserRoute
   '/music': typeof MusicRoute
-  '/performer': typeof PerformerRoute
   '/poetry': typeof PoetryRoute
   '/press': typeof PressRoute
-  '/silent-film': typeof SilentFilmRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about'
-    | '/awards'
-    | '/composer'
     | '/concerts'
     | '/contacts'
     | '/gallery'
-    | '/improviser'
     | '/music'
-    | '/performer'
     | '/poetry'
     | '/press'
-    | '/silent-film'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
-    | '/awards'
-    | '/composer'
     | '/concerts'
     | '/contacts'
     | '/gallery'
-    | '/improviser'
     | '/music'
-    | '/performer'
     | '/poetry'
     | '/press'
-    | '/silent-film'
   id:
     | '__root__'
     | '/'
     | '/about'
-    | '/awards'
-    | '/composer'
     | '/concerts'
     | '/contacts'
     | '/gallery'
-    | '/improviser'
     | '/music'
-    | '/performer'
     | '/poetry'
     | '/press'
-    | '/silent-film'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  AwardsRoute: typeof AwardsRoute
-  ComposerRoute: typeof ComposerRoute
   ConcertsRoute: typeof ConcertsRoute
   ContactsRoute: typeof ContactsRoute
   GalleryRoute: typeof GalleryRoute
-  ImproviserRoute: typeof ImproviserRoute
   MusicRoute: typeof MusicRoute
-  PerformerRoute: typeof PerformerRoute
   PoetryRoute: typeof PoetryRoute
   PressRoute: typeof PressRoute
-  SilentFilmRoute: typeof SilentFilmRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -213,20 +148,6 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/awards': {
-      id: '/awards'
-      path: '/awards'
-      fullPath: '/awards'
-      preLoaderRoute: typeof AwardsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/composer': {
-      id: '/composer'
-      path: '/composer'
-      fullPath: '/composer'
-      preLoaderRoute: typeof ComposerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/concerts': {
@@ -250,25 +171,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GalleryRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/improviser': {
-      id: '/improviser'
-      path: '/improviser'
-      fullPath: '/improviser'
-      preLoaderRoute: typeof ImproviserRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/music': {
       id: '/music'
       path: '/music'
       fullPath: '/music'
       preLoaderRoute: typeof MusicRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/performer': {
-      id: '/performer'
-      path: '/performer'
-      fullPath: '/performer'
-      preLoaderRoute: typeof PerformerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/poetry': {
@@ -285,30 +192,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PressRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/silent-film': {
-      id: '/silent-film'
-      path: '/silent-film'
-      fullPath: '/silent-film'
-      preLoaderRoute: typeof SilentFilmRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  AwardsRoute: AwardsRoute,
-  ComposerRoute: ComposerRoute,
   ConcertsRoute: ConcertsRoute,
   ContactsRoute: ContactsRoute,
   GalleryRoute: GalleryRoute,
-  ImproviserRoute: ImproviserRoute,
   MusicRoute: MusicRoute,
-  PerformerRoute: PerformerRoute,
   PoetryRoute: PoetryRoute,
   PressRoute: PressRoute,
-  SilentFilmRoute: SilentFilmRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
