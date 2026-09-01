@@ -123,7 +123,7 @@ export function SiteMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
   return (
     <>
       <div
-        className={`fixed left-[calc(0.75rem)] top-6 z-50 flex items-center gap-2 md:left-6 md:top-8 ${barTone} ${
+        className={`fixed left-[calc(0.75rem)] top-20 z-50 flex items-center gap-2 md:left-6 md:top-24 ${barTone} ${
           menuOpen ? "pointer-events-none opacity-0" : "opacity-100"
         } transition-opacity duration-300 [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.35))]`}
       >

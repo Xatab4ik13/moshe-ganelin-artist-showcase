@@ -12,8 +12,8 @@ export function LogoText({ className = "" }: LogoTextProps) {
     <img
       src={logoAsset.url}
       alt="Moshe Ariel Ganelin"
-      width={900}
-      height={900}
+      width={720}
+      height={715}
       loading="eager"
       decoding="async"
       className={cn("block h-auto w-40 select-none", className)}
