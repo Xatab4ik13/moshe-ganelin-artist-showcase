@@ -582,7 +582,7 @@ html, body, * {
 
 /* Metropolis 1920 has a tight left side bearing: give display text room so the
    first letter is never clipped by overflow-hidden containers. */
-.font-display,
-h1, h2, h3, h4 {
+h1, h2, h3, h4,
+.font-display:not([class*="p-"]):not([class*="px-"]):not([class*="pl-"]) {
   padding-inline-start: 0.06em;
 }
