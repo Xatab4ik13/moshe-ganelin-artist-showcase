@@ -18,6 +18,7 @@ import { Route as MusicRouteImport } from './routes/music'
 import { Route as PoetryRouteImport } from './routes/poetry'
 import { Route as PressRouteImport } from './routes/press'
 import { Route as MusicIndexRouteImport } from './routes/music.index'
+import { Route as MusicImprovisationsRouteImport } from './routes/music.improvisations'
 import { Route as MusicWorksSlugRouteImport } from './routes/music.works.$slug'
 
 const IndexRoute = IndexRouteImport.update({
@@ -65,6 +66,11 @@ const MusicIndexRoute = MusicIndexRouteImport.update({
   path: '/',
   getParentRoute: () => MusicRoute,
 } as any)
+const MusicImprovisationsRoute = MusicImprovisationsRouteImport.update({
+  id: '/improvisations',
+  path: '/improvisations',
+  getParentRoute: () => MusicRoute,
+} as any)
 const MusicWorksSlugRoute = MusicWorksSlugRouteImport.update({
   id: '/works/$slug',
   path: '/works/$slug',
@@ -80,6 +86,7 @@ export interface FileRoutesByFullPath {
   '/music': typeof MusicRouteWithChildren
   '/poetry': typeof PoetryRoute
   '/press': typeof PressRoute
+  '/music/improvisations': typeof MusicImprovisationsRoute
   '/music/': typeof MusicIndexRoute
   '/music/works/$slug': typeof MusicWorksSlugRoute
 }
@@ -91,6 +98,7 @@ export interface FileRoutesByTo {
   '/gallery': typeof GalleryRoute
   '/poetry': typeof PoetryRoute
   '/press': typeof PressRoute
+  '/music/improvisations': typeof MusicImprovisationsRoute
   '/music': typeof MusicIndexRoute
   '/music/works/$slug': typeof MusicWorksSlugRoute
 }
@@ -104,6 +112,7 @@ export interface FileRoutesById {
   '/music': typeof MusicRouteWithChildren
   '/poetry': typeof PoetryRoute
   '/press': typeof PressRoute
+  '/music/improvisations': typeof MusicImprovisationsRoute
   '/music/': typeof MusicIndexRoute
   '/music/works/$slug': typeof MusicWorksSlugRoute
 }
@@ -118,6 +127,7 @@ export interface FileRouteTypes {
     | '/music'
     | '/poetry'
     | '/press'
+    | '/music/improvisations'
     | '/music/'
     | '/music/works/$slug'
   fileRoutesByTo: FileRoutesByTo
@@ -129,6 +139,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/poetry'
     | '/press'
+    | '/music/improvisations'
     | '/music'
     | '/music/works/$slug'
   id:
@@ -141,6 +152,7 @@ export interface FileRouteTypes {
     | '/music'
     | '/poetry'
     | '/press'
+    | '/music/improvisations'
     | '/music/'
     | '/music/works/$slug'
   fileRoutesById: FileRoutesById
@@ -221,6 +233,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MusicIndexRouteImport
       parentRoute: typeof MusicRoute
     }
+    '/music/improvisations': {
+      id: '/music/improvisations'
+      path: '/improvisations'
+      fullPath: '/music/improvisations'
+      preLoaderRoute: typeof MusicImprovisationsRouteImport
+      parentRoute: typeof MusicRoute
+    }
     '/music/works/$slug': {
       id: '/music/works/$slug'
       path: '/works/$slug'
@@ -232,11 +251,13 @@ declare module '@tanstack/react-router' {
 }
 
 interface MusicRouteChildren {
+  MusicImprovisationsRoute: typeof MusicImprovisationsRoute
   MusicIndexRoute: typeof MusicIndexRoute
   MusicWorksSlugRoute: typeof MusicWorksSlugRoute
 }
 
 const MusicRouteChildren: MusicRouteChildren = {
+  MusicImprovisationsRoute: MusicImprovisationsRoute,
   MusicIndexRoute: MusicIndexRoute,
   MusicWorksSlugRoute: MusicWorksSlugRoute,
 }
