@@ -41,7 +41,7 @@ export function SitePreloader({ ready }: { ready: boolean }) {
 
   return (
     <div className={`preloader${done ? " preloader-out" : ""}`} aria-hidden="true">
-      <LogoText variant="brass" className="preloader-logo w-[min(76vw,360px)] text-[clamp(2rem,5.6vw,3.8rem)]" />
+      <LogoText variant="brass" className="preloader-logo w-[min(52vw,200px)] md:w-[min(20vw,240px)]" />
     </div>
   );
 }
