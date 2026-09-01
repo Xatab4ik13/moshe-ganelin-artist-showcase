@@ -38,48 +38,66 @@ export const archiveConcerts: Concert[] = [
   { day: "09", month: "December", year: "2025", city: "Tbilisi", venue: "Cathedral", title: "Christmas programme" },
 ];
 
-export type Work = { title: string; year: string; duration: string; scoreLink?: "pdf" | "full" };
+export type WorkCategoryId = "symphonic" | "organ" | "vocal" | "choir" | "chamber";
 
-export type MusicSectionId = "organ" | "orchestra" | "piano" | "transcriptions" | "recordings";
+export type CatalogWork = {
+  slug: string;
+  title: string;
+  year: string;
+  duration: string;
+  scoring: string;
+  premiere: string;
+  videoId?: string;
+};
 
-export const musicSections: { id: MusicSectionId; works: Work[] }[] = [
+export const workCategories: { id: WorkCategoryId; works: CatalogWork[] }[] = [
+  {
+    id: "symphonic",
+    works: [
+      { slug: "the-celtic-lovesong", title: "The Celtic Lovesong — concerto for organ and orchestra", year: "2015", duration: "24\u2032", scoring: "Organ, symphony orchestra", premiere: "Premiere data — sample", videoId: "iAKPA7E9fY8" },
+      { slug: "symphonic-poem-sample", title: "Symphonic poem — sample title", year: "2019", duration: "18\u2032", scoring: "Symphony orchestra", premiere: "Premiere data — sample" },
+    ],
+  },
   {
     id: "organ",
     works: [
-      { title: "Organ Symphony No. 4", year: "2017", duration: "32′", scoreLink: "pdf" },
-      { title: "Prelude and Fugue «Nun komm»", year: "2019", duration: "11′", scoreLink: "pdf" },
+      { slug: "organ-symphony-no-4", title: "Organ Symphony No. 4", year: "2017", duration: "32\u2032", scoring: "Organ solo", premiere: "Premiere data — sample", videoId: "yEJB7s02L9c" },
+      { slug: "prelude-and-fugue-nun-komm", title: "Prelude and Fugue \u00abNun komm, der Heiden Heiland\u00bb", year: "2019", duration: "11\u2032", scoring: "Organ solo", premiere: "Premiere data — sample", videoId: "2i9yR_80YDI" },
     ],
   },
   {
-    id: "orchestra",
+    id: "vocal",
     works: [
-      { title: "The Celtic Lovesong — concerto for organ and orchestra", year: "2015", duration: "24′", scoreLink: "full" },
-      { title: "Quartet «Architecture»", year: "2020", duration: "16′" },
+      { slug: "vocal-cycle-sample", title: "Vocal cycle — sample title", year: "2021", duration: "16\u2032", scoring: "Voice and organ", premiere: "Premiere data — sample" },
     ],
   },
   {
-    id: "piano",
+    id: "choir",
     works: [
-      { title: "Six Preludes", year: "2021", duration: "18′", scoreLink: "pdf" },
-      { title: "Nocturne in memoriam", year: "2023", duration: "7′" },
+      { slug: "choir-work-sample", title: "Choral work — sample title", year: "2020", duration: "9\u2032", scoring: "Mixed choir a cappella", premiere: "Premiere data — sample" },
     ],
   },
   {
-    id: "transcriptions",
+    id: "chamber",
     works: [
-      { title: "A. Mosolov — Iron Foundry", year: "2018", duration: "9′" },
-      { title: "Improvisation on Christmas themes", year: "2022", duration: "13′" },
+      { slug: "quartet-architecture", title: "Quartet \u00abArchitecture\u00bb", year: "2020", duration: "16\u2032", scoring: "String quartet", premiere: "Premiere data — sample" },
+      { slug: "six-preludes", title: "Six Preludes for piano", year: "2021", duration: "18\u2032", scoring: "Piano solo", premiere: "Premiere data — sample" },
     ],
-  },
-  {
-    id: "recordings",
-    works: videos.slice(0, 4).map((video, index) => ({
-      title: video.title,
-      year: String(2024 - index),
-      duration: "—",
-    })),
   },
 ];
+
+export const allWorks: CatalogWork[] = workCategories.flatMap((category) => category.works);
+
+export type PressItem = { slug: string; outlet: string; title: string; date: string; quote: string };
+
+export const pressItems: PressItem[] = [
+  { slug: "press-1", outlet: "Publication name — sample", title: "Article headline — sample text", date: "2026", quote: "Quote from the article — sample text, to be replaced." },
+  { slug: "press-2", outlet: "Publication name — sample", title: "Article headline — sample text", date: "2025", quote: "Quote from the article — sample text, to be replaced." },
+  { slug: "press-3", outlet: "Publication name — sample", title: "Article headline — sample text", date: "2025", quote: "Quote from the article — sample text, to be replaced." },
+  { slug: "press-4", outlet: "Publication name — sample", title: "Article headline — sample text", date: "2024", quote: "Quote from the article — sample text, to be replaced." },
+];
+
+export const youtubeChannelUrl = "https://www.youtube.com/@mosheganelin";
 
 export const publications: { title: string; source: string; year: string }[] = [
   { title: "Publication title — sample text", source: "Source / journal — sample", year: "2025" },

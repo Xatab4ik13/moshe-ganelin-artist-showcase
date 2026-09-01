@@ -91,3 +91,28 @@ export function DecoFrame({ children, className = "" }: { children: ReactNode; c
     </div>
   );
 }
+
+/** Art Deco organ-pipe fan — stepped pipes with a chevron crown. */
+export function DecoPipes({ className = "", tone = "dark" }: { className?: string; tone?: "dark" | "light" }) {
+  const stroke = "var(--brass)";
+  const opacity = tone === "light" ? 0.5 : 0.35;
+  const pipes = [46, 62, 80, 100, 118, 136, 152];
+  return (
+    <svg viewBox="0 0 200 120" className={className} aria-hidden="true" fill="none">
+      <g stroke={stroke} strokeWidth="1.1" opacity={opacity}>
+        {pipes.map((height, index) => {
+          const x = 10 + index * 27;
+          const top = 120 - height * 0.62;
+          return (
+            <g key={x}>
+              <path d={`M${x} 120V${top + 8}l9-8 9 8V120`} />
+              <path d={`M${x + 4} ${top + 16}h10`} />
+            </g>
+          );
+        })}
+        <path d="M2 118h196" />
+        <path d="M100 6l14 14-14 14-14-14z" />
+      </g>
+    </svg>
+  );
+}

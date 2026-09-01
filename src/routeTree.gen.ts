@@ -11,17 +11,17 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
-import { Route as AwardsRouteImport } from './routes/awards'
-import { Route as ComposerRouteImport } from './routes/composer'
 import { Route as ConcertsRouteImport } from './routes/concerts'
 import { Route as ContactsRouteImport } from './routes/contacts'
 import { Route as GalleryRouteImport } from './routes/gallery'
-import { Route as ImproviserRouteImport } from './routes/improviser'
 import { Route as MusicRouteImport } from './routes/music'
-import { Route as PerformerRouteImport } from './routes/performer'
 import { Route as PoetryRouteImport } from './routes/poetry'
 import { Route as PressRouteImport } from './routes/press'
-import { Route as SilentFilmRouteImport } from './routes/silent-film'
+import { Route as MusicIndexRouteImport } from './routes/music.index'
+import { Route as MusicConcertsRouteImport } from './routes/music.concerts'
+import { Route as MusicImprovisationsRouteImport } from './routes/music.improvisations'
+import { Route as MusicTranscriptionsRouteImport } from './routes/music.transcriptions'
+import { Route as MusicWorksSlugRouteImport } from './routes/music.works.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -31,16 +31,6 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AwardsRoute = AwardsRouteImport.update({
-  id: '/awards',
-  path: '/awards',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ComposerRoute = ComposerRouteImport.update({
-  id: '/composer',
-  path: '/composer',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConcertsRoute = ConcertsRouteImport.update({
@@ -58,19 +48,9 @@ const GalleryRoute = GalleryRouteImport.update({
   path: '/gallery',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ImproviserRoute = ImproviserRouteImport.update({
-  id: '/improviser',
-  path: '/improviser',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const MusicRoute = MusicRouteImport.update({
   id: '/music',
   path: '/music',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PerformerRoute = PerformerRouteImport.update({
-  id: '/performer',
-  path: '/performer',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PoetryRoute = PoetryRouteImport.update({
@@ -83,120 +63,133 @@ const PressRoute = PressRouteImport.update({
   path: '/press',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SilentFilmRoute = SilentFilmRouteImport.update({
-  id: '/silent-film',
-  path: '/silent-film',
-  getParentRoute: () => rootRouteImport,
+const MusicIndexRoute = MusicIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => MusicRoute,
+} as any)
+const MusicConcertsRoute = MusicConcertsRouteImport.update({
+  id: '/concerts',
+  path: '/concerts',
+  getParentRoute: () => MusicRoute,
+} as any)
+const MusicImprovisationsRoute = MusicImprovisationsRouteImport.update({
+  id: '/improvisations',
+  path: '/improvisations',
+  getParentRoute: () => MusicRoute,
+} as any)
+const MusicTranscriptionsRoute = MusicTranscriptionsRouteImport.update({
+  id: '/transcriptions',
+  path: '/transcriptions',
+  getParentRoute: () => MusicRoute,
+} as any)
+const MusicWorksSlugRoute = MusicWorksSlugRouteImport.update({
+  id: '/works/$slug',
+  path: '/works/$slug',
+  getParentRoute: () => MusicRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/awards': typeof AwardsRoute
-  '/composer': typeof ComposerRoute
   '/concerts': typeof ConcertsRoute
   '/contacts': typeof ContactsRoute
   '/gallery': typeof GalleryRoute
-  '/improviser': typeof ImproviserRoute
-  '/music': typeof MusicRoute
-  '/performer': typeof PerformerRoute
+  '/music': typeof MusicRouteWithChildren
   '/poetry': typeof PoetryRoute
   '/press': typeof PressRoute
-  '/silent-film': typeof SilentFilmRoute
+  '/music/concerts': typeof MusicConcertsRoute
+  '/music/improvisations': typeof MusicImprovisationsRoute
+  '/music/transcriptions': typeof MusicTranscriptionsRoute
+  '/music/': typeof MusicIndexRoute
+  '/music/works/$slug': typeof MusicWorksSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/awards': typeof AwardsRoute
-  '/composer': typeof ComposerRoute
   '/concerts': typeof ConcertsRoute
   '/contacts': typeof ContactsRoute
   '/gallery': typeof GalleryRoute
-  '/improviser': typeof ImproviserRoute
-  '/music': typeof MusicRoute
-  '/performer': typeof PerformerRoute
   '/poetry': typeof PoetryRoute
   '/press': typeof PressRoute
-  '/silent-film': typeof SilentFilmRoute
+  '/music/concerts': typeof MusicConcertsRoute
+  '/music/improvisations': typeof MusicImprovisationsRoute
+  '/music/transcriptions': typeof MusicTranscriptionsRoute
+  '/music': typeof MusicIndexRoute
+  '/music/works/$slug': typeof MusicWorksSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/awards': typeof AwardsRoute
-  '/composer': typeof ComposerRoute
   '/concerts': typeof ConcertsRoute
   '/contacts': typeof ContactsRoute
   '/gallery': typeof GalleryRoute
-  '/improviser': typeof ImproviserRoute
-  '/music': typeof MusicRoute
-  '/performer': typeof PerformerRoute
+  '/music': typeof MusicRouteWithChildren
   '/poetry': typeof PoetryRoute
   '/press': typeof PressRoute
-  '/silent-film': typeof SilentFilmRoute
+  '/music/concerts': typeof MusicConcertsRoute
+  '/music/improvisations': typeof MusicImprovisationsRoute
+  '/music/transcriptions': typeof MusicTranscriptionsRoute
+  '/music/': typeof MusicIndexRoute
+  '/music/works/$slug': typeof MusicWorksSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about'
-    | '/awards'
-    | '/composer'
     | '/concerts'
     | '/contacts'
     | '/gallery'
-    | '/improviser'
     | '/music'
-    | '/performer'
     | '/poetry'
     | '/press'
-    | '/silent-film'
+    | '/music/concerts'
+    | '/music/improvisations'
+    | '/music/transcriptions'
+    | '/music/'
+    | '/music/works/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
-    | '/awards'
-    | '/composer'
     | '/concerts'
     | '/contacts'
     | '/gallery'
-    | '/improviser'
-    | '/music'
-    | '/performer'
     | '/poetry'
     | '/press'
-    | '/silent-film'
+    | '/music/concerts'
+    | '/music/improvisations'
+    | '/music/transcriptions'
+    | '/music'
+    | '/music/works/$slug'
   id:
     | '__root__'
     | '/'
     | '/about'
-    | '/awards'
-    | '/composer'
     | '/concerts'
     | '/contacts'
     | '/gallery'
-    | '/improviser'
     | '/music'
-    | '/performer'
     | '/poetry'
     | '/press'
-    | '/silent-film'
+    | '/music/concerts'
+    | '/music/improvisations'
+    | '/music/transcriptions'
+    | '/music/'
+    | '/music/works/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  AwardsRoute: typeof AwardsRoute
-  ComposerRoute: typeof ComposerRoute
   ConcertsRoute: typeof ConcertsRoute
   ContactsRoute: typeof ContactsRoute
   GalleryRoute: typeof GalleryRoute
-  ImproviserRoute: typeof ImproviserRoute
-  MusicRoute: typeof MusicRoute
-  PerformerRoute: typeof PerformerRoute
+  MusicRoute: typeof MusicRouteWithChildren
   PoetryRoute: typeof PoetryRoute
   PressRoute: typeof PressRoute
-  SilentFilmRoute: typeof SilentFilmRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -213,20 +206,6 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/awards': {
-      id: '/awards'
-      path: '/awards'
-      fullPath: '/awards'
-      preLoaderRoute: typeof AwardsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/composer': {
-      id: '/composer'
-      path: '/composer'
-      fullPath: '/composer'
-      preLoaderRoute: typeof ComposerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/concerts': {
@@ -250,25 +229,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GalleryRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/improviser': {
-      id: '/improviser'
-      path: '/improviser'
-      fullPath: '/improviser'
-      preLoaderRoute: typeof ImproviserRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/music': {
       id: '/music'
       path: '/music'
       fullPath: '/music'
       preLoaderRoute: typeof MusicRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/performer': {
-      id: '/performer'
-      path: '/performer'
-      fullPath: '/performer'
-      preLoaderRoute: typeof PerformerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/poetry': {
@@ -285,30 +250,71 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PressRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/silent-film': {
-      id: '/silent-film'
-      path: '/silent-film'
-      fullPath: '/silent-film'
-      preLoaderRoute: typeof SilentFilmRouteImport
-      parentRoute: typeof rootRouteImport
+    '/music/': {
+      id: '/music/'
+      path: '/'
+      fullPath: '/music/'
+      preLoaderRoute: typeof MusicIndexRouteImport
+      parentRoute: typeof MusicRoute
+    }
+    '/music/concerts': {
+      id: '/music/concerts'
+      path: '/concerts'
+      fullPath: '/music/concerts'
+      preLoaderRoute: typeof MusicConcertsRouteImport
+      parentRoute: typeof MusicRoute
+    }
+    '/music/improvisations': {
+      id: '/music/improvisations'
+      path: '/improvisations'
+      fullPath: '/music/improvisations'
+      preLoaderRoute: typeof MusicImprovisationsRouteImport
+      parentRoute: typeof MusicRoute
+    }
+    '/music/transcriptions': {
+      id: '/music/transcriptions'
+      path: '/transcriptions'
+      fullPath: '/music/transcriptions'
+      preLoaderRoute: typeof MusicTranscriptionsRouteImport
+      parentRoute: typeof MusicRoute
+    }
+    '/music/works/$slug': {
+      id: '/music/works/$slug'
+      path: '/works/$slug'
+      fullPath: '/music/works/$slug'
+      preLoaderRoute: typeof MusicWorksSlugRouteImport
+      parentRoute: typeof MusicRoute
     }
   }
 }
 
+interface MusicRouteChildren {
+  MusicConcertsRoute: typeof MusicConcertsRoute
+  MusicImprovisationsRoute: typeof MusicImprovisationsRoute
+  MusicTranscriptionsRoute: typeof MusicTranscriptionsRoute
+  MusicIndexRoute: typeof MusicIndexRoute
+  MusicWorksSlugRoute: typeof MusicWorksSlugRoute
+}
+
+const MusicRouteChildren: MusicRouteChildren = {
+  MusicConcertsRoute: MusicConcertsRoute,
+  MusicImprovisationsRoute: MusicImprovisationsRoute,
+  MusicTranscriptionsRoute: MusicTranscriptionsRoute,
+  MusicIndexRoute: MusicIndexRoute,
+  MusicWorksSlugRoute: MusicWorksSlugRoute,
+}
+
+const MusicRouteWithChildren = MusicRoute._addFileChildren(MusicRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  AwardsRoute: AwardsRoute,
-  ComposerRoute: ComposerRoute,
   ConcertsRoute: ConcertsRoute,
   ContactsRoute: ContactsRoute,
   GalleryRoute: GalleryRoute,
-  ImproviserRoute: ImproviserRoute,
-  MusicRoute: MusicRoute,
-  PerformerRoute: PerformerRoute,
+  MusicRoute: MusicRouteWithChildren,
   PoetryRoute: PoetryRoute,
   PressRoute: PressRoute,
-  SilentFilmRoute: SilentFilmRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
