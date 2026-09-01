@@ -5,7 +5,7 @@ import { useLanguage, type DictKey } from "@/lib/i18n";
 import { allWorks, pressItems, upcomingConcerts } from "@/lib/site-data";
 import { DecoRule } from "./Deco";
 
-type Entry = { title: string; section: string; to: string; hash?: string };
+type Entry = { title: string; section: string; to: string; hash?: string | undefined };
 
 export function SearchButton({ className = "" }: { className?: string }) {
   const { t } = useLanguage();
