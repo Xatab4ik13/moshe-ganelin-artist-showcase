@@ -802,9 +802,11 @@ export function DecoKeyRule({
     return (
       <g key={dir} transform={`translate(300 0)${s}`}>
         <path d="M40 8H196V32H40Z" strokeWidth="1.3" />
-        {[1, 2, 3, 4, 5, 6, 7, 8].map((k) => (
-          <line key={k} x1={40 + k * 17.3} y1="8" x2={40 + k * 17.3} y2="32" strokeWidth="0.9" opacity="0.85" />
-        ))}
+        <path
+          d={[1, 2, 3, 4, 5, 6, 7, 8].map((k) => `M${40 + k * 17.3} 8V32`).join("")}
+          strokeWidth="0.9"
+          opacity="0.85"
+        />
         {[0, 1, 3, 4, 5, 7].map((k) => (
           <rect key={`b${k}`} x={48 + k * 17.3} y="8" width="9" height="13" strokeWidth="0.9" opacity="0.75" />
         ))}
