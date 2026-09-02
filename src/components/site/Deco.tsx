@@ -772,22 +772,15 @@ export function DecoLyreCrest({
         <g stroke={`url(#${grad})`} strokeWidth="1.2" fill="none" strokeLinecap="round">
           {arm(1)}
           {arm(-1)}
-          <path d="M156 50h88" strokeWidth="1.4" />
-          <path d="M164 57h72" strokeWidth="0.7" opacity="0.6" />
-          {strings.map((sx, i) => (
-            <line
-              key={sx}
-              x1={200 + sx}
-              y1={57}
-              x2={200 + sx}
-              y2={116}
-              strokeWidth={i === 2 ? 1.2 : 0.8}
-              opacity={i === 2 ? 0.95 : 0.7}
-            />
-          ))}
+          <path d="M156 50h88M164 57h72" strokeWidth="1.2" />
+          <path
+            d={strings.map((sx) => `M${200 + sx} 57V116`).join("")}
+            strokeWidth="0.9"
+            opacity="0.75"
+          />
           <path d="M200 16l14 17-14 17-14-17z" strokeWidth="1.2" />
           <path d="M200 26l6 7-6 7-6-7z" opacity="0.85" />
-          <path d="M200 50V33" opacity="0.7" />
+          <path d="M196 46h8M200 50V33" opacity="0.7" />
           <path d="M148 120h104M138 128h124M162 136h76" strokeWidth="1.2" />
         </g>
       </Relief>
@@ -815,9 +808,9 @@ export function DecoKeyRule({
         {[0, 1, 3, 4, 5, 7].map((k) => (
           <rect key={`b${k}`} x={48 + k * 17.3} y="8" width="9" height="13" strokeWidth="0.9" opacity="0.75" />
         ))}
-        <path d="M196 20H228" strokeWidth="1" opacity="0.7" />
+        <path d="M196 20H228M196 16v8" strokeWidth="1" opacity="0.7" />
         <path d="M240 20l-12 -9 -12 9 12 9z" strokeWidth="1.1" />
-        <path d="M252 20H292" opacity="0.5" />
+        <path d="M252 20H292M292 16v8" opacity="0.5" />
       </g>
     );
   };
@@ -852,7 +845,7 @@ export function DecoKeyMark({
         <g stroke={`url(#${grad})`} strokeWidth="1" fill="none" strokeLinecap="round">
           <path d="M4 22l8-8-8-8M116 22l-8-8 8-8" opacity="0.7" />
           <path d="M44 22V12M52 22V8M60 22V4M68 22V8M76 22V12" />
-          <path d="M40 24h40" opacity="0.8" />
+          <path d="M40 24h40M40 21v6M80 21v6" opacity="0.8" />
           <path d="M24 14l6-6 6 6-6 6zM90 14l6-6 6 6-6 6z" opacity="0.85" />
         </g>
       </Relief>
