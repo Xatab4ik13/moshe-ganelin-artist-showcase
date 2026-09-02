@@ -139,7 +139,7 @@ function GalleryPage() {
                       >
                         <img src={photo.src} alt={photo.alt} loading="lazy" className={`w-full object-cover ${photo.ratio}`} />
                       </button>
-                      <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-3 bg-gradient-to-t from-hero/85 to-transparent p-5 text-sm text-background opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                      <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-3 bg-gradient-to-t from-hero/85 to-transparent p-5 text-lg leading-snug text-background opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 md:text-xl">
                         {photo.alt} — caption, sample text
                       </figcaption>
                     </figure>
