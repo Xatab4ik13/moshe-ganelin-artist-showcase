@@ -62,7 +62,7 @@ export function SectionTitle({ children, tone = "dark" }: { children: ReactNode;
 
 export function Placeholder({ children }: { children: ReactNode }) {
   return (
-    <p className="border-l-2 border-brass/60 pl-4 text-base leading-relaxed text-muted-foreground md:text-lg">
+    <p className="border-l-2 border-brass/60 pl-4 text-lg leading-relaxed text-muted-foreground md:text-xl">
       {children}
     </p>
   );
