@@ -188,7 +188,9 @@ function GalleryPage() {
               alt={photos[active]!.alt}
               className="max-h-[78vh] w-auto max-w-full object-contain"
             />
-            <figcaption className="mt-4 text-center text-sm text-background/70">{photos[active]!.alt}</figcaption>
+            <figcaption className="mt-5 text-center text-lg leading-relaxed text-background/85 md:text-2xl">
+              {photos[active]!.alt}
+            </figcaption>
           </figure>
 
           <div className="absolute inset-x-0 bottom-6 flex justify-center gap-2">
