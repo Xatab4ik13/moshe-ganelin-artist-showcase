@@ -663,7 +663,7 @@ export function DecoMarquee({
   );
 }
 
-/** Ticket rule — divider built from notched ticket stubs and a centre star. */
+/** Ticket rule — divider of mirrored notched stubs around a centre star. */
 export function DecoTicketRule({
   className = "",
   tone = "light",
@@ -672,46 +672,47 @@ export function DecoTicketRule({
   tone?: Tone;
 }) {
   const { grad, glow } = useDecoIds("tkt");
-  const rays = Array.from({ length: 8 }, (_, i) => (i * 360) / 8);
+  const half = (dir: 1 | -1) => {
+    const x = (v: number) => 300 + dir * v;
+    return (
+      <g key={dir}>
+        <path d={`M${x(210)} 24H${x(150)}`} opacity="0.6" />
+        {/* notched ticket stub */}
+        <path
+          d={`M${x(150)} 12H${x(96)}a6 6 0 0 0 0 12v0a6 6 0 0 0 0 12H${x(150)}z`}
+          opacity="0.9"
+        />
+        <path d={`M${x(120)} 17v14M${x(132)} 17v14M${x(144)} 17v14`} opacity="0.6" />
+        <path d={`M${x(90)} 24H${x(52)}`} opacity="0.6" />
+        <path d={`M${x(44)} 24l${dir * -8} -8 ${dir * -8} 8 ${dir * 8} 8z`} />
+        <path d={`M${x(26)} 24H${x(16)}`} opacity="0.7" />
+      </g>
+    );
+  };
+  const rays = Array.from({ length: 12 }, (_, i) => (i * 360) / 12);
   return (
     <svg viewBox="0 0 600 48" className={className} aria-hidden="true" fill="none" preserveAspectRatio="xMidYMid meet">
       <DecoPaint id={grad} glowId={glow} tone={tone} />
       <Relief tone={tone} glowId={glow}>
         <g stroke={`url(#${grad})`} strokeWidth="1" fill="none" strokeLinecap="round">
-          {/* mirrored ticket stubs */}
-          {[0, 1].map((side) => {
-            const f = side === 0 ? 1 : -1;
-            const o = side === 0 ? 0 : 600;
-            const p = (x: number) => o + f * x;
-            return (
-              <g key={side}>
-                <path d={`M${p(30)} 24h${f * 60}`} opacity="0.65" />
-                <path
-                  d={`M${p(96)} 12h${f * 76}a6 6 0 0 ${side === 0 ? 1 : 0} 0 12v12h${-f * 76}v-12a6 6 0 0 ${side === 0 ? 1 : 0} 0-12z`}
-                  transform={`translate(0 -6)`}
-                />
-                <path d={`M${p(112)} 18v12M${p(122)} 18v12M${p(132)} 18v12`} opacity="0.6" />
-                <path d={`M${p(184)} 24h${f * 44}`} opacity="0.65" />
-                <path d={`M${p(238)} 24l${f * 9} -9 ${f * 9} 9-${f * 9} 9z`} />
-              </g>
-            );
-          })}
-          {/* centre star */}
-          {rays.map((a) => {
-            const r = (a * Math.PI) / 180;
-            const len = a % 90 === 0 ? 20 : 12;
+          {half(1)}
+          {half(-1)}
+          {rays.map((a2) => {
+            const r = (a2 * Math.PI) / 180;
+            const len = a2 % 90 === 0 ? 15 : 10;
             return (
               <line
-                key={a}
-                x1={300 + Math.cos(r) * 5}
-                y1={24 + Math.sin(r) * 5}
+                key={a2}
+                x1={300 + Math.cos(r) * 6}
+                y1={24 + Math.sin(r) * 6}
                 x2={300 + Math.cos(r) * len}
                 y2={24 + Math.sin(r) * len}
-                strokeWidth={a % 90 === 0 ? 1.1 : 0.7}
+                strokeWidth={a2 % 90 === 0 ? 1.1 : 0.7}
+                opacity={a2 % 90 === 0 ? 0.95 : 0.6}
               />
             );
           })}
-          <circle cx="300" cy="24" r="5" />
+          <circle cx="300" cy="24" r="6" />
         </g>
       </Relief>
     </svg>
@@ -737,35 +738,6 @@ export function DecoBracket({
           <path d="M18 70V38l22-22" opacity="0.5" />
           <path d="M14 22l6-6 6 6-6 6z" />
           <path d="M2 52h10M52 2v10" opacity="0.8" />
-        </g>
-      </Relief>
-    </svg>
-  );
-}
-
-/** Vertical column of nested chevrons — flanks the calendar aside. */
-export function DecoChevronColumn({
-  className = "",
-  tone = "light",
-}: {
-  className?: string;
-  tone?: Tone;
-}) {
-  const { grad, glow } = useDecoIds("chc");
-  const rows = Array.from({ length: 8 }, (_, i) => 40 + i * 70);
-  return (
-    <svg viewBox="0 0 48 600" className={className} aria-hidden="true" fill="none" preserveAspectRatio="xMidYMid meet">
-      <DecoPaint id={grad} glowId={glow} tone={tone} />
-      <Relief tone={tone} glowId={glow}>
-        <g stroke={`url(#${grad})`} strokeWidth="1" fill="none" strokeLinecap="round">
-          <path d="M24 0v600" opacity="0.35" />
-          {rows.map((y) => (
-            <g key={y}>
-              <path d={`M6 ${y - 12}l18 12-18 12`} opacity="0.75" />
-              <path d={`M42 ${y - 12}l-18 12 18 12`} opacity="0.75" />
-              <path d={`M24 ${y - 6}l6 6-6 6-6-6z`} />
-            </g>
-          ))}
         </g>
       </Relief>
     </svg>

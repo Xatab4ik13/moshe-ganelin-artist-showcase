@@ -4,7 +4,6 @@ import { useRef, useState } from "react";
 import { ConcertCard } from "@/components/site/ConcertCard";
 import {
   DecoBracket,
-  DecoChevronColumn,
   DecoMarquee,
   DecoTicketRule,
 } from "@/components/site/Deco";
@@ -130,10 +129,6 @@ function ConcertsPage() {
           </div>
 
           <aside className="relative hidden space-y-4 lg:block">
-            <DecoChevronColumn
-              className="pointer-events-none absolute -left-9 top-0 h-full w-6 opacity-45"
-              tone="light"
-            />
             {months.map((item) => (
               <Reveal key={`${item.month}-${item.year}`}>
                 <MonthCalendar month={item.month} year={item.year} days={item.days} />
