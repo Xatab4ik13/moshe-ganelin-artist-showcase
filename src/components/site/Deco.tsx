@@ -598,3 +598,149 @@ export function DecoScales({
     </svg>
   );
 }
+
+/* ------------------------------------------------------------------ */
+/* Concerts family: marquee crown, ticket rule, playbill frame         */
+/* ------------------------------------------------------------------ */
+
+/** Marquee crown — stepped playbill cornice with lamp beads, mirror-symmetric. */
+export function DecoMarquee({
+  className = "",
+  tone = "dark",
+}: {
+  className?: string;
+  tone?: Tone;
+}) {
+  const { grad, glow } = useDecoIds("mrq");
+  const lamps = [60, 110, 160, 240, 290, 340];
+  return (
+    <svg viewBox="0 0 400 96" className={className} aria-hidden="true" fill="none" preserveAspectRatio="xMidYMax meet">
+      <DecoPaint id={grad} glowId={glow} tone={tone} />
+      <Relief tone={tone} glowId={glow}>
+        <g stroke={`url(#${grad})`} strokeWidth="1" fill="none" strokeLinecap="round">
+          {/* stepped cornice */}
+          <path d="M8 94V76h48V62h48V48h44V34h4V48h44v14h48v14h48v18" strokeWidth="1.3" />
+          <path d="M20 94V82h44V68h48V54h40V40h16v14h40v14h48v14h44v12" opacity="0.6" />
+          {/* central keystone */}
+          <path d="M200 6l16 20-16 20-16-20z" strokeWidth="1.2" />
+          <path d="M200 15l8 11-8 11-8-11z" opacity="0.8" />
+          <path d="M184 50h32" opacity="0.7" />
+          {/* lamp beads mirrored around the centre */}
+          {lamps.map((x) => (
+            <circle key={x} cx={x} cy={86} r="3" />
+          ))}
+          <path d="M0 94h400" opacity="0.5" />
+        </g>
+      </Relief>
+    </svg>
+  );
+}
+
+/** Ticket rule — divider built from notched ticket stubs and a centre star. */
+export function DecoTicketRule({
+  className = "",
+  tone = "light",
+}: {
+  className?: string;
+  tone?: Tone;
+}) {
+  const { grad, glow } = useDecoIds("tkt");
+  const rays = Array.from({ length: 8 }, (_, i) => (i * 360) / 8);
+  return (
+    <svg viewBox="0 0 600 48" className={className} aria-hidden="true" fill="none" preserveAspectRatio="xMidYMid meet">
+      <DecoPaint id={grad} glowId={glow} tone={tone} />
+      <Relief tone={tone} glowId={glow}>
+        <g stroke={`url(#${grad})`} strokeWidth="1" fill="none" strokeLinecap="round">
+          {/* mirrored ticket stubs */}
+          {[0, 1].map((side) => {
+            const f = side === 0 ? 1 : -1;
+            const o = side === 0 ? 0 : 600;
+            const p = (x: number) => o + f * x;
+            return (
+              <g key={side}>
+                <path d={`M${p(30)} 24h${f * 60}`} opacity="0.65" />
+                <path
+                  d={`M${p(96)} 12h${f * 76}a6 6 0 0 ${side === 0 ? 1 : 0} 0 12v12h${-f * 76}v-12a6 6 0 0 ${side === 0 ? 1 : 0} 0-12z`}
+                  transform={`translate(0 -6)`}
+                />
+                <path d={`M${p(112)} 18v12M${p(122)} 18v12M${p(132)} 18v12`} opacity="0.6" />
+                <path d={`M${p(184)} 24h${f * 44}`} opacity="0.65" />
+                <path d={`M${p(238)} 24l${f * 9} -9 ${f * 9} 9-${f * 9} 9z`} />
+              </g>
+            );
+          })}
+          {/* centre star */}
+          {rays.map((a) => {
+            const r = (a * Math.PI) / 180;
+            const len = a % 90 === 0 ? 20 : 12;
+            return (
+              <line
+                key={a}
+                x1={300 + Math.cos(r) * 5}
+                y1={24 + Math.sin(r) * 5}
+                x2={300 + Math.cos(r) * len}
+                y2={24 + Math.sin(r) * len}
+                strokeWidth={a % 90 === 0 ? 1.1 : 0.7}
+              />
+            );
+          })}
+          <circle cx="300" cy="24" r="5" />
+        </g>
+      </Relief>
+    </svg>
+  );
+}
+
+/** Playbill corner bracket — stepped ticket corner, used on all four corners. */
+export function DecoBracket({
+  className = "",
+  tone = "light",
+}: {
+  className?: string;
+  tone?: Tone;
+}) {
+  const { grad, glow } = useDecoIds("brk");
+  return (
+    <svg viewBox="0 0 72 72" className={className} aria-hidden="true" fill="none">
+      <DecoPaint id={grad} glowId={glow} tone={tone} />
+      <Relief tone={tone} glowId={glow}>
+        <g stroke={`url(#${grad})`} strokeWidth="1" fill="none" strokeLinecap="round">
+          <path d="M2 70V26L26 2h44" strokeWidth="1.2" />
+          <path d="M10 70V32L32 10h38" opacity="0.7" />
+          <path d="M18 70V38l22-22" opacity="0.5" />
+          <path d="M14 22l6-6 6 6-6 6z" />
+          <path d="M2 52h10M52 2v10" opacity="0.8" />
+        </g>
+      </Relief>
+    </svg>
+  );
+}
+
+/** Vertical column of nested chevrons — flanks the calendar aside. */
+export function DecoChevronColumn({
+  className = "",
+  tone = "light",
+}: {
+  className?: string;
+  tone?: Tone;
+}) {
+  const { grad, glow } = useDecoIds("chc");
+  const rows = Array.from({ length: 8 }, (_, i) => 40 + i * 70);
+  return (
+    <svg viewBox="0 0 48 600" className={className} aria-hidden="true" fill="none" preserveAspectRatio="xMidYMid meet">
+      <DecoPaint id={grad} glowId={glow} tone={tone} />
+      <Relief tone={tone} glowId={glow}>
+        <g stroke={`url(#${grad})`} strokeWidth="1" fill="none" strokeLinecap="round">
+          <path d="M24 0v600" opacity="0.35" />
+          {rows.map((y) => (
+            <g key={y}>
+              <path d={`M6 ${y - 12}l18 12-18 12`} opacity="0.75" />
+              <path d={`M42 ${y - 12}l-18 12 18 12`} opacity="0.75" />
+              <path d={`M24 ${y - 6}l6 6-6 6-6-6z`} />
+            </g>
+          ))}
+        </g>
+      </Relief>
+    </svg>
+  );
+}
