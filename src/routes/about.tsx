@@ -46,7 +46,7 @@ function Timeline() {
               index % 2 === 0 ? "reveal-left md:mr-auto md:ml-0" : "reveal-right md:ml-auto md:mr-0"
             }`}
           >
-            <div className={`milestone-card relative p-8 md:p-10 ${shapes[index % shapes.length]}`}>
+            <div className="milestone-card relative p-8 md:p-10">
               <DecoCornerPlate tone="dark" className="pointer-events-none absolute left-2 top-2 h-9 w-9 opacity-55" />
               <DecoCornerPlate tone="dark" flipX flipY className="pointer-events-none absolute bottom-2 right-2 h-9 w-9 opacity-55" />
               <h3 className="font-display text-2xl md:text-3xl">{item.title}</h3>
