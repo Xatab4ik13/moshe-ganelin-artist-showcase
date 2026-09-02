@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 
 import { ConcertCard } from "@/components/site/ConcertCard";
-import { DecoRule } from "@/components/site/Deco";
+import { DecoBanner, DecoCornerPlate, DecoCrest, DecoLattice, DecoMedallion } from "@/components/site/Deco";
 import { LogoText } from "@/components/site/LogoText";
 import { Reveal } from "@/components/site/Reveal";
 import { SiteMenu } from "@/components/site/SiteMenu";
@@ -81,6 +81,10 @@ function Index() {
         />
         <div className="absolute inset-0 bg-hero/30 md:bg-hero/45" />
         <div className="hero-blur absolute bottom-0 left-0 z-10 h-20 w-full md:h-48" />
+        <DecoCrest
+          tone="dark"
+          className="pointer-events-none absolute bottom-0 left-1/2 z-20 w-[min(88vw,560px)] -translate-x-1/2 opacity-60 md:w-[min(46vw,760px)] md:opacity-70"
+        />
 
         <Link
           to="/"
@@ -93,14 +97,15 @@ function Index() {
       </section>
 
 
-      <section id="concerts" className="bg-background px-5 py-24 md:px-10 lg:px-16 lg:py-32">
-        <div className="mx-auto max-w-[1600px]">
+      <section id="concerts" className="relative bg-background px-5 py-24 md:px-10 lg:px-16 lg:py-32">
+        <DecoLattice tone="light" opacity={0.1} size={112} />
+        <div className="relative mx-auto max-w-[1600px]">
           <Reveal className="relative z-20 block bg-background pb-4">
             <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
               <h2 className="font-display text-5xl leading-none md:text-7xl">{t("homeUpcoming")}</h2>
               <Link to="/concerts" className="line-link text-lg text-petrol md:text-2xl">{t("homeAllConcerts")}</Link>
             </div>
-            <DecoRule className="mt-8" />
+            <DecoBanner tone="light" className="mt-8" />
           </Reveal>
 
 
@@ -114,20 +119,27 @@ function Index() {
         </div>
       </section>
 
-      <section id="press" className="bg-card px-5 py-24 md:px-10 lg:px-16 lg:py-32">
-        <div className="mx-auto max-w-[1600px]">
+      <section id="press" className="relative bg-card px-5 py-24 md:px-10 lg:px-16 lg:py-32">
+        <DecoLattice tone="light" opacity={0.08} size={80} />
+        <DecoMedallion
+          tone="light"
+          className="pointer-events-none absolute -right-24 top-10 w-72 opacity-[0.09] md:w-[26rem]"
+        />
+        <div className="relative mx-auto max-w-[1600px]">
           <Reveal>
             <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
               <h2 className="font-display text-5xl leading-none md:text-7xl">{t("homePress")}</h2>
               <Link to="/press" className="line-link text-base text-petrol">{t("homePressAll")}</Link>
             </div>
-            <DecoRule className="mt-8" />
+            <DecoBanner tone="light" className="mt-8" />
           </Reveal>
 
           <div className="mt-10 grid gap-8 md:mt-14 md:grid-cols-2 lg:grid-cols-4">
             {pressItems.map((item, index) => (
               <Reveal key={item.slug} delay={index * 60}>
-                <article className="h-full border border-border bg-background p-7">
+                <article className="relative h-full border border-border bg-background p-7">
+                  <DecoCornerPlate tone="light" className="pointer-events-none absolute left-0 top-0 h-9 w-9 opacity-70" />
+                  <DecoCornerPlate tone="light" flipX flipY className="pointer-events-none absolute bottom-0 right-0 h-9 w-9 opacity-70" />
                   <p className="text-xs uppercase tracking-[0.32em] text-petrol">
                     {item.outlet} · {item.date}
                   </p>
@@ -140,8 +152,9 @@ function Index() {
         </div>
       </section>
 
-      <section id="video" className="bg-hero px-5 py-24 text-background md:px-10 lg:px-16 lg:py-32">
-        <div className="mx-auto max-w-[1600px]">
+      <section id="video" className="relative bg-hero px-5 py-24 text-background md:px-10 lg:px-16 lg:py-32">
+        <DecoLattice tone="dark" opacity={0.12} size={128} />
+        <div className="relative mx-auto max-w-[1600px]">
           <Reveal>
             <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
               <h2 className="font-display text-5xl leading-none md:text-7xl">{t("homeVideo")}</h2>
@@ -149,13 +162,15 @@ function Index() {
                 {t("homeVideoAll")}
               </a>
             </div>
-            <DecoRule tone="light" className="mt-8" />
+            <DecoBanner tone="dark" className="mt-8" />
           </Reveal>
 
           <div className="-mx-5 mt-10 flex snap-x snap-mandatory gap-6 overflow-x-auto px-5 pb-4 md:mx-0 md:mt-14 md:grid md:grid-cols-3 md:overflow-visible md:px-0 md:pb-0">
             {videos.slice(0, 3).map((video, index) => (
               <Reveal key={video.id} delay={index * 70} className="w-[82%] shrink-0 snap-start md:w-auto">
-                <article className="border border-background/15 bg-background/5 p-4">
+                <article className="relative border border-background/15 bg-background/5 p-4">
+                  <DecoCornerPlate tone="dark" className="pointer-events-none absolute left-1 top-1 h-8 w-8 opacity-60" />
+                  <DecoCornerPlate tone="dark" flipX flipY className="pointer-events-none absolute bottom-1 right-1 h-8 w-8 opacity-60" />
                   <div className="aspect-video w-full overflow-hidden">
                     <iframe
                       src={`https://www.youtube-nocookie.com/embed/${video.id}`}
@@ -174,6 +189,10 @@ function Index() {
         </div>
       </section>
 
+
+      <div className="relative bg-hero pb-10 pt-2 text-background">
+        <DecoBanner tone="dark" className="mx-auto max-w-[1200px] px-5 opacity-90" />
+      </div>
 
       <SiteFooter />
     </main>
