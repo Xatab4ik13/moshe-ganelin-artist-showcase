@@ -6,7 +6,7 @@ import { videos } from "@/lib/site-data";
 import { useLanguage } from "@/lib/i18n";
 import organAsset from "@/assets/moshe-organ-wide.webp.asset.json";
 
-export const Route = createFileRoute("/music/transcriptions")({
+export const Route = createFileRoute("/music/transcriptions/")({
   head: () => ({
     meta: [
       { title: "Transcriptions — Moshe Ariel Ganelin" },
