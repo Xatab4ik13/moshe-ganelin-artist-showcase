@@ -743,3 +743,114 @@ export function DecoBracket({
     </svg>
   );
 }
+
+/** Lyre crest — symmetric Deco lyre: arms, crossbar, strings, stepped plinth. */
+export function DecoLyreCrest({
+  className = "",
+  tone = "light",
+}: {
+  className?: string;
+  tone?: Tone;
+}) {
+  const { grad, glow } = useDecoIds("lyr");
+  const strings = [-36, -18, 0, 18, 36];
+  const arm = (dir: 1 | -1) => {
+    const s = dir === 1 ? "" : " scale(-1 1)";
+    return (
+      <g key={dir} transform={`translate(200 0)${s}`}>
+        <path d="M-52 118C-66 96 -68 70 -56 54C-47 42 -30 41 -26 53" strokeWidth="1.4" />
+        <path d="M-44 116C-56 96 -57 74 -47 60" strokeWidth="0.7" opacity="0.55" />
+        <circle cx="-30" cy="57" r="3" />
+        <path d="M-52 118H-30" opacity="0.7" />
+      </g>
+    );
+  };
+  return (
+    <svg viewBox="0 0 400 150" className={className} aria-hidden="true" fill="none" preserveAspectRatio="xMidYMax meet">
+      <DecoPaint id={grad} glowId={glow} tone={tone} />
+      <Relief tone={tone} glowId={glow}>
+        <g stroke={`url(#${grad})`} strokeWidth="1.2" fill="none" strokeLinecap="round">
+          {arm(1)}
+          {arm(-1)}
+          <path d="M156 50h88M164 57h72" strokeWidth="1.2" />
+          <path
+            d={strings.map((sx) => `M${200 + sx} 57V116`).join("")}
+            strokeWidth="0.9"
+            opacity="0.75"
+          />
+          <path d="M200 16l14 17-14 17-14-17z" strokeWidth="1.2" />
+          <path d="M200 26l6 7-6 7-6-7z" opacity="0.85" />
+          <path d="M196 46h8M200 50V33" opacity="0.7" />
+          <path d="M148 120h104M138 128h124M162 136h76" strokeWidth="1.2" />
+        </g>
+      </Relief>
+    </svg>
+  );
+}
+
+/** Keyboard border — mirrored manual keys running out from a centre jewel. */
+export function DecoKeyRule({
+  className = "",
+  tone = "light",
+}: {
+  className?: string;
+  tone?: Tone;
+}) {
+  const { grad, glow } = useDecoIds("key");
+  const half = (dir: 1 | -1) => {
+    const s = dir === 1 ? "" : " scale(-1 1)";
+    return (
+      <g key={dir} transform={`translate(300 0)${s}`}>
+        <path d="M40 8H196V32H40Z" strokeWidth="1.3" />
+        <path
+          d={[1, 2, 3, 4, 5, 6, 7, 8].map((k) => `M${40 + k * 17.3} 8V32`).join("")}
+          strokeWidth="0.9"
+          opacity="0.85"
+        />
+        {[0, 1, 3, 4, 5, 7].map((k) => (
+          <rect key={`b${k}`} x={48 + k * 17.3} y="8" width="9" height="13" strokeWidth="0.9" opacity="0.75" />
+        ))}
+        <path d="M196 20H228M196 16v8" strokeWidth="1" opacity="0.7" />
+        <path d="M240 20l-12 -9 -12 9 12 9z" strokeWidth="1.1" />
+        <path d="M252 20H292M292 16v8" opacity="0.5" />
+      </g>
+    );
+  };
+  return (
+    <svg viewBox="0 0 600 40" className={className} aria-hidden="true" fill="none" preserveAspectRatio="xMidYMid meet">
+      <DecoPaint id={grad} glowId={glow} tone={tone} />
+      <Relief tone={tone} glowId={glow}>
+        <g stroke={`url(#${grad})`} strokeWidth="1" fill="none" strokeLinejoin="round">
+          {half(1)}
+          {half(-1)}
+          <path d="M300 2l18 18-18 18-18-18z" strokeWidth="1.3" />
+          <path d="M300 11l9 9-9 9-9-9z" opacity="0.8" />
+        </g>
+      </Relief>
+    </svg>
+  );
+}
+
+/** Small section glyph — stepped pipes between mirrored chevrons. */
+export function DecoKeyMark({
+  className = "",
+  tone = "light",
+}: {
+  className?: string;
+  tone?: Tone;
+}) {
+  const { grad, glow } = useDecoIds("kmk");
+  return (
+    <svg viewBox="0 0 120 28" className={className} aria-hidden="true" fill="none" preserveAspectRatio="xMidYMid meet">
+      <DecoPaint id={grad} glowId={glow} tone={tone} />
+      <Relief tone={tone} glowId={glow}>
+        <g stroke={`url(#${grad})`} strokeWidth="1" fill="none" strokeLinecap="round">
+          <path d="M4 22l8-8-8-8M116 22l-8-8 8-8" opacity="0.7" />
+          <path d="M44 22V12M52 22V8M60 22V4M68 22V8M76 22V12" />
+          <path d="M40 24h40M40 21v6M80 21v6" opacity="0.8" />
+          <path d="M24 14l6-6 6 6-6 6zM90 14l6-6 6 6-6 6z" opacity="0.85" />
+        </g>
+      </Relief>
+    </svg>
+  );
+}
