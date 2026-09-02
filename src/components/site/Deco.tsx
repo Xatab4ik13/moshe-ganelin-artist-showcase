@@ -745,8 +745,8 @@ export function DecoBracket({
 }
 
 /**
- * Lyre crest — mirrored volute arms, strings and a stepped plinth.
- * Music-section counterpart to the playbill marquee.
+ * Lyre crest — symmetric Deco lyre: mirrored inward arms, crossbar,
+ * strings and a stepped plinth.
  */
 export function DecoLyreCrest({
   className = "",
@@ -756,16 +756,22 @@ export function DecoLyreCrest({
   tone?: Tone;
 }) {
   const { grad, glow } = useDecoIds("lyr");
-  const strings = [-32, -16, 0, 16, 32];
+  const strings = [-30, -15, 0, 15, 30];
   const arm = (dir: 1 | -1) => {
     const x = (v: number) => 200 + dir * v;
     return (
       <g key={dir}>
-        <path d={`M${x(24)} 118C${x(24)} 74 ${x(46)} 46 ${x(74)} 40c${dir * 22} -5 ${dir * 34} 10 ${dir * 26} 26-${dir * 6} 12-${dir * 24} 14-${dir * 28} 2`} strokeWidth="1.3" />
-        <path d={`M${x(34)} 118C${x(34)} 82 ${x(52)} 58 ${x(74)} 52`} opacity="0.6" />
-        <circle cx={x(96)} cy="54" r="3" />
-        <path d={`M${x(56)} 118H${x(20)}`} opacity="0.55" />
-        <path d={`M${x(120)} 40l${dir * 12} 0`} opacity="0.5" />
+        <path
+          d={`M${x(46)} 116C${x(78)} 112 ${x(92)} 92 ${x(88)} 70C${x(85)} 52 ${x(70)} 42 ${x(56)} 46c-${dir * 10} 3-${dir * 13} 15-${dir * 5} 21`}
+          strokeWidth="1.4"
+        />
+        <path
+          d={`M${x(46)} 106C${x(70)} 102 ${x(81)} 88 ${x(78)} 71`}
+          strokeWidth="0.8"
+          opacity="0.6"
+        />
+        <circle cx={x(50)} cy="63" r="2.6" />
+        <path d={`M${x(30)} 46h${dir * 16}`} opacity="0.75" />
       </g>
     );
   };
@@ -773,25 +779,27 @@ export function DecoLyreCrest({
     <svg viewBox="0 0 400 150" className={className} aria-hidden="true" fill="none" preserveAspectRatio="xMidYMax meet">
       <DecoPaint id={grad} glowId={glow} tone={tone} />
       <Relief tone={tone} glowId={glow}>
-        <g stroke={`url(#${grad})`} strokeWidth="1" fill="none" strokeLinecap="round">
+        <g stroke={`url(#${grad})`} strokeWidth="1.1" fill="none" strokeLinecap="round">
           {arm(1)}
           {arm(-1)}
-          {strings.map((s, i) => (
+          <path d="M154 46h92" strokeWidth="1.3" />
+          <path d="M160 52h80" strokeWidth="0.7" opacity="0.6" />
+          {strings.map((sx, i) => (
             <line
-              key={s}
-              x1={200 + s}
-              y1={62 + Math.abs(s) * 0.28}
-              x2={200 + s}
-              y2={116}
-              strokeWidth={i === 2 ? 1.2 : 0.7}
-              opacity={i === 2 ? 0.95 : 0.65}
+              key={sx}
+              x1={200 + sx}
+              y1={52}
+              x2={200 + sx}
+              y2={112}
+              strokeWidth={i === 2 ? 1.2 : 0.8}
+              opacity={i === 2 ? 0.95 : 0.7}
             />
           ))}
-          <path d="M164 68h72" opacity="0.7" />
-          <path d="M200 30l14 18-14 18-14-18z" strokeWidth="1.2" />
-          <path d="M200 40l6 8-6 8-6-8z" opacity="0.85" />
-          <path d="M132 124h136M120 130h160M144 118h112" opacity="0.8" />
-          <path d="M188 138h24M176 144h48" opacity="0.55" />
+          <path d="M200 12l14 17-14 17-14-17z" strokeWidth="1.2" />
+          <path d="M200 22l6 7-6 7-6-7z" opacity="0.85" />
+          <path d="M200 46V29" opacity="0.7" />
+          <path d="M150 116h100M140 124h120M160 132h80" strokeWidth="1.1" />
+          <path d="M176 140h48" opacity="0.6" />
         </g>
       </Relief>
     </svg>
@@ -809,27 +817,24 @@ export function DecoKeyRule({
   const { grad, glow } = useDecoIds("key");
   const half = (dir: 1 | -1) => {
     const x = (v: number) => 300 + dir * v;
-    const keys = [0, 1, 2, 3, 4, 5, 6, 7];
+    const keys = [1, 2, 3, 4, 5, 6, 7, 8];
     return (
       <g key={dir}>
-        <path d={`M${x(40)} 10H${x(196)}v20H${x(40)}`} strokeWidth="1.1" />
+        <path d={`M${x(40)} 8H${x(196)}V32H${x(40)}Z`} strokeWidth="1.3" />
         {keys.map((k) => (
-          <line key={k} x1={x(52 + k * 18)} y1="10" x2={x(52 + k * 18)} y2="30" opacity="0.6" />
+          <line key={k} x1={x(40 + k * 17.3)} y1="8" x2={x(40 + k * 17.3)} y2="32" strokeWidth="0.9" opacity="0.85" />
         ))}
-        {[0, 1, 3, 4, 5].map((k) => (
-          <line
+        {[0, 1, 3, 4, 5, 7].map((k) => (
+          <path
             key={`b${k}`}
-            x1={x(52 + k * 18 + 9)}
-            y1="10"
-            x2={x(52 + k * 18 + 9)}
-            y2="21"
-            strokeWidth="2"
-            opacity="0.45"
+            d={`M${x(48 + k * 17.3)} 8h${dir * 8}v13h-${dir * 8}z`}
+            strokeWidth="0.9"
+            opacity="0.75"
           />
         ))}
-        <path d={`M${x(196)} 20H${x(232)}`} opacity="0.6" />
-        <path d={`M${x(240)} 20l${dir * -8} -7 ${dir * -8} 7 ${dir * 8} 7z`} />
-        <path d={`M${x(256)} 20H${x(292)}`} opacity="0.45" />
+        <path d={`M${x(196)} 20H${x(228)}`} strokeWidth="1" opacity="0.7" />
+        <path d={`M${x(240)} 20l${dir * -12} -9 ${dir * -12} 9 ${dir * 12} 9z`} strokeWidth="1.1" />
+        <path d={`M${x(252)} 20H${x(292)}`} opacity="0.5" />
       </g>
     );
   };
@@ -837,11 +842,11 @@ export function DecoKeyRule({
     <svg viewBox="0 0 600 40" className={className} aria-hidden="true" fill="none" preserveAspectRatio="xMidYMid meet">
       <DecoPaint id={grad} glowId={glow} tone={tone} />
       <Relief tone={tone} glowId={glow}>
-        <g stroke={`url(#${grad})`} strokeWidth="1" fill="none" strokeLinecap="round">
+        <g stroke={`url(#${grad})`} strokeWidth="1" fill="none" strokeLinejoin="round">
           {half(1)}
           {half(-1)}
-          <path d="M300 4l16 16-16 16-16-16z" strokeWidth="1.2" />
-          <path d="M300 12l8 8-8 8-8-8z" opacity="0.8" />
+          <path d="M300 2l18 18-18 18-18-18z" strokeWidth="1.3" />
+          <path d="M300 11l9 9-9 9-9-9z" opacity="0.8" />
         </g>
       </Relief>
     </svg>
