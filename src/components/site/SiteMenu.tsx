@@ -124,14 +124,28 @@ export function SiteMenu({ tone = "dark", home = false }: { tone?: "dark" | "lig
   return (
     <>
       <div
-        className={`fixed left-[calc(0.75rem)] top-3 z-50 hidden items-center gap-2 md:left-6 md:top-5 md:flex ${barTone} ${
+        className={`fixed left-[calc(0.75rem)] top-3 z-50 hidden items-center gap-4 md:left-6 md:top-5 md:flex ${barTone} ${
           menuOpen ? "pointer-events-none opacity-0" : "opacity-100"
         } transition-opacity duration-300 [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.35))]`}
       >
+        {!home && (
+          <Link to="/" aria-label="Moshe Ariel Ganelin — Home">
+            <LogoText variant="brass" className="w-[min(16vw,180px)]" />
+          </Link>
+        )}
         {!home && <LanguageSwitcher />}
         <SearchButton />
       </div>
 
+      {!home && (
+        <Link
+          to="/"
+          aria-label="Moshe Ariel Ganelin — Home"
+          className={`fixed left-[calc(0.75rem)] top-3 z-50 md:hidden ${menuOpen ? "pointer-events-none opacity-0" : "opacity-100"} transition-opacity duration-300 [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.35))]`}
+        >
+          <LogoText variant="brass" className="w-[min(42vw,160px)]" />
+        </Link>
+      )}
 
       <button
         type="button"
