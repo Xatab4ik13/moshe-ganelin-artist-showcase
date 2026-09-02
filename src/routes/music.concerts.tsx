@@ -45,7 +45,7 @@ function ConcertVideoPage() {
                     className="h-full w-full"
                   />
                 </div>
-                <h2 className="mt-5 font-display text-xl leading-snug md:text-2xl">{video.title}</h2>
+                <h2 className="mt-5 font-deco text-xl leading-snug md:text-2xl">{video.title}</h2>
               </article>
             </Reveal>
           ))}

@@ -62,7 +62,7 @@ function MusicIndexPage() {
                     params={{ slug: work.slug }}
                     className="group flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2 border-b border-border py-6 transition-colors duration-300 hover:bg-card"
                   >
-                    <span className="font-display text-xl leading-snug transition-colors group-hover:text-brass md:text-3xl">
+                    <span className="font-deco text-xl leading-snug transition-colors group-hover:text-brass md:text-3xl">
                       {work.title}
                     </span>
                     <span className="text-sm uppercase tracking-[0.28em] text-muted-foreground md:text-base">

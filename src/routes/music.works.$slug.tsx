@@ -98,11 +98,11 @@ function WorkPage() {
                 </div>
                 <div>
                   <dt className="text-xs uppercase tracking-[0.3em] text-muted-foreground">{t("workScoring")}</dt>
-                  <dd className="mt-1 font-display text-xl">{work.scoring}</dd>
+                  <dd className="mt-1 font-deco text-xl">{work.scoring}</dd>
                 </div>
                 <div>
                   <dt className="text-xs uppercase tracking-[0.3em] text-muted-foreground">{t("workPremiere")}</dt>
-                  <dd className="mt-1 font-display text-xl">{work.premiere}</dd>
+                  <dd className="mt-1 font-deco text-xl">{work.premiere}</dd>
                 </div>
               </dl>
 

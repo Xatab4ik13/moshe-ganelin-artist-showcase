@@ -47,7 +47,7 @@ function PoetryPage() {
                 <Reveal as="li" key={index} delay={index * 70}>
                   <article className="group flex h-full flex-col justify-between gap-8 border border-border bg-card p-7 transition-all duration-500 hover:-translate-y-1.5 hover:border-brass hover:shadow-[0_24px_50px_-24px_oklch(0_0_0/0.35)]">
                     <div>
-                      <h3 className="font-display text-2xl leading-snug">{t("poemSampleTitle")}</h3>
+                      <h3 className="font-deco text-2xl leading-snug">{t("poemSampleTitle")}</h3>
                       <p className="mt-4 text-base leading-relaxed text-muted-foreground">{t("poemSampleText")}</p>
                     </div>
                   </article>
