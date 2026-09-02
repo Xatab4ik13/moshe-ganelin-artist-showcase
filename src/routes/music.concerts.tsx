@@ -9,9 +9,9 @@ import stageAsset from "@/assets/moshe-stage.webp.asset.json";
 export const Route = createFileRoute("/music/concerts")({
   head: () => ({
     meta: [
-      { title: "Concerts (video) — Moshe Ariel Ganelin" },
+      { title: "Concert videos — Moshe Ariel Ganelin" },
       { name: "description", content: "Concert recordings and live streams of Moshe Ariel Ganelin." },
-      { property: "og:title", content: "Concerts (video) — Moshe Ariel Ganelin" },
+      { property: "og:title", content: "Concert videos — Moshe Ariel Ganelin" },
       { property: "og:description", content: "Concert recordings and live streams." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

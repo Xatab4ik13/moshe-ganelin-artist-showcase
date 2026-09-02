@@ -139,7 +139,7 @@ function GalleryPage() {
                       >
                         <img src={photo.src} alt={photo.alt} loading="lazy" className={`w-full object-cover ${photo.ratio}`} />
                       </button>
-                      <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-3 bg-gradient-to-t from-hero/85 to-transparent p-5 text-sm text-background opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                      <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-3 bg-gradient-to-t from-hero/85 to-transparent p-5 text-lg leading-snug text-background opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 md:text-xl">
                         {photo.alt} — caption, sample text
                       </figcaption>
                     </figure>
@@ -188,7 +188,9 @@ function GalleryPage() {
               alt={photos[active]!.alt}
               className="max-h-[78vh] w-auto max-w-full object-contain"
             />
-            <figcaption className="mt-4 text-center text-sm text-background/70">{photos[active]!.alt}</figcaption>
+            <figcaption className="mt-5 text-center text-lg leading-relaxed text-background/85 md:text-2xl">
+              {photos[active]!.alt}
+            </figcaption>
           </figure>
 
           <div className="absolute inset-x-0 bottom-6 flex justify-center gap-2">
