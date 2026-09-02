@@ -18,9 +18,9 @@ export function SearchButton({ className = "" }: { className?: string }) {
         type="button"
         onClick={() => setOpen(true)}
         aria-label={t("navSearch")}
-        className={`inline-flex items-center gap-2 rounded-full border border-current/30 px-3 py-1.5 text-xs tracking-[0.2em] opacity-80 transition-opacity duration-300 hover:opacity-100 ${className}`}
+        className={`inline-flex items-center gap-2 rounded-full border border-brass/40 bg-transparent px-4 py-2 text-sm tracking-[0.22em] text-brass opacity-90 transition-all duration-300 hover:border-brass hover:bg-brass/10 hover:opacity-100 md:text-base ${className}`}
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-3.5 w-3.5" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-4 w-4 md:h-5 md:w-5" aria-hidden="true">
           <circle cx="11" cy="11" r="7" />
           <path d="m20 20-3.6-3.6" />
         </svg>
