@@ -854,3 +854,134 @@ export function DecoKeyMark({
     </svg>
   );
 }
+
+/** Reel rule — projector sprocket band with a centre lens jewel (video pages). */
+export function DecoReelRule({
+  className = "",
+  tone = "light",
+}: {
+  className?: string;
+  tone?: Tone;
+}) {
+  const { grad, glow } = useDecoIds("reel");
+  const half = (dir: 1 | -1) => {
+    const s = dir === 1 ? "" : " scale(-1 1)";
+    const holes = [0, 1, 2, 3, 4, 5];
+    return (
+      <g key={dir} transform={`translate(300 0)${s}`}>
+        <path d="M46 9H214V31H46Z" strokeWidth="1.2" />
+        <path d="M46 15H214M46 25H214" strokeWidth="0.6" opacity="0.45" />
+        {holes.map((h) => (
+          <rect key={h} x={56 + h * 27} y="15" width="14" height="10" rx="2" strokeWidth="0.9" opacity="0.8" />
+        ))}
+        <path d="M214 20H244M244 15v10" strokeWidth="1" opacity="0.7" />
+        <path d="M258 20l-10 -8 -10 8 10 8z" strokeWidth="1.1" />
+        <path d="M266 20H296M296 16v8" opacity="0.5" />
+      </g>
+    );
+  };
+  const rays = Array.from({ length: 8 }, (_, i) => (i * 360) / 8);
+  return (
+    <svg viewBox="0 0 600 40" className={className} aria-hidden="true" fill="none" preserveAspectRatio="xMidYMid meet">
+      <DecoPaint id={grad} glowId={glow} tone={tone} />
+      <Relief tone={tone} glowId={glow}>
+        <g stroke={`url(#${grad})`} strokeWidth="1" fill="none" strokeLinejoin="round">
+          {half(1)}
+          {half(-1)}
+          <circle cx="300" cy="20" r="13" strokeWidth="1.2" />
+          <circle cx="300" cy="20" r="6" opacity="0.85" />
+          <path
+            d={rays
+              .map((a) => {
+                const r = (a * Math.PI) / 180;
+                return `M${300 + Math.cos(r) * 7} ${20 + Math.sin(r) * 7}L${300 + Math.cos(r) * 12} ${20 + Math.sin(r) * 12}`;
+              })
+              .join("")}
+            strokeWidth="0.8"
+            opacity="0.7"
+          />
+        </g>
+      </Relief>
+    </svg>
+  );
+}
+
+/** Cartouche — stepped Deco frame band with laurel sprigs (poetry, press). */
+export function DecoCartouche({
+  className = "",
+  tone = "light",
+}: {
+  className?: string;
+  tone?: Tone;
+}) {
+  const { grad, glow } = useDecoIds("crt");
+  const sprig = (dir: 1 | -1) => {
+    const s = dir === 1 ? "" : " scale(-1 1)";
+    return (
+      <g key={dir} transform={`translate(300 0)${s}`}>
+        <path d="M74 20C104 20 128 15 148 6" strokeWidth="0.9" opacity="0.7" />
+        <path d="M74 20C104 20 128 25 148 34" strokeWidth="0.9" opacity="0.7" />
+        {[0, 1, 2, 3].map((i) => (
+          <path
+            key={i}
+            d={`M${92 + i * 16} ${20 - i * 0.6}c6 -6 12 -8 18 -6c-4 6 -11 8 -18 6z`}
+            strokeWidth="0.8"
+            opacity="0.75"
+          />
+        ))}
+        <path d={`M156 20H196M196 14v12`} strokeWidth="1" opacity="0.7" />
+        <path d="M212 20l-12 -9 -12 9 12 9z" strokeWidth="1.1" />
+        <path d="M226 20H286M286 15v10" opacity="0.5" />
+      </g>
+    );
+  };
+  return (
+    <svg viewBox="0 0 600 40" className={className} aria-hidden="true" fill="none" preserveAspectRatio="xMidYMid meet">
+      <DecoPaint id={grad} glowId={glow} tone={tone} />
+      <Relief tone={tone} glowId={glow}>
+        <g stroke={`url(#${grad})`} strokeWidth="1" fill="none" strokeLinejoin="round">
+          {sprig(1)}
+          {sprig(-1)}
+          <path d="M266 4h68l14 16-14 16h-68l-14-16z" strokeWidth="1.3" />
+          <path d="M274 10h52l8 10-8 10h-52l-8-10z" strokeWidth="0.7" opacity="0.6" />
+          <path d="M300 12l9 8-9 8-9-8z" strokeWidth="1" />
+        </g>
+      </Relief>
+    </svg>
+  );
+}
+
+/** Aperture corner — shutter blades folded into a stepped corner (gallery, contacts). */
+export function DecoAperture({
+  className = "",
+  tone = "light",
+}: {
+  className?: string;
+  tone?: Tone;
+}) {
+  const { grad, glow } = useDecoIds("apr");
+  const blades = Array.from({ length: 6 }, (_, i) => (i * 360) / 6);
+  return (
+    <svg viewBox="0 0 80 80" className={className} aria-hidden="true" fill="none">
+      <DecoPaint id={grad} glowId={glow} tone={tone} />
+      <Relief tone={tone} glowId={glow}>
+        <g stroke={`url(#${grad})`} strokeWidth="1" fill="none" strokeLinejoin="round">
+          <path d="M4 76V26L26 4h50" strokeWidth="1.2" />
+          <path d="M12 76V32L32 12h44" opacity="0.6" />
+          <circle cx="34" cy="34" r="15" strokeWidth="1.1" />
+          <path
+            d={blades
+              .map((a) => {
+                const r = (a * Math.PI) / 180;
+                const r2 = ((a + 60) * Math.PI) / 180;
+                return `M${34 + Math.cos(r) * 15} ${34 + Math.sin(r) * 15}L${34 + Math.cos(r2) * 7} ${34 + Math.sin(r2) * 7}`;
+              })
+              .join("")}
+            strokeWidth="0.8"
+            opacity="0.75"
+          />
+        </g>
+      </Relief>
+    </svg>
+  );
+}
