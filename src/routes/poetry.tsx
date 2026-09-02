@@ -37,7 +37,7 @@ function PoetryPage() {
       <div className="mx-auto max-w-[1600px] px-5 py-24 md:px-10 lg:px-16 lg:py-32">
         <Reveal>
           <section className="mb-24">
-            <DecoCartouche className="mb-8 h-11 w-[min(100%,620px)] opacity-75" />
+            <DecoCartouche className="mx-auto mb-8 h-11 w-[min(100%,620px)] opacity-75" />
             <h2 className="font-display text-3xl leading-none md:text-5xl">{t("poetryIntroTitle")}</h2>
             <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground md:text-xl">{t("poetryIntroText")}</p>
           </section>
@@ -46,7 +46,7 @@ function PoetryPage() {
         {poetryLangs.map((group, groupIndex) => (
           <section key={group.id} id={group.id} className="mb-24 scroll-mt-24 last:mb-0">
             <Reveal>
-              <DecoCartouche className="mb-6 h-9 w-[min(100%,460px)] opacity-60" />
+              <DecoCartouche className="mx-auto mb-6 h-9 w-[min(100%,460px)] opacity-60" />
               <div className="flex flex-wrap items-baseline justify-between gap-4 border-b border-border pb-6">
                 <h2 className="font-display text-3xl leading-none md:text-5xl">{t(langLabelKey[group.id]!)}</h2>
               </div>
