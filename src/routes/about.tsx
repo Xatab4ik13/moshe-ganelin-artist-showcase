@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { DecoArch, DecoChevronRule, DecoCornerPlate, DecoPilaster, DecoScales } from "@/components/site/Deco";
 import { PageShell, Placeholder } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { publications } from "@/lib/site-data";
@@ -45,7 +46,9 @@ function Timeline() {
               index % 2 === 0 ? "reveal-left md:mr-auto md:ml-0" : "reveal-right md:ml-auto md:mr-0"
             }`}
           >
-            <div className={`milestone-card p-8 md:p-10 ${shapes[index % shapes.length]}`}>
+            <div className={`milestone-card relative p-8 md:p-10 ${shapes[index % shapes.length]}`}>
+              <DecoCornerPlate tone="dark" className="pointer-events-none absolute left-2 top-2 h-9 w-9 opacity-55" />
+              <DecoCornerPlate tone="dark" flipX flipY className="pointer-events-none absolute bottom-2 right-2 h-9 w-9 opacity-55" />
               <h3 className="font-display text-2xl md:text-3xl">{item.title}</h3>
               <p className="mt-4 text-base leading-relaxed text-background/80">{item.text}</p>
             </div>
@@ -61,8 +64,11 @@ function AboutPage() {
 
   return (
     <PageShell title={t("aboutTitle")} lead={t("aboutLead")} image={organAsset.url}>
-      <section id="bio" className="mx-auto max-w-[1600px] scroll-mt-24 px-5 py-24 md:px-10 lg:px-16 lg:py-32">
-        <div className="grid gap-16 lg:grid-cols-[1.2fr_1fr]">
+      <section id="bio" className="relative scroll-mt-24 overflow-hidden px-5 py-24 md:px-10 lg:px-16 lg:py-32">
+        <DecoScales tone="light" opacity={0.07} size={104} />
+        <DecoPilaster tone="light" className="pointer-events-none absolute left-1 top-24 hidden h-[70%] w-8 opacity-45 lg:block" />
+        <DecoPilaster tone="light" flip className="pointer-events-none absolute right-1 top-24 hidden h-[70%] w-8 opacity-45 lg:block" />
+        <div className="relative mx-auto grid max-w-[1600px] gap-16 lg:grid-cols-[1.2fr_1fr]">
           <div className="space-y-6">
             <Reveal>
               <p className="font-display text-2xl leading-snug md:text-3xl">
@@ -89,15 +95,18 @@ function AboutPage() {
             <img src={consoleAsset.url} alt="Moshe Ariel Ganelin at the organ console" loading="lazy" className="aspect-[4/5] w-full object-cover" />
           </Reveal>
         </div>
+        <DecoChevronRule tone="light" className="relative mx-auto mt-20 max-w-[1200px]" />
       </section>
 
-      <section className="flex min-h-[80svh] items-center bg-hero px-5 py-24 text-background md:px-10 lg:px-16">
-        <div className="mx-auto max-w-4xl">
+      <section className="relative flex min-h-[80svh] items-center bg-hero px-5 py-24 text-background md:px-10 lg:px-16">
+        <DecoArch tone="dark" className="pointer-events-none absolute left-1/2 top-10 w-[min(70vw,420px)] -translate-x-1/2 opacity-45" />
+        <div className="relative mx-auto max-w-4xl">
           <Reveal>
             <blockquote className="font-display text-[clamp(1.7rem,4.4vw,3.4rem)] leading-[1.15]">
               “A quote from the musician — sample text, to be replaced with the final version.”
             </blockquote>
             <p className="mt-8 text-base tracking-wide text-background/60">Moshe Ariel Ganelin</p>
+            <DecoChevronRule tone="dark" className="mt-12 opacity-80" />
           </Reveal>
         </div>
       </section>
@@ -115,9 +124,12 @@ function AboutPage() {
         </div>
       </section>
 
-      <section id="publications" className="mx-auto max-w-[1600px] scroll-mt-24 px-5 py-24 md:px-10 lg:px-16 lg:py-32">
+      <section id="publications" className="relative scroll-mt-24 overflow-hidden px-5 py-24 md:px-10 lg:px-16 lg:py-32">
+        <DecoScales tone="light" opacity={0.06} size={72} />
+        <div className="relative mx-auto max-w-[1600px]">
         <Reveal>
           <h2 className="font-display text-4xl leading-none md:text-6xl">{t("aboutPublications")}</h2>
+          <DecoChevronRule tone="light" className="mt-8" />
         </Reveal>
         <ul className="mt-12 border-t border-border/60">
           {publications.map((item, index) => (
@@ -130,6 +142,7 @@ function AboutPage() {
             </Reveal>
           ))}
         </ul>
+        </div>
       </section>
     </PageShell>
   );
