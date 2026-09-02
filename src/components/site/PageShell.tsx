@@ -33,6 +33,13 @@ export function PageShell({
           />
           <div className="absolute inset-0 bg-gradient-to-t from-hero via-hero/50 to-hero/20" />
           <DecoPipes tone="light" className="pointer-events-none absolute bottom-0 right-4 h-32 w-56 opacity-70 md:right-12 md:h-44 md:w-80" />
+          <Link
+            to="/"
+            aria-label="Moshe Ariel Ganelin — Home"
+            className="absolute left-1/2 top-3 z-10 -translate-x-1/2 [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.35))] md:top-5"
+          >
+            <LogoText variant="brass" className="w-[min(42.9vw,165px)] md:w-[min(28.75vw,379px)]" />
+          </Link>
           <div className="relative mx-auto w-full max-w-[1600px] px-5 pb-16 md:px-10 lg:px-16 lg:pb-24">
             <Reveal>
               <h1 className=" font-display text-[clamp(2.6rem,7vw,6rem)] leading-[0.95]">{title}</h1>
@@ -42,9 +49,16 @@ export function PageShell({
           </div>
         </header>
       ) : (
-        <header className="relative mx-auto max-w-[1600px] overflow-hidden px-5 pb-10 pt-32 md:px-10 lg:px-16 lg:pt-44">
+        <header className="relative mx-auto max-w-[1600px] overflow-hidden px-5 pb-10 pt-36 md:px-10 md:pt-52 lg:px-16 lg:pb-16 lg:pt-64">
           <DecoSunburst className="pointer-events-none absolute -top-24 right-0 h-[420px] w-[840px] opacity-40" />
           <DecoPipes className="pointer-events-none absolute bottom-0 right-6 h-24 w-44 opacity-60 md:h-32 md:w-64" />
+          <Link
+            to="/"
+            aria-label="Moshe Ariel Ganelin — Home"
+            className="absolute left-1/2 top-3 z-10 -translate-x-1/2 [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.35))] md:top-5"
+          >
+            <LogoText variant="brass" className="w-[min(42.9vw,165px)] md:w-[min(28.75vw,379px)]" />
+          </Link>
           <Reveal>
             <h1 className=" font-display text-[clamp(2.6rem,7vw,6rem)] leading-[0.95]">{title}</h1>
             {lead ? <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">{lead}</p> : null}
