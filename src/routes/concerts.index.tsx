@@ -2,6 +2,12 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 
 import { ConcertCard } from "@/components/site/ConcertCard";
+import {
+  DecoBracket,
+  DecoChevronColumn,
+  DecoMarquee,
+  DecoTicketRule,
+} from "@/components/site/Deco";
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { archiveConcerts, upcomingConcerts, type Concert } from "@/lib/site-data";
@@ -43,7 +49,11 @@ function MonthCalendar({
 }) {
   const cells = Array.from({ length: 31 }, (_, index) => index + 1);
   return (
-    <div className="border border-border/70 bg-card/60 p-5">
+    <div className="relative border border-border/70 bg-card/60 p-5">
+      <DecoBracket className="pointer-events-none absolute -left-px -top-px h-8 w-8" tone="light" />
+      <DecoBracket className="pointer-events-none absolute -right-px -top-px h-8 w-8 -scale-x-100" tone="light" />
+      <DecoBracket className="pointer-events-none absolute -bottom-px -left-px h-8 w-8 -scale-y-100" tone="light" />
+      <DecoBracket className="pointer-events-none absolute -bottom-px -right-px h-8 w-8 -scale-100" tone="light" />
       <p className="font-display text-2xl leading-none">
         {month} <span className="text-muted-foreground">{year}</span>
       </p>
@@ -100,7 +110,11 @@ function ConcertsPage() {
       lead={t("concertsLead")}
       image={stageAsset.url}
     >
-      <section className="mx-auto max-w-[1600px] px-5 py-24 md:px-10 lg:px-16 lg:py-32">
+      <section className="relative mx-auto max-w-[1600px] px-5 py-24 md:px-10 lg:px-16 lg:py-32">
+        <DecoMarquee
+          className="pointer-events-none absolute left-1/2 top-4 h-16 w-[min(92%,760px)] -translate-x-1/2 opacity-60 md:h-20"
+          tone="light"
+        />
         <Reveal className="relative z-20 mb-10 block bg-background pb-4">
           <h2 className="font-display text-4xl leading-none md:text-6xl">{t("homeUpcoming")}</h2>
         </Reveal>
@@ -115,7 +129,11 @@ function ConcertsPage() {
             ))}
           </div>
 
-          <aside className="hidden space-y-4 lg:block">
+          <aside className="relative hidden space-y-4 lg:block">
+            <DecoChevronColumn
+              className="pointer-events-none absolute -left-9 top-0 h-full w-6 opacity-45"
+              tone="light"
+            />
             {months.map((item) => (
               <Reveal key={`${item.month}-${item.year}`}>
                 <MonthCalendar month={item.month} year={item.year} days={item.days} />
@@ -124,6 +142,10 @@ function ConcertsPage() {
           </aside>
         </div>
       </section>
+
+      <div className="bg-background pb-2 pt-2">
+        <DecoTicketRule className="mx-auto h-10 w-[min(90%,620px)] opacity-70" tone="light" />
+      </div>
 
       <section className="bg-secondary px-5 py-24 md:px-10 lg:px-16 lg:py-32">
         <div className="mx-auto max-w-[1600px]">
