@@ -17,6 +17,7 @@ const menuItems: MenuItem[] = [
     labelKey: "navAbout",
     children: [
       { labelKey: "navBiography", to: "/about" },
+      { labelKey: "navConcertSchedule", to: "/concerts" },
       { labelKey: "navPress", to: "/press" },
       { labelKey: "navGallery", to: "/gallery" },
     ],
