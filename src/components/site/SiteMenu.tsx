@@ -132,15 +132,6 @@ export function SiteMenu({ tone = "dark", home = false }: { tone?: "dark" | "lig
         <SearchButton />
       </div>
 
-      {!home && (
-        <Link
-          to="/"
-          aria-label="Moshe Ariel Ganelin — Home"
-          className={`fixed left-1/2 top-3 z-50 -translate-x-1/2 md:top-5 ${menuOpen ? "pointer-events-none opacity-0" : "opacity-100"} transition-opacity duration-300 [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.35))]`}
-        >
-          <LogoText variant="brass" className="w-[min(42.9vw,165px)] md:w-[min(28.75vw,379px)]" />
-        </Link>
-      )}
 
       <button
         type="button"
