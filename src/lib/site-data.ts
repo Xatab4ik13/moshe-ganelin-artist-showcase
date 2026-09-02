@@ -22,6 +22,7 @@ export type Concert = {
   venue: string;
   title: string;
   note?: string;
+  videoId?: string;
 };
 
 export const upcomingConcerts: Concert[] = [
@@ -38,6 +39,12 @@ export const archiveConcerts: Concert[] = [
   { slug: "february-11-2026-moscow", day: "11", month: "February", year: "2026", city: "Moscow", venue: "House of Music", title: "Organ and electronics" },
   { slug: "december-9-2025-tbilisi", day: "09", month: "December", year: "2025", city: "Tbilisi", venue: "Cathedral", title: "Christmas programme" },
 ];
+
+export const allConcerts: Concert[] = [...upcomingConcerts, ...archiveConcerts];
+
+export function findConcert(slug: string): Concert | undefined {
+  return allConcerts.find((concert) => concert.slug === slug);
+}
 
 export type WorkCategoryId = "symphonic" | "organ" | "vocal" | "choir" | "chamber";
 
