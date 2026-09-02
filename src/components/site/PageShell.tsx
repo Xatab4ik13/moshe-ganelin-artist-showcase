@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import { Link } from "@tanstack/react-router";
 
-import { DecoPipes, DecoRule, DecoSunburst } from "./Deco";
+import { DecoPipes, DecoRule } from "./Deco";
 import { LogoText } from "./LogoText";
 import { Reveal } from "./Reveal";
 import { SiteFooter } from "./SiteFooter";
@@ -50,7 +50,6 @@ export function PageShell({
         </header>
       ) : (
         <header className="relative mx-auto max-w-[1600px] overflow-hidden px-5 pb-10 pt-36 md:px-10 md:pt-52 lg:px-16 lg:pb-16 lg:pt-64">
-          <DecoSunburst className="pointer-events-none absolute -top-24 right-0 h-[420px] w-[840px] opacity-40" />
           <DecoPipes className="pointer-events-none absolute bottom-0 right-6 h-24 w-44 opacity-60 md:h-32 md:w-64" />
           <Link
             to="/"

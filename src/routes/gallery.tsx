@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
+import { DecoAperture } from "@/components/site/Deco";
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { haptic } from "@/lib/haptics";
@@ -116,7 +117,9 @@ function GalleryPage() {
 
   return (
     <PageShell title={t("galleryTitle")} lead={t("galleryLead")}>
-      <section className="mx-auto max-w-[1600px] px-5 pb-32 pt-10 md:px-10 lg:px-16 lg:pb-44">
+      <section className="relative mx-auto max-w-[1600px] px-5 pb-32 pt-10 md:px-10 lg:px-16 lg:pb-44">
+        <DecoAperture className="pointer-events-none absolute left-4 -top-2 md:left-6 h-16 w-16 opacity-60 md:h-20 md:w-20" />
+        <DecoAperture className="pointer-events-none absolute right-4 -top-2 md:right-6 h-16 w-16 -scale-x-100 opacity-60 md:h-20 md:w-20" />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5 md:items-start">
           {columns.map((column, columnIndex) => (
             <div

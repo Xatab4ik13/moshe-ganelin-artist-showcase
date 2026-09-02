@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { DecoFrame, DecoRule } from "@/components/site/Deco";
+import { DecoCartouche, DecoFrame } from "@/components/site/Deco";
 import { PageShell, Placeholder } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { pressItems } from "@/lib/site-data";
@@ -30,7 +30,7 @@ function PressPage() {
       <div className="mx-auto max-w-[1400px] px-5 py-20 md:px-10 lg:px-16 lg:py-28">
         <Reveal>
           <Placeholder>{t("sectionDescription")}</Placeholder>
-          <DecoRule className="mt-12" />
+          <DecoCartouche className="mx-auto mt-12 h-12 w-[min(92%,760px)] opacity-75" />
         </Reveal>
 
         <div className="mt-16 grid gap-8 md:grid-cols-2">

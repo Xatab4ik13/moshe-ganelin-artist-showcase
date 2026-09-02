@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { DecoReelRule } from "@/components/site/Deco";
 import { PageShell, Placeholder } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { videos } from "@/lib/site-data";
@@ -30,9 +31,10 @@ function ImprovisationsPage() {
       <div className="mx-auto max-w-[1400px] px-5 py-20 md:px-10 lg:px-16 lg:py-28">
         <Reveal>
           <Placeholder>{t("sectionDescription")}</Placeholder>
+          <DecoReelRule className="mx-auto mt-12 h-14 w-[min(92%,880px)] opacity-75" />
         </Reveal>
 
-        <div className="mt-16 grid gap-10 md:grid-cols-2">
+        <div className="mt-14 grid gap-10 md:grid-cols-2">
           {selection.map((video, index) => (
             <Reveal key={video.id} delay={index * 70}>
               <article className="border border-border bg-card p-4">

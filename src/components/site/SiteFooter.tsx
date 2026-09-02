@@ -10,11 +10,7 @@ export function SiteFooter() {
   return (
     <footer id="contacts" className="bg-hero px-5 py-20 text-background md:px-10 lg:px-16">
       <div className="mx-auto max-w-[1600px]">
-        <Link to="/" aria-label="Moshe Ariel Ganelin — Home" className="inline-block">
-          <LogoText variant="brass" className="w-[min(40vw,150px)] md:w-[min(14vw,180px)]" />
-        </Link>
-
-        <div className="mt-12 grid gap-10 border-t border-background/20 pt-10 md:grid-cols-3">
+        <div className="grid gap-10 border-b border-background/20 pb-10 md:grid-cols-3">
           <div className="space-y-2 text-base text-background/75">
             <a className="line-link block" href="mailto:concerts@moshearielganelin.com">
               concerts@moshearielganelin.com
@@ -48,7 +44,11 @@ export function SiteFooter() {
           </ul>
         </div>
 
-        <p className="mt-14 text-sm text-background/50">© 2026 Moshe Ariel Ganelin</p>
+        <Link to="/" aria-label="Moshe Ariel Ganelin — Home" className="mt-14 inline-block">
+          <LogoText variant="brass" className="w-[min(40vw,150px)] md:w-[min(14vw,180px)]" />
+        </Link>
+
+        <p className="mt-8 text-sm text-background/50">© 2026 Moshe Ariel Ganelin</p>
       </div>
     </footer>
   );
