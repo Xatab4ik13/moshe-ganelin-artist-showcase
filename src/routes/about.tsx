@@ -99,8 +99,8 @@ function AboutPage() {
       </section>
 
       <section className="relative flex min-h-[80svh] items-center bg-hero px-5 py-24 text-background md:px-10 lg:px-16">
-        <DecoArch tone="dark" className="pointer-events-none absolute left-1/2 top-10 w-[min(70vw,420px)] -translate-x-1/2 opacity-45" />
-        <div className="relative mx-auto max-w-4xl">
+        <DecoArch tone="dark" className="pointer-events-none absolute left-1/2 top-8 w-[min(56vw,320px)] -translate-x-1/2 opacity-40 md:top-12" />
+        <div className="relative mx-auto max-w-4xl pt-28 md:pt-36">
           <Reveal>
             <blockquote className="font-display text-[clamp(1.7rem,4.4vw,3.4rem)] leading-[1.15]">
               “A quote from the musician — sample text, to be replaced with the final version.”
