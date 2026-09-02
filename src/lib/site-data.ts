@@ -14,6 +14,7 @@ export const videos: Video[] = [
 ];
 
 export type Concert = {
+  slug: string;
   day: string;
   month: string;
   year: string;
@@ -24,18 +25,18 @@ export type Concert = {
 };
 
 export const upcomingConcerts: Concert[] = [
-  { day: "12", month: "September", year: "2026", city: "Moscow", venue: "Rachmaninoff Hall", title: "An evening with Moshe Ariel Ganelin" },
-  { day: "14", month: "September", year: "2026", city: "Moscow", venue: "Cathedral of the Immaculate Conception", title: "Organ evening: from Bach to the present day" },
-  { day: "28", month: "September", year: "2026", city: "Saint Petersburg", venue: "Petrikirche", title: "Music of cathedrals. Solo recital" },
-  { day: "19", month: "October", year: "2026", city: "Kaliningrad", venue: "Königsberg Cathedral", title: "Symphony of organ and orchestra" },
-  { day: "07", month: "November", year: "2026", city: "Kazan", venue: "Saidashev Grand Concert Hall", title: "Improvisation: an evening of a single theme" },
+  { slug: "september-12-2026-moscow", day: "12", month: "September", year: "2026", city: "Moscow", venue: "Rachmaninoff Hall", title: "An evening with Moshe Ariel Ganelin" },
+  { slug: "september-14-2026-moscow", day: "14", month: "September", year: "2026", city: "Moscow", venue: "Cathedral of the Immaculate Conception", title: "Organ evening: from Bach to the present day" },
+  { slug: "september-28-2026-saint-petersburg", day: "28", month: "September", year: "2026", city: "Saint Petersburg", venue: "Petrikirche", title: "Music of cathedrals. Solo recital" },
+  { slug: "october-19-2026-kaliningrad", day: "19", month: "October", year: "2026", city: "Kaliningrad", venue: "Königsberg Cathedral", title: "Symphony of organ and orchestra" },
+  { slug: "november-7-2026-kazan", day: "07", month: "November", year: "2026", city: "Kazan", venue: "Saidashev Grand Concert Hall", title: "Improvisation: an evening of a single theme" },
 ];
 
 export const archiveConcerts: Concert[] = [
-  { day: "22", month: "May", year: "2026", city: "Jerusalem", venue: "Concert Hall", title: "Vierne / Ganelin" },
-  { day: "03", month: "April", year: "2026", city: "Berlin", venue: "St. Marienkirche", title: "Bach. The complete chorales" },
-  { day: "11", month: "February", year: "2026", city: "Moscow", venue: "House of Music", title: "Organ and electronics" },
-  { day: "09", month: "December", year: "2025", city: "Tbilisi", venue: "Cathedral", title: "Christmas programme" },
+  { slug: "may-22-2026-jerusalem", day: "22", month: "May", year: "2026", city: "Jerusalem", venue: "Concert Hall", title: "Vierne / Ganelin" },
+  { slug: "april-3-2026-berlin", day: "03", month: "April", year: "2026", city: "Berlin", venue: "St. Marienkirche", title: "Bach. The complete chorales" },
+  { slug: "february-11-2026-moscow", day: "11", month: "February", year: "2026", city: "Moscow", venue: "House of Music", title: "Organ and electronics" },
+  { slug: "december-9-2025-tbilisi", day: "09", month: "December", year: "2025", city: "Tbilisi", venue: "Cathedral", title: "Christmas programme" },
 ];
 
 export type WorkCategoryId = "symphonic" | "organ" | "vocal" | "choir" | "chamber";
