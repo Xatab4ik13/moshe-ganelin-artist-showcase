@@ -22,7 +22,12 @@ export function PageShell({
 
       {image ? (
         <header className="relative flex min-h-[62svh] items-end overflow-hidden bg-hero text-background">
-          <img src={image} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover opacity-60" />
+          <img
+            src={image}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full object-cover object-[50%_28%] opacity-60 md:object-[50%_18%]"
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-hero via-hero/50 to-hero/20" />
           <DecoPipes tone="light" className="pointer-events-none absolute bottom-0 right-4 h-32 w-56 opacity-70 md:right-12 md:h-44 md:w-80" />
           <div className="relative mx-auto w-full max-w-[1600px] px-5 pb-16 md:px-10 lg:px-16 lg:pb-24">

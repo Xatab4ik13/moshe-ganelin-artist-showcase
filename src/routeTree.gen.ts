@@ -22,6 +22,7 @@ import { Route as MusicIndexRouteImport } from './routes/music.index'
 import { Route as MusicConcertsRouteImport } from './routes/music.concerts'
 import { Route as MusicImprovisationsRouteImport } from './routes/music.improvisations'
 import { Route as MusicTranscriptionsIndexRouteImport } from './routes/music.transcriptions.index'
+import { Route as MusicTranscriptionsIdRouteImport } from './routes/music.transcriptions.$id'
 import { Route as MusicWorksSlugRouteImport } from './routes/music.works.$slug'
 
 const IndexRoute = IndexRouteImport.update({
@@ -90,6 +91,11 @@ const MusicTranscriptionsIndexRoute =
     path: '/transcriptions/',
     getParentRoute: () => MusicRoute,
   } as any)
+const MusicTranscriptionsIdRoute = MusicTranscriptionsIdRouteImport.update({
+  id: '/transcriptions/$id',
+  path: '/transcriptions/$id',
+  getParentRoute: () => MusicRoute,
+} as any)
 const MusicWorksSlugRoute = MusicWorksSlugRouteImport.update({
   id: '/works/$slug',
   path: '/works/$slug',
@@ -109,6 +115,7 @@ export interface FileRoutesByFullPath {
   '/music/improvisations': typeof MusicImprovisationsRoute
   '/concerts/': typeof ConcertsIndexRoute
   '/music/': typeof MusicIndexRoute
+  '/music/transcriptions/$id': typeof MusicTranscriptionsIdRoute
   '/music/works/$slug': typeof MusicWorksSlugRoute
   '/music/transcriptions/': typeof MusicTranscriptionsIndexRoute
 }
@@ -124,6 +131,7 @@ export interface FileRoutesByTo {
   '/music/improvisations': typeof MusicImprovisationsRoute
   '/concerts': typeof ConcertsIndexRoute
   '/music': typeof MusicIndexRoute
+  '/music/transcriptions/$id': typeof MusicTranscriptionsIdRoute
   '/music/works/$slug': typeof MusicWorksSlugRoute
   '/music/transcriptions': typeof MusicTranscriptionsIndexRoute
 }
@@ -141,6 +149,7 @@ export interface FileRoutesById {
   '/music/improvisations': typeof MusicImprovisationsRoute
   '/concerts/': typeof ConcertsIndexRoute
   '/music/': typeof MusicIndexRoute
+  '/music/transcriptions/$id': typeof MusicTranscriptionsIdRoute
   '/music/works/$slug': typeof MusicWorksSlugRoute
   '/music/transcriptions/': typeof MusicTranscriptionsIndexRoute
 }
@@ -159,6 +168,7 @@ export interface FileRouteTypes {
     | '/music/improvisations'
     | '/concerts/'
     | '/music/'
+    | '/music/transcriptions/$id'
     | '/music/works/$slug'
     | '/music/transcriptions/'
   fileRoutesByTo: FileRoutesByTo
@@ -174,6 +184,7 @@ export interface FileRouteTypes {
     | '/music/improvisations'
     | '/concerts'
     | '/music'
+    | '/music/transcriptions/$id'
     | '/music/works/$slug'
     | '/music/transcriptions'
   id:
@@ -190,6 +201,7 @@ export interface FileRouteTypes {
     | '/music/improvisations'
     | '/concerts/'
     | '/music/'
+    | '/music/transcriptions/$id'
     | '/music/works/$slug'
     | '/music/transcriptions/'
   fileRoutesById: FileRoutesById
@@ -299,6 +311,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MusicTranscriptionsIndexRouteImport
       parentRoute: typeof MusicRoute
     }
+    '/music/transcriptions/$id': {
+      id: '/music/transcriptions/$id'
+      path: '/transcriptions/$id'
+      fullPath: '/music/transcriptions/$id'
+      preLoaderRoute: typeof MusicTranscriptionsIdRouteImport
+      parentRoute: typeof MusicRoute
+    }
     '/music/works/$slug': {
       id: '/music/works/$slug'
       path: '/works/$slug'
@@ -313,6 +332,7 @@ interface MusicRouteChildren {
   MusicConcertsRoute: typeof MusicConcertsRoute
   MusicImprovisationsRoute: typeof MusicImprovisationsRoute
   MusicIndexRoute: typeof MusicIndexRoute
+  MusicTranscriptionsIdRoute: typeof MusicTranscriptionsIdRoute
   MusicWorksSlugRoute: typeof MusicWorksSlugRoute
   MusicTranscriptionsIndexRoute: typeof MusicTranscriptionsIndexRoute
 }
@@ -321,6 +341,7 @@ const MusicRouteChildren: MusicRouteChildren = {
   MusicConcertsRoute: MusicConcertsRoute,
   MusicImprovisationsRoute: MusicImprovisationsRoute,
   MusicIndexRoute: MusicIndexRoute,
+  MusicTranscriptionsIdRoute: MusicTranscriptionsIdRoute,
   MusicWorksSlugRoute: MusicWorksSlugRoute,
   MusicTranscriptionsIndexRoute: MusicTranscriptionsIndexRoute,
 }
