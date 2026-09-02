@@ -95,10 +95,10 @@ function Index() {
 
       <section id="concerts" className="bg-background px-5 py-24 md:px-10 lg:px-16 lg:py-32">
         <div className="mx-auto max-w-[1600px]">
-          <Reveal>
+          <Reveal className="relative z-20 block bg-background pb-4">
             <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
               <h2 className="font-display text-5xl leading-none md:text-7xl">{t("homeUpcoming")}</h2>
-              <Link to="/concerts" className="line-link text-base text-petrol">{t("homeAllConcerts")}</Link>
+              <Link to="/concerts" className="line-link text-lg text-petrol md:text-2xl">{t("homeAllConcerts")}</Link>
             </div>
             <DecoRule className="mt-8" />
           </Reveal>
