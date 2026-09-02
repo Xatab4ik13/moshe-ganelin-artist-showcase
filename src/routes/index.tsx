@@ -166,7 +166,7 @@ function Index() {
                       className="h-full w-full"
                     />
                   </div>
-                  <h3 className="mt-5 font-display text-lg leading-snug md:text-xl">{video.title}</h3>
+                  <h3 className="mt-5 font-deco text-lg leading-snug md:text-xl">{video.title}</h3>
                 </article>
               </Reveal>
             ))}
