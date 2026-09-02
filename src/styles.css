@@ -419,10 +419,8 @@
   background: color-mix(in oklab, var(--color-hero) 92%, transparent);
   border-color: color-mix(in oklab, var(--color-brass) 55%, transparent);
 }
-.milestone-shape-a { border-radius: 2.5rem 0.25rem 2.5rem 0.25rem; }
-.milestone-shape-b { border-radius: 0.25rem 3rem 0.25rem 3rem; }
-.milestone-shape-c { border-radius: 3rem 3rem 0.25rem 2rem; }
-.milestone-shape-d { border-radius: 0.25rem 2rem 3rem 0.25rem; }
+/* Единая симметричная форма: два скруглённых угла по диагонали, два острых */
+.milestone-card { border-radius: 1.75rem 0.35rem; }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal-left, .reveal-right { transform: none; }
