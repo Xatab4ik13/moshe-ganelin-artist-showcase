@@ -31,7 +31,7 @@ const milestones = [
   { title: "Milestone heading — sample", text: "Milestone text — sample, to be replaced." },
 ];
 
-const shapes = ["milestone-shape-a", "milestone-shape-b", "milestone-shape-c", "milestone-shape-d"];
+
 
 function Timeline() {
   return (
