@@ -50,7 +50,7 @@ function MusicIndexPage() {
         {workCategories.map((category) => (
           <section key={category.id} id={category.id} className="mt-20 scroll-mt-28">
             <Reveal>
-              <DecoKeyMark className="mb-3 h-6 w-28 opacity-70" tone="light" />
+              <DecoKeyMark className="mx-auto mb-3 h-6 w-28 opacity-70" tone="light" />
               <h3 className="font-display text-3xl uppercase tracking-[0.14em] text-petrol md:text-4xl">
                 {t(categoryTitleKey[category.id])}
               </h3>
