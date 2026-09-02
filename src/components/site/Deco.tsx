@@ -93,26 +93,30 @@ export function DecoFrame({ children, className = "" }: { children: ReactNode; c
   );
 }
 
-/** Art Deco organ-pipe fan — stepped pipes with a chevron crown. */
+/** Art Deco organ-pipe fan — symmetric stepped pipes on a double plinth. */
 export function DecoPipes({ className = "", tone = "dark" }: { className?: string; tone?: "dark" | "light" }) {
   const stroke = "var(--brass)";
   const opacity = tone === "light" ? 0.5 : 0.35;
-  const pipes = [46, 62, 80, 100, 118, 136, 152];
+  const heights = [50, 68, 88, 108, 88, 68, 50];
   return (
-    <svg viewBox="0 0 200 120" className={className} aria-hidden="true" fill="none">
-      <g stroke={stroke} strokeWidth="1.1" opacity={opacity}>
-        {pipes.map((height, index) => {
-          const x = 10 + index * 27;
-          const top = 120 - height * 0.62;
+    <svg viewBox="0 0 200 122" className={className} aria-hidden="true" fill="none">
+      <g stroke={stroke} strokeWidth="1.1" opacity={opacity} strokeLinecap="round">
+        {heights.map((height, index) => {
+          const x = 13 + index * 26;
+          const top = 114 - height;
           return (
             <g key={x}>
-              <path d={`M${x} 120V${top + 8}l9-8 9 8V120`} />
-              <path d={`M${x + 4} ${top + 16}h10`} />
+              <path d={`M${x} 114V${top + 10}l9-10 9 10V114`} />
+              <path d={`M${x + 4.5} 114V${top + 16}`} opacity="0.55" />
+              <path d={`M${x + 13.5} 114V${top + 16}`} opacity="0.55" />
             </g>
           );
         })}
-        <path d="M2 118h196" />
-        <path d="M100 6l14 14-14 14-14-14z" />
+        <path d="M2 116h196" strokeWidth="1.2" />
+        <path d="M10 120h180" opacity="0.6" />
+        {[35.5, 61.5, 87.5, 113.5, 139.5, 165.5].map((cx) => (
+          <path key={cx} d={`M${cx} 118l3 3-3 3-3-3z`} />
+        ))}
       </g>
     </svg>
   );
@@ -511,7 +515,7 @@ export function DecoChevronRule({
   );
 }
 
-/** Stepped arch with a fan tympanum — frames a quote or a portrait. */
+/** Symmetric stepped arch with a fan tympanum — frames a quote or a portrait. */
 export function DecoArch({
   className = "",
   tone = "dark",
@@ -520,29 +524,36 @@ export function DecoArch({
   tone?: Tone;
 }) {
   const { grad, glow } = useDecoIds("arc");
-  const rays = Array.from({ length: 13 }, (_, i) => 180 + (i * 180) / 12);
+  const rays = Array.from({ length: 17 }, (_, i) => 180 + (i * 180) / 16);
   return (
     <svg viewBox="0 0 400 200" className={className} aria-hidden="true" fill="none" preserveAspectRatio="xMidYMax meet">
       <DecoPaint id={grad} glowId={glow} tone={tone} />
       <Relief tone={tone} glowId={glow}>
         <g stroke={`url(#${grad})`} strokeWidth="1" fill="none" strokeLinecap="round">
-          <path d="M40 200V120h20V96h22V74h26V56h44v18h26v22h22v24h20v80" strokeWidth="1.3" />
-          <path d="M56 200V128h20v-24h22V84h26V66h32v18h26v20h22v24h20v72" opacity="0.55" />
+          {/* outer stepped arch — symmetric about x=200 */}
+          <path d="M40 200V120h24V96h28V72h36V56h144v16h36v24h28v24h24v80" strokeWidth="1.3" />
+          {/* inner echo */}
+          <path d="M56 200V128h20V106h24V84h30V70h140v14h30v22h24v22h20v72" opacity="0.55" />
+          {/* fan of rays rising from the base centre */}
           {rays.map((a, i) => {
             const r = (a * Math.PI) / 180;
+            const len = i % 2 === 0 ? 78 : 60;
             return (
               <line
                 key={a}
-                x1={200 + Math.cos(r) * 16}
-                y1={196 + Math.sin(r) * 16}
-                x2={200 + Math.cos(r) * (i % 2 === 0 ? 62 : 44)}
-                y2={196 + Math.sin(r) * (i % 2 === 0 ? 62 : 44)}
+                x1={200 + Math.cos(r) * 30}
+                y1={200 + Math.sin(r) * 30}
+                x2={200 + Math.cos(r) * len}
+                y2={200 + Math.sin(r) * len}
                 strokeWidth={i % 2 === 0 ? 1 : 0.6}
                 opacity={i % 2 === 0 ? 0.85 : 0.5}
               />
             );
           })}
-          <path d="M200 108l14 18-14 18-14-18z" />
+          <path d="M112 200a88 88 0 0 1 176 0" opacity="0.7" />
+          {/* keystone diamond at the apex */}
+          <path d="M200 22l15 19-15 19-15-19z" strokeWidth="1.2" />
+          <path d="M200 31l8 10-8 10-8-10z" opacity="0.8" />
         </g>
       </Relief>
     </svg>
