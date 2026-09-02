@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { Reveal } from "./Reveal";
 import type { Concert } from "@/lib/site-data";
 import venueCathedralAsset from "@/assets/venue-cathedral.webp.asset.json";
@@ -13,7 +14,7 @@ const venueImages = [venueHall, venueCathedral, venuePetrikirche];
 
 export function ConcertCard({ concert, index }: { concert: Concert; index: number }) {
   const image = venueImages[index % venueImages.length];
-  const cardRef = useRef<HTMLElement>(null);
+  const cardRef = useRef<HTMLAnchorElement>(null);
   const [active, setActive] = useState(false);
 
   useEffect(() => {
@@ -33,12 +34,12 @@ export function ConcertCard({ concert, index }: { concert: Concert; index: numbe
 
   return (
     <Reveal delay={(index % 3) * 90} className="h-full">
-      <article
+      <Link
+        to="/concerts/$slug"
+        params={{ slug: concert.slug }}
         ref={cardRef}
-        tabIndex={0}
         className={`slide-card flex h-full min-h-80 flex-col justify-between border border-border bg-card p-6 focus:outline-none md:p-8 ${active ? "is-active" : ""}`}
       >
-
         <div className="slide-card-media">
           <img
             src={image}
@@ -52,14 +53,14 @@ export function ConcertCard({ concert, index }: { concert: Concert; index: numbe
         </div>
 
         <div className="slide-card-body space-y-1">
-          <span className="font-display text-6xl leading-none">{concert.day}</span>
-          <span className="slide-card-muted block font-sans text-sm text-muted-foreground">
+          <span className="font-display text-7xl leading-none">{concert.day}</span>
+          <span className="slide-card-muted block font-sans text-lg text-muted-foreground md:text-xl">
             {concert.month} {concert.year}
           </span>
-          <p className="mt-6 text-base leading-snug">{concert.city}, {concert.venue}</p>
+          <p className="mt-6 text-lg leading-snug md:text-xl">{concert.city}, {concert.venue}</p>
         </div>
-        <h3 className="slide-card-body mt-8 font-display text-2xl leading-snug">{concert.title}</h3>
-      </article>
+        <h3 className="slide-card-body mt-8 font-display text-2xl leading-snug md:text-3xl">{concert.title}</h3>
+      </Link>
     </Reveal>
   );
 }

@@ -15,7 +15,7 @@ const venueCathedral = venueCathedralAsset.url;
 const venuePetrikirche = venuePetrikircheAsset.url;
 const venueHall = venueHallAsset.url;
 
-export const Route = createFileRoute("/concerts")({
+export const Route = createFileRoute("/concerts/")({
   head: () => ({
     meta: [
       { title: "Concerts — Moshe Ariel Ganelin" },
