@@ -612,24 +612,51 @@ export function DecoMarquee({
   tone?: Tone;
 }) {
   const { grad, glow } = useDecoIds("mrq");
-  const lamps = [60, 110, 160, 240, 290, 340];
+  // stepped ziggurat, built from the centre outwards so both halves match
+  const steps = [
+    { w: 190, y: 92 },
+    { w: 150, y: 78 },
+    { w: 112, y: 64 },
+    { w: 76, y: 50 },
+    { w: 42, y: 38 },
+  ];
+  const outline = [
+    `M${200 - steps[0]!.w} 96V${steps[0]!.y}`,
+    ...steps.slice(1).map((s, i) => `H${200 - s.w}V${s.y}`),
+    `H${200 + steps[steps.length - 1]!.w}`,
+    ...steps
+      .slice(0, -1)
+      .reverse()
+      .map((s) => `V${s.y}H${200 + s.w}`),
+    "V96",
+  ].join("");
+  const inner = steps.map((s) => ({ w: s.w - 14, y: s.y + 7 }));
+  const innerPath = [
+    `M${200 - inner[0]!.w} 96V${inner[0]!.y}`,
+    ...inner.slice(1).map((s) => `H${200 - s.w}V${s.y}`),
+    `H${200 + inner[inner.length - 1]!.w}`,
+    ...inner
+      .slice(0, -1)
+      .reverse()
+      .map((s) => `V${s.y}H${200 + s.w}`),
+    "V96",
+  ].join("");
+  const lamps = [40, 80, 120, 160, 240, 280, 320, 360];
   return (
-    <svg viewBox="0 0 400 96" className={className} aria-hidden="true" fill="none" preserveAspectRatio="xMidYMax meet">
+    <svg viewBox="0 0 400 100" className={className} aria-hidden="true" fill="none" preserveAspectRatio="xMidYMax meet">
       <DecoPaint id={grad} glowId={glow} tone={tone} />
       <Relief tone={tone} glowId={glow}>
-        <g stroke={`url(#${grad})`} strokeWidth="1" fill="none" strokeLinecap="round">
-          {/* stepped cornice */}
-          <path d="M8 94V76h48V62h48V48h44V34h4V48h44v14h48v14h48v18" strokeWidth="1.3" />
-          <path d="M20 94V82h44V68h48V54h40V40h16v14h40v14h48v14h44v12" opacity="0.6" />
-          {/* central keystone */}
-          <path d="M200 6l16 20-16 20-16-20z" strokeWidth="1.2" />
-          <path d="M200 15l8 11-8 11-8-11z" opacity="0.8" />
-          <path d="M184 50h32" opacity="0.7" />
-          {/* lamp beads mirrored around the centre */}
+        <g stroke={`url(#${grad})`} strokeWidth="1" fill="none" strokeLinecap="square">
+          <path d={outline} strokeWidth="1.3" />
+          <path d={innerPath} opacity="0.55" />
+          {/* keystone diamond centred on the apex */}
+          <path d="M200 10l14 14-14 14-14-14z" strokeWidth="1.2" />
+          <path d="M200 18l6 6-6 6-6-6z" opacity="0.8" />
+          {/* lamp beads, mirrored around the centre */}
           {lamps.map((x) => (
-            <circle key={x} cx={x} cy={86} r="3" />
+            <circle key={x} cx={x} cy={90} r="2.6" />
           ))}
-          <path d="M0 94h400" opacity="0.5" />
+          <path d="M0 96h400" opacity="0.45" />
         </g>
       </Relief>
     </svg>
