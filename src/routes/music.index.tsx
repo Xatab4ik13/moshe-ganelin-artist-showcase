@@ -1,6 +1,6 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 
-import { DecoRule } from "@/components/site/Deco";
+import { DecoKeyMark, DecoKeyRule, DecoLyreCrest } from "@/components/site/Deco";
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { workCategories, type WorkCategoryId } from "@/lib/site-data";
@@ -35,20 +35,22 @@ function MusicIndexPage() {
 
   return (
     <PageShell title={t("navGanelinMusic")} lead={t("musicLead")} image={pianoAsset.url}>
-      <div className="mx-auto max-w-[1400px] px-5 py-20 md:px-10 lg:px-16 lg:py-28">
+      <div className="relative mx-auto max-w-[1400px] px-5 py-20 md:px-10 lg:px-16 lg:py-28">
         <Reveal>
           <h2 className="font-display text-3xl leading-none md:text-5xl">{t("musicIntroTitle")}</h2>
           <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground md:text-xl">{t("musicIntroText")}</p>
         </Reveal>
 
         <Reveal>
-          <h2 className="mt-24 text-center font-display text-4xl leading-none md:text-6xl">{t("listOfWorks")}</h2>
-          <DecoRule className="mt-8" />
+          <DecoLyreCrest className="mx-auto mt-24 h-24 w-[min(70%,340px)] opacity-70 md:h-32" tone="light" />
+          <h2 className="mt-6 text-center font-display text-4xl leading-none md:text-6xl">{t("listOfWorks")}</h2>
+          <DecoKeyRule className="mx-auto mt-8 h-12 w-[min(96%,880px)] opacity-70" tone="light" />
         </Reveal>
 
         {workCategories.map((category) => (
           <section key={category.id} id={category.id} className="mt-20 scroll-mt-28">
             <Reveal>
+              <DecoKeyMark className="mb-3 h-6 w-28 opacity-70" tone="light" />
               <h3 className="font-display text-3xl uppercase tracking-[0.14em] text-petrol md:text-4xl">
                 {t(categoryTitleKey[category.id])}
               </h3>
