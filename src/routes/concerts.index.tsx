@@ -139,7 +139,7 @@ function ConcertsPage() {
       </section>
 
       <div className="bg-background pb-2 pt-2">
-        <DecoTicketRule className="mx-auto h-10 w-[min(90%,620px)] opacity-70" tone="light" />
+        <DecoTicketRule className="mx-auto h-16 w-[min(92%,900px)] opacity-75" tone="light" />
       </div>
 
       <section className="bg-secondary px-5 py-24 md:px-10 lg:px-16 lg:py-32">
