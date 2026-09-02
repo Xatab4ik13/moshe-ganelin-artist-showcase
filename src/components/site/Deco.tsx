@@ -277,12 +277,12 @@ export function DecoBanner({
             {/* organ pipes */}
             {[0, 1, 2, 3, 4].map((i) => {
               const x = 400 + i * 18;
-              const h = [22, 32, 44, 32, 22][i];
+              const h = [22, 32, 44, 32, 22][i]!;
               return <path key={`lp${i}`} d={`M${x} 84V${84 - h}l5-6 5 6V84`} />;
             })}
             {[0, 1, 2, 3, 4].map((i) => {
               const x = 700 + i * 18;
-              const h = [22, 32, 44, 32, 22][4 - i];
+              const h = [22, 32, 44, 32, 22][4 - i]!;
               return <path key={`rp${i}`} d={`M${x} 84V${84 - h}l5-6 5 6V84`} />;
             })}
             <path d="M394 86h64M694 86h64" />
