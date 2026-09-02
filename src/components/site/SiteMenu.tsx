@@ -137,15 +137,15 @@ export function SiteMenu({ tone = "dark", home = false }: { tone?: "dark" | "lig
         aria-label={menuOpen ? t("closeMenu") : t("openMenu")}
         aria-expanded={menuOpen}
         onClick={() => (menuOpen ? close() : open())}
-        className={`group menu-burger fixed right-[calc(0.75rem_+_var(--scrollbar-width))] top-3 z-50 inline-block p-3 opacity-90 transition-opacity duration-300 hover:opacity-100 focus:outline-none md:right-[calc(1.5rem_+_var(--scrollbar-width))] md:top-5 ${barTone}`}
+        className={`group menu-burger fixed right-[calc(0.75rem_+_var(--scrollbar-width))] top-3 z-50 flex w-[8rem] flex-col items-center p-3 opacity-90 transition-opacity duration-300 hover:opacity-100 focus:outline-none md:right-[calc(1.5rem_+_var(--scrollbar-width))] md:top-5 md:w-[12rem] ${barTone}`}
       >
-        <span className="relative block h-11 w-14 md:h-14 md:w-[72px]" aria-hidden="true">
-          <span className={`menu-stroke absolute left-0 top-1/2 h-[3px] w-full -translate-y-1/2 rounded-full bg-current ${menuOpen ? "-translate-y-1/2 rotate-45" : "-translate-y-[9px] md:-translate-y-[11px]"}`} />
+        <span className="relative block h-10 w-12 md:h-12 md:w-16" aria-hidden="true">
+          <span className={`menu-stroke absolute left-0 top-1/2 h-[3px] w-full -translate-y-1/2 rounded-full bg-current ${menuOpen ? "-translate-y-1/2 rotate-45" : "-translate-y-[10px] md:-translate-y-[13px]"}`} />
           <span className={`menu-stroke absolute left-0 top-1/2 h-[3px] w-full -translate-y-1/2 rounded-full bg-current ${menuOpen ? "opacity-0" : "opacity-100"}`} />
-          <span className={`menu-stroke absolute left-0 top-1/2 h-[3px] w-full -translate-y-1/2 rounded-full bg-current ${menuOpen ? "translate-y-1/2 -rotate-45" : "translate-y-[9px] md:translate-y-[11px]"}`} />
+          <span className={`menu-stroke absolute left-0 top-1/2 h-[3px] w-full -translate-y-1/2 rounded-full bg-current ${menuOpen ? "translate-y-1/2 -rotate-45" : "translate-y-[10px] md:translate-y-[13px]"}`} />
         </span>
-        <span className="mt-1 block text-center text-[0.65rem] tracking-[0.32em] md:text-xs">
-          {menuOpen ? t("closeMenu") : "MENU"}
+        <span className="mt-2 block w-full whitespace-nowrap text-center font-display text-[0.95rem] uppercase leading-none tracking-[0.28em] md:text-[1.2rem] md:tracking-[0.3em]">
+          {menuOpen ? t("closeMenu") : t("openMenuShort")}
         </span>
 
       </button>
