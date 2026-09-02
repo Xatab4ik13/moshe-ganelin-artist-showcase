@@ -91,18 +91,18 @@ function WorkPage() {
             <Reveal>
               <h2 className="font-display text-2xl uppercase tracking-[0.14em] text-petrol">{t("workDetails")}</h2>
               <DecoRule className="mt-6" />
-              <dl className="mt-8 space-y-6 text-base md:text-lg">
+              <dl className="mt-8 space-y-6 text-lg md:text-xl">
                 <div>
-                  <dt className="text-xs uppercase tracking-[0.3em] text-muted-foreground">{t("workDuration")}</dt>
-                  <dd className="mt-1 font-display text-xl">{work.duration}</dd>
+                  <dt className="text-sm uppercase tracking-[0.3em] text-muted-foreground">{t("workDuration")}</dt>
+                  <dd className="mt-1 font-display text-2xl">{work.duration}</dd>
                 </div>
                 <div>
-                  <dt className="text-xs uppercase tracking-[0.3em] text-muted-foreground">{t("workScoring")}</dt>
-                  <dd className="mt-1 font-deco text-xl">{work.scoring}</dd>
+                  <dt className="text-sm uppercase tracking-[0.3em] text-muted-foreground">{t("workScoring")}</dt>
+                  <dd className="mt-1 font-deco text-2xl">{work.scoring}</dd>
                 </div>
                 <div>
-                  <dt className="text-xs uppercase tracking-[0.3em] text-muted-foreground">{t("workPremiere")}</dt>
-                  <dd className="mt-1 font-deco text-xl">{work.premiere}</dd>
+                  <dt className="text-sm uppercase tracking-[0.3em] text-muted-foreground">{t("workPremiere")}</dt>
+                  <dd className="mt-1 font-deco text-2xl">{work.premiere}</dd>
                 </div>
               </dl>
 

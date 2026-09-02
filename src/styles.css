@@ -79,7 +79,7 @@
 @theme inline {
   --font-sans: "IBM Plex Sans", sans-serif;
   --font-display: "Metropolis 1920", "Libre Baskerville", serif;
-  --font-body: "Goudy Old Style", Georgia, serif;
+  --font-body: "Poiret One", "Goudy Old Style", Georgia, serif;
   --font-deco: "Partita Deco", "Metropolis 1920", serif;
   --font-coxxon: "Coxxon", sans-serif;
   --font-poiret: "Poiret One", sans-serif;
@@ -144,7 +144,7 @@
   --secondary: oklch(0.93 0.012 230);
   --secondary-foreground: oklch(0.26 0.02 250);
   --muted: oklch(0.925 0.008 85);
-  --muted-foreground: oklch(0.52 0.018 250);
+  --muted-foreground: oklch(0.4 0.02 250);
   --accent: oklch(0.46 0.065 215);
   --accent-foreground: oklch(0.965 0.006 85);
   --destructive: oklch(0.52 0.13 35);
@@ -216,6 +216,7 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-body);
+    font-size: 1.0625rem;
     letter-spacing: 0;
     --scrollbar-width: 0px;
   }
