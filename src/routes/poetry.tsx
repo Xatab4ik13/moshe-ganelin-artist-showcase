@@ -34,6 +34,13 @@ function PoetryPage() {
   return (
     <PageShell title={t("poetryTitle")} lead={t("poetryLead")} image={pianoAsset.url}>
       <div className="mx-auto max-w-[1600px] px-5 py-24 md:px-10 lg:px-16 lg:py-32">
+        <Reveal>
+          <section className="mb-24">
+            <h2 className="font-display text-3xl leading-none md:text-5xl">{t("poetryIntroTitle")}</h2>
+            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground md:text-xl">{t("poetryIntroText")}</p>
+          </section>
+        </Reveal>
+
         {poetryLangs.map((group, groupIndex) => (
           <section key={group.id} id={group.id} className="mb-24 scroll-mt-24 last:mb-0">
             <Reveal>
