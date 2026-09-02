@@ -1,6 +1,6 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 
-import { DecoCartouche, DecoRule } from "@/components/site/Deco";
+import { DecoCartouche } from "@/components/site/Deco";
 import { PageShell, Placeholder } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { allWorks } from "@/lib/site-data";
@@ -91,7 +91,7 @@ function WorkPage() {
           <aside>
             <Reveal>
               <h2 className="font-display text-2xl uppercase tracking-[0.14em] text-petrol">{t("workDetails")}</h2>
-              <DecoRule className="mt-6" />
+              
               <dl className="mt-8 space-y-6 text-lg md:text-xl">
                 <div>
                   <dt className="text-sm uppercase tracking-[0.3em] text-muted-foreground">{t("workDuration")}</dt>
