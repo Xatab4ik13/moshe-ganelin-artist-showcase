@@ -48,15 +48,18 @@ function ContactsPage() {
         <Reveal delay={120}>
           <div className="mt-16 grid gap-10 border-t border-border pt-12 md:grid-cols-2">
             <div>
-              <h2 className="font-display text-3xl">{t("contactsManagement")}</h2>
-              <p className="mt-4 max-w-xl text-base text-muted-foreground">
+              <h2 className="font-display text-4xl md:text-5xl">{t("contactsManagement")}</h2>
+              <p className="mt-4 max-w-xl text-lg text-muted-foreground md:text-xl">
                 {t("contactsManagementText")}
               </p>
             </div>
-            <div className="space-y-2 text-base">
-              <p><a className="line-link" href="https://youtube.com/@mosheganelin" target="_blank" rel="noreferrer">YouTube</a></p>
-              <p><a className="line-link" href="https://www.instagram.com/moshearielganelin" target="_blank" rel="noreferrer">Instagram</a></p>
-              <p><a className="line-link" href="https://www.facebook.com/mosheganelin/" target="_blank" rel="noreferrer">Facebook</a></p>
+            <div>
+              <h2 className="font-display text-4xl md:text-5xl">{t("contactsFollow")}</h2>
+              <div className="mt-4 space-y-2 text-lg md:text-xl">
+                <p><a className="line-link" href="https://www.facebook.com/mosheganelin/" target="_blank" rel="noreferrer">Facebook</a></p>
+                <p><a className="line-link" href="https://www.instagram.com/moshearielganelin" target="_blank" rel="noreferrer">Instagram</a></p>
+                <p><a className="line-link" href="https://youtube.com/@mosheganelin" target="_blank" rel="noreferrer">YouTube</a></p>
+              </div>
             </div>
           </div>
         </Reveal>
