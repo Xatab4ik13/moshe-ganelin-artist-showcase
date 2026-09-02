@@ -35,10 +35,10 @@ function ContactsPage() {
           {blocks.map((block, index) => (
             <Reveal key={block.title} delay={index * 80}>
               <article className="flex h-full flex-col justify-between gap-8 border border-border bg-card p-8 transition-all duration-500 hover:-translate-y-1.5 hover:border-brass hover:shadow-[0_24px_50px_-24px_oklch(0_0_0/0.35)]">
-                <h2 className="font-display text-2xl leading-snug">{block.title}</h2>
+                <h2 className="font-display text-3xl leading-snug md:text-4xl">{block.title}</h2>
                 <div>
-                  <a href={`mailto:${block.value}`} className="line-link text-petrol">{block.value}</a>
-                  <p className="mt-3 text-base text-muted-foreground">{t("blockNote")}</p>
+                  <a href={`mailto:${block.value}`} className="line-link text-lg text-petrol md:text-xl">{block.value}</a>
+                  <p className="mt-3 text-lg text-muted-foreground md:text-xl">{t("blockNote")}</p>
                 </div>
               </article>
             </Reveal>
