@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { DecoAperture } from "@/components/site/Deco";
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { useLanguage } from "@/lib/i18n";
@@ -30,7 +31,9 @@ function ContactsPage() {
 
   return (
     <PageShell title={t("contactsTitle")} lead={t("contactsLead")}>
-      <section className="mx-auto max-w-[1600px] px-5 pb-24 pt-10 md:px-10 lg:px-16 lg:pb-32">
+      <section className="relative mx-auto max-w-[1600px] px-5 pb-24 pt-10 md:px-10 lg:px-16 lg:pb-32">
+        <DecoAperture className="pointer-events-none absolute left-1 top-0 h-16 w-16 opacity-55 md:h-20 md:w-20" />
+        <DecoAperture className="pointer-events-none absolute right-1 top-0 h-16 w-16 -scale-x-100 opacity-55 md:h-20 md:w-20" />
         <div className="grid gap-6 md:grid-cols-3">
           {blocks.map((block, index) => (
             <Reveal key={block.title} delay={index * 80}>
