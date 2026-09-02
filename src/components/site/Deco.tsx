@@ -421,3 +421,169 @@ export function DecoCrest({
     </svg>
   );
 }
+
+/* ------------------------------------------------------------------ */
+/* About-page family: fluted pilasters, laurel chevrons, stepped arch  */
+/* ------------------------------------------------------------------ */
+
+/** Vertical fluted pilaster — a tall column of stepped flutes with a capital. */
+export function DecoPilaster({
+  className = "",
+  tone = "light",
+  flip = false,
+}: {
+  className?: string;
+  tone?: Tone;
+  flip?: boolean;
+}) {
+  const { grad, glow } = useDecoIds("pil");
+  return (
+    <svg
+      viewBox="0 0 60 640"
+      className={className}
+      aria-hidden="true"
+      fill="none"
+      preserveAspectRatio="none"
+      style={flip ? { transform: "scaleX(-1)" } : undefined}
+    >
+      <DecoPaint id={grad} glowId={glow} tone={tone} />
+      <Relief tone={tone} glowId={glow}>
+        <g stroke={`url(#${grad})`} strokeWidth="1" fill="none">
+          <path d="M8 640V64l10-14h24l10 14v576" strokeWidth="1.3" />
+          <path d="M16 640V72h28v568" opacity="0.7" />
+          <path d="M24 640V84M30 640V80M36 640V84" opacity="0.55" />
+          <path d="M4 50h52M10 40h40M16 30h28" />
+          <path d="M30 6l10 14-10 14-10-14z" />
+          {[140, 240, 340, 440, 540].map((y) => (
+            <g key={y}>
+              <path d={`M12 ${y}h36`} opacity="0.55" />
+              <path d={`M30 ${y - 9}l7 9-7 9-7-9z`} opacity="0.8" />
+            </g>
+          ))}
+        </g>
+      </Relief>
+    </svg>
+  );
+}
+
+/** Slim divider of laurel chevrons and beads — quieter than the Home banner. */
+export function DecoChevronRule({
+  className = "",
+  tone = "light",
+}: {
+  className?: string;
+  tone?: Tone;
+}) {
+  const { grad, glow } = useDecoIds("chv");
+  const hair =
+    tone === "light"
+      ? "color-mix(in oklab, var(--foreground) 20%, transparent)"
+      : "color-mix(in oklab, white 20%, transparent)";
+  return (
+    <div className={`w-full ${className}`} aria-hidden="true">
+      <svg viewBox="0 0 1200 60" className="w-full" fill="none" preserveAspectRatio="xMidYMid meet">
+        <DecoPaint id={grad} glowId={glow} tone={tone} />
+        <g stroke={hair} strokeWidth="1">
+          <path d="M0 30h420M780 30h420" />
+        </g>
+        <Relief tone={tone} glowId={glow}>
+          <g stroke={`url(#${grad})`} strokeWidth="1.15" fill="none" strokeLinecap="round">
+            {[0, 1, 2, 3].map((i) => (
+              <g key={`l${i}`} transform={`translate(${430 + i * 26} 0)`}>
+                <path d="M0 38l8-9-8-9" opacity={0.45 + i * 0.15} />
+              </g>
+            ))}
+            {[0, 1, 2, 3].map((i) => (
+              <g key={`r${i}`} transform={`translate(${770 - i * 26} 0)`}>
+                <path d="M0 38l-8-9 8-9" opacity={0.45 + i * 0.15} />
+              </g>
+            ))}
+            <path d="M556 30h-14M658 30h-14" opacity="0.8" />
+            <Volute x={540} y={30} />
+            <Volute x={660} y={30} flip />
+            <path d="M600 10l16 20-16 20-16-20z" strokeWidth="1.3" />
+            <path d="M600 20l8 10-8 10-8-10z" />
+            <circle cx="600" cy="30" r="1.8" />
+          </g>
+        </Relief>
+      </svg>
+    </div>
+  );
+}
+
+/** Stepped arch with a fan tympanum — frames a quote or a portrait. */
+export function DecoArch({
+  className = "",
+  tone = "dark",
+}: {
+  className?: string;
+  tone?: Tone;
+}) {
+  const { grad, glow } = useDecoIds("arc");
+  const rays = Array.from({ length: 13 }, (_, i) => 180 + (i * 180) / 12);
+  return (
+    <svg viewBox="0 0 400 200" className={className} aria-hidden="true" fill="none" preserveAspectRatio="xMidYMax meet">
+      <DecoPaint id={grad} glowId={glow} tone={tone} />
+      <Relief tone={tone} glowId={glow}>
+        <g stroke={`url(#${grad})`} strokeWidth="1" fill="none" strokeLinecap="round">
+          <path d="M40 200V120h20V96h22V74h26V56h44v18h26v22h22v24h20v80" strokeWidth="1.3" />
+          <path d="M56 200V128h20v-24h22V84h26V66h32v18h26v20h22v24h20v72" opacity="0.55" />
+          {rays.map((a, i) => {
+            const r = (a * Math.PI) / 180;
+            return (
+              <line
+                key={a}
+                x1={200 + Math.cos(r) * 16}
+                y1={196 + Math.sin(r) * 16}
+                x2={200 + Math.cos(r) * (i % 2 === 0 ? 62 : 44)}
+                y2={196 + Math.sin(r) * (i % 2 === 0 ? 62 : 44)}
+                strokeWidth={i % 2 === 0 ? 1 : 0.6}
+                opacity={i % 2 === 0 ? 0.85 : 0.5}
+              />
+            );
+          })}
+          <path d="M200 108l14 18-14 18-14-18z" />
+        </g>
+      </Relief>
+    </svg>
+  );
+}
+
+/** Fan-scale (shell) repeating background — softer than the diamond lattice. */
+export function DecoScales({
+  className = "",
+  tone = "light",
+  size = 90,
+  opacity = 0.14,
+}: {
+  className?: string;
+  tone?: Tone;
+  size?: number;
+  opacity?: number;
+}) {
+  const { lattice } = useDecoIds("scl");
+  const r = size / 2;
+  return (
+    <svg
+      className={`pointer-events-none absolute inset-0 h-full w-full ${className}`}
+      aria-hidden="true"
+      style={{ opacity }}
+    >
+      <defs>
+        <pattern id={lattice} width={size} height={r} patternUnits="userSpaceOnUse">
+          <g
+            stroke={tone === "light" ? "color-mix(in oklab, var(--brass) 78%, black)" : "var(--brass)"}
+            strokeWidth="0.7"
+            fill="none"
+          >
+            <path d={`M0 ${r}a${r} ${r} 0 0 1 ${size} 0`} />
+            <path d={`M${r * 0.5} ${r}a${r * 0.5} ${r * 0.5} 0 0 1 ${r} 0`} opacity="0.6" />
+            <path d={`M-${r} ${r}a${r} ${r} 0 0 1 ${size} 0`} />
+            <path d={`M${r} ${r}a${r} ${r} 0 0 1 ${size} 0`} />
+          </g>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill={`url(#${lattice})`} />
+    </svg>
+  );
+}
