@@ -743,3 +743,131 @@ export function DecoBracket({
     </svg>
   );
 }
+
+/**
+ * Lyre crest — mirrored volute arms, strings and a stepped plinth.
+ * Music-section counterpart to the playbill marquee.
+ */
+export function DecoLyreCrest({
+  className = "",
+  tone = "light",
+}: {
+  className?: string;
+  tone?: Tone;
+}) {
+  const { grad, glow } = useDecoIds("lyr");
+  const strings = [-32, -16, 0, 16, 32];
+  const arm = (dir: 1 | -1) => {
+    const x = (v: number) => 200 + dir * v;
+    return (
+      <g key={dir}>
+        <path d={`M${x(24)} 118C${x(24)} 74 ${x(46)} 46 ${x(74)} 40c${dir * 22} -5 ${dir * 34} 10 ${dir * 26} 26-${dir * 6} 12-${dir * 24} 14-${dir * 28} 2`} strokeWidth="1.3" />
+        <path d={`M${x(34)} 118C${x(34)} 82 ${x(52)} 58 ${x(74)} 52`} opacity="0.6" />
+        <circle cx={x(96)} cy="54" r="3" />
+        <path d={`M${x(56)} 118H${x(20)}`} opacity="0.55" />
+        <path d={`M${x(120)} 40l${dir * 12} 0`} opacity="0.5" />
+      </g>
+    );
+  };
+  return (
+    <svg viewBox="0 0 400 150" className={className} aria-hidden="true" fill="none" preserveAspectRatio="xMidYMax meet">
+      <DecoPaint id={grad} glowId={glow} tone={tone} />
+      <Relief tone={tone} glowId={glow}>
+        <g stroke={`url(#${grad})`} strokeWidth="1" fill="none" strokeLinecap="round">
+          {arm(1)}
+          {arm(-1)}
+          {strings.map((s, i) => (
+            <line
+              key={s}
+              x1={200 + s}
+              y1={62 + Math.abs(s) * 0.28}
+              x2={200 + s}
+              y2={116}
+              strokeWidth={i === 2 ? 1.2 : 0.7}
+              opacity={i === 2 ? 0.95 : 0.65}
+            />
+          ))}
+          <path d="M164 68h72" opacity="0.7" />
+          <path d="M200 30l14 18-14 18-14-18z" strokeWidth="1.2" />
+          <path d="M200 40l6 8-6 8-6-8z" opacity="0.85" />
+          <path d="M132 124h136M120 130h160M144 118h112" opacity="0.8" />
+          <path d="M188 138h24M176 144h48" opacity="0.55" />
+        </g>
+      </Relief>
+    </svg>
+  );
+}
+
+/** Keyboard border — mirrored manual keys running out from a centre jewel. */
+export function DecoKeyRule({
+  className = "",
+  tone = "light",
+}: {
+  className?: string;
+  tone?: Tone;
+}) {
+  const { grad, glow } = useDecoIds("key");
+  const half = (dir: 1 | -1) => {
+    const x = (v: number) => 300 + dir * v;
+    const keys = [0, 1, 2, 3, 4, 5, 6, 7];
+    return (
+      <g key={dir}>
+        <path d={`M${x(40)} 10H${x(196)}v20H${x(40)}`} strokeWidth="1.1" />
+        {keys.map((k) => (
+          <line key={k} x1={x(52 + k * 18)} y1="10" x2={x(52 + k * 18)} y2="30" opacity="0.6" />
+        ))}
+        {[0, 1, 3, 4, 5].map((k) => (
+          <line
+            key={`b${k}`}
+            x1={x(52 + k * 18 + 9)}
+            y1="10"
+            x2={x(52 + k * 18 + 9)}
+            y2="21"
+            strokeWidth="2"
+            opacity="0.45"
+          />
+        ))}
+        <path d={`M${x(196)} 20H${x(232)}`} opacity="0.6" />
+        <path d={`M${x(240)} 20l${dir * -8} -7 ${dir * -8} 7 ${dir * 8} 7z`} />
+        <path d={`M${x(256)} 20H${x(292)}`} opacity="0.45" />
+      </g>
+    );
+  };
+  return (
+    <svg viewBox="0 0 600 40" className={className} aria-hidden="true" fill="none" preserveAspectRatio="xMidYMid meet">
+      <DecoPaint id={grad} glowId={glow} tone={tone} />
+      <Relief tone={tone} glowId={glow}>
+        <g stroke={`url(#${grad})`} strokeWidth="1" fill="none" strokeLinecap="round">
+          {half(1)}
+          {half(-1)}
+          <path d="M300 4l16 16-16 16-16-16z" strokeWidth="1.2" />
+          <path d="M300 12l8 8-8 8-8-8z" opacity="0.8" />
+        </g>
+      </Relief>
+    </svg>
+  );
+}
+
+/** Small section glyph — stepped pipes between mirrored chevrons. */
+export function DecoKeyMark({
+  className = "",
+  tone = "light",
+}: {
+  className?: string;
+  tone?: Tone;
+}) {
+  const { grad, glow } = useDecoIds("kmk");
+  return (
+    <svg viewBox="0 0 120 28" className={className} aria-hidden="true" fill="none" preserveAspectRatio="xMidYMid meet">
+      <DecoPaint id={grad} glowId={glow} tone={tone} />
+      <Relief tone={tone} glowId={glow}>
+        <g stroke={`url(#${grad})`} strokeWidth="1" fill="none" strokeLinecap="round">
+          <path d="M4 22l8-8-8-8M116 22l-8-8 8-8" opacity="0.7" />
+          <path d="M44 22V12M52 22V8M60 22V4M68 22V8M76 22V12" />
+          <path d="M40 24h40" opacity="0.8" />
+          <path d="M24 14l6-6 6 6-6 6zM90 14l6-6 6 6-6 6z" opacity="0.85" />
+        </g>
+      </Relief>
+    </svg>
+  );
+}
