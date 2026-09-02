@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 
 import { ConcertCard } from "@/components/site/ConcertCard";
@@ -15,7 +15,7 @@ const venueCathedral = venueCathedralAsset.url;
 const venuePetrikirche = venuePetrikircheAsset.url;
 const venueHall = venueHallAsset.url;
 
-export const Route = createFileRoute("/concerts")({
+export const Route = createFileRoute("/concerts/")({
   head: () => ({
     meta: [
       { title: "Concerts — Moshe Ariel Ganelin" },
@@ -32,25 +32,35 @@ export const Route = createFileRoute("/concerts")({
 
 const archiveImages = [venueCathedral, venuePetrikirche, venueHall];
 
-function MonthCalendar({ month, year, days }: { month: string; year: string; days: number[] }) {
+function MonthCalendar({
+  month,
+  year,
+  days,
+}: {
+  month: string;
+  year: string;
+  days: { day: number; slug: string }[];
+}) {
   const cells = Array.from({ length: 31 }, (_, index) => index + 1);
   return (
     <div className="border border-border/70 bg-card/60 p-5">
-      <p className="font-display text-lg leading-none">
+      <p className="font-display text-2xl leading-none">
         {month} <span className="text-muted-foreground">{year}</span>
       </p>
-      <div className="mt-4 grid grid-cols-7 gap-1 text-center text-[11px] tabular-nums">
+      <div className="mt-4 grid grid-cols-7 gap-1 text-center text-sm tabular-nums">
         {cells.map((day) => {
-          const active = days.includes(day);
-          return (
-            <span
+          const match = days.find((item) => item.day === day);
+          return match ? (
+            <Link
               key={day}
-              className={
-                active
-                  ? "rounded-sm bg-brass/25 py-1 font-semibold text-foreground"
-                  : "py-1 text-muted-foreground/45"
-              }
+              to="/concerts/$slug"
+              params={{ slug: match.slug }}
+              className="rounded-sm bg-brass/25 py-1.5 font-semibold text-foreground transition-colors hover:bg-brass hover:text-hero"
             >
+              {day}
+            </Link>
+          ) : (
+            <span key={day} className="py-1.5 text-muted-foreground/45">
               {day}
             </span>
           );
@@ -65,10 +75,13 @@ function ConcertsPage() {
   const [thumb, setThumb] = useState<{ src: string; x: number; y: number } | null>(null);
   const frame = useRef(0);
 
-  const months = upcomingConcerts.reduce<{ month: string; year: string; days: number[] }[]>((acc, concert) => {
+  const months = upcomingConcerts.reduce<
+    { month: string; year: string; days: { day: number; slug: string }[] }[]
+  >((acc, concert) => {
+    const entry = { day: Number(concert.day), slug: concert.slug };
     const found = acc.find((item) => item.month === concert.month && item.year === concert.year);
-    if (found) found.days.push(Number(concert.day));
-    else acc.push({ month: concert.month, year: concert.year, days: [Number(concert.day)] });
+    if (found) found.days.push(entry);
+    else acc.push({ month: concert.month, year: concert.year, days: [entry] });
     return acc;
   }, []);
 
@@ -88,7 +101,7 @@ function ConcertsPage() {
       image={stageAsset.url}
     >
       <section className="mx-auto max-w-[1600px] px-5 py-24 md:px-10 lg:px-16 lg:py-32">
-        <Reveal>
+        <Reveal className="relative z-20 mb-10 block bg-background pb-4">
           <h2 className="font-display text-4xl leading-none md:text-6xl">{t("homeUpcoming")}</h2>
         </Reveal>
 
@@ -120,19 +133,21 @@ function ConcertsPage() {
           <ul className="mt-12 border-t border-border/60">
             {archiveConcerts.map((concert: Concert, index) => (
               <Reveal as="li" key={`${concert.day}-${concert.city}-a`} delay={index * 60}>
-                <div
+                <Link
+                  to="/concerts/$slug"
+                  params={{ slug: concert.slug }}
                   onMouseMove={moveThumb(archiveImages[index % archiveImages.length]!)}
                   onMouseLeave={() => setThumb(null)}
                   style={{ opacity: Math.max(0.4, 1 - index * 0.13) }}
                   className="row-item group grid items-baseline gap-3 border-b border-border/60 px-3 py-7 text-muted-foreground md:grid-cols-[10rem_1fr_1.1fr]"
                 >
-                  <span className="font-display text-2xl leading-none">
+                  <span className="font-display text-3xl leading-none">
                     {concert.day} {concert.month}
-                    <span className="ml-2 text-sm">{concert.year}</span>
+                    <span className="ml-2 text-base">{concert.year}</span>
                   </span>
-                  <span className="text-base">{concert.city}, {concert.venue}</span>
-                  <span className="font-display text-lg leading-snug">{concert.title}</span>
-                </div>
+                  <span className="text-lg md:text-xl">{concert.city}, {concert.venue}</span>
+                  <span className="font-display text-xl leading-snug md:text-2xl">{concert.title}</span>
+                </Link>
               </Reveal>
             ))}
           </ul>
