@@ -1,9 +1,6 @@
 import type { ReactNode } from "react";
 
-import { Link } from "@tanstack/react-router";
-
-
-import { LogoText } from "./LogoText";
+import { DecoChevronRule, DecoCrest, DecoPilaster, DecoScales } from "./Deco";
 import { Reveal } from "./Reveal";
 import { SiteFooter } from "./SiteFooter";
 import { SiteMenu } from "./SiteMenu";
