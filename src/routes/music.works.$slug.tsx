@@ -50,7 +50,7 @@ function WorkPage() {
   const { work } = Route.useLoaderData();
 
   return (
-    <PageShell title={work.title} lead={`${work.year} · ${work.duration}`} sunburst>
+    <PageShell title={work.title} lead={`${work.year} · ${work.duration}`}>
       <div className="mx-auto max-w-[1400px] px-5 pb-28 md:px-10 lg:px-16">
         <div className="grid gap-16 lg:grid-cols-[1.4fr_0.6fr]">
           <div>

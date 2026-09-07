@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { DecoChevronRule, DecoPilaster, DecoScales, DecoSunburst } from "./Deco";
+import { DecoChevronRule, DecoPilaster, DecoScales } from "./Deco";
 import { Reveal } from "./Reveal";
 import { SiteFooter } from "./SiteFooter";
 import { SiteMenu } from "./SiteMenu";
@@ -9,13 +9,11 @@ export function PageShell({
   title,
   lead,
   image,
-  sunburst = false,
   children,
 }: {
   title: string;
   lead?: string;
   image?: string;
-  sunburst?: boolean;
   children: ReactNode;
 }) {
   return (
@@ -47,9 +45,6 @@ export function PageShell({
           <DecoPilaster tone="light" flip className="pointer-events-none absolute right-1 top-28 hidden h-[60%] w-8 opacity-45 lg:block" />
           <div className="relative mx-auto max-w-[1600px]">
             <Reveal>
-              {sunburst ? (
-                <DecoSunburst tone="light" className="mx-auto mb-6 h-24 w-[min(80%,320px)] opacity-80 md:h-28" />
-              ) : null}
               <h1 className="text-center font-display text-[clamp(2.6rem,7vw,6rem)] leading-[0.95]">{title}</h1>
               {lead ? (
                 <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-relaxed text-muted-foreground md:text-xl">{lead}</p>
