@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { DecoChevronRule, DecoCrest, DecoPilaster, DecoScales } from "./Deco";
+import { DecoChevronRule, DecoPilaster, DecoScales } from "./Deco";
 import { Reveal } from "./Reveal";
 import { SiteFooter } from "./SiteFooter";
 import { SiteMenu } from "./SiteMenu";
