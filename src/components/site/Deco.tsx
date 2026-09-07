@@ -536,8 +536,9 @@ export function DecoChevronRule({
         aria-hidden="true"
         loading="lazy"
         decoding="async"
-        className={`mx-auto block w-full max-w-[880px] select-none ${tone === "dark" ? "opacity-95" : "opacity-90"}`}
+        className={`mx-auto block w-full select-none ${tone === "dark" ? "opacity-95" : "opacity-90"}`}
       />
+
     </div>
   );
 }
