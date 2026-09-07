@@ -94,7 +94,7 @@ function WorkPage() {
               <dl className="mt-8 space-y-6 text-lg md:text-xl">
                 <div>
                   <dt className="text-sm uppercase tracking-[0.3em] text-muted-foreground">{t("workDuration")}</dt>
-                  <dd className="mt-1 font-display text-2xl">{work.duration}</dd>
+                  <dd className="mt-1 font-body text-2xl">{work.duration}</dd>
                 </div>
                 <div>
                   <dt className="text-sm uppercase tracking-[0.3em] text-muted-foreground">{t("workScoring")}</dt>
