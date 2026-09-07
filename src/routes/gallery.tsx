@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-import { DecoAperture } from "@/components/site/Deco";
+import { DecoChevronRule, DecoPilaster, DecoScales } from "@/components/site/Deco";
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { haptic } from "@/lib/haptics";
@@ -117,10 +117,11 @@ function GalleryPage() {
 
   return (
     <PageShell title={t("galleryTitle")} lead={t("galleryLead")}>
-      <section className="relative mx-auto max-w-[1600px] px-5 pb-32 pt-10 md:px-10 lg:px-16 lg:pb-44">
-        <DecoAperture className="pointer-events-none absolute left-4 -top-2 md:left-6 h-16 w-16 opacity-60 md:h-20 md:w-20" />
-        <DecoAperture className="pointer-events-none absolute right-4 -top-2 md:right-6 h-16 w-16 -scale-x-100 opacity-60 md:h-20 md:w-20" />
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5 md:items-start">
+      <section className="relative mx-auto max-w-[1600px] overflow-hidden px-5 pb-32 pt-14 md:px-10 lg:px-16 lg:pb-44">
+        <DecoScales tone="light" opacity={0.06} size={72} />
+        <DecoPilaster tone="light" className="pointer-events-none absolute left-0 top-10 hidden h-[70%] w-10 opacity-40 lg:block" />
+        <DecoPilaster tone="light" className="pointer-events-none absolute right-0 top-10 hidden h-[70%] w-10 -scale-x-100 opacity-40 lg:block" />
+        <div className="relative grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5 md:items-start">
           {columns.map((column, columnIndex) => (
             <div
               key={columnIndex}
@@ -132,18 +133,18 @@ function GalleryPage() {
               {column.map((photo) => {
                 const index = photos.indexOf(photo);
                 return (
-                  <Reveal key={photo.alt} delay={(index % 3) * 80} className="media-zoom overflow-hidden">
-                    <figure className="group relative">
+                  <Reveal key={photo.alt} delay={(index % 3) * 80}>
+                    <figure className="deco-card overflow-hidden p-3">
                       <button
                         type="button"
                         onClick={(event) => openPhoto(index, event.currentTarget)}
                         aria-label={`Open photo: ${photo.alt}`}
-                        className="block w-full cursor-zoom-in"
+                        className="block w-full cursor-zoom-in overflow-hidden"
                       >
                         <img src={photo.src} alt={photo.alt} loading="lazy" className={`w-full object-cover ${photo.ratio}`} />
                       </button>
-                      <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-3 bg-gradient-to-t from-hero/85 to-transparent p-5 text-lg leading-snug text-background opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 md:text-xl">
-                        {photo.alt} — caption, sample text
+                      <figcaption className="px-2 py-4 text-center text-lg leading-snug text-muted-foreground md:text-xl">
+                        {photo.alt}
                       </figcaption>
                     </figure>
                   </Reveal>
@@ -152,7 +153,9 @@ function GalleryPage() {
             </div>
           ))}
         </div>
+        <DecoChevronRule tone="light" className="relative mx-auto mt-20 max-w-[900px]" />
       </section>
+
 
       {active !== null && (
         <div
