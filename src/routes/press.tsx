@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { DecoCartouche, DecoFrame } from "@/components/site/Deco";
-import { PageShell, Placeholder } from "@/components/site/PageShell";
+import { DecoChevronRule, DecoCornerPlate, DecoPilaster, DecoScales } from "@/components/site/Deco";
+import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { pressItems } from "@/lib/site-data";
 import { useLanguage } from "@/lib/i18n";
@@ -27,28 +27,37 @@ function PressPage() {
 
   return (
     <PageShell title={t("pressTitle")} lead={t("pressLead")} image={heroImage.url}>
-      <div className="mx-auto max-w-[1400px] px-5 py-20 md:px-10 lg:px-16 lg:py-28">
-        <Reveal>
-          <Placeholder>{t("sectionDescription")}</Placeholder>
-          <DecoCartouche className="mx-auto mt-12 h-12 w-[min(92%,760px)] opacity-75" />
-        </Reveal>
+      <section className="relative overflow-hidden px-5 py-20 md:px-10 lg:px-16 lg:py-28">
+        <DecoScales tone="light" opacity={0.07} size={104} />
+        <DecoPilaster tone="light" className="pointer-events-none absolute left-1 top-24 hidden h-[70%] w-8 opacity-45 lg:block" />
+        <DecoPilaster tone="light" flip className="pointer-events-none absolute right-1 top-24 hidden h-[70%] w-8 opacity-45 lg:block" />
+        <div className="relative mx-auto max-w-[1400px]">
+          <Reveal>
+            <p className="mx-auto max-w-3xl text-center text-lg leading-relaxed text-muted-foreground md:text-xl">
+              {t("sectionDescription")}
+            </p>
+            <DecoChevronRule tone="light" className="mx-auto mt-12 max-w-[1000px]" />
+          </Reveal>
 
-        <div className="mt-16 grid gap-8 md:grid-cols-2">
-          {pressItems.map((item, index) => (
-            <Reveal key={item.slug} delay={index * 70}>
-              <DecoFrame className="h-full border border-border bg-card p-8 transition-transform duration-500 hover:-translate-y-1">
-                <p className="text-xs uppercase tracking-[0.32em] text-petrol">
-                  {item.outlet} · {item.date}
-                </p>
-                <h2 className="mt-5 font-display text-2xl leading-snug md:text-3xl">{item.title}</h2>
-                <blockquote className="mt-6 border-l-2 border-brass/70 pl-5 text-base italic leading-relaxed text-muted-foreground md:text-lg">
-                  {item.quote}
-                </blockquote>
-              </DecoFrame>
-            </Reveal>
-          ))}
+          <div className="mt-16 grid gap-8 md:grid-cols-2">
+            {pressItems.map((item, index) => (
+              <Reveal key={item.slug} delay={index * 70}>
+                <article className="deco-card h-full p-9 md:p-10">
+                  <DecoCornerPlate tone="light" className="pointer-events-none absolute left-3 top-3 h-9 w-9 opacity-55" />
+                  <DecoCornerPlate tone="light" flipX flipY className="pointer-events-none absolute bottom-3 right-3 h-9 w-9 opacity-55" />
+                  <p className="relative text-center text-xs uppercase tracking-[0.32em] text-petrol">
+                    {item.outlet} · {item.date}
+                  </p>
+                  <h2 className="relative mt-5 text-center font-display text-2xl leading-snug md:text-3xl">{item.title}</h2>
+                  <blockquote className="relative mx-auto mt-6 max-w-xl text-center text-base italic leading-relaxed text-muted-foreground md:text-lg">
+                    {item.quote}
+                  </blockquote>
+                </article>
+              </Reveal>
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
     </PageShell>
   );
 }

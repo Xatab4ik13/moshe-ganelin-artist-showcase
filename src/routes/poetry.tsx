@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { DecoCartouche } from "@/components/site/Deco";
+import { DecoChevronRule, DecoCornerPlate, DecoPilaster, DecoScales } from "@/components/site/Deco";
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { useLanguage, type DictKey } from "@/lib/i18n";
@@ -34,40 +34,44 @@ function PoetryPage() {
 
   return (
     <PageShell title={t("poetryTitle")} lead={t("poetryLead")} image={pianoAsset.url}>
-      <div className="mx-auto max-w-[1600px] px-5 py-24 md:px-10 lg:px-16 lg:py-32">
-        <Reveal>
-          <section className="mb-24">
-            <DecoCartouche className="mx-auto mb-8 h-11 w-[min(100%,620px)] opacity-75" />
-            <h2 className="font-display text-3xl leading-none md:text-5xl">{t("poetryIntroTitle")}</h2>
-            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground md:text-xl">{t("poetryIntroText")}</p>
-          </section>
-        </Reveal>
+      <section className="relative overflow-hidden px-5 py-24 md:px-10 lg:px-16 lg:py-32">
+        <DecoScales tone="light" opacity={0.07} size={104} />
+        <DecoPilaster tone="light" className="pointer-events-none absolute left-1 top-24 hidden h-[70%] w-8 opacity-45 lg:block" />
+        <DecoPilaster tone="light" flip className="pointer-events-none absolute right-1 top-24 hidden h-[70%] w-8 opacity-45 lg:block" />
+        <div className="relative mx-auto max-w-[1600px]">
+          <Reveal>
+            <section className="mb-24 text-center">
+              <h2 className="font-display text-3xl leading-none md:text-5xl">{t("poetryIntroTitle")}</h2>
+              <p className="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground md:text-xl">{t("poetryIntroText")}</p>
+              <DecoChevronRule tone="light" className="mx-auto mt-12 max-w-[1000px]" />
+            </section>
+          </Reveal>
 
-        {poetryLangs.map((group, groupIndex) => (
-          <section key={group.id} id={group.id} className="mb-24 scroll-mt-24 last:mb-0">
-            <Reveal>
-              <DecoCartouche className="mx-auto mb-6 h-9 w-[min(100%,460px)] opacity-60" />
-              <div className="flex flex-wrap items-baseline justify-between gap-4 border-b border-border pb-6">
-                <h2 className="font-display text-3xl leading-none md:text-5xl">{t(langLabelKey[group.id]!)}</h2>
-              </div>
-            </Reveal>
+          {poetryLangs.map((group) => (
+            <section key={group.id} id={group.id} className="mb-24 scroll-mt-24 last:mb-0">
+              <Reveal>
+                <h2 className="text-center font-display text-3xl leading-none md:text-5xl">{t(langLabelKey[group.id]!)}</h2>
+                <DecoChevronRule tone="light" className="mx-auto mt-8 max-w-[720px] opacity-80" />
+              </Reveal>
 
-            <ul className="mt-10 grid gap-6 md:grid-cols-2">
-              {[0, 1].map((index) => (
-                <Reveal as="li" key={index} delay={index * 70}>
-                  <article className="group flex h-full flex-col justify-between gap-8 border border-border bg-card p-7 transition-all duration-500 hover:-translate-y-1.5 hover:border-brass hover:shadow-[0_24px_50px_-24px_oklch(0_0_0/0.35)]">
-                    <div>
-                      <h3 className="font-deco text-2xl leading-snug">{t("poemSampleTitle")}</h3>
-                      <p className="mt-4 text-base leading-relaxed text-muted-foreground">{t("poemSampleText")}</p>
-                    </div>
-                  </article>
-                </Reveal>
-              ))}
-            </ul>
-            {groupIndex === poetryLangs.length - 1 ? null : null}
-          </section>
-        ))}
-      </div>
+              <ul className="mt-12 grid gap-8 md:grid-cols-2">
+                {[0, 1].map((index) => (
+                  <Reveal as="li" key={index} delay={index * 70}>
+                    <article className="deco-card flex h-full flex-col justify-between gap-8 p-9 md:p-10">
+                      <DecoCornerPlate tone="light" className="pointer-events-none absolute left-3 top-3 h-9 w-9 opacity-55" />
+                      <DecoCornerPlate tone="light" flipX flipY className="pointer-events-none absolute bottom-3 right-3 h-9 w-9 opacity-55" />
+                      <div className="relative text-center">
+                        <h3 className="font-deco text-2xl leading-snug md:text-3xl">{t("poemSampleTitle")}</h3>
+                        <p className="mt-5 text-lg leading-relaxed text-muted-foreground">{t("poemSampleText")}</p>
+                      </div>
+                    </article>
+                  </Reveal>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </div>
+      </section>
     </PageShell>
   );
 }

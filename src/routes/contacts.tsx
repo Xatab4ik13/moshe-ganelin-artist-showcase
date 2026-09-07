@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { DecoAperture } from "@/components/site/Deco";
+import { DecoChevronRule, DecoCornerPlate, DecoPilaster, DecoScales } from "@/components/site/Deco";
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { useLanguage } from "@/lib/i18n";
@@ -31,41 +31,48 @@ function ContactsPage() {
 
   return (
     <PageShell title={t("contactsTitle")} lead={t("contactsLead")}>
-      <section className="relative mx-auto max-w-[1600px] px-5 pb-24 pt-10 md:px-10 lg:px-16 lg:pb-32">
-        <DecoAperture className="pointer-events-none absolute left-4 -top-2 md:left-6 h-16 w-16 opacity-55 md:h-20 md:w-20" />
-        <DecoAperture className="pointer-events-none absolute right-4 -top-2 md:right-6 h-16 w-16 -scale-x-100 opacity-55 md:h-20 md:w-20" />
-        <div className="grid gap-6 md:grid-cols-3">
-          {blocks.map((block, index) => (
-            <Reveal key={block.title} delay={index * 80}>
-              <article className="flex h-full flex-col justify-between gap-8 border border-border bg-card p-8 transition-all duration-500 hover:-translate-y-1.5 hover:border-brass hover:shadow-[0_24px_50px_-24px_oklch(0_0_0/0.35)]">
-                <h2 className="font-display text-3xl leading-snug md:text-4xl">{block.title}</h2>
-                <div>
-                  <a href={`mailto:${block.value}`} className="line-link text-lg text-petrol md:text-xl">{block.value}</a>
-                  <p className="mt-3 text-lg text-muted-foreground md:text-xl">{t("blockNote")}</p>
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
+      <section className="relative overflow-hidden px-5 pb-24 pt-10 md:px-10 lg:px-16 lg:pb-32">
+        <DecoScales tone="light" opacity={0.07} size={104} />
+        <DecoPilaster tone="light" className="pointer-events-none absolute left-1 top-16 hidden h-[70%] w-8 opacity-45 lg:block" />
+        <DecoPilaster tone="light" flip className="pointer-events-none absolute right-1 top-16 hidden h-[70%] w-8 opacity-45 lg:block" />
+        <div className="relative mx-auto max-w-[1600px]">
+          <div className="grid gap-8 md:grid-cols-3">
+            {blocks.map((block, index) => (
+              <Reveal key={block.title} delay={index * 80}>
+                <article className="deco-card flex h-full flex-col justify-between gap-8 p-9 md:p-10">
+                  <DecoCornerPlate tone="light" className="pointer-events-none absolute left-3 top-3 h-9 w-9 opacity-55" />
+                  <DecoCornerPlate tone="light" flipX flipY className="pointer-events-none absolute bottom-3 right-3 h-9 w-9 opacity-55" />
+                  <h2 className="relative text-center font-display text-3xl leading-snug md:text-4xl">{block.title}</h2>
+                  <div className="relative text-center">
+                    <a href={`mailto:${block.value}`} className="line-link text-lg text-petrol md:text-xl">{block.value}</a>
+                    <p className="mt-3 text-lg text-muted-foreground md:text-xl">{t("blockNote")}</p>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
 
-        <Reveal delay={120}>
-          <div className="mt-16 grid gap-10 border-t border-border pt-12 md:grid-cols-2">
-            <div>
-              <h2 className="font-display text-4xl md:text-5xl">{t("contactsManagement")}</h2>
-              <p className="mt-4 max-w-xl text-lg text-muted-foreground md:text-xl">
-                {t("contactsManagementText")}
-              </p>
-            </div>
-            <div>
-              <h2 className="font-display text-4xl md:text-5xl">{t("contactsFollow")}</h2>
-              <div className="mt-4 space-y-2 text-lg md:text-xl">
-                <p><a className="line-link" href="https://www.facebook.com/mosheganelin/" target="_blank" rel="noreferrer">Facebook</a></p>
-                <p><a className="line-link" href="https://www.instagram.com/moshearielganelin" target="_blank" rel="noreferrer">Instagram</a></p>
-                <p><a className="line-link" href="https://youtube.com/@mosheganelin" target="_blank" rel="noreferrer">YouTube</a></p>
+          <DecoChevronRule tone="light" className="mx-auto mt-20 max-w-[1200px]" />
+
+          <Reveal delay={120}>
+            <div className="mt-16 grid gap-14 md:grid-cols-2">
+              <div className="text-center md:text-left">
+                <h2 className="font-display text-4xl md:text-5xl">{t("contactsManagement")}</h2>
+                <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground md:mx-0 md:text-xl">
+                  {t("contactsManagementText")}
+                </p>
+              </div>
+              <div className="text-center md:text-right">
+                <h2 className="font-display text-4xl md:text-5xl">{t("contactsFollow")}</h2>
+                <div className="mt-5 space-y-2 text-lg md:text-xl">
+                  <p><a className="line-link" href="https://www.facebook.com/mosheganelin/" target="_blank" rel="noreferrer">Facebook</a></p>
+                  <p><a className="line-link" href="https://www.instagram.com/moshearielganelin" target="_blank" rel="noreferrer">Instagram</a></p>
+                  <p><a className="line-link" href="https://youtube.com/@mosheganelin" target="_blank" rel="noreferrer">YouTube</a></p>
+                </div>
               </div>
             </div>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
       </section>
     </PageShell>
   );
