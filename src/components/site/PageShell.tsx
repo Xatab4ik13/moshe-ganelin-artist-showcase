@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { DecoChevronRule, DecoPilaster, DecoScales } from "./Deco";
+import { DecoChevronRule, DecoPilaster, DecoScales, DecoSunburst } from "./Deco";
 import { Reveal } from "./Reveal";
 import { SiteFooter } from "./SiteFooter";
 import { SiteMenu } from "./SiteMenu";
@@ -9,11 +9,13 @@ export function PageShell({
   title,
   lead,
   image,
+  sunburst = false,
   children,
 }: {
   title: string;
   lead?: string;
   image?: string;
+  sunburst?: boolean;
   children: ReactNode;
 }) {
   return (
