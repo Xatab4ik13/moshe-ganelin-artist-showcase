@@ -14,15 +14,15 @@
 }
 @font-face {
   font-family: "Mostra Nuova";
-  src: url("/fonts/mostra-nuova.ttf") format("truetype");
+  src: url("/fonts/mostra-nuova-regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Mostra Nuova";
-  src: url("/fonts/mostra-nuova-bold.ttf") format("truetype");
-  font-weight: 700;
+  src: url("/fonts/mostra-nuova-heavy.woff2") format("woff2");
+  font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
@@ -84,10 +84,10 @@
  */
 
 @theme inline {
-  --font-sans: "IBM Plex Sans", sans-serif;
+  --font-sans: "Mostra Nuova", sans-serif;
   --font-display: "Metropolis 1920", "Libre Baskerville", serif;
-  --font-body: "IBM Plex Sans", Arial, sans-serif;
-  --font-deco: "Mostra Nuova", "Metropolis 1920", serif;
+  --font-body: "Mostra Nuova", sans-serif;
+  --font-deco: "Mostra Nuova", sans-serif;
   --font-coxxon: "Coxxon", sans-serif;
   --font-poiret: "Poiret One", sans-serif;
   --font-copilot: "Copilot", monospace;
