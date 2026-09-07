@@ -32,26 +32,73 @@ export function DecoRule({
   );
 }
 
-export function DecoSunburst({ className = "" }: { className?: string }) {
-  const rays = Array.from({ length: 24 }, (_, i) => (i * 180) / 24);
+export function DecoSunburst({
+  className = "",
+  tone = "light",
+}: {
+  className?: string;
+  tone?: "dark" | "light";
+}) {
+  const id = useId().replace(/[^a-zA-Z0-9]/g, "");
+  const rays = Array.from({ length: 25 }, (_, i) => (i * 180) / 24);
+  // Relief feel: layered brass gradient + soft shadow offset underneath.
+  const main = "var(--brass)";
+  const shadow = tone === "light" ? "color-mix(in oklab, var(--petrol) 22%, transparent)" : "color-mix(in oklab, black 45%, transparent)";
+
+  const ray = (a: number, r1: number, r2: number) => {
+    const rad = (a * Math.PI) / 180;
+    return {
+      x1: 200 - Math.cos(rad) * r1,
+      y1: 200 - Math.sin(rad) * r1,
+      x2: 200 - Math.cos(rad) * r2,
+      y2: 200 - Math.sin(rad) * r2,
+    };
+  };
+
   return (
-    <svg viewBox="0 0 400 200" className={className} aria-hidden="true" fill="none">
-      <g stroke="var(--brass)" strokeWidth="0.8" opacity="0.5">
-        {rays.map((a) => {
-          const rad = (a * Math.PI) / 180;
-          return (
-            <line
-              key={a}
-              x1={200}
-              y1={200}
-              x2={200 - Math.cos(rad) * 320}
-              y2={200 - Math.sin(rad) * 320}
-            />
-          );
+    <svg viewBox="0 0 400 208" className={className} aria-hidden="true" fill="none">
+      <defs>
+        <linearGradient id={`sb-${id}`} x1="0" y1="1" x2="0" y2="0">
+          <stop offset="0%" stopColor="var(--brass)" />
+          <stop offset="55%" stopColor="color-mix(in oklab, var(--brass) 70%, white)" />
+          <stop offset="100%" stopColor="var(--brass)" />
+        </linearGradient>
+      </defs>
+
+      {/* offset underlay = relief shadow */}
+      <g stroke={shadow} strokeWidth="1.4" transform="translate(1.5 2)" opacity="0.8">
+        <path d="M60 200 A140 140 0 0 1 340 200" />
+        <path d="M96 200 A104 104 0 0 1 304 200" />
+      </g>
+
+      {/* concentric stepped arcs */}
+      <g stroke={`url(#sb-${id})`} strokeWidth="1.6">
+        <path d="M60 200 A140 140 0 0 1 340 200" />
+        <path d="M96 200 A104 104 0 0 1 304 200" strokeWidth="1" />
+        <path d="M128 200 A72 72 0 0 1 272 200" strokeWidth="1.4" />
+      </g>
+
+      {/* rays: alternating long / short, stepped tips */}
+      <g stroke={main}>
+        {rays.map((a, i) => {
+          const long = i % 2 === 0;
+          const p = ray(a, 78, long ? 136 : 112);
+          return <line key={a} x1={p.x1} y1={p.y1} x2={p.x2} y2={p.y2} strokeWidth={long ? 1.4 : 0.8} opacity={long ? 1 : 0.75} />;
         })}
-        <circle cx="200" cy="200" r="70" />
-        <circle cx="200" cy="200" r="110" />
-        <circle cx="200" cy="200" r="150" />
+        {/* small diamonds on cardinal long rays */}
+        {[30, 90, 150].map((a) => {
+          const rad = (a * Math.PI) / 180;
+          const cx = 200 - Math.cos(rad) * 152;
+          const cy = 200 - Math.sin(rad) * 152;
+          return <path key={a} d={`M${cx} ${cy - 5} L${cx + 5} ${cy} L${cx} ${cy + 5} L${cx - 5} ${cy} Z`} strokeWidth="1" fill="var(--brass)" fillOpacity="0.25" />;
+        })}
+      </g>
+
+      {/* base: double plinth with central diamond */}
+      <g stroke={main} strokeWidth="1.4">
+        <path d="M56 200 h288" />
+        <path d="M88 206 h224" strokeWidth="0.9" opacity="0.8" />
+        <path d="M200 188 l8 8 -8 8 -8 -8 z" fill="var(--brass)" fillOpacity="0.3" />
       </g>
     </svg>
   );
