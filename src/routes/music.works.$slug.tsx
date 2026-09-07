@@ -1,6 +1,6 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 
-import { DecoCartouche } from "@/components/site/Deco";
+
 import { PageShell, Placeholder } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { allWorks } from "@/lib/site-data";
@@ -55,7 +55,6 @@ function WorkPage() {
         <div className="grid gap-16 lg:grid-cols-[1.4fr_0.6fr]">
           <div>
             <Reveal>
-              <DecoCartouche className="mx-auto mb-8 h-10 w-[min(100%,520px)] opacity-70" />
               <h2 className="font-display text-2xl uppercase tracking-[0.14em] text-petrol md:text-3xl">{t("workAbout")}</h2>
               <div className="mt-6 space-y-5">
                 <Placeholder>{t("sectionDescription")}</Placeholder>

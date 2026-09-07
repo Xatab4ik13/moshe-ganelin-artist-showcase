@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { DecoChevronRule, DecoCrest, DecoPilaster, DecoScales } from "./Deco";
+import { DecoChevronRule, DecoPilaster, DecoScales } from "./Deco";
 import { Reveal } from "./Reveal";
 import { SiteFooter } from "./SiteFooter";
 import { SiteMenu } from "./SiteMenu";
@@ -45,8 +45,7 @@ export function PageShell({
           <DecoPilaster tone="light" flip className="pointer-events-none absolute right-1 top-28 hidden h-[60%] w-8 opacity-45 lg:block" />
           <div className="relative mx-auto max-w-[1600px]">
             <Reveal>
-              <DecoCrest tone="light" className="mx-auto h-16 w-[min(80%,360px)] opacity-70 md:h-20" />
-              <h1 className="mt-8 text-center font-display text-[clamp(2.6rem,7vw,6rem)] leading-[0.95]">{title}</h1>
+              <h1 className="text-center font-display text-[clamp(2.6rem,7vw,6rem)] leading-[0.95]">{title}</h1>
               {lead ? (
                 <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-relaxed text-muted-foreground md:text-xl">{lead}</p>
               ) : null}
