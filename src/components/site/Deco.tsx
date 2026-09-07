@@ -1,6 +1,9 @@
 import { useId } from "react";
 import type { ReactNode } from "react";
 
+import decoDivider from "@/assets/deco-divider.webp.asset.json";
+
+
 /**
  * Art Deco ornaments drawn in code (SVG) — no raster textures, fully scalable.
  */
