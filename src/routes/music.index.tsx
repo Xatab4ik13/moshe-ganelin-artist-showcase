@@ -44,7 +44,7 @@ function MusicIndexPage() {
         <Reveal>
           <DecoLyreCrest className="mx-auto mt-24 h-24 w-[min(70%,340px)] opacity-70 md:h-32" tone="light" />
           <h2 className="mt-6 text-center font-display text-4xl leading-none md:text-6xl">{t("listOfWorks")}</h2>
-          <DecoKeyRule className="mx-auto mt-8 h-12 w-[min(96%,880px)] opacity-70" tone="light" />
+          <DecoKeyRule className="mx-auto mt-10 h-8 w-[min(76%,640px)] opacity-60" tone="light" />
         </Reveal>
 
         {workCategories.map((category) => (
