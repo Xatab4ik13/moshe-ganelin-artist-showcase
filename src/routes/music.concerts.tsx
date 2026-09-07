@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { DecoReelRule } from "@/components/site/Deco";
+import { DecoChevronRule, DecoPilaster, DecoScales } from "@/components/site/Deco";
 import { PageShell, Placeholder } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { videos, youtubeChannelUrl } from "@/lib/site-data";
@@ -27,16 +27,19 @@ function ConcertVideoPage() {
 
   return (
     <PageShell title={t("concertsVideoTitle")} lead={t("concertsVideoLead")} image={stageAsset.url}>
-      <div className="mx-auto max-w-[1400px] px-5 py-20 md:px-10 lg:px-16 lg:py-28">
+      <div className="relative mx-auto max-w-[1400px] overflow-hidden px-5 py-20 md:px-10 lg:px-16 lg:py-28">
+        <DecoScales tone="light" opacity={0.06} size={72} />
+        <DecoPilaster tone="light" className="pointer-events-none absolute left-0 top-16 hidden h-[70%] w-10 opacity-40 lg:block" />
+        <DecoPilaster tone="light" className="pointer-events-none absolute right-0 top-16 hidden h-[70%] w-10 -scale-x-100 opacity-40 lg:block" />
         <Reveal>
           <Placeholder>{t("sectionDescription")}</Placeholder>
-          <DecoReelRule className="mx-auto mt-12 h-14 w-[min(92%,880px)] opacity-75" />
+          <DecoChevronRule tone="light" className="mx-auto mt-12 max-w-[900px]" />
         </Reveal>
 
-        <div className="mt-14 grid gap-10 md:grid-cols-2">
+        <div className="relative mt-14 grid gap-10 md:grid-cols-2">
           {videos.map((video, index) => (
             <Reveal key={video.id} delay={index * 50}>
-              <article className="border border-border bg-card p-4">
+              <article className="deco-card p-4">
                 <div className="aspect-video w-full overflow-hidden">
                   <iframe
                     src={`https://www.youtube-nocookie.com/embed/${video.id}`}

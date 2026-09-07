@@ -4,8 +4,9 @@ import { useRef, useState } from "react";
 import { ConcertCard } from "@/components/site/ConcertCard";
 import {
   DecoBracket,
-  DecoMarquee,
-  DecoTicketRule,
+  DecoChevronRule,
+  DecoPilaster,
+  DecoScales,
 } from "@/components/site/Deco";
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
@@ -48,7 +49,7 @@ function MonthCalendar({
 }) {
   const cells = Array.from({ length: 31 }, (_, index) => index + 1);
   return (
-    <div className="relative border border-border/70 bg-card/60 p-5">
+    <div className="deco-card relative p-5">
       <DecoBracket className="pointer-events-none absolute -left-px -top-px h-8 w-8" tone="light" />
       <DecoBracket className="pointer-events-none absolute -right-px -top-px h-8 w-8 -scale-x-100" tone="light" />
       <DecoBracket className="pointer-events-none absolute -bottom-px -left-px h-8 w-8 -scale-y-100" tone="light" />
@@ -109,12 +110,12 @@ function ConcertsPage() {
       lead={t("concertsLead")}
       image={stageAsset.url}
     >
-      <section className="relative mx-auto max-w-[1600px] px-5 py-24 md:px-10 lg:px-16 lg:py-32">
-        <DecoMarquee
-          className="pointer-events-none absolute left-1/2 top-4 h-16 w-[min(92%,760px)] -translate-x-1/2 opacity-60 md:h-20"
-          tone="light"
-        />
-        <Reveal className="relative z-20 mb-10 block bg-background pb-4">
+      <section className="relative mx-auto max-w-[1600px] overflow-hidden px-5 py-24 md:px-10 lg:px-16 lg:py-32">
+        <DecoScales tone="light" opacity={0.06} size={72} />
+        <DecoPilaster tone="light" className="pointer-events-none absolute left-0 top-24 hidden h-[60%] w-10 opacity-40 lg:block" />
+        <DecoPilaster tone="light" className="pointer-events-none absolute right-0 top-24 hidden h-[60%] w-10 -scale-x-100 opacity-40 lg:block" />
+        <DecoChevronRule tone="light" className="relative mx-auto mb-12 max-w-[900px]" />
+        <Reveal className="relative z-20 mb-10 block pb-4">
           <h2 className="font-display text-4xl leading-none md:text-6xl">{t("homeUpcoming")}</h2>
         </Reveal>
 
@@ -138,8 +139,8 @@ function ConcertsPage() {
         </div>
       </section>
 
-      <div className="bg-background pb-2 pt-2">
-        <DecoTicketRule className="mx-auto h-16 w-[min(92%,900px)] opacity-75" tone="light" />
+      <div className="bg-background pb-6 pt-2">
+        <DecoChevronRule tone="light" className="mx-auto max-w-[900px]" />
       </div>
 
       <section className="bg-secondary px-5 py-24 md:px-10 lg:px-16 lg:py-32">
