@@ -121,7 +121,6 @@ function GalleryPage() {
         <DecoScales tone="light" opacity={0.06} size={72} />
         <DecoPilaster tone="light" className="pointer-events-none absolute left-0 top-10 hidden h-[70%] w-10 opacity-40 lg:block" />
         <DecoPilaster tone="light" className="pointer-events-none absolute right-0 top-10 hidden h-[70%] w-10 -scale-x-100 opacity-40 lg:block" />
-        <DecoChevronRule tone="light" className="relative mx-auto mb-14 max-w-[900px]" />
         <div className="relative grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5 md:items-start">
           {columns.map((column, columnIndex) => (
             <div
