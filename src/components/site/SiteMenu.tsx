@@ -132,6 +132,13 @@ export function SiteMenu({ tone = "dark", home = false }: { tone?: "dark" | "lig
         <SearchButton />
       </div>
 
+      <div
+        className={`fixed left-3 top-2 z-50 flex items-center md:hidden ${
+          tone === "light" ? "text-background" : "text-foreground"
+        } ${menuOpen ? "pointer-events-none opacity-0" : "opacity-100"} transition-opacity duration-300 [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.35))]`}
+      >
+        <LanguageSwitcher />
+      </div>
 
       <button
         type="button"
