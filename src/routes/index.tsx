@@ -91,7 +91,7 @@ function Index() {
           aria-label="Moshe Ariel Ganelin — Home"
           className="hero-logo absolute left-1/2 top-[26px] z-20 -translate-x-1/2 md:top-[10px]"
         >
-          <LogoText variant="brass" className="w-[min(42.9vw,165px)] md:w-[min(28.75vw,379px)]" />
+          <LogoText variant="brass" className="w-[min(38vw,148px)] md:w-[min(24.5vw,322px)]" />
         </Link>
 
       </section>

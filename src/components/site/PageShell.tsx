@@ -1,9 +1,6 @@
 import type { ReactNode } from "react";
 
-import { Link } from "@tanstack/react-router";
-
-
-import { LogoText } from "./LogoText";
+import { DecoChevronRule, DecoCrest, DecoPilaster, DecoScales } from "./Deco";
 import { Reveal } from "./Reveal";
 import { SiteFooter } from "./SiteFooter";
 import { SiteMenu } from "./SiteMenu";
@@ -32,14 +29,7 @@ export function PageShell({
             className="absolute inset-0 h-full w-full object-cover object-[50%_28%] opacity-60 md:object-[50%_18%]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-hero via-hero/50 to-hero/20" />
-          
-          <Link
-            to="/"
-            aria-label="Moshe Ariel Ganelin — Home"
-            className="absolute left-1/2 top-3 z-10 -translate-x-1/2 [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.35))] md:top-5"
-          >
-            <LogoText variant="brass" className="w-[min(42.9vw,165px)] md:w-[min(28.75vw,379px)]" />
-          </Link>
+
           <div className="relative mx-auto w-full max-w-[1600px] px-5 pb-16 md:px-10 lg:px-16 lg:pb-24">
             <Reveal>
               <h1 className=" font-display text-[clamp(2.6rem,7vw,6rem)] leading-[0.95]">{title}</h1>
@@ -49,20 +39,20 @@ export function PageShell({
           </div>
         </header>
       ) : (
-        <header className="relative mx-auto max-w-[1600px] overflow-hidden px-5 pb-10 pt-36 md:px-10 md:pt-52 lg:px-16 lg:pb-16 lg:pt-64">
-          
-          <Link
-            to="/"
-            aria-label="Moshe Ariel Ganelin — Home"
-            className="absolute left-1/2 top-3 z-10 -translate-x-1/2 [filter:drop-shadow(0_2px_6px_rgb(0_0_0/0.35))] md:top-5"
-          >
-            <LogoText variant="brass" className="w-[min(42.9vw,165px)] md:w-[min(28.75vw,379px)]" />
-          </Link>
-          <Reveal>
-            <h1 className=" font-display text-[clamp(2.6rem,7vw,6rem)] leading-[0.95]">{title}</h1>
-            {lead ? <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">{lead}</p> : null}
-            
-          </Reveal>
+        <header className="relative overflow-hidden px-5 pb-10 pt-32 md:px-10 md:pt-40 lg:px-16 lg:pb-16 lg:pt-48">
+          <DecoScales tone="light" opacity={0.07} size={104} />
+          <DecoPilaster tone="light" className="pointer-events-none absolute left-1 top-28 hidden h-[60%] w-8 opacity-45 lg:block" />
+          <DecoPilaster tone="light" flip className="pointer-events-none absolute right-1 top-28 hidden h-[60%] w-8 opacity-45 lg:block" />
+          <div className="relative mx-auto max-w-[1600px]">
+            <Reveal>
+              <DecoCrest tone="light" className="mx-auto h-16 w-[min(80%,360px)] opacity-70 md:h-20" />
+              <h1 className="mt-8 text-center font-display text-[clamp(2.6rem,7vw,6rem)] leading-[0.95]">{title}</h1>
+              {lead ? (
+                <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-relaxed text-muted-foreground md:text-xl">{lead}</p>
+              ) : null}
+              <DecoChevronRule tone="light" className="mx-auto mt-10 max-w-[1000px]" />
+            </Reveal>
+          </div>
         </header>
       )}
 
