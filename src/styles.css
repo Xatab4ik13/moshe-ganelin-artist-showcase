@@ -13,9 +13,16 @@
   font-display: swap;
 }
 @font-face {
-  font-family: "Partita Deco";
-  src: url("/fonts/partita-deco.woff2") format("woff2");
+  font-family: "Mostra Nuova";
+  src: url("/fonts/mostra-nuova.ttf") format("truetype");
   font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Mostra Nuova";
+  src: url("/fonts/mostra-nuova-bold.ttf") format("truetype");
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -79,8 +86,8 @@
 @theme inline {
   --font-sans: "IBM Plex Sans", sans-serif;
   --font-display: "Metropolis 1920", "Libre Baskerville", serif;
-  --font-body: "Poiret One", "Goudy Old Style", Georgia, serif;
-  --font-deco: "Partita Deco", "Metropolis 1920", serif;
+  --font-body: "IBM Plex Sans", Arial, sans-serif;
+  --font-deco: "Mostra Nuova", "Metropolis 1920", serif;
   --font-coxxon: "Coxxon", sans-serif;
   --font-poiret: "Poiret One", sans-serif;
   --font-copilot: "Copilot", monospace;
