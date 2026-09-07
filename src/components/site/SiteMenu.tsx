@@ -254,7 +254,7 @@ export function SiteMenu({ tone = "dark", home = false }: { tone?: "dark" | "lig
                     rel="noreferrer"
                     tabIndex={menuOpen ? 0 : -1}
                     aria-label={social.label}
-                    className="flex size-10 items-center justify-center rounded-full border border-background/35 text-background/85 transition-colors hover:border-brass hover:text-brass"
+                    className={`flex size-10 items-center justify-center rounded-full border border-background/35 transition-colors hover:border-brass ${social.className}`}
                   >
                     <SocialIconSvg path={social.path} className="size-4" />
                   </a>
