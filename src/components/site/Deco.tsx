@@ -525,42 +525,20 @@ export function DecoChevronRule({
   className?: string;
   tone?: Tone;
 }) {
-  const { grad, glow } = useDecoIds("chv");
-  const hair =
-    tone === "light"
-      ? "color-mix(in oklab, var(--foreground) 20%, transparent)"
-      : "color-mix(in oklab, white 20%, transparent)";
   return (
     <div className={`w-full ${className}`} aria-hidden="true">
-      <svg viewBox="0 0 1200 60" className="w-full" fill="none" preserveAspectRatio="xMidYMid meet">
-        <DecoPaint id={grad} glowId={glow} tone={tone} />
-        <g stroke={hair} strokeWidth="1">
-          <path d="M0 30h420M780 30h420" />
-        </g>
-        <Relief tone={tone} glowId={glow}>
-          <g stroke={`url(#${grad})`} strokeWidth="1.15" fill="none" strokeLinecap="round">
-            {[0, 1, 2, 3].map((i) => (
-              <g key={`l${i}`} transform={`translate(${430 + i * 26} 0)`}>
-                <path d="M0 38l8-9-8-9" opacity={0.45 + i * 0.15} />
-              </g>
-            ))}
-            {[0, 1, 2, 3].map((i) => (
-              <g key={`r${i}`} transform={`translate(${770 - i * 26} 0)`}>
-                <path d="M0 38l-8-9 8-9" opacity={0.45 + i * 0.15} />
-              </g>
-            ))}
-            <path d="M556 30h-14M658 30h-14" opacity="0.8" />
-            <Volute x={540} y={30} />
-            <Volute x={660} y={30} flip />
-            <path d="M600 10l16 20-16 20-16-20z" strokeWidth="1.3" />
-            <path d="M600 20l8 10-8 10-8-10z" />
-            <circle cx="600" cy="30" r="1.8" />
-          </g>
-        </Relief>
-      </svg>
+      <img
+        src={decoDivider.url}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        decoding="async"
+        className={`mx-auto block w-full max-w-[880px] select-none ${tone === "dark" ? "opacity-95" : "opacity-90"}`}
+      />
     </div>
   );
 }
+
 
 /** Symmetric stepped arch with a fan tympanum — frames a quote or a portrait. */
 export function DecoArch({
