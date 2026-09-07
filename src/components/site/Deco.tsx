@@ -315,7 +315,7 @@ export function DecoBanner({
         aria-hidden="true"
         loading="lazy"
         decoding="async"
-        className={`mx-auto block w-full select-none ${tone === "dark" ? "opacity-95" : "opacity-90"}`}
+        className={`mx-auto block w-1/3 min-w-[160px] select-none ${tone === "dark" ? "opacity-95" : "opacity-90"}`}
       />
     </div>
   );
@@ -502,9 +502,8 @@ export function DecoChevronRule({
         aria-hidden="true"
         loading="lazy"
         decoding="async"
-        className={`mx-auto block w-full select-none ${tone === "dark" ? "opacity-95" : "opacity-90"}`}
+        className={`mx-auto block w-1/3 min-w-[160px] select-none ${tone === "dark" ? "opacity-95" : "opacity-90"}`}
       />
-
     </div>
   );
 }
