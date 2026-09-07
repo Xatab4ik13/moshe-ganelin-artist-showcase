@@ -612,3 +612,6 @@ h1, h2, h3, h4,
 .font-display:not([class*="p-"]):not([class*="px-"]):not([class*="pl-"]) {
   padding-inline-start: 0.06em;
 }
+
+/* Mostra Nuova Heavy is used for work/poem/publication titles via .font-deco */
+.font-deco { font-family: var(--font-deco); font-weight: 900; }

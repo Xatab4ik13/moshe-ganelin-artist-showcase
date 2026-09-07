@@ -135,7 +135,7 @@ function AboutPage() {
           {publications.map((item, index) => (
             <Reveal as="li" key={index} delay={index * 60}>
               <div className="row-item grid items-baseline gap-3 border-b border-border/60 px-3 py-7 md:grid-cols-[1.4fr_1fr_6rem]">
-                <span className="font-display text-lg leading-snug md:text-xl">{item.title}</span>
+                <span className="font-deco text-lg leading-snug md:text-xl">{item.title}</span>
                 <span className="text-base text-muted-foreground">{item.source}</span>
                 <span className="text-base text-muted-foreground md:text-right">{item.year}</span>
               </div>
