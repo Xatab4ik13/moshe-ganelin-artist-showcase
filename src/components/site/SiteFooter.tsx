@@ -26,7 +26,7 @@ export function SiteFooter() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={social.label}
-                  className="flex size-10 items-center justify-center rounded-full border border-background/30 text-background/80 transition-colors hover:border-brass hover:text-brass"
+                  className={`flex size-10 items-center justify-center rounded-full border border-background/30 transition-colors hover:border-brass ${social.className}`}
                 >
                   <SocialIconSvg path={social.path} className="size-4" />
                 </a>
