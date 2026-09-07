@@ -1,6 +1,6 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 
-import { DecoKeyMark, DecoKeyRule, DecoLyreCrest } from "@/components/site/Deco";
+import { DecoChevronRule, DecoPilaster, DecoScales } from "@/components/site/Deco";
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { workCategories, type WorkCategoryId } from "@/lib/site-data";
@@ -35,23 +35,26 @@ function MusicIndexPage() {
 
   return (
     <PageShell title={t("navGanelinMusic")} lead={t("musicLead")} image={pianoAsset.url}>
-      <div className="relative mx-auto max-w-[1400px] px-5 py-20 md:px-10 lg:px-16 lg:py-28">
+      <div className="relative mx-auto max-w-[1400px] overflow-hidden px-5 py-20 md:px-10 lg:px-16 lg:py-28">
+        <DecoScales tone="light" opacity={0.06} size={72} />
+        <DecoPilaster tone="light" className="pointer-events-none absolute left-0 top-16 hidden h-[70%] w-10 opacity-40 lg:block" />
+        <DecoPilaster tone="light" className="pointer-events-none absolute right-0 top-16 hidden h-[70%] w-10 -scale-x-100 opacity-40 lg:block" />
+
         <Reveal>
           <h2 className="font-display text-3xl leading-none md:text-5xl">{t("musicIntroTitle")}</h2>
           <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground md:text-xl">{t("musicIntroText")}</p>
         </Reveal>
 
         <Reveal>
-          <DecoLyreCrest className="mx-auto mt-24 h-24 w-[min(70%,340px)] opacity-70 md:h-32" tone="light" />
-          <h2 className="mt-6 text-center font-display text-4xl leading-none md:text-6xl">{t("listOfWorks")}</h2>
-          <DecoKeyRule className="mx-auto mt-10 h-8 w-[min(76%,640px)] opacity-60" tone="light" />
+          <DecoChevronRule tone="light" className="relative mx-auto mt-24 max-w-[900px]" />
+          <h2 className="mt-10 text-center font-display text-4xl leading-none md:text-6xl">{t("listOfWorks")}</h2>
+          <DecoChevronRule tone="light" className="relative mx-auto mt-10 max-w-[700px]" />
         </Reveal>
 
         {workCategories.map((category) => (
-          <section key={category.id} id={category.id} className="mt-20 scroll-mt-28">
+          <section key={category.id} id={category.id} className="relative mt-20 scroll-mt-28">
             <Reveal>
-              <DecoKeyMark className="mx-auto mb-3 h-6 w-28 opacity-70" tone="light" />
-              <h3 className="font-display text-3xl uppercase tracking-[0.14em] text-petrol md:text-4xl">
+              <h3 className="relative text-center font-display text-3xl uppercase tracking-[0.14em] text-petrol md:text-4xl">
                 {t(categoryTitleKey[category.id])}
               </h3>
             </Reveal>
@@ -62,7 +65,7 @@ function MusicIndexPage() {
                   <Link
                     to="/music/works/$slug"
                     params={{ slug: work.slug }}
-                    className="group flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2 border-b border-border py-6 transition-colors duration-300 hover:bg-card"
+                    className="group flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2 border-b border-border py-6 transition-colors duration-300 hover:text-brass"
                   >
                     <span className="font-deco text-xl leading-snug transition-colors group-hover:text-brass md:text-3xl">
                       {work.title}
