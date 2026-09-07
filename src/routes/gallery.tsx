@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-import { DecoAperture } from "@/components/site/Deco";
+import { DecoChevronRule, DecoPilaster, DecoScales } from "@/components/site/Deco";
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { haptic } from "@/lib/haptics";
