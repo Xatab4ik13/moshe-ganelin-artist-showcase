@@ -307,54 +307,20 @@ export function DecoBanner({
   tone?: Tone;
   className?: string;
 }) {
-  const { grad, glow } = useDecoIds("ban");
-  const hair =
-    tone === "light"
-      ? "color-mix(in oklab, var(--foreground) 22%, transparent)"
-      : "color-mix(in oklab, white 22%, transparent)";
-
   return (
     <div className={`w-full ${className}`} aria-hidden="true">
-      <svg viewBox="0 0 1200 120" className="w-full" fill="none" preserveAspectRatio="xMidYMid meet">
-        <DecoPaint id={grad} glowId={glow} tone={tone} />
-        <g stroke={hair} strokeWidth="1">
-          <path d="M0 60h300M900 60h300" />
-          <path d="M60 52h240M900 52h240" opacity="0.55" />
-        </g>
-        <Relief tone={tone} glowId={glow}>
-          <g stroke={`url(#${grad})`} strokeWidth="1.2" fill="none" strokeLinecap="round">
-            {/* stepped ziggurat wings */}
-            <path d="M300 60h24v-10h20v-12h22v-9h24" />
-            <path d="M900 60h-24v-10h-20v-12h-22v-9h-24" />
-            <path d="M300 60h24v10h20v12h22v9h24" opacity="0.55" />
-            <path d="M900 60h-24v10h-20v12h-22v9h-24" opacity="0.55" />
-            {/* organ pipes */}
-            {[0, 1, 2, 3, 4].map((i) => {
-              const x = 400 + i * 18;
-              const h = [22, 32, 44, 32, 22][i]!;
-              return <path key={`lp${i}`} d={`M${x} 84V${84 - h}l5-6 5 6V84`} />;
-            })}
-            {[0, 1, 2, 3, 4].map((i) => {
-              const x = 700 + i * 18;
-              const h = [22, 32, 44, 32, 22][4 - i]!;
-              return <path key={`rp${i}`} d={`M${x} 84V${84 - h}l5-6 5 6V84`} />;
-            })}
-            <path d="M394 86h64M694 86h64" />
-            {/* volutes */}
-            <Volute x={520} y={62} />
-            <Volute x={680} y={62} flip />
-            {/* centre jewel */}
-            <path d="M600 18l34 42-34 42-34-42z" strokeWidth="1.5" />
-            <path d="M600 32l22 28-22 28-22-28z" opacity="0.8" />
-            <path d="M600 46l10 14-10 14-10-14z" />
-            <path d="M566 60h-18M652 60h-18" />
-            <circle cx="600" cy="60" r="3" />
-          </g>
-        </Relief>
-      </svg>
+      <img
+        src={decoDivider.url}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        decoding="async"
+        className={`mx-auto block w-full select-none ${tone === "dark" ? "opacity-95" : "opacity-90"}`}
+      />
     </div>
   );
 }
+
 
 /** Ornate corner plate with volute — richer than DecoCorner. */
 export function DecoCornerPlate({
