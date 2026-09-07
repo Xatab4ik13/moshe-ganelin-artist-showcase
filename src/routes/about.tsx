@@ -129,7 +129,7 @@ function AboutPage() {
         <div className="relative mx-auto max-w-[1600px]">
         <Reveal>
           <h2 className="font-display text-4xl leading-none md:text-6xl">{t("aboutPublications")}</h2>
-          <DecoChevronRule tone="light" className="mt-8" />
+          <DecoChevronRule tone="light" className="mx-auto mt-8 max-w-[560px]" />
         </Reveal>
         <ul className="mt-12 border-t border-border/60">
           {publications.map((item, index) => (
