@@ -34,6 +34,7 @@ const menuItems: MenuItem[] = [
   {
     labelKey: "navPoetry",
     children: [
+      { labelKey: "navGanelinPoetry", to: "/poetry", hash: "poetry-intro" },
       { labelKey: "langRussian", to: "/poetry", hash: "russian" },
       { labelKey: "langEnglish", to: "/poetry", hash: "english" },
       { labelKey: "langSpanish", to: "/poetry", hash: "spanish" },
