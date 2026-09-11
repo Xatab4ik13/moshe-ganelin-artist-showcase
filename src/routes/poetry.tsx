@@ -40,7 +40,7 @@ function PoetryPage() {
         <DecoPilaster tone="light" flip className="pointer-events-none absolute right-1 top-24 hidden h-[70%] w-8 opacity-45 lg:block" />
         <div className="relative mx-auto max-w-[1600px]">
           <Reveal>
-            <section className="mb-24 text-center">
+            <section id="poetry-intro" className="mb-24 scroll-mt-24 text-center">
               <h2 className="font-display text-3xl leading-none md:text-5xl">{t("poetryIntroTitle")}</h2>
               <p className="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground md:text-xl">{t("poetryIntroText")}</p>
               <DecoChevronRule tone="light" className="mx-auto mt-12 max-w-[1000px]" />

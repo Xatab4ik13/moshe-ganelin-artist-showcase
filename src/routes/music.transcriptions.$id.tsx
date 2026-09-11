@@ -33,8 +33,14 @@ function TranscriptionPage() {
           </Link>
         </Reveal>
 
+        <Reveal delay={80}>
+          <div className="mt-10">
+            <Placeholder>{t("sectionDescription")}</Placeholder>
+          </div>
+        </Reveal>
+
         {video ? (
-          <Reveal delay={80}>
+          <Reveal delay={140}>
             <div className="mt-10 aspect-video w-full overflow-hidden border border-border bg-card">
               <iframe
                 src={`https://www.youtube-nocookie.com/embed/${video.id}`}
@@ -47,12 +53,6 @@ function TranscriptionPage() {
             </div>
           </Reveal>
         ) : null}
-
-        <Reveal delay={140}>
-          <div className="mt-12">
-            <Placeholder>{t("sectionDescription")}</Placeholder>
-          </div>
-        </Reveal>
       </div>
     </PageShell>
   );
