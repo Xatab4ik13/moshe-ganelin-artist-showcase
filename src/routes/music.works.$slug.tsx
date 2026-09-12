@@ -59,8 +59,16 @@ function WorkPage() {
             <Reveal>
               <h2 className="font-display text-2xl uppercase tracking-[0.14em] text-petrol md:text-3xl">{t("workAbout")}</h2>
               <div className="mt-6 space-y-5">
-                <Placeholder>{t("sectionDescription")}</Placeholder>
-                <Placeholder>{t("blockNote")}</Placeholder>
+                {work.description ? (
+                  <p className="whitespace-pre-line text-lg leading-relaxed text-muted-foreground md:text-xl">
+                    {work.description}
+                  </p>
+                ) : (
+                  <>
+                    <Placeholder>{t("sectionDescription")}</Placeholder>
+                    <Placeholder>{t("blockNote")}</Placeholder>
+                  </>
+                )}
               </div>
             </Reveal>
 
