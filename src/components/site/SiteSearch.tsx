@@ -11,7 +11,6 @@ type Entry = { title: string; section: string; to: string; hash?: string | undef
 
 export function SearchButton({ className = "" }: { className?: string }) {
   const { t } = useLanguage();
-  const concerts = useConcerts();
   const [open, setOpen] = useState(false);
 
   return (
@@ -37,6 +36,7 @@ export function SearchButton({ className = "" }: { className?: string }) {
 
 function SearchOverlay({ onClose }: { onClose: () => void }) {
   const { t } = useLanguage();
+  const concerts = useConcerts();
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
