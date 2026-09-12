@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
-import { findConcert } from "@/lib/site-data";
+import { useConcert } from "@/lib/site-concerts";
 import { useLanguage } from "@/lib/i18n";
 import { useSiteImage } from "@/lib/site-images";
 
@@ -24,7 +24,7 @@ function ConcertPage() {
   const { slug } = Route.useParams();
   const { t } = useLanguage();
   const cathedral = useSiteImage("venueCathedral");
-  const concert = findConcert(slug);
+  const concert = useConcert(slug);
 
   if (!concert) throw notFound();
 
@@ -46,7 +46,7 @@ function ConcertPage() {
             <Reveal>
               <h2 className="font-display text-3xl leading-tight md:text-5xl">{t("concertAbout")}</h2>
               <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-                {t("concertDetailsText")}
+                {concert.description ?? t("concertDetailsText")}
               </p>
             </Reveal>
 

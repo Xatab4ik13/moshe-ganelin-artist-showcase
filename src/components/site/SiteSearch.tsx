@@ -3,7 +3,8 @@ import { createPortal } from "react-dom";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { useLanguage, type DictKey } from "@/lib/i18n";
-import { allWorks, pressItems, upcomingConcerts } from "@/lib/site-data";
+import { allWorks, pressItems } from "@/lib/site-data";
+import { useConcerts } from "@/lib/site-concerts";
 
 
 type Entry = { title: string; section: string; to: string; hash?: string | undefined };
@@ -75,7 +76,7 @@ function SearchOverlay({ onClose }: { onClose: () => void }) {
         section: t("listOfWorks"),
         to: `/music/works/${work.slug}`,
       })),
-      ...upcomingConcerts.map((concert) => ({
+      ...concerts.upcoming.map((concert) => ({
         title: `${concert.title} — ${concert.city}`,
         section: t("concertsTitle"),
         to: "/concerts",

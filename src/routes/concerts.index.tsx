@@ -10,7 +10,7 @@ import {
 } from "@/components/site/Deco";
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
-import { archiveConcerts, upcomingConcerts, type Concert } from "@/lib/site-data";
+import { useConcerts, type SiteConcert } from "@/lib/site-concerts";
 import { useLanguage } from "@/lib/i18n";
 import { useSiteImages } from "@/lib/site-images";
 
@@ -79,6 +79,8 @@ function ConcertsPage() {
   const [thumb, setThumb] = useState<{ src: string; x: number; y: number } | null>(null);
   const frame = useRef(0);
 
+  const { upcoming: upcomingConcerts, archive: archiveConcerts } = useConcerts();
+
   const months = upcomingConcerts.reduce<
     { month: string; year: string; days: { day: number; slug: string }[] }[]
   >((acc, concert) => {
@@ -143,7 +145,7 @@ function ConcertsPage() {
             <h2 className="font-display text-4xl leading-none md:text-6xl">{t("concertsPast")}</h2>
           </Reveal>
           <ul className="mt-12 border-t border-border/60">
-            {archiveConcerts.map((concert: Concert, index) => (
+            {archiveConcerts.map((concert: SiteConcert, index) => (
               <Reveal as="li" key={`${concert.day}-${concert.city}-a`} delay={index * 60}>
                 <Link
                   to="/concerts/$slug"

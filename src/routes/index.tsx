@@ -8,7 +8,8 @@ import { Reveal } from "@/components/site/Reveal";
 import { SiteMenu } from "@/components/site/SiteMenu";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SitePreloader } from "@/components/site/SitePreloader";
-import { pressItems, upcomingConcerts, videos, youtubeChannelUrl } from "@/lib/site-data";
+import { pressItems, videos, youtubeChannelUrl } from "@/lib/site-data";
+import { useConcerts } from "@/lib/site-concerts";
 import { useLanguage } from "@/lib/i18n";
 import { useSiteImage } from "@/lib/site-images";
 import heroVideoAsset from "@/assets/hero-reger.mp4.asset.json";
@@ -111,7 +112,7 @@ function Index() {
 
 
           <div className="-mx-5 mt-8 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-4 md:mx-0 md:mt-14 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-3">
-            {upcomingConcerts.slice(0, 3).map((concert, index) => (
+            {concerts.upcoming.slice(0, 3).map((concert, index) => (
               <div key={`${concert.day}-${concert.city}`} className="w-[82%] shrink-0 snap-start md:w-auto md:shrink">
                 <ConcertCard concert={concert} index={index} />
               </div>
