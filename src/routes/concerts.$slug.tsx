@@ -32,7 +32,7 @@ function ConcertPage() {
     <PageShell
       title={concert.title}
       lead={`${concert.day} ${concert.month} ${concert.year} — ${concert.city}, ${concert.venue}`}
-      image={cathedral}
+      image={concert.image || cathedral}
     >
       <section className="mx-auto max-w-[1600px] px-5 py-20 md:px-10 lg:px-16 lg:py-28">
         <Reveal>
