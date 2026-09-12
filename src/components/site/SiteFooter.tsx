@@ -1,37 +1,49 @@
 import { Link } from "@tanstack/react-router";
 
 import { useLanguage } from "@/lib/i18n";
+import { useContacts, useSocialLinks } from "@/lib/site-items";
 import { LogoText } from "./LogoText";
-import { SocialIconSvg, socialLinks } from "./social-icons";
+import { SocialIconSvg, networkIcons } from "./social-icons";
 
 export function SiteFooter() {
   const { t } = useLanguage();
+  const socials = useSocialLinks();
+  const bookingEmail = useContacts().find((contact) => contact.slug === "booking")?.email ?? "";
 
   return (
     <footer id="contacts" className="bg-hero px-5 py-20 text-background md:px-10 lg:px-16">
       <div className="mx-auto max-w-[1600px]">
         <div className="grid gap-10 border-b border-background/20 pb-10 md:grid-cols-3">
           <div className="space-y-2 text-base text-background/75">
-            <a className="line-link block" href="mailto:concerts@moshearielganelin.com">
-              concerts@moshearielganelin.com
-            </a>
+            {bookingEmail ? (
+              <a className="line-link block" href={`mailto:${bookingEmail}`}>
+                {bookingEmail}
+              </a>
+            ) : null}
             <p>{t("footerBooking")}</p>
           </div>
 
           <ul className="flex h-fit flex-wrap items-center gap-3">
-            {socialLinks.map((social) => (
-              <li key={social.key}>
-                <a
-                  href={social.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={social.label}
-                  className={`flex size-10 items-center justify-center rounded-full border border-background/30 transition-colors hover:border-brass ${social.className}`}
-                >
-                  <SocialIconSvg path={social.path} className="size-4" />
-                </a>
-              </li>
-            ))}
+            {socials.map((social) => {
+              const icon = networkIcons[social.network];
+              return (
+                <li key={social.slug}>
+                  <a
+                    href={social.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={social.label}
+                    className={`flex size-10 items-center justify-center rounded-full border border-background/30 transition-colors hover:border-brass ${icon?.className ?? ""}`}
+                  >
+                    {icon ? (
+                      <SocialIconSvg path={icon.path} className="size-4" />
+                    ) : (
+                      <span className="px-2 text-xs uppercase tracking-widest">{social.label}</span>
+                    )}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
 
           <ul className="space-y-2 text-base text-background/75">
