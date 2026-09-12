@@ -4,6 +4,7 @@ import { DecoChevronRule, DecoCornerPlate, DecoPilaster, DecoScales } from "@/co
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { useLanguage, type DictKey } from "@/lib/i18n";
+import { useSiteImage } from "@/lib/site-images";
 import { poetryLangs } from "@/lib/site-data";
 
 export const Route = createFileRoute("/poetry")({
