@@ -3,7 +3,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { DecoChevronRule, DecoCornerPlate, DecoPilaster, DecoScales } from "@/components/site/Deco";
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
-import { useLanguage } from "@/lib/i18n";
+import { useLanguage, type DictKey } from "@/lib/i18n";
+import { useContacts, useSocialLinks } from "@/lib/site-items";
 
 export const Route = createFileRoute("/contacts")({
   head: () => ({
@@ -20,14 +21,21 @@ export const Route = createFileRoute("/contacts")({
   component: ContactsPage,
 });
 
+const contactTitleKeys: Record<string, DictKey> = {
+  booking: "contactsBooking",
+  press: "contactsPress",
+  scores: "contactsScores",
+};
+
 function ContactsPage() {
   const { t } = useLanguage();
+  const contacts = useContacts();
+  const socials = useSocialLinks();
 
-  const blocks = [
-    { title: t("contactsBooking"), value: "concerts@moshearielganelin.com" },
-    { title: t("contactsPress"), value: "press@moshearielganelin.com" },
-    { title: t("contactsScores"), value: "scores@moshearielganelin.com" },
-  ];
+  const blocks = contacts.map((contact) => ({
+    title: contactTitleKeys[contact.slug] ? t(contactTitleKeys[contact.slug]!) : contact.slug,
+    value: contact.email,
+  }));
 
   return (
     <PageShell title={t("contactsTitle")} lead={t("contactsLead")}>
@@ -65,9 +73,13 @@ function ContactsPage() {
               <div className="text-center md:text-right">
                 <h2 className="font-display text-4xl md:text-5xl">{t("contactsFollow")}</h2>
                 <div className="mt-5 space-y-2 text-lg md:text-xl">
-                  <p><a className="line-link" href="https://www.facebook.com/mosheganelin/" target="_blank" rel="noreferrer">Facebook</a></p>
-                  <p><a className="line-link" href="https://www.instagram.com/moshearielganelin" target="_blank" rel="noreferrer">Instagram</a></p>
-                  <p><a className="line-link" href="https://youtube.com/@mosheganelin" target="_blank" rel="noreferrer">YouTube</a></p>
+                  {socials.map((social) => (
+                    <p key={social.slug}>
+                      <a className="line-link" href={social.url} target="_blank" rel="noreferrer">
+                        {social.label}
+                      </a>
+                    </p>
+                  ))}
                 </div>
               </div>
             </div>
