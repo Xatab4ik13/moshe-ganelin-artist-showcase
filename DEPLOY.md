@@ -136,7 +136,20 @@ PGPASSWORD='ПРИДУМАЙТЕ_ПАРОЛЬ' psql -h 127.0.0.1 -U moshe -d mos
 openssl rand -hex 32
 ```
 
-Добавить в `/etc/systemd/system/moshe.service` в секцию `[Service]`:
+Проще всего добавить отдельным файлом-дополнением (пароль базы — латиницей):
+
+```bash
+sudo -u postgres psql -c "ALTER USER moshe WITH PASSWORD 'MosheDb2026';"
+sudo mkdir -p /etc/systemd/system/moshe.service.d
+sudo tee /etc/systemd/system/moshe.service.d/env.conf >/dev/null <<EOF
+[Service]
+Environment=DATABASE_URL=postgres://moshe:MosheDb2026@127.0.0.1:5432/moshe
+Environment=SESSION_SECRET=$(openssl rand -hex 32)
+EOF
+sudo systemctl daemon-reload && sudo systemctl restart moshe
+```
+
+Либо вручную в `/etc/systemd/system/moshe.service`, в секцию `[Service]`:
 
 ```ini
 Environment=DATABASE_URL=postgres://moshe:ПРИДУМАЙТЕ_ПАРОЛЬ@127.0.0.1:5432/moshe
