@@ -8,7 +8,7 @@ export const langOptions: { code: Lang; label: string }[] = [
   { code: "pt", label: "POR" },
 ];
 
-const dict = {
+export const dict = {
   en: {
     navHome: "Home",
     navAbout: "About",
