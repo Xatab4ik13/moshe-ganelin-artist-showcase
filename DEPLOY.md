@@ -126,7 +126,22 @@ sudo -u postgres psql -c "CREATE DATABASE moshe OWNER moshe;"
 ```bash
 cd /var/www/moshe
 PGPASSWORD='ПРИДУМАЙТЕ_ПАРОЛЬ' psql -h 127.0.0.1 -U moshe -d moshe -f db/migrations/001_admin.sql
+PGPASSWORD='ПРИДУМАЙТЕ_ПАРОЛЬ' psql -h 127.0.0.1 -U moshe -d moshe -f db/migrations/002_images.sql
 ```
+
+### Папка для загруженных файлов
+
+Фотографии и логотип, загруженные через панель, сохраняются на сервере. Папку лучше держать вне репозитория,
+чтобы `git pull` её не трогал:
+
+```bash
+sudo mkdir -p /var/www/moshe-uploads
+sudo chown -R $(stat -c '%U' /var/www/moshe) /var/www/moshe-uploads
+```
+
+Путь передаётся сервису переменной `UPLOAD_DIR` (см. ниже). Если её не задать, файлы лягут в `data/uploads`
+внутри папки проекта.
+
 
 ### Переменные окружения
 
