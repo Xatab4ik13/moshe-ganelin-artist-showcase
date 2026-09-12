@@ -10,9 +10,9 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 import { SitePreloader } from "@/components/site/SitePreloader";
 import { pressItems, upcomingConcerts, videos, youtubeChannelUrl } from "@/lib/site-data";
 import { useLanguage } from "@/lib/i18n";
+import { useSiteImage } from "@/lib/site-images";
 import heroVideoAsset from "@/assets/hero-reger.mp4.asset.json";
 import heroVideoLightAsset from "@/assets/hero-reger-light.mp4.asset.json";
-import heroPosterAsset from "@/assets/hero-poster.jpg.asset.json";
 
 
 export const Route = createFileRoute("/")({
@@ -33,6 +33,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const { t } = useLanguage();
+  const heroPoster = useSiteImage("heroPoster");
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const [videoReady, setVideoReady] = useState(false);
 
@@ -71,7 +72,7 @@ function Index() {
         <video
           ref={heroVideoRef}
           className="absolute inset-0 h-full w-full object-cover object-[58%_center] [transform:translateZ(0)] md:object-center"
-          poster={heroPosterAsset.url}
+          poster={heroPoster}
           autoPlay
           loop
           muted

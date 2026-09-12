@@ -4,8 +4,8 @@ import { DecoChevronRule, DecoCornerPlate, DecoPilaster, DecoScales } from "@/co
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { useLanguage, type DictKey } from "@/lib/i18n";
+import { useSiteImage } from "@/lib/site-images";
 import { poetryLangs } from "@/lib/site-data";
-import pianoAsset from "@/assets/moshe-piano.webp.asset.json";
 
 export const Route = createFileRoute("/poetry")({
   head: () => ({
@@ -31,9 +31,10 @@ const langLabelKey: Record<string, DictKey> = {
 
 function PoetryPage() {
   const { t } = useLanguage();
+  const piano = useSiteImage("piano");
 
   return (
-    <PageShell title={t("poetryTitle")} lead={t("poetryLead")} image={pianoAsset.url}>
+    <PageShell title={t("poetryTitle")} lead={t("poetryLead")} image={piano}>
       <section className="relative overflow-hidden px-5 py-24 md:px-10 lg:px-16 lg:py-32">
         <DecoScales tone="light" opacity={0.07} size={104} />
         <DecoPilaster tone="light" className="pointer-events-none absolute left-1 top-24 hidden h-[70%] w-8 opacity-45 lg:block" />

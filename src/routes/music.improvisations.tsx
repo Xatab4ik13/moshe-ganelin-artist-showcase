@@ -5,7 +5,7 @@ import { PageShell, Placeholder } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { videos } from "@/lib/site-data";
 import { useLanguage } from "@/lib/i18n";
-import consoleAsset from "@/assets/moshe-console.webp.asset.json";
+import { useSiteImage } from "@/lib/site-images";
 
 export const Route = createFileRoute("/music/improvisations")({
   head: () => ({
@@ -24,10 +24,11 @@ export const Route = createFileRoute("/music/improvisations")({
 
 function ImprovisationsPage() {
   const { t } = useLanguage();
+  const consoleImg = useSiteImage("console");
   const selection = videos.filter((video) => /improvis/i.test(video.title)).concat(videos.slice(0, 3)).slice(0, 4);
 
   return (
-    <PageShell title={t("improvisationsTitle")} lead={t("improvisationsLead")} image={consoleAsset.url}>
+    <PageShell title={t("improvisationsTitle")} lead={t("improvisationsLead")} image={consoleImg}>
       <div className="relative mx-auto max-w-[1400px] overflow-hidden px-5 py-20 md:px-10 lg:px-16 lg:py-28">
         <DecoScales tone="light" opacity={0.06} size={72} />
         <DecoPilaster tone="light" className="pointer-events-none absolute left-0 top-16 hidden h-[70%] w-10 opacity-40 lg:block" />

@@ -5,7 +5,7 @@ import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { pressItems } from "@/lib/site-data";
 import { useLanguage } from "@/lib/i18n";
-import heroImage from "@/assets/moshe-stage.webp.asset.json";
+import { useSiteImage } from "@/lib/site-images";
 
 export const Route = createFileRoute("/press")({
   head: () => ({
@@ -24,9 +24,10 @@ export const Route = createFileRoute("/press")({
 
 function PressPage() {
   const { t } = useLanguage();
+  const stage = useSiteImage("stage");
 
   return (
-    <PageShell title={t("pressTitle")} lead={t("pressLead")} image={heroImage.url}>
+    <PageShell title={t("pressTitle")} lead={t("pressLead")} image={stage}>
       <section className="relative overflow-hidden px-5 py-20 md:px-10 lg:px-16 lg:py-28">
         <DecoScales tone="light" opacity={0.07} size={104} />
         <DecoPilaster tone="light" className="pointer-events-none absolute left-1 top-24 hidden h-[70%] w-8 opacity-45 lg:block" />

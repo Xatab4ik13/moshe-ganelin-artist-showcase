@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import menuBgAsset from "@/assets/menu-bg.jpg.asset.json";
 import { haptic } from "@/lib/haptics";
+import { useSiteImage } from "@/lib/site-images";
 import { langOptions, useLanguage, type DictKey } from "@/lib/i18n";
 import { LogoText } from "./LogoText";
 import { SocialIconSvg, socialLinks } from "./social-icons";
@@ -118,6 +118,7 @@ export function SiteMenu({ tone = "dark", home = false }: { tone?: "dark" | "lig
     return () => window.removeEventListener("keydown", onKey);
   }, [close]);
 
+  const menuBg = useSiteImage("menuBg");
   const barTone = menuOpen ? "text-background" : tone === "light" ? "text-brass" : "text-foreground";
   const panelClass =
     panel === "open" ? "menu-panel-open" : panel === "closing" ? "menu-panel-closing" : "menu-panel-reset";
@@ -165,7 +166,7 @@ export function SiteMenu({ tone = "dark", home = false }: { tone?: "dark" | "lig
         aria-hidden={!menuOpen}
       >
         <img
-          src={menuBgAsset.url}
+          src={menuBg}
           alt=""
           aria-hidden="true"
           decoding="async"

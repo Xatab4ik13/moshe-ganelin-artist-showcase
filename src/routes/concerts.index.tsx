@@ -12,14 +12,7 @@ import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { archiveConcerts, upcomingConcerts, type Concert } from "@/lib/site-data";
 import { useLanguage } from "@/lib/i18n";
-import stageAsset from "@/assets/moshe-stage.webp.asset.json";
-import venueCathedralAsset from "@/assets/venue-cathedral.webp.asset.json";
-import venuePetrikircheAsset from "@/assets/venue-petrikirche.webp.asset.json";
-import venueHallAsset from "@/assets/venue-hall.webp.asset.json";
-
-const venueCathedral = venueCathedralAsset.url;
-const venuePetrikirche = venuePetrikircheAsset.url;
-const venueHall = venueHallAsset.url;
+import { useSiteImages } from "@/lib/site-images";
 
 export const Route = createFileRoute("/concerts/")({
   head: () => ({
@@ -36,7 +29,6 @@ export const Route = createFileRoute("/concerts/")({
   component: ConcertsPage,
 });
 
-const archiveImages = [venueCathedral, venuePetrikirche, venueHall];
 
 function MonthCalendar({
   month,
@@ -82,6 +74,8 @@ function MonthCalendar({
 
 function ConcertsPage() {
   const { t } = useLanguage();
+  const img = useSiteImages();
+  const archiveImages = [img.venueCathedral, img.venuePetrikirche, img.venueHall];
   const [thumb, setThumb] = useState<{ src: string; x: number; y: number } | null>(null);
   const frame = useRef(0);
 
@@ -108,7 +102,7 @@ function ConcertsPage() {
     <PageShell
       title={t("concertsTitle")}
       lead={t("concertsLead")}
-      image={stageAsset.url}
+      image={img.stage}
     >
       <section className="relative mx-auto max-w-[1600px] overflow-hidden px-5 py-24 md:px-10 lg:px-16 lg:py-32">
         <DecoScales tone="light" opacity={0.06} size={72} />
