@@ -18,6 +18,7 @@ import { Route as PoetryRouteImport } from './routes/poetry'
 import { Route as PressRouteImport } from './routes/press'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminConcertsRouteImport } from './routes/admin.concerts'
+import { Route as AdminContactsRouteImport } from './routes/admin.contacts'
 import { Route as AdminImagesRouteImport } from './routes/admin.images'
 import { Route as AdminPhotosRouteImport } from './routes/admin.photos'
 import { Route as AdminPoetryRouteImport } from './routes/admin.poetry'
@@ -79,6 +80,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
 const AdminConcertsRoute = AdminConcertsRouteImport.update({
   id: '/admin/concerts',
   path: '/admin/concerts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminContactsRoute = AdminContactsRouteImport.update({
+  id: '/admin/contacts',
+  path: '/admin/contacts',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminImagesRoute = AdminImagesRouteImport.update({
@@ -177,6 +183,7 @@ export interface FileRoutesByFullPath {
   '/poetry': typeof PoetryRoute
   '/press': typeof PressRoute
   '/admin/concerts': typeof AdminConcertsRoute
+  '/admin/contacts': typeof AdminContactsRoute
   '/admin/images': typeof AdminImagesRoute
   '/admin/photos': typeof AdminPhotosRoute
   '/admin/poetry': typeof AdminPoetryRoute
@@ -204,6 +211,7 @@ export interface FileRoutesByTo {
   '/poetry': typeof PoetryRoute
   '/press': typeof PressRoute
   '/admin/concerts': typeof AdminConcertsRoute
+  '/admin/contacts': typeof AdminContactsRoute
   '/admin/images': typeof AdminImagesRoute
   '/admin/photos': typeof AdminPhotosRoute
   '/admin/poetry': typeof AdminPoetryRoute
@@ -233,6 +241,7 @@ export interface FileRoutesById {
   '/poetry': typeof PoetryRoute
   '/press': typeof PressRoute
   '/admin/concerts': typeof AdminConcertsRoute
+  '/admin/contacts': typeof AdminContactsRoute
   '/admin/images': typeof AdminImagesRoute
   '/admin/photos': typeof AdminPhotosRoute
   '/admin/poetry': typeof AdminPoetryRoute
@@ -263,6 +272,7 @@ export interface FileRouteTypes {
     | '/poetry'
     | '/press'
     | '/admin/concerts'
+    | '/admin/contacts'
     | '/admin/images'
     | '/admin/photos'
     | '/admin/poetry'
@@ -290,6 +300,7 @@ export interface FileRouteTypes {
     | '/poetry'
     | '/press'
     | '/admin/concerts'
+    | '/admin/contacts'
     | '/admin/images'
     | '/admin/photos'
     | '/admin/poetry'
@@ -318,6 +329,7 @@ export interface FileRouteTypes {
     | '/poetry'
     | '/press'
     | '/admin/concerts'
+    | '/admin/contacts'
     | '/admin/images'
     | '/admin/photos'
     | '/admin/poetry'
@@ -347,6 +359,7 @@ export interface RootRouteChildren {
   PoetryRoute: typeof PoetryRoute
   PressRoute: typeof PressRoute
   AdminConcertsRoute: typeof AdminConcertsRoute
+  AdminContactsRoute: typeof AdminContactsRoute
   AdminImagesRoute: typeof AdminImagesRoute
   AdminPhotosRoute: typeof AdminPhotosRoute
   AdminPoetryRoute: typeof AdminPoetryRoute
@@ -424,6 +437,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/concerts'
       fullPath: '/admin/concerts'
       preLoaderRoute: typeof AdminConcertsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/contacts': {
+      id: '/admin/contacts'
+      path: '/admin/contacts'
+      fullPath: '/admin/contacts'
+      preLoaderRoute: typeof AdminContactsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/images': {
@@ -577,6 +597,7 @@ const rootRouteChildren: RootRouteChildren = {
   PoetryRoute: PoetryRoute,
   PressRoute: PressRoute,
   AdminConcertsRoute: AdminConcertsRoute,
+  AdminContactsRoute: AdminContactsRoute,
   AdminImagesRoute: AdminImagesRoute,
   AdminPhotosRoute: AdminPhotosRoute,
   AdminPoetryRoute: AdminPoetryRoute,

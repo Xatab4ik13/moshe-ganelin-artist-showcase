@@ -31,6 +31,11 @@ function AdminContacts() {
             hint: "Например concerts@moshearielganelin.com. У исходных адресов меняйте только саму почту — подписи на сайте останутся прежними.",
             placeholder: "name@moshearielganelin.com",
           },
+          {
+            name: "label",
+            label: "Подпись на сайте",
+            hint: "Только для новых адресов, например «Общие вопросы». У трёх исходных адресов подписи уже заданы и переведены.",
+          },
         ]}
       />
 

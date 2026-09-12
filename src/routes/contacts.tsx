@@ -33,7 +33,7 @@ function ContactsPage() {
   const socials = useSocialLinks();
 
   const blocks = contacts.map((contact) => ({
-    title: contactTitleKeys[contact.slug] ? t(contactTitleKeys[contact.slug]!) : contact.slug,
+    title: contactTitleKeys[contact.slug] ? t(contactTitleKeys[contact.slug]!) : contact.label || contact.email,
     value: contact.email,
   }));
 

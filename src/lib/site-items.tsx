@@ -77,9 +77,9 @@ function defaults(kind: ItemKind): SiteItem[] {
   }
   if (kind === "contact") {
     return [
-      { kind, slug: "booking", data: { email: "concerts@moshearielganelin.com" }, isDefault: true },
-      { kind, slug: "press", data: { email: "press@moshearielganelin.com" }, isDefault: true },
-      { kind, slug: "scores", data: { email: "scores@moshearielganelin.com" }, isDefault: true },
+      { kind, slug: "booking", data: { email: "concerts@moshearielganelin.com", label: "" }, isDefault: true },
+      { kind, slug: "press", data: { email: "press@moshearielganelin.com", label: "" }, isDefault: true },
+      { kind, slug: "scores", data: { email: "scores@moshearielganelin.com", label: "" }, isDefault: true },
     ];
   }
   return publications.map((item, index) => ({
@@ -268,11 +268,11 @@ export function useSocialLinks(): SiteSocial[] {
     .filter((social) => social.url.length > 0);
 }
 
-export type SiteContact = { slug: string; email: string };
+export type SiteContact = { slug: string; email: string; label: string };
 
 /** Почтовые адреса на странице контактов и в подвале. */
 export function useContacts(): SiteContact[] {
   return useItems("contact")
-    .map((item) => ({ slug: item.slug, email: item.data["email"] ?? "" }))
+    .map((item) => ({ slug: item.slug, email: item.data["email"] ?? "", label: item.data["label"] ?? "" }))
     .filter((contact) => contact.email.length > 0);
 }
