@@ -126,7 +126,7 @@ function GalleryPage() {
               {column.map((photo) => {
                 const index = photos.indexOf(photo);
                 return (
-                  <Reveal key={photo.alt} delay={(index % 3) * 80}>
+                  <Reveal key={photo.key} delay={(index % 3) * 80}>
                     <figure className="deco-card overflow-hidden p-3">
                       <button
                         type="button"
@@ -195,7 +195,7 @@ function GalleryPage() {
           <div className="absolute inset-x-0 bottom-6 flex justify-center gap-2">
             {photos.map((photo, index) => (
               <button
-                key={photo.alt}
+                key={photo.key}
                 type="button"
                 aria-label={`Photo ${index + 1}`}
                 onClick={(event) => { event.stopPropagation(); setActive(index); }}
