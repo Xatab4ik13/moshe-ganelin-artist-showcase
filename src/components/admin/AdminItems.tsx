@@ -18,6 +18,7 @@ export type ItemField = {
   hint?: string;
   textarea?: boolean;
   placeholder?: string;
+  options?: { value: string; label: string }[];
 };
 
 const inputClass =
