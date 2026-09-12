@@ -9,6 +9,7 @@ import {
   adminGetConcerts,
   adminResetConcert,
   adminSaveConcert,
+  adminUploadFile,
 } from "@/lib/admin.functions";
 import {
   defaultConcerts,
@@ -41,6 +42,7 @@ type FormState = {
   title: string;
   description: string;
   videoId: string;
+  image: string;
   isDefault: boolean;
 };
 
@@ -56,6 +58,7 @@ const emptyForm: FormState = {
   title: "",
   description: "",
   videoId: "",
+  image: "",
   isDefault: false,
 };
 
@@ -99,6 +102,73 @@ function Field({
         />
       )}
     </label>
+  );
+}
+
+function ConcertPhoto({
+  form,
+  setForm,
+}: {
+  form: FormState;
+  setForm: (value: FormState) => void;
+}) {
+  const upload = useServerFn(adminUploadFile);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const onFile = async (file: File) => {
+    setBusy(true);
+    setError(null);
+    const buffer = await file.arrayBuffer();
+    let binary = "";
+    const bytes = new Uint8Array(buffer);
+    for (let i = 0; i < bytes.length; i += 1) binary += String.fromCharCode(bytes[i]!);
+    const result = await upload({
+      data: {
+        prefix: "concert",
+        filename: file.name,
+        contentType: file.type,
+        base64: btoa(binary),
+      },
+    });
+    setBusy(false);
+    if (result.ok && result.url) setForm({ ...form, image: result.url });
+    else setError(result.error ?? "Не удалось загрузить фотографию.");
+  };
+
+  return (
+    <div className="rounded-lg border border-[#dbe8f8] bg-[#f7fbff] p-4">
+      <p className="text-base font-semibold text-[#123a6b]">Фотография концерта</p>
+      <p className="mt-1 text-sm text-[#5b7290]">
+        Показывается на карточке концерта и вверху его страницы. Если не выбрать — останется фотография зала с сайта.
+      </p>
+      {form.image ? (
+        <img
+          src={form.image}
+          alt="Фотография концерта"
+          className="mt-3 h-40 w-full max-w-xs rounded-lg object-cover"
+        />
+      ) : null}
+      <div className="mt-3 flex flex-wrap items-center gap-3">
+        <input
+          type="file"
+          accept="image/*"
+          disabled={busy}
+          onChange={(event) => {
+            const file = event.target.files?.[0];
+            if (file) void onFile(file);
+          }}
+          className="text-base text-[#0f2744]"
+        />
+        {form.image ? (
+          <AdminButton tone="quiet" onClick={() => setForm({ ...form, image: "" })}>
+            Убрать фотографию
+          </AdminButton>
+        ) : null}
+      </div>
+      {busy ? <p className="mt-2 text-base text-[#41566f]">Загружаем…</p> : null}
+      {error ? <p className="mt-2 text-base font-semibold text-[#b3261e]">{error}</p> : null}
+    </div>
   );
 }
 
@@ -149,6 +219,9 @@ function ConcertForm({
           value={form.videoId}
           onChange={set("videoId")}
         />
+      </div>
+      <div className="mt-4">
+        <ConcertPhoto form={form} setForm={setForm} />
       </div>
       <div className="mt-4">
         <Field
@@ -204,6 +277,7 @@ function AdminConcerts() {
       title: concert.title,
       description: concert.description ?? "",
       videoId: concert.videoId ?? "",
+      image: concert.image ?? "",
       isDefault: concert.isDefault,
     });
   };
@@ -227,6 +301,7 @@ function AdminConcerts() {
         title: form.title,
         description: form.description,
         videoId: form.videoId,
+        image: form.image,
         position: 0,
         hidden: false,
       },

@@ -7,7 +7,7 @@ import { useSiteImages } from "@/lib/site-images";
 export function ConcertCard({ concert, index }: { concert: SiteConcert; index: number }) {
   const siteImages = useSiteImages();
   const venueImages = [siteImages.venueHall, siteImages.venueCathedral, siteImages.venuePetrikirche];
-  const image = venueImages[index % venueImages.length];
+  const image = concert.image || venueImages[index % venueImages.length];
   const cardRef = useRef<HTMLAnchorElement>(null);
   const [active, setActive] = useState(false);
 

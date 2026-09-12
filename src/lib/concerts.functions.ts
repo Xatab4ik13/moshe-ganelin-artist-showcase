@@ -13,6 +13,7 @@ type Row = {
   title: string;
   description: string;
   video_id: string;
+  image_url: string;
   position: number;
   hidden: boolean;
 };
@@ -29,13 +30,14 @@ export function rowToOverride(row: Row): ConcertOverride {
     title: row.title,
     description: row.description,
     videoId: row.video_id,
+    image: row.image_url ?? "",
     position: row.position,
     hidden: row.hidden,
   };
 }
 
 export const concertsSelect =
-  "SELECT slug, kind, day, month, year, city, venue, title, description, video_id, position, hidden FROM concerts ORDER BY position, slug";
+  "SELECT slug, kind, day, month, year, city, venue, title, description, video_id, image_url, position, hidden FROM concerts ORDER BY position, slug";
 
 /** Публичное чтение концертов из панели. Без базы сайт показывает исходный список. */
 export const getConcertOverrides = createServerFn({ method: "GET" }).handler(
