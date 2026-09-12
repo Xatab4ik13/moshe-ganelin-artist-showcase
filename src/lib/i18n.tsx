@@ -393,7 +393,10 @@ export function LanguageProvider({
     document.documentElement.lang = lang;
   }, [lang]);
 
-  const t = (key: DictKey) => dict[lang][key];
+  const t = (key: DictKey) => {
+    const custom = overrides?.[key]?.[lang];
+    return custom && custom.length > 0 ? custom : dict[lang][key];
+  };
 
   return <LangContext.Provider value={{ lang, setLang, t }}>{children}</LangContext.Provider>;
 }
