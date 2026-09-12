@@ -160,6 +160,7 @@ sudo tee /etc/systemd/system/moshe.service.d/env.conf >/dev/null <<EOF
 [Service]
 Environment=DATABASE_URL=postgres://moshe:MosheDb2026@127.0.0.1:5432/moshe
 Environment=SESSION_SECRET=$(openssl rand -hex 32)
+Environment=UPLOAD_DIR=/var/www/moshe-uploads
 EOF
 sudo systemctl daemon-reload && sudo systemctl restart moshe
 ```
@@ -169,6 +170,7 @@ sudo systemctl daemon-reload && sudo systemctl restart moshe
 ```ini
 Environment=DATABASE_URL=postgres://moshe:ПРИДУМАЙТЕ_ПАРОЛЬ@127.0.0.1:5432/moshe
 Environment=SESSION_SECRET=ВСТАВИТЬ_РЕЗУЛЬТАТ_openssl_rand
+Environment=UPLOAD_DIR=/var/www/moshe-uploads
 ```
 
 Затем:
