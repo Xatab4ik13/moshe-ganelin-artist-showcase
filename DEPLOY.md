@@ -183,3 +183,15 @@ systemctl daemon-reload && systemctl restart moshe
 
 `https://moshearielganelin.com/admin` — почта `moshearielganelin@gmail.com`, пароль `Qwerty123!`
 (сразу смените его в разделе «Настройки и пароль»).
+
+## Этап 3: концерты
+
+Один раз после обновления кода применить миграцию:
+
+```bash
+cd /var/www/moshe && PGPASSWORD='ВАШ_ПАРОЛЬ' psql -h 127.0.0.1 -U moshe -d moshe -f db/migrations/003_concerts.sql
+```
+
+После этого в панели появится раздел «Концерты»: добавление новых концертов
+(со своей страницей), изменение даты, зала, описания и видео, скрытие и
+возврат исходных концертов.

@@ -178,3 +178,99 @@ export const adminResetImage = createServerFn({ method: "POST" })
     await dbQuery("DELETE FROM content_images WHERE key = $1", [data.key]);
     return { ok: true as const };
   });
+
+export type AdminConcertInput = {
+  slug: string;
+  originalSlug?: string;
+  kind: "upcoming" | "archive";
+  day: string;
+  month: string;
+  year: string;
+  city: string;
+  venue: string;
+  title: string;
+  description: string;
+  videoId: string;
+  position: number;
+  hidden: boolean;
+};
+
+/** Список концертов для панели: исходные концерты сайта + правки и новые записи. */
+export const adminGetConcerts = createServerFn({ method: "GET" }).handler(async () => {
+  const { requireAdmin } = await import("./admin-auth.server");
+  const { dbQuery } = await import("./db.server");
+  const { concertsSelect, rowToOverride } = await import("./concerts.functions");
+  await requireAdmin();
+  const rows = await dbQuery<Record<string, never>>(concertsSelect);
+  return rows.map((row) => rowToOverride(row as never));
+});
+
+export const adminSaveConcert = createServerFn({ method: "POST" })
+  .inputValidator((data: AdminConcertInput) => data)
+  .handler(async ({ data }): Promise<{ ok: boolean; error?: string; slug?: string }> => {
+    const { requireAdmin } = await import("./admin-auth.server");
+    const { dbQuery } = await import("./db.server");
+    await requireAdmin();
+
+    const slug = data.slug.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+    if (slug.length < 3) return { ok: false, error: "Не удалось составить адрес страницы концерта." };
+    if (data.title.trim().length === 0) return { ok: false, error: "Впишите название концерта." };
+
+    if (data.originalSlug && data.originalSlug !== slug) {
+      await dbQuery("DELETE FROM concerts WHERE slug = $1", [data.originalSlug]);
+    }
+
+    await dbQuery(
+      `INSERT INTO concerts (slug, kind, day, month, year, city, venue, title, description, video_id, position, hidden)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
+       ON CONFLICT (slug) DO UPDATE SET kind = EXCLUDED.kind, day = EXCLUDED.day, month = EXCLUDED.month,
+         year = EXCLUDED.year, city = EXCLUDED.city, venue = EXCLUDED.venue, title = EXCLUDED.title,
+         description = EXCLUDED.description, video_id = EXCLUDED.video_id, position = EXCLUDED.position,
+         hidden = EXCLUDED.hidden, updated_at = now()`,
+      [
+        slug,
+        data.kind === "archive" ? "archive" : "upcoming",
+        data.day.trim(),
+        data.month.trim(),
+        data.year.trim(),
+        data.city.trim(),
+        data.venue.trim(),
+        data.title.trim(),
+        data.description.trim(),
+        data.videoId.trim(),
+        Number.isFinite(data.position) ? data.position : 0,
+        Boolean(data.hidden),
+      ],
+    );
+    return { ok: true, slug };
+  });
+
+/** Скрыть исходный концерт сайта или полностью удалить добавленный. */
+export const adminDeleteConcert = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string; isDefault: boolean }) => data)
+  .handler(async ({ data }) => {
+    const { requireAdmin } = await import("./admin-auth.server");
+    const { dbQuery } = await import("./db.server");
+    await requireAdmin();
+    if (data.isDefault) {
+      await dbQuery(
+        `INSERT INTO concerts (slug, hidden) VALUES ($1, true)
+         ON CONFLICT (slug) DO UPDATE SET hidden = true, updated_at = now()`,
+        [data.slug],
+      );
+    } else {
+      await dbQuery("DELETE FROM concerts WHERE slug = $1", [data.slug]);
+    }
+    return { ok: true as const };
+  });
+
+/** Вернуть исходный концерт сайта (снять скрытие и правки). */
+export const adminResetConcert = createServerFn({ method: "POST" })
+  .inputValidator((data: { slug: string }) => data)
+  .handler(async ({ data }) => {
+    const { requireAdmin } = await import("./admin-auth.server");
+    const { dbQuery } = await import("./db.server");
+    await requireAdmin();
+    await dbQuery("DELETE FROM concerts WHERE slug = $1", [data.slug]);
+    return { ok: true as const };
+  });

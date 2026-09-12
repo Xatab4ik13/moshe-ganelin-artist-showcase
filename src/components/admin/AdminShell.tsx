@@ -99,6 +99,7 @@ const navItems = [
   { to: "/admin", label: "Главная панели" },
   { to: "/admin/texts", label: "Тексты сайта" },
   { to: "/admin/images", label: "Фотографии и логотип" },
+  { to: "/admin/concerts", label: "Концерты" },
   { to: "/admin/settings", label: "Настройки и пароль" },
 ] as const;
 
