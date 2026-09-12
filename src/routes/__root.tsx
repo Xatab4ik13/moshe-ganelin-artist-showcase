@@ -17,6 +17,8 @@ import { getImageOverrides } from "@/lib/images.functions";
 import { ImagesProvider } from "@/lib/site-images";
 import { getConcertOverrides } from "@/lib/concerts.functions";
 import { ConcertsProvider } from "@/lib/site-concerts";
+import { getItemOverrides } from "@/lib/items.functions";
+import { ItemsProvider } from "@/lib/site-items";
 
 function NotFoundComponent() {
   return (
