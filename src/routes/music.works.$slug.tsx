@@ -3,12 +3,14 @@ import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 
 import { PageShell, Placeholder } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
-import { allWorks } from "@/lib/site-data";
+import { getItemOverrides } from "@/lib/items.functions";
+import { worksFrom } from "@/lib/site-items";
 import { useLanguage } from "@/lib/i18n";
 
 export const Route = createFileRoute("/music/works/$slug")({
-  loader: ({ params }) => {
-    const work = allWorks.find((item) => item.slug === params.slug);
+  loader: async ({ params }) => {
+    const overrides = await getItemOverrides();
+    const work = worksFrom(overrides).find((item) => item.slug === params.slug);
     if (!work) throw notFound();
     return { work };
   },
@@ -57,8 +59,16 @@ function WorkPage() {
             <Reveal>
               <h2 className="font-display text-2xl uppercase tracking-[0.14em] text-petrol md:text-3xl">{t("workAbout")}</h2>
               <div className="mt-6 space-y-5">
-                <Placeholder>{t("sectionDescription")}</Placeholder>
-                <Placeholder>{t("blockNote")}</Placeholder>
+                {work.description ? (
+                  <p className="whitespace-pre-line text-lg leading-relaxed text-muted-foreground md:text-xl">
+                    {work.description}
+                  </p>
+                ) : (
+                  <>
+                    <Placeholder>{t("sectionDescription")}</Placeholder>
+                    <Placeholder>{t("blockNote")}</Placeholder>
+                  </>
+                )}
               </div>
             </Reveal>
 

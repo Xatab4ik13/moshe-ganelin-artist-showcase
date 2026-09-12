@@ -279,7 +279,7 @@ export const adminResetConcert = createServerFn({ method: "POST" })
   });
 
 export type AdminItemInput = {
-  kind: "video" | "press" | "publication";
+  kind: "video" | "press" | "publication" | "work";
   slug: string;
   originalSlug?: string;
   data: Record<string, string>;

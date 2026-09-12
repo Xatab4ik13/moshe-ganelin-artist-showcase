@@ -3,8 +3,7 @@ import { createPortal } from "react-dom";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { useLanguage, type DictKey } from "@/lib/i18n";
-import { allWorks } from "@/lib/site-data";
-import { usePress } from "@/lib/site-items";
+import { usePress, useWorks } from "@/lib/site-items";
 import { useConcerts } from "@/lib/site-concerts";
 
 
@@ -37,6 +36,7 @@ export function SearchButton({ className = "" }: { className?: string }) {
 
 function SearchOverlay({ onClose }: { onClose: () => void }) {
   const pressItems = usePress();
+  const works = useWorks();
   const { t } = useLanguage();
   const concerts = useConcerts();
   const [query, setQuery] = useState("");
@@ -74,7 +74,7 @@ function SearchOverlay({ onClose }: { onClose: () => void }) {
       page("navConcertsVideo", "/music/concerts", "navMusic"),
       page("navPoetry", "/poetry", "navPoetry"),
       page("navContact", "/contacts", "navContact"),
-      ...allWorks.map((work) => ({
+      ...works.map((work) => ({
         title: work.title,
         section: t("listOfWorks"),
         to: `/music/works/${work.slug}`,

@@ -102,6 +102,7 @@ const navItems = [
   { to: "/admin/concerts", label: "Концерты" },
   { to: "/admin/videos", label: "Видео" },
   { to: "/admin/press", label: "Пресса и публикации" },
+  { to: "/admin/works", label: "Сочинения" },
   { to: "/admin/settings", label: "Настройки и пароль" },
 ] as const;
 

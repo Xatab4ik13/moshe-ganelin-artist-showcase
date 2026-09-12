@@ -3,9 +3,10 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { DecoChevronRule, DecoPilaster, DecoScales } from "@/components/site/Deco";
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
-import { workCategories, type WorkCategoryId } from "@/lib/site-data";
+import { type WorkCategoryId } from "@/lib/site-data";
 import { useLanguage, type DictKey } from "@/lib/i18n";
 import { useSiteImage } from "@/lib/site-images";
+import { useWorkGroups } from "@/lib/site-items";
 
 export const Route = createFileRoute("/music/")({
   head: () => ({
@@ -33,6 +34,7 @@ const categoryTitleKey: Record<WorkCategoryId, DictKey> = {
 function MusicIndexPage() {
   const { t } = useLanguage();
   const piano = useSiteImage("piano");
+  const workGroups = useWorkGroups();
 
   return (
     <PageShell title={t("navGanelinMusic")} lead={t("musicLead")} image={piano}>
@@ -52,7 +54,7 @@ function MusicIndexPage() {
           <DecoChevronRule tone="light" className="relative mx-auto mt-10 max-w-[700px]" />
         </Reveal>
 
-        {workCategories.map((category) => (
+        {workGroups.map((category) => (
           <section key={category.id} id={category.id} className="relative mt-20 scroll-mt-28">
             <Reveal>
               <h3 className="relative text-center font-display text-3xl uppercase tracking-[0.14em] text-petrol md:text-4xl">

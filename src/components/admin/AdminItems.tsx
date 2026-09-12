@@ -18,6 +18,7 @@ export type ItemField = {
   hint?: string;
   textarea?: boolean;
   placeholder?: string;
+  options?: { value: string; label: string }[];
 };
 
 const inputClass =
@@ -147,7 +148,22 @@ export function AdminItems({
               <label key={field.name} className={field.textarea ? "block md:col-span-2" : "block"}>
                 <span className="text-base font-semibold text-[#123a6b]">{field.label}</span>
                 {field.hint ? <span className="mt-1 block text-sm text-[#5b7290]">{field.hint}</span> : null}
-                {field.textarea ? (
+                {field.options ? (
+                  <select
+                    value={form.data[field.name] ?? ""}
+                    onChange={(event) =>
+                      setForm({ ...form, data: { ...form.data, [field.name]: event.target.value } })
+                    }
+                    className={inputClass}
+                  >
+                    <option value="">— выберите —</option>
+                    {field.options.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                ) : field.textarea ? (
                   <textarea
                     rows={4}
                     value={form.data[field.name] ?? ""}
