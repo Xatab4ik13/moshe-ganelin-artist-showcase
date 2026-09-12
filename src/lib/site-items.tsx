@@ -2,7 +2,7 @@ import { createContext, useContext, type ReactNode } from "react";
 
 import { galleryPhotos, pressItems, publications, videos, workCategories, type WorkCategoryId } from "./site-data";
 
-export type ItemKind = "video" | "press" | "publication" | "work" | "poem" | "photo";
+export type ItemKind = "video" | "press" | "publication" | "work" | "poem" | "photo" | "social" | "contact";
 
 
 /** Запись из панели управления. Пустое значение поля означает «оставить как на сайте». */
@@ -68,6 +68,20 @@ function defaults(kind: ItemKind): SiteItem[] {
       isDefault: true,
     }));
   }
+  if (kind === "social") {
+    return [
+      { kind, slug: "youtube", data: { network: "youtube", label: "YouTube", url: "https://youtube.com/@mosheganelin" }, isDefault: true },
+      { kind, slug: "instagram", data: { network: "instagram", label: "Instagram", url: "https://www.instagram.com/moshearielganelin" }, isDefault: true },
+      { kind, slug: "facebook", data: { network: "facebook", label: "Facebook", url: "https://www.facebook.com/mosheganelin/" }, isDefault: true },
+    ];
+  }
+  if (kind === "contact") {
+    return [
+      { kind, slug: "booking", data: { email: "concerts@moshearielganelin.com", label: "" }, isDefault: true },
+      { kind, slug: "press", data: { email: "press@moshearielganelin.com", label: "" }, isDefault: true },
+      { kind, slug: "scores", data: { email: "scores@moshearielganelin.com", label: "" }, isDefault: true },
+    ];
+  }
   return publications.map((item, index) => ({
     kind,
     slug: `publication-${index + 1}`,
@@ -83,6 +97,8 @@ export const defaultItems: Record<ItemKind, SiteItem[]> = {
   work: defaults("work"),
   poem: defaults("poem"),
   photo: defaults("photo"),
+  social: defaults("social"),
+  contact: defaults("contact"),
 };
 
 
@@ -236,4 +252,27 @@ export function usePhotos(): SitePhoto[] {
     ratio: item.data["ratio"] || "aspect-[4/3]",
     isDefault: item.isDefault,
   }));
+}
+
+export type SiteSocial = { slug: string; network: string; label: string; url: string };
+
+/** Ссылки соцсетей (меню, подвал, страница контактов). */
+export function useSocialLinks(): SiteSocial[] {
+  return useItems("social")
+    .map((item) => ({
+      slug: item.slug,
+      network: (item.data["network"] ?? "").trim().toLowerCase(),
+      label: item.data["label"] ?? "",
+      url: item.data["url"] ?? "",
+    }))
+    .filter((social) => social.url.length > 0);
+}
+
+export type SiteContact = { slug: string; email: string; label: string };
+
+/** Почтовые адреса на странице контактов и в подвале. */
+export function useContacts(): SiteContact[] {
+  return useItems("contact")
+    .map((item) => ({ slug: item.slug, email: item.data["email"] ?? "", label: item.data["label"] ?? "" }))
+    .filter((contact) => contact.email.length > 0);
 }

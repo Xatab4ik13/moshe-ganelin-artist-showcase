@@ -4,8 +4,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { haptic } from "@/lib/haptics";
 import { useSiteImage } from "@/lib/site-images";
 import { langOptions, useLanguage, type DictKey } from "@/lib/i18n";
+import { useSocialLinks } from "@/lib/site-items";
 import { LogoText } from "./LogoText";
-import { SocialIconSvg, socialLinks } from "./social-icons";
+import { SocialIconSvg, networkIcons } from "./social-icons";
 import { SearchButton } from "./SiteSearch";
 
 type MenuChild = { labelKey: DictKey; to: string; hash?: string };
@@ -74,6 +75,7 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
 
 export function SiteMenu({ tone = "dark", home = false }: { tone?: "dark" | "light"; home?: boolean }) {
   const { t } = useLanguage();
+  const socials = useSocialLinks();
   const [panel, setPanel] = useState<PanelState>("closed");
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
   const timer = useRef<number | null>(null);
@@ -247,20 +249,27 @@ export function SiteMenu({ tone = "dark", home = false }: { tone?: "dark" | "lig
               <SearchButton className="md:hidden" />
             </div>
             <ul className="flex items-center gap-4">
-              {socialLinks.map((social) => (
-                <li key={social.key}>
-                  <a
-                    href={social.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    tabIndex={menuOpen ? 0 : -1}
-                    aria-label={social.label}
-                    className={`flex size-10 items-center justify-center rounded-full border border-background/35 transition-colors hover:border-brass ${social.className}`}
-                  >
-                    <SocialIconSvg path={social.path} className="size-4" />
-                  </a>
-                </li>
-              ))}
+              {socials.map((social) => {
+                const icon = networkIcons[social.network];
+                return (
+                  <li key={social.slug}>
+                    <a
+                      href={social.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      tabIndex={menuOpen ? 0 : -1}
+                      aria-label={social.label}
+                      className={`flex size-10 items-center justify-center rounded-full border border-background/35 transition-colors hover:border-brass ${icon?.className ?? ""}`}
+                    >
+                      {icon ? (
+                        <SocialIconSvg path={icon.path} className="size-4" />
+                      ) : (
+                        <span className="px-2 text-xs uppercase tracking-widest">{social.label}</span>
+                      )}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </nav>
