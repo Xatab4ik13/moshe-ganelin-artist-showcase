@@ -91,7 +91,7 @@ export function useItems(kind: ItemKind): SiteItem[] {
   return merge(kind, useContext(ItemsContext));
 }
 
-export type SiteVideo = { id: string; title: string; description?: string };
+export type SiteVideo = { id: string; title: string; description?: string | undefined };
 
 export function useVideos(): SiteVideo[] {
   return useItems("video")
@@ -103,7 +103,7 @@ export function useVideos(): SiteVideo[] {
     .filter((video) => video.id.length > 0);
 }
 
-export type SitePressItem = { slug: string; outlet: string; title: string; date: string; quote: string; url?: string };
+export type SitePressItem = { slug: string; outlet: string; title: string; date: string; quote: string; url?: string | undefined };
 
 export function usePress(): SitePressItem[] {
   return useItems("press").map((item) => ({
