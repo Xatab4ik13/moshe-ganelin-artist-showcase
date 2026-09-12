@@ -7,13 +7,7 @@ import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { haptic } from "@/lib/haptics";
 import { useLanguage } from "@/lib/i18n";
-import organAsset from "@/assets/moshe-organ-wide.webp.asset.json";
-import architectureAsset from "@/assets/organ-architecture.webp.asset.json";
-import stageAsset from "@/assets/moshe-stage.webp.asset.json";
-import consoleAsset from "@/assets/moshe-console.webp.asset.json";
-import pianoAsset from "@/assets/moshe-piano.webp.asset.json";
-import heroAsset from "@/assets/moshe-hero.webp.asset.json";
-import menuBgAsset from "@/assets/menu-bg.jpg.asset.json";
+import { useSiteImages } from "@/lib/site-images";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
@@ -30,15 +24,15 @@ export const Route = createFileRoute("/gallery")({
   component: GalleryPage,
 });
 
-const photos = [
-  { src: organAsset.url, alt: "Moshe Ariel Ganelin at the organ in a cathedral", ratio: "aspect-[4/3]" },
-  { src: architectureAsset.url, alt: "A historic organ", ratio: "aspect-[3/4]" },
-  { src: stageAsset.url, alt: "On stage", ratio: "aspect-[3/4]" },
-  { src: consoleAsset.url, alt: "The organ console", ratio: "aspect-[4/3]" },
-  { src: pianoAsset.url, alt: "At the grand piano", ratio: "aspect-[4/5]" },
-  { src: heroAsset.url, alt: "Portrait of the musician", ratio: "aspect-[4/3]" },
-  { src: menuBgAsset.url, alt: "Concert hall interior", ratio: "aspect-[16/10]" },
-];
+const photoSlots = [
+  { key: "organWide", alt: "Moshe Ariel Ganelin at the organ in a cathedral", ratio: "aspect-[4/3]" },
+  { key: "architecture", alt: "A historic organ", ratio: "aspect-[3/4]" },
+  { key: "stage", alt: "On stage", ratio: "aspect-[3/4]" },
+  { key: "console", alt: "The organ console", ratio: "aspect-[4/3]" },
+  { key: "piano", alt: "At the grand piano", ratio: "aspect-[4/5]" },
+  { key: "mosheHero", alt: "Portrait of the musician", ratio: "aspect-[4/3]" },
+  { key: "menuBg", alt: "Concert hall interior", ratio: "aspect-[16/10]" },
+] as const;
 
 const columnsCount = 3;
 const speeds = [0, -46, 26];

@@ -5,7 +5,6 @@ import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { workCategories, type WorkCategoryId } from "@/lib/site-data";
 import { useLanguage, type DictKey } from "@/lib/i18n";
-import pianoAsset from "@/assets/moshe-piano.webp.asset.json";
 
 export const Route = createFileRoute("/music/")({
   head: () => ({
@@ -34,7 +33,7 @@ function MusicIndexPage() {
   const { t } = useLanguage();
 
   return (
-    <PageShell title={t("navGanelinMusic")} lead={t("musicLead")} image={pianoAsset.url}>
+    <PageShell title={t("navGanelinMusic")} lead={t("musicLead")} image={piano}>
       <div className="relative mx-auto max-w-[1400px] overflow-hidden px-5 py-20 md:px-10 lg:px-16 lg:py-28">
         <DecoScales tone="light" opacity={0.06} size={72} />
         <DecoPilaster tone="light" className="pointer-events-none absolute left-0 top-16 hidden h-[70%] w-10 opacity-40 lg:block" />

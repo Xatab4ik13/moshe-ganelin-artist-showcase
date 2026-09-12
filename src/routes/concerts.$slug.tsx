@@ -4,7 +4,7 @@ import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { findConcert } from "@/lib/site-data";
 import { useLanguage } from "@/lib/i18n";
-import venueCathedralAsset from "@/assets/venue-cathedral.webp.asset.json";
+import { useSiteImage } from "@/lib/site-images";
 
 export const Route = createFileRoute("/concerts/$slug")({
   head: () => ({
@@ -31,7 +31,7 @@ function ConcertPage() {
     <PageShell
       title={concert.title}
       lead={`${concert.day} ${concert.month} ${concert.year} — ${concert.city}, ${concert.venue}`}
-      image={venueCathedralAsset.url}
+      image={cathedral}
     >
       <section className="mx-auto max-w-[1600px] px-5 py-20 md:px-10 lg:px-16 lg:py-28">
         <Reveal>

@@ -5,7 +5,7 @@ import { PageShell, Placeholder } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { videos, youtubeChannelUrl } from "@/lib/site-data";
 import { useLanguage } from "@/lib/i18n";
-import stageAsset from "@/assets/moshe-stage.webp.asset.json";
+import { useSiteImage } from "@/lib/site-images";
 
 export const Route = createFileRoute("/music/concerts")({
   head: () => ({
@@ -26,7 +26,7 @@ function ConcertVideoPage() {
   const { t } = useLanguage();
 
   return (
-    <PageShell title={t("concertsVideoTitle")} lead={t("concertsVideoLead")} image={stageAsset.url}>
+    <PageShell title={t("concertsVideoTitle")} lead={t("concertsVideoLead")} image={stage}>
       <div className="relative mx-auto max-w-[1400px] overflow-hidden px-5 py-20 md:px-10 lg:px-16 lg:py-28">
         <DecoScales tone="light" opacity={0.06} size={72} />
         <DecoPilaster tone="light" className="pointer-events-none absolute left-0 top-16 hidden h-[70%] w-10 opacity-40 lg:block" />
