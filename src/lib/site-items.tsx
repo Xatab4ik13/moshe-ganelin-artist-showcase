@@ -1,8 +1,9 @@
 import { createContext, useContext, type ReactNode } from "react";
 
-import { pressItems, publications, videos, workCategories, type WorkCategoryId } from "./site-data";
+import { galleryPhotos, pressItems, publications, videos, workCategories, type WorkCategoryId } from "./site-data";
 
-export type ItemKind = "video" | "press" | "publication" | "work";
+export type ItemKind = "video" | "press" | "publication" | "work" | "poem" | "photo";
+
 
 /** Запись из панели управления. Пустое значение поля означает «оставить как на сайте». */
 export type ItemOverride = {
@@ -56,6 +57,17 @@ function defaults(kind: ItemKind): SiteItem[] {
       })),
     );
   }
+  if (kind === "poem") {
+    return [];
+  }
+  if (kind === "photo") {
+    return galleryPhotos.map((photo) => ({
+      kind,
+      slug: photo.key,
+      data: { caption: photo.alt, imageUrl: "", ratio: photo.ratio },
+      isDefault: true,
+    }));
+  }
   return publications.map((item, index) => ({
     kind,
     slug: `publication-${index + 1}`,
@@ -69,7 +81,10 @@ export const defaultItems: Record<ItemKind, SiteItem[]> = {
   press: defaults("press"),
   publication: defaults("publication"),
   work: defaults("work"),
+  poem: defaults("poem"),
+  photo: defaults("photo"),
 };
+
 
 function merge(kind: ItemKind, overrides: ItemOverride[]): SiteItem[] {
   const rows = overrides.filter((row) => row.kind === kind);
