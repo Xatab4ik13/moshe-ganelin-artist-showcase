@@ -74,7 +74,7 @@ function SearchOverlay({ onClose }: { onClose: () => void }) {
       page("navConcertsVideo", "/music/concerts", "navMusic"),
       page("navPoetry", "/poetry", "navPoetry"),
       page("navContact", "/contacts", "navContact"),
-      ...allWorks.map((work) => ({
+      ...works.map((work) => ({
         title: work.title,
         section: t("listOfWorks"),
         to: `/music/works/${work.slug}`,
