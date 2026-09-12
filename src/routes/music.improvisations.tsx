@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { DecoChevronRule, DecoPilaster, DecoScales } from "@/components/site/Deco";
 import { PageShell, Placeholder } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
-import { videos } from "@/lib/site-data";
+import { useVideos } from "@/lib/site-items";
 import { useLanguage } from "@/lib/i18n";
 import { useSiteImage } from "@/lib/site-images";
 
@@ -23,6 +23,7 @@ export const Route = createFileRoute("/music/improvisations")({
 });
 
 function ImprovisationsPage() {
+  const videos = useVideos();
   const { t } = useLanguage();
   const consoleImg = useSiteImage("console");
   const selection = videos.filter((video) => /improvis/i.test(video.title)).concat(videos.slice(0, 3)).slice(0, 4);

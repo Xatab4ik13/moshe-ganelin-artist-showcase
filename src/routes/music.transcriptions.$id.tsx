@@ -2,7 +2,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 
 import { PageShell, Placeholder } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
-import { videos } from "@/lib/site-data";
+import { useVideos } from "@/lib/site-items";
 import { useLanguage } from "@/lib/i18n";
 
 export const Route = createFileRoute("/music/transcriptions/$id")({
@@ -20,6 +20,7 @@ export const Route = createFileRoute("/music/transcriptions/$id")({
 });
 
 function TranscriptionPage() {
+  const videos = useVideos();
   const { t } = useLanguage();
   const { id } = Route.useParams();
   const video = videos.find((item) => item.id === id);

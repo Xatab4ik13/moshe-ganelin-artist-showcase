@@ -19,8 +19,10 @@ import { Route as PressRouteImport } from './routes/press'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminConcertsRouteImport } from './routes/admin.concerts'
 import { Route as AdminImagesRouteImport } from './routes/admin.images'
+import { Route as AdminPressRouteImport } from './routes/admin.press'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminTextsRouteImport } from './routes/admin.texts'
+import { Route as AdminVideosRouteImport } from './routes/admin.videos'
 import { Route as ConcertsIndexRouteImport } from './routes/concerts.index'
 import { Route as ConcertsSlugRouteImport } from './routes/concerts.$slug'
 import { Route as MusicIndexRouteImport } from './routes/music.index'
@@ -81,6 +83,11 @@ const AdminImagesRoute = AdminImagesRouteImport.update({
   path: '/admin/images',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminPressRoute = AdminPressRouteImport.update({
+  id: '/admin/press',
+  path: '/admin/press',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminSettingsRoute = AdminSettingsRouteImport.update({
   id: '/admin/settings',
   path: '/admin/settings',
@@ -89,6 +96,11 @@ const AdminSettingsRoute = AdminSettingsRouteImport.update({
 const AdminTextsRoute = AdminTextsRouteImport.update({
   id: '/admin/texts',
   path: '/admin/texts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminVideosRoute = AdminVideosRouteImport.update({
+  id: '/admin/videos',
+  path: '/admin/videos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConcertsIndexRoute = ConcertsIndexRouteImport.update({
@@ -148,8 +160,10 @@ export interface FileRoutesByFullPath {
   '/press': typeof PressRoute
   '/admin/concerts': typeof AdminConcertsRoute
   '/admin/images': typeof AdminImagesRoute
+  '/admin/press': typeof AdminPressRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/texts': typeof AdminTextsRoute
+  '/admin/videos': typeof AdminVideosRoute
   '/concerts/$slug': typeof ConcertsSlugRoute
   '/music/concerts': typeof MusicConcertsRoute
   '/music/improvisations': typeof MusicImprovisationsRoute
@@ -170,8 +184,10 @@ export interface FileRoutesByTo {
   '/press': typeof PressRoute
   '/admin/concerts': typeof AdminConcertsRoute
   '/admin/images': typeof AdminImagesRoute
+  '/admin/press': typeof AdminPressRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/texts': typeof AdminTextsRoute
+  '/admin/videos': typeof AdminVideosRoute
   '/concerts/$slug': typeof ConcertsSlugRoute
   '/music/concerts': typeof MusicConcertsRoute
   '/music/improvisations': typeof MusicImprovisationsRoute
@@ -194,8 +210,10 @@ export interface FileRoutesById {
   '/press': typeof PressRoute
   '/admin/concerts': typeof AdminConcertsRoute
   '/admin/images': typeof AdminImagesRoute
+  '/admin/press': typeof AdminPressRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/texts': typeof AdminTextsRoute
+  '/admin/videos': typeof AdminVideosRoute
   '/concerts/$slug': typeof ConcertsSlugRoute
   '/music/concerts': typeof MusicConcertsRoute
   '/music/improvisations': typeof MusicImprovisationsRoute
@@ -219,8 +237,10 @@ export interface FileRouteTypes {
     | '/press'
     | '/admin/concerts'
     | '/admin/images'
+    | '/admin/press'
     | '/admin/settings'
     | '/admin/texts'
+    | '/admin/videos'
     | '/concerts/$slug'
     | '/music/concerts'
     | '/music/improvisations'
@@ -241,8 +261,10 @@ export interface FileRouteTypes {
     | '/press'
     | '/admin/concerts'
     | '/admin/images'
+    | '/admin/press'
     | '/admin/settings'
     | '/admin/texts'
+    | '/admin/videos'
     | '/concerts/$slug'
     | '/music/concerts'
     | '/music/improvisations'
@@ -264,8 +286,10 @@ export interface FileRouteTypes {
     | '/press'
     | '/admin/concerts'
     | '/admin/images'
+    | '/admin/press'
     | '/admin/settings'
     | '/admin/texts'
+    | '/admin/videos'
     | '/concerts/$slug'
     | '/music/concerts'
     | '/music/improvisations'
@@ -288,8 +312,10 @@ export interface RootRouteChildren {
   PressRoute: typeof PressRoute
   AdminConcertsRoute: typeof AdminConcertsRoute
   AdminImagesRoute: typeof AdminImagesRoute
+  AdminPressRoute: typeof AdminPressRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminTextsRoute: typeof AdminTextsRoute
+  AdminVideosRoute: typeof AdminVideosRoute
   ConcertsSlugRoute: typeof ConcertsSlugRoute
   AdminIndexRoute: typeof AdminIndexRoute
   ConcertsIndexRoute: typeof ConcertsIndexRoute
@@ -368,6 +394,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminImagesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/press': {
+      id: '/admin/press'
+      path: '/admin/press'
+      fullPath: '/admin/press'
+      preLoaderRoute: typeof AdminPressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/settings': {
       id: '/admin/settings'
       path: '/admin/settings'
@@ -380,6 +413,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/texts'
       fullPath: '/admin/texts'
       preLoaderRoute: typeof AdminTextsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/videos': {
+      id: '/admin/videos'
+      path: '/admin/videos'
+      fullPath: '/admin/videos'
+      preLoaderRoute: typeof AdminVideosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/concerts/': {
@@ -478,8 +518,10 @@ const rootRouteChildren: RootRouteChildren = {
   PressRoute: PressRoute,
   AdminConcertsRoute: AdminConcertsRoute,
   AdminImagesRoute: AdminImagesRoute,
+  AdminPressRoute: AdminPressRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   AdminTextsRoute: AdminTextsRoute,
+  AdminVideosRoute: AdminVideosRoute,
   ConcertsSlugRoute: ConcertsSlugRoute,
   AdminIndexRoute: AdminIndexRoute,
   ConcertsIndexRoute: ConcertsIndexRoute,

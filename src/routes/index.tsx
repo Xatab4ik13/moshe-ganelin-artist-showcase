@@ -8,7 +8,8 @@ import { Reveal } from "@/components/site/Reveal";
 import { SiteMenu } from "@/components/site/SiteMenu";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SitePreloader } from "@/components/site/SitePreloader";
-import { pressItems, videos, youtubeChannelUrl } from "@/lib/site-data";
+import { youtubeChannelUrl } from "@/lib/site-data";
+import { usePress, useVideos } from "@/lib/site-items";
 import { useConcerts } from "@/lib/site-concerts";
 import { useLanguage } from "@/lib/i18n";
 import { useSiteImage } from "@/lib/site-images";
@@ -33,6 +34,8 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const videos = useVideos();
+  const pressItems = usePress();
   const { t } = useLanguage();
   const concerts = useConcerts();
   const heroPoster = useSiteImage("heroPoster");

@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { DecoChevronRule, DecoCornerPlate, DecoPilaster, DecoScales } from "@/components/site/Deco";
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
-import { pressItems } from "@/lib/site-data";
+import { usePress } from "@/lib/site-items";
 import { useLanguage } from "@/lib/i18n";
 import { useSiteImage } from "@/lib/site-images";
 
@@ -23,6 +23,7 @@ export const Route = createFileRoute("/press")({
 });
 
 function PressPage() {
+  const pressItems = usePress();
   const { t } = useLanguage();
   const stage = useSiteImage("stage");
 
