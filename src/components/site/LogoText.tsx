@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import logoAsset from "@/assets/moshe-ganelin-logo.png.asset.json";
+import logoAsset from "@/assets/logo-ganelin.webp.asset.json";
 
 interface LogoTextProps {
   variant?: "brass" | "light";
@@ -13,7 +13,7 @@ export function LogoText({ className = "" }: LogoTextProps) {
       src={logoAsset.url}
       alt="Moshe Ariel Ganelin"
       width={1200}
-      height={675}
+      height={627}
       loading="eager"
       decoding="async"
       className={cn("block h-auto w-40 select-none", className)}
