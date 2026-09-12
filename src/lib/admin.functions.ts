@@ -131,3 +131,50 @@ export const adminChangePassword = createServerFn({ method: "POST" })
     ]);
     return { ok: true };
   });
+
+export type AdminImageRow = { key: string; url: string | null };
+
+/** Список заменённых изображений (ключ -> адрес файла на сервере). */
+export const adminGetImages = createServerFn({ method: "GET" }).handler(async (): Promise<AdminImageRow[]> => {
+  const { requireAdmin } = await import("./admin-auth.server");
+  const { dbQuery } = await import("./db.server");
+  await requireAdmin();
+  const rows = await dbQuery<{ key: string; url: string }>("SELECT key, url FROM content_images");
+  return rows.map((row) => ({ key: row.key, url: row.url }));
+});
+
+export const adminUploadImage = createServerFn({ method: "POST" })
+  .inputValidator((data: { key: string; filename: string; contentType: string; base64: string }) => data)
+  .handler(async ({ data }): Promise<{ ok: boolean; url?: string; error?: string }> => {
+    const { requireAdmin } = await import("./admin-auth.server");
+    const { dbQuery } = await import("./db.server");
+    const { imageKeys } = await import("./site-images");
+    const { extensionFor, saveUpload } = await import("./uploads.server");
+    await requireAdmin();
+
+    if (!imageKeys.includes(data.key)) return { ok: false, error: "Неизвестное изображение." };
+    const extension = extensionFor(data.contentType, data.filename);
+    if (!extension) return { ok: false, error: "Подойдут файлы JPG, PNG, WebP, GIF, AVIF или SVG." };
+
+    const buffer = Buffer.from(data.base64, "base64");
+    if (buffer.length === 0) return { ok: false, error: "Файл пустой." };
+    if (buffer.length > 12 * 1024 * 1024) return { ok: false, error: "Файл больше 12 МБ. Уменьшите его." };
+
+    const url = await saveUpload(data.key, buffer, extension);
+    await dbQuery(
+      `INSERT INTO content_images (key, url) VALUES ($1, $2)
+       ON CONFLICT (key) DO UPDATE SET url = EXCLUDED.url, updated_at = now()`,
+      [data.key, url],
+    );
+    return { ok: true, url };
+  });
+
+export const adminResetImage = createServerFn({ method: "POST" })
+  .inputValidator((data: { key: string }) => data)
+  .handler(async ({ data }) => {
+    const { requireAdmin } = await import("./admin-auth.server");
+    const { dbQuery } = await import("./db.server");
+    await requireAdmin();
+    await dbQuery("DELETE FROM content_images WHERE key = $1", [data.key]);
+    return { ok: true as const };
+  });

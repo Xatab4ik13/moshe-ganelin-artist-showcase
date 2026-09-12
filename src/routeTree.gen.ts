@@ -27,6 +27,7 @@ import { Route as MusicImprovisationsRouteImport } from './routes/music.improvis
 import { Route as MusicTranscriptionsIndexRouteImport } from './routes/music.transcriptions.index'
 import { Route as MusicTranscriptionsIdRouteImport } from './routes/music.transcriptions.$id'
 import { Route as MusicWorksSlugRouteImport } from './routes/music.works.$slug'
+import { Route as ApiPublicUploadsSplatRouteImport } from './routes/api/public/uploads/$'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -119,6 +120,11 @@ const MusicWorksSlugRoute = MusicWorksSlugRouteImport.update({
   path: '/works/$slug',
   getParentRoute: () => MusicRoute,
 } as any)
+const ApiPublicUploadsSplatRoute = ApiPublicUploadsSplatRouteImport.update({
+  id: '/api/public/uploads/$',
+  path: '/api/public/uploads/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -139,6 +145,7 @@ export interface FileRoutesByFullPath {
   '/music/transcriptions/$id': typeof MusicTranscriptionsIdRoute
   '/music/works/$slug': typeof MusicWorksSlugRoute
   '/music/transcriptions/': typeof MusicTranscriptionsIndexRoute
+  '/api/public/uploads/$': typeof ApiPublicUploadsSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -158,6 +165,7 @@ export interface FileRoutesByTo {
   '/music/transcriptions/$id': typeof MusicTranscriptionsIdRoute
   '/music/works/$slug': typeof MusicWorksSlugRoute
   '/music/transcriptions': typeof MusicTranscriptionsIndexRoute
+  '/api/public/uploads/$': typeof ApiPublicUploadsSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -179,6 +187,7 @@ export interface FileRoutesById {
   '/music/transcriptions/$id': typeof MusicTranscriptionsIdRoute
   '/music/works/$slug': typeof MusicWorksSlugRoute
   '/music/transcriptions/': typeof MusicTranscriptionsIndexRoute
+  '/api/public/uploads/$': typeof ApiPublicUploadsSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -201,6 +210,7 @@ export interface FileRouteTypes {
     | '/music/transcriptions/$id'
     | '/music/works/$slug'
     | '/music/transcriptions/'
+    | '/api/public/uploads/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -220,6 +230,7 @@ export interface FileRouteTypes {
     | '/music/transcriptions/$id'
     | '/music/works/$slug'
     | '/music/transcriptions'
+    | '/api/public/uploads/$'
   id:
     | '__root__'
     | '/'
@@ -240,6 +251,7 @@ export interface FileRouteTypes {
     | '/music/transcriptions/$id'
     | '/music/works/$slug'
     | '/music/transcriptions/'
+    | '/api/public/uploads/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -255,6 +267,7 @@ export interface RootRouteChildren {
   ConcertsSlugRoute: typeof ConcertsSlugRoute
   AdminIndexRoute: typeof AdminIndexRoute
   ConcertsIndexRoute: typeof ConcertsIndexRoute
+  ApiPublicUploadsSplatRoute: typeof ApiPublicUploadsSplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -385,6 +398,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MusicWorksSlugRouteImport
       parentRoute: typeof MusicRoute
     }
+    '/api/public/uploads/$': {
+      id: '/api/public/uploads/$'
+      path: '/api/public/uploads/$'
+      fullPath: '/api/public/uploads/$'
+      preLoaderRoute: typeof ApiPublicUploadsSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -421,6 +441,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConcertsSlugRoute: ConcertsSlugRoute,
   AdminIndexRoute: AdminIndexRoute,
   ConcertsIndexRoute: ConcertsIndexRoute,
+  ApiPublicUploadsSplatRoute: ApiPublicUploadsSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
