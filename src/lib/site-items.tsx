@@ -1,8 +1,8 @@
 import { createContext, useContext, type ReactNode } from "react";
 
-import { pressItems, publications, videos } from "./site-data";
+import { pressItems, publications, videos, workCategories, type WorkCategoryId } from "./site-data";
 
-export type ItemKind = "video" | "press" | "publication";
+export type ItemKind = "video" | "press" | "publication" | "work";
 
 /** Запись из панели управления. Пустое значение поля означает «оставить как на сайте». */
 export type ItemOverride = {
@@ -37,6 +37,25 @@ function defaults(kind: ItemKind): SiteItem[] {
       isDefault: true,
     }));
   }
+  if (kind === "work") {
+    return workCategories.flatMap((category) =>
+      category.works.map((work) => ({
+        kind,
+        slug: work.slug,
+        data: {
+          category: category.id,
+          title: work.title,
+          year: work.year,
+          duration: work.duration,
+          scoring: work.scoring,
+          premiere: work.premiere,
+          videoId: work.videoId ?? "",
+          description: "",
+        },
+        isDefault: true,
+      })),
+    );
+  }
   return publications.map((item, index) => ({
     kind,
     slug: `publication-${index + 1}`,
@@ -49,6 +68,7 @@ export const defaultItems: Record<ItemKind, SiteItem[]> = {
   video: defaults("video"),
   press: defaults("press"),
   publication: defaults("publication"),
+  work: defaults("work"),
 };
 
 function merge(kind: ItemKind, overrides: ItemOverride[]): SiteItem[] {
