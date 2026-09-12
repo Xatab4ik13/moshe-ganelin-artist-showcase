@@ -36,6 +36,7 @@ export function SearchButton({ className = "" }: { className?: string }) {
 
 function SearchOverlay({ onClose }: { onClose: () => void }) {
   const pressItems = usePress();
+  const works = useWorks();
   const { t } = useLanguage();
   const concerts = useConcerts();
   const [query, setQuery] = useState("");
