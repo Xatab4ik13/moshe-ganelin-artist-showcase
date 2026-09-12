@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import logoAsset from "@/assets/logo-ganelin.webp.asset.json";
+import { useSiteImage } from "@/lib/site-images";
 
 interface LogoTextProps {
   variant?: "brass" | "light";
@@ -8,9 +8,10 @@ interface LogoTextProps {
 }
 
 export function LogoText({ className = "" }: LogoTextProps) {
+  const logo = useSiteImage("logo");
   return (
     <img
-      src={logoAsset.url}
+      src={logo}
       alt="Moshe Ariel Ganelin"
       width={1200}
       height={627}

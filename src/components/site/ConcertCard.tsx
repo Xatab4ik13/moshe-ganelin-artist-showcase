@@ -2,17 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Reveal } from "./Reveal";
 import type { Concert } from "@/lib/site-data";
-import venueCathedralAsset from "@/assets/venue-cathedral.webp.asset.json";
-import venuePetrikircheAsset from "@/assets/venue-petrikirche.webp.asset.json";
-import venueHallAsset from "@/assets/venue-hall.webp.asset.json";
-
-const venueCathedral = venueCathedralAsset.url;
-const venuePetrikirche = venuePetrikircheAsset.url;
-const venueHall = venueHallAsset.url;
-
-const venueImages = [venueHall, venueCathedral, venuePetrikirche];
+import { useSiteImages } from "@/lib/site-images";
 
 export function ConcertCard({ concert, index }: { concert: Concert; index: number }) {
+  const siteImages = useSiteImages();
+  const venueImages = [siteImages.venueHall, siteImages.venueCathedral, siteImages.venuePetrikirche];
   const image = venueImages[index % venueImages.length];
   const cardRef = useRef<HTMLAnchorElement>(null);
   const [active, setActive] = useState(false);

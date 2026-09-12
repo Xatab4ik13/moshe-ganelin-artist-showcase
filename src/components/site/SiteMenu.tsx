@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import menuBgAsset from "@/assets/menu-bg.jpg.asset.json";
 import { haptic } from "@/lib/haptics";
+import { useSiteImage } from "@/lib/site-images";
 import { langOptions, useLanguage, type DictKey } from "@/lib/i18n";
 import { LogoText } from "./LogoText";
 import { SocialIconSvg, socialLinks } from "./social-icons";
@@ -165,7 +165,7 @@ export function SiteMenu({ tone = "dark", home = false }: { tone?: "dark" | "lig
         aria-hidden={!menuOpen}
       >
         <img
-          src={menuBgAsset.url}
+          src={menuBg}
           alt=""
           aria-hidden="true"
           decoding="async"
