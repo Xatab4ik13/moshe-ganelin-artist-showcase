@@ -278,6 +278,83 @@ export const adminResetConcert = createServerFn({ method: "POST" })
     return { ok: true as const };
   });
 
+export type AdminItemInput = {
+  kind: "video" | "press" | "publication";
+  slug: string;
+  originalSlug?: string;
+  data: Record<string, string>;
+  position: number;
+};
+
+/** Записи разделов «Видео», «Пресса» и «Публикации» из базы. */
+export const adminGetItems = createServerFn({ method: "GET" }).handler(async () => {
+  const { requireAdmin } = await import("./admin-auth.server");
+  const { dbQuery } = await import("./db.server");
+  const { itemsSelect, rowToItem } = await import("./items.functions");
+  await requireAdmin();
+  const rows = await dbQuery<Record<string, never>>(itemsSelect);
+  return rows.map((row) => rowToItem(row as never));
+});
+
+export const adminSaveItem = createServerFn({ method: "POST" })
+  .inputValidator((data: AdminItemInput) => data)
+  .handler(async ({ data }): Promise<{ ok: boolean; error?: string; slug?: string }> => {
+    const { requireAdmin } = await import("./admin-auth.server");
+    const { dbQuery } = await import("./db.server");
+    await requireAdmin();
+
+    const slug = data.slug.trim().toLowerCase().replace(/[^a-z0-9-]+/g, "-").replace(/^-+|-+$/g, "");
+    if (slug.length < 2) return { ok: false, error: "Не удалось составить адрес записи." };
+
+    const clean: Record<string, string> = {};
+    for (const [key, value] of Object.entries(data.data)) {
+      clean[key] = typeof value === "string" ? value.trim() : "";
+    }
+
+    if (data.originalSlug && data.originalSlug !== slug) {
+      await dbQuery("DELETE FROM site_items WHERE kind = $1 AND slug = $2", [data.kind, data.originalSlug]);
+    }
+
+    await dbQuery(
+      `INSERT INTO site_items (kind, slug, data, position, hidden)
+       VALUES ($1, $2, $3::jsonb, $4, false)
+       ON CONFLICT (kind, slug) DO UPDATE SET data = EXCLUDED.data, position = EXCLUDED.position,
+         hidden = false, updated_at = now()`,
+      [data.kind, slug, JSON.stringify(clean), Number.isFinite(data.position) ? data.position : 0],
+    );
+    return { ok: true, slug };
+  });
+
+/** Скрыть исходную запись сайта или удалить добавленную. */
+export const adminDeleteItem = createServerFn({ method: "POST" })
+  .inputValidator((data: { kind: string; slug: string; isDefault: boolean }) => data)
+  .handler(async ({ data }) => {
+    const { requireAdmin } = await import("./admin-auth.server");
+    const { dbQuery } = await import("./db.server");
+    await requireAdmin();
+    if (data.isDefault) {
+      await dbQuery(
+        `INSERT INTO site_items (kind, slug, hidden) VALUES ($1, $2, true)
+         ON CONFLICT (kind, slug) DO UPDATE SET hidden = true, updated_at = now()`,
+        [data.kind, data.slug],
+      );
+    } else {
+      await dbQuery("DELETE FROM site_items WHERE kind = $1 AND slug = $2", [data.kind, data.slug]);
+    }
+    return { ok: true as const };
+  });
+
+/** Вернуть исходную запись сайта (снять скрытие и правки). */
+export const adminResetItem = createServerFn({ method: "POST" })
+  .inputValidator((data: { kind: string; slug: string }) => data)
+  .handler(async ({ data }) => {
+    const { requireAdmin } = await import("./admin-auth.server");
+    const { dbQuery } = await import("./db.server");
+    await requireAdmin();
+    await dbQuery("DELETE FROM site_items WHERE kind = $1 AND slug = $2", [data.kind, data.slug]);
+    return { ok: true as const };
+  });
+
 /** Загрузка произвольной фотографии (например, для концерта). Возвращает адрес файла. */
 export const adminUploadFile = createServerFn({ method: "POST" })
   .inputValidator((data: { prefix: string; filename: string; contentType: string; base64: string }) => data)
