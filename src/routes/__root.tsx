@@ -15,6 +15,8 @@ import { LanguageProvider } from "@/lib/i18n";
 import { getTextOverrides } from "@/lib/content.functions";
 import { getImageOverrides } from "@/lib/images.functions";
 import { ImagesProvider } from "@/lib/site-images";
+import { getConcertOverrides } from "@/lib/concerts.functions";
+import { ConcertsProvider } from "@/lib/site-concerts";
 
 function NotFoundComponent() {
   return (
@@ -103,8 +105,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
   }),
   loader: async () => {
-    const [texts, images] = await Promise.all([getTextOverrides(), getImageOverrides()]);
-    return { texts, images };
+    const [texts, images, concerts] = await Promise.all([
+      getTextOverrides(),
+      getImageOverrides(),
+      getConcertOverrides(),
+    ]);
+    return { texts, images, concerts };
   },
   shellComponent: RootShell,
   component: RootComponent,
@@ -128,17 +134,19 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const { texts, images } = Route.useLoaderData();
+  const { texts, images, concerts } = Route.useLoaderData();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider overrides={texts}>
         <ImagesProvider overrides={images}>
+        <ConcertsProvider overrides={concerts}>
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <div key={pathname} className="route-fade">
           <Outlet />
         </div>
+        </ConcertsProvider>
         </ImagesProvider>
       </LanguageProvider>
     </QueryClientProvider>
