@@ -11,6 +11,7 @@ type Entry = { title: string; section: string; to: string; hash?: string | undef
 
 export function SearchButton({ className = "" }: { className?: string }) {
   const { t } = useLanguage();
+  const concerts = useConcerts();
   const [open, setOpen] = useState(false);
 
   return (

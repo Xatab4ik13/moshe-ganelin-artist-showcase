@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Reveal } from "./Reveal";
-import type { Concert } from "@/lib/site-data";
+import type { SiteConcert } from "@/lib/site-concerts";
 import { useSiteImages } from "@/lib/site-images";
 
-export function ConcertCard({ concert, index }: { concert: Concert; index: number }) {
+export function ConcertCard({ concert, index }: { concert: SiteConcert; index: number }) {
   const siteImages = useSiteImages();
   const venueImages = [siteImages.venueHall, siteImages.venueCathedral, siteImages.venuePetrikirche];
   const image = venueImages[index % venueImages.length];

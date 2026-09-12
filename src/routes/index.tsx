@@ -34,6 +34,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const { t } = useLanguage();
+  const concerts = useConcerts();
   const heroPoster = useSiteImage("heroPoster");
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const [videoReady, setVideoReady] = useState(false);
