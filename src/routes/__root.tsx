@@ -123,11 +123,12 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const overrides = Route.useLoaderData();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
     <QueryClientProvider client={queryClient}>
-      <LanguageProvider>
+      <LanguageProvider overrides={overrides}>
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <div key={pathname} className="route-fade">
           <Outlet />
