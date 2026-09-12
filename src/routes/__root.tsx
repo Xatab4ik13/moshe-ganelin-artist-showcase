@@ -12,6 +12,7 @@ import { type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { LanguageProvider } from "@/lib/i18n";
+import { getTextOverrides } from "@/lib/content.functions";
 
 function NotFoundComponent() {
   return (
