@@ -358,6 +358,9 @@ export const dict = {
 
 export type DictKey = keyof (typeof dict)["en"];
 
+/** Тексты, изменённые в админ-панели: ключ -> язык -> текст. */
+export type TextOverrides = Partial<Record<string, Partial<Record<Lang, string>>>>;
+
 type LangContextValue = { lang: Lang; setLang: (lang: Lang) => void; t: (key: DictKey) => string };
 
 const LangContext = createContext<LangContextValue>({
@@ -366,8 +369,15 @@ const LangContext = createContext<LangContextValue>({
   t: (key) => dict.en[key],
 });
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
+export function LanguageProvider({
+  children,
+  overrides,
+}: {
+  children: ReactNode;
+  overrides?: TextOverrides;
+}) {
   const [lang, setLangState] = useState<Lang>("en");
+
 
   useEffect(() => {
     const stored = window.localStorage.getItem("mg-lang");
