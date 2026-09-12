@@ -16,6 +16,7 @@ export type ConcertOverride = {
   title: string;
   description: string;
   videoId: string;
+  image: string;
   position: number;
   hidden: boolean;
 };
@@ -31,6 +32,7 @@ export type SiteConcert = {
   kind: ConcertKind;
   description?: string | undefined;
   videoId?: string | undefined;
+  image?: string | undefined;
   isDefault: boolean;
 };
 
@@ -85,6 +87,7 @@ export function mergeConcerts(overrides: ConcertOverride[] = []): ConcertsData {
       title: pick(row?.title, base.title),
       description: pick(row?.description, base.description) || undefined,
       videoId: pick(row?.videoId, base.videoId) || undefined,
+      image: pick(row?.image, base.image) || undefined,
       isDefault: true,
     });
   }
@@ -102,6 +105,7 @@ export function mergeConcerts(overrides: ConcertOverride[] = []): ConcertsData {
       title: row.title,
       description: row.description,
       videoId: row.videoId || undefined,
+      image: row.image || undefined,
       isDefault: false,
     });
   }

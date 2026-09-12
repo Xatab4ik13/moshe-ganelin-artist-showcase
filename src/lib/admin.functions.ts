@@ -191,6 +191,7 @@ export type AdminConcertInput = {
   title: string;
   description: string;
   videoId: string;
+  image: string;
   position: number;
   hidden: boolean;
 };
@@ -221,11 +222,12 @@ export const adminSaveConcert = createServerFn({ method: "POST" })
     }
 
     await dbQuery(
-      `INSERT INTO concerts (slug, kind, day, month, year, city, venue, title, description, video_id, position, hidden)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
+      `INSERT INTO concerts (slug, kind, day, month, year, city, venue, title, description, video_id, image_url, position, hidden)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
        ON CONFLICT (slug) DO UPDATE SET kind = EXCLUDED.kind, day = EXCLUDED.day, month = EXCLUDED.month,
          year = EXCLUDED.year, city = EXCLUDED.city, venue = EXCLUDED.venue, title = EXCLUDED.title,
-         description = EXCLUDED.description, video_id = EXCLUDED.video_id, position = EXCLUDED.position,
+         description = EXCLUDED.description, video_id = EXCLUDED.video_id, image_url = EXCLUDED.image_url,
+         position = EXCLUDED.position,
          hidden = EXCLUDED.hidden, updated_at = now()`,
       [
         slug,
@@ -238,6 +240,7 @@ export const adminSaveConcert = createServerFn({ method: "POST" })
         data.title.trim(),
         data.description.trim(),
         data.videoId.trim(),
+        (data.image ?? "").trim(),
         Number.isFinite(data.position) ? data.position : 0,
         Boolean(data.hidden),
       ],
@@ -273,4 +276,22 @@ export const adminResetConcert = createServerFn({ method: "POST" })
     await requireAdmin();
     await dbQuery("DELETE FROM concerts WHERE slug = $1", [data.slug]);
     return { ok: true as const };
+  });
+
+/** Загрузка произвольной фотографии (например, для концерта). Возвращает адрес файла. */
+export const adminUploadFile = createServerFn({ method: "POST" })
+  .inputValidator((data: { prefix: string; filename: string; contentType: string; base64: string }) => data)
+  .handler(async ({ data }): Promise<{ ok: boolean; url?: string; error?: string }> => {
+    const { requireAdmin } = await import("./admin-auth.server");
+    const { extensionFor, saveUpload } = await import("./uploads.server");
+    await requireAdmin();
+
+    const extension = extensionFor(data.contentType, data.filename);
+    if (!extension) return { ok: false, error: "Подойдут файлы JPG, PNG, WebP, GIF, AVIF или SVG." };
+    const buffer = Buffer.from(data.base64, "base64");
+    if (buffer.length === 0) return { ok: false, error: "Файл пустой." };
+    if (buffer.length > 12 * 1024 * 1024) return { ok: false, error: "Файл больше 12 МБ. Уменьшите его." };
+
+    const url = await saveUpload(data.prefix || "file", buffer, extension);
+    return { ok: true, url };
   });
