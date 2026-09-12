@@ -212,3 +212,28 @@ export function makeItemSlug(prefix: string, title: string): string {
     .replace(/^-+|-+$/g, "");
   return slug.length > 2 ? `${prefix}-${slug}`.slice(0, 80) : `${prefix}-${Date.now()}`;
 }
+
+export type SitePoem = { slug: string; lang: string; title: string; text: string };
+
+export function usePoems(lang: string): SitePoem[] {
+  return useItems("poem")
+    .map((item) => ({
+      slug: item.slug,
+      lang: (item.data["lang"] ?? "").trim(),
+      title: item.data["title"] ?? "",
+      text: item.data["text"] ?? "",
+    }))
+    .filter((poem) => poem.lang === lang);
+}
+
+export type SitePhoto = { slug: string; caption: string; imageUrl: string; ratio: string; isDefault: boolean };
+
+export function usePhotos(): SitePhoto[] {
+  return useItems("photo").map((item) => ({
+    slug: item.slug,
+    caption: item.data["caption"] ?? "",
+    imageUrl: item.data["imageUrl"] ?? "",
+    ratio: item.data["ratio"] || "aspect-[4/3]",
+    isDefault: item.isDefault,
+  }));
+}
