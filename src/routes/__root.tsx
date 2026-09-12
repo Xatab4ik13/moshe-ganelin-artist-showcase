@@ -13,6 +13,8 @@ import { type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { LanguageProvider } from "@/lib/i18n";
 import { getTextOverrides } from "@/lib/content.functions";
+import { getImageOverrides } from "@/lib/images.functions";
+import { ImagesProvider } from "@/lib/site-images";
 
 function NotFoundComponent() {
   return (
@@ -100,7 +102,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png?v=3" },
     ],
   }),
-  loader: () => getTextOverrides(),
+  loader: async () => {
+    const [texts, images] = await Promise.all([getTextOverrides(), getImageOverrides()]);
+    return { texts, images };
+  },
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
@@ -123,16 +128,18 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const overrides = Route.useLoaderData();
+  const { texts, images } = Route.useLoaderData();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
     <QueryClientProvider client={queryClient}>
-      <LanguageProvider overrides={overrides}>
+      <LanguageProvider overrides={texts}>
+        <ImagesProvider overrides={images}>
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <div key={pathname} className="route-fade">
           <Outlet />
         </div>
+        </ImagesProvider>
       </LanguageProvider>
     </QueryClientProvider>
   );
