@@ -20,9 +20,17 @@ export type ConcertOverride = {
   hidden: boolean;
 };
 
-export type SiteConcert = Concert & {
+export type SiteConcert = {
+  slug: string;
+  day: string;
+  month: string;
+  year: string;
+  city: string;
+  venue: string;
+  title: string;
   kind: ConcertKind;
-  description?: string;
+  description?: string | undefined;
+  videoId?: string | undefined;
   isDefault: boolean;
 };
 
@@ -33,7 +41,18 @@ export type ConcertsData = {
 };
 
 function withDefaults(list: Concert[], kind: ConcertKind): SiteConcert[] {
-  return list.map((concert) => ({ ...concert, kind, isDefault: true }));
+  return list.map((concert) => ({
+    slug: concert.slug,
+    day: concert.day,
+    month: concert.month,
+    year: concert.year,
+    city: concert.city,
+    venue: concert.venue,
+    title: concert.title,
+    videoId: concert.videoId,
+    kind,
+    isDefault: true,
+  }));
 }
 
 export const defaultConcerts: SiteConcert[] = [
@@ -51,27 +70,24 @@ export function mergeConcerts(overrides: ConcertOverride[] = []): ConcertsData {
   const byslug = new Map(overrides.map((row) => [row.slug, row]));
   const merged: SiteConcert[] = [];
 
-  defaultConcerts.forEach((base, index) => {
+  for (const base of defaultConcerts) {
     const row = byslug.get(base.slug);
     byslug.delete(base.slug);
-    if (row?.hidden) return;
+    if (row?.hidden) continue;
     merged.push({
       slug: base.slug,
-      kind: (row?.kind as ConcertKind) || base.kind,
+      kind: row?.kind ?? base.kind,
       day: pick(row?.day, base.day),
       month: pick(row?.month, base.month),
       year: pick(row?.year, base.year),
       city: pick(row?.city, base.city),
       venue: pick(row?.venue, base.venue),
       title: pick(row?.title, base.title),
-      description: pick(row?.description, base.description),
+      description: pick(row?.description, base.description) || undefined,
       videoId: pick(row?.videoId, base.videoId) || undefined,
       isDefault: true,
-      // сохраняем порядок исходного списка
-      ...(row && row.position ? { position: row.position } : {}),
-    } as SiteConcert & { position?: number });
-    void index;
-  });
+    });
+  }
 
   for (const row of byslug.values()) {
     if (row.hidden) continue;
