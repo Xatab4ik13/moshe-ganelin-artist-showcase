@@ -3,7 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useMemo, useState } from "react";
 
 import { AdminButton, AdminCard } from "./AdminShell";
-import { adminDeleteItem, adminGetItems, adminResetItem, adminSaveItem } from "@/lib/admin.functions";
+import { adminDeleteItem, adminGetItems, adminResetItem, adminSaveItem, adminUploadFile } from "@/lib/admin.functions";
 import {
   defaultItems,
   makeItemSlug,
