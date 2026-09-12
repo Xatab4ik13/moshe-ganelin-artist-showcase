@@ -122,3 +122,13 @@ export const poetryLangs: { id: PoetryLangId }[] = [
   { id: "spanish" },
   { id: "portuguese" },
 ];
+
+export const galleryPhotos: { key: string; alt: string; ratio: string }[] = [
+  { key: "organWide", alt: "Moshe Ariel Ganelin at the organ in a cathedral", ratio: "aspect-[4/3]" },
+  { key: "architecture", alt: "A historic organ", ratio: "aspect-[3/4]" },
+  { key: "stage", alt: "On stage", ratio: "aspect-[3/4]" },
+  { key: "console", alt: "The organ console", ratio: "aspect-[4/3]" },
+  { key: "piano", alt: "At the grand piano", ratio: "aspect-[4/5]" },
+  { key: "mosheHero", alt: "Portrait of the musician", ratio: "aspect-[4/3]" },
+  { key: "menuBg", alt: "Concert hall interior", ratio: "aspect-[16/10]" },
+];

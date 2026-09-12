@@ -3,7 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useMemo, useState } from "react";
 
 import { AdminButton, AdminCard } from "./AdminShell";
-import { adminDeleteItem, adminGetItems, adminResetItem, adminSaveItem } from "@/lib/admin.functions";
+import { adminDeleteItem, adminGetItems, adminResetItem, adminSaveItem, adminUploadFile } from "@/lib/admin.functions";
 import {
   defaultItems,
   makeItemSlug,
@@ -17,12 +17,67 @@ export type ItemField = {
   label: string;
   hint?: string;
   textarea?: boolean;
+  image?: boolean;
   placeholder?: string;
   options?: { value: string; label: string }[];
 };
 
 const inputClass =
   "mt-1 w-full rounded-lg border border-[#bcd6f3] bg-white px-4 py-3 text-base text-[#0f2744] outline-none focus:border-[#1b63d8]";
+
+function ImageField({
+  value,
+  slugPrefix,
+  onChange,
+}: {
+  value: string;
+  slugPrefix: string;
+  onChange: (url: string) => void;
+}) {
+  const upload = useServerFn(adminUploadFile);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const onFile = async (file: File) => {
+    setBusy(true);
+    setError(null);
+    const bytes = new Uint8Array(await file.arrayBuffer());
+    let binary = "";
+    for (let i = 0; i < bytes.length; i += 1) binary += String.fromCharCode(bytes[i]!);
+    const result = await upload({
+      data: { prefix: slugPrefix, filename: file.name, contentType: file.type, base64: btoa(binary) },
+    });
+    setBusy(false);
+    if (result.ok && result.url) onChange(result.url);
+    else setError(result.error ?? "Не удалось загрузить фотографию.");
+  };
+
+  return (
+    <div className="mt-2">
+      {value ? (
+        <img src={value} alt="" className="mb-3 h-40 w-full rounded-lg object-cover" />
+      ) : null}
+      <input
+        type="file"
+        accept="image/*"
+        disabled={busy}
+        onChange={(event) => {
+          const file = event.target.files?.[0];
+          if (file) void onFile(file);
+        }}
+        className="block w-full text-base text-[#0f2744]"
+      />
+      {busy ? <p className="mt-2 text-base text-[#41566f]">Загружаем…</p> : null}
+      {value ? (
+        <button type="button" onClick={() => onChange("")} className="mt-2 text-base text-[#1b63d8] underline">
+          Убрать фотографию
+        </button>
+      ) : null}
+      {error ? <p className="mt-2 text-base font-semibold text-[#b3261e]">{error}</p> : null}
+    </div>
+  );
+}
+
 
 type FormState = { slug: string; originalSlug: string; data: Record<string, string> };
 
@@ -145,10 +200,16 @@ export function AdminItems({
           </h3>
           <div className="mt-5 grid gap-4 md:grid-cols-2">
             {fields.map((field) => (
-              <label key={field.name} className={field.textarea ? "block md:col-span-2" : "block"}>
+              <label key={field.name} className={field.textarea || field.image ? "block md:col-span-2" : "block"}>
                 <span className="text-base font-semibold text-[#123a6b]">{field.label}</span>
                 {field.hint ? <span className="mt-1 block text-sm text-[#5b7290]">{field.hint}</span> : null}
-                {field.options ? (
+                {field.image ? (
+                  <ImageField
+                    value={form.data[field.name] ?? ""}
+                    slugPrefix={slugPrefix}
+                    onChange={(url) => setForm({ ...form, data: { ...form.data, [field.name]: url } })}
+                  />
+                ) : field.options ? (
                   <select
                     value={form.data[field.name] ?? ""}
                     onChange={(event) =>

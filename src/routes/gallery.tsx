@@ -8,6 +8,7 @@ import { Reveal } from "@/components/site/Reveal";
 import { haptic } from "@/lib/haptics";
 import { useLanguage } from "@/lib/i18n";
 import { useSiteImages } from "@/lib/site-images";
+import { usePhotos } from "@/lib/site-items";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
@@ -24,23 +25,19 @@ export const Route = createFileRoute("/gallery")({
   component: GalleryPage,
 });
 
-const photoSlots = [
-  { key: "organWide", alt: "Moshe Ariel Ganelin at the organ in a cathedral", ratio: "aspect-[4/3]" },
-  { key: "architecture", alt: "A historic organ", ratio: "aspect-[3/4]" },
-  { key: "stage", alt: "On stage", ratio: "aspect-[3/4]" },
-  { key: "console", alt: "The organ console", ratio: "aspect-[4/3]" },
-  { key: "piano", alt: "At the grand piano", ratio: "aspect-[4/5]" },
-  { key: "mosheHero", alt: "Portrait of the musician", ratio: "aspect-[4/3]" },
-  { key: "menuBg", alt: "Concert hall interior", ratio: "aspect-[16/10]" },
-] as const;
-
 const columnsCount = 3;
 const speeds = [0, -46, 26];
 
 function GalleryPage() {
   const { t } = useLanguage();
-  const img = useSiteImages();
-  const photos = photoSlots.map((slot) => ({ ...slot, src: img[slot.key] }));
+  const img = useSiteImages() as Record<string, string>;
+  const photos = usePhotos().map((photo) => ({
+    alt: photo.caption,
+    ratio: photo.ratio,
+    src: photo.imageUrl || img[photo.slug] || "",
+    key: photo.slug,
+  }));
+
   const [active, setActive] = useState<number | null>(null);
   const [origin, setOrigin] = useState<{ x: number; y: number; scale: number } | null>(null);
   const [zoomed, setZoomed] = useState(false);
@@ -129,7 +126,7 @@ function GalleryPage() {
               {column.map((photo) => {
                 const index = photos.indexOf(photo);
                 return (
-                  <Reveal key={photo.alt} delay={(index % 3) * 80}>
+                  <Reveal key={photo.key} delay={(index % 3) * 80}>
                     <figure className="deco-card overflow-hidden p-3">
                       <button
                         type="button"
@@ -198,7 +195,7 @@ function GalleryPage() {
           <div className="absolute inset-x-0 bottom-6 flex justify-center gap-2">
             {photos.map((photo, index) => (
               <button
-                key={photo.alt}
+                key={photo.key}
                 type="button"
                 aria-label={`Photo ${index + 1}`}
                 onClick={(event) => { event.stopPropagation(); setActive(index); }}

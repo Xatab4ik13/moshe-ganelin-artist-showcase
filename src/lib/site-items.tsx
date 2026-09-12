@@ -1,8 +1,9 @@
 import { createContext, useContext, type ReactNode } from "react";
 
-import { pressItems, publications, videos, workCategories, type WorkCategoryId } from "./site-data";
+import { galleryPhotos, pressItems, publications, videos, workCategories, type WorkCategoryId } from "./site-data";
 
-export type ItemKind = "video" | "press" | "publication" | "work";
+export type ItemKind = "video" | "press" | "publication" | "work" | "poem" | "photo";
+
 
 /** Запись из панели управления. Пустое значение поля означает «оставить как на сайте». */
 export type ItemOverride = {
@@ -56,6 +57,17 @@ function defaults(kind: ItemKind): SiteItem[] {
       })),
     );
   }
+  if (kind === "poem") {
+    return [];
+  }
+  if (kind === "photo") {
+    return galleryPhotos.map((photo) => ({
+      kind,
+      slug: photo.key,
+      data: { caption: photo.alt, imageUrl: "", ratio: photo.ratio },
+      isDefault: true,
+    }));
+  }
   return publications.map((item, index) => ({
     kind,
     slug: `publication-${index + 1}`,
@@ -69,7 +81,10 @@ export const defaultItems: Record<ItemKind, SiteItem[]> = {
   press: defaults("press"),
   publication: defaults("publication"),
   work: defaults("work"),
+  poem: defaults("poem"),
+  photo: defaults("photo"),
 };
+
 
 function merge(kind: ItemKind, overrides: ItemOverride[]): SiteItem[] {
   const rows = overrides.filter((row) => row.kind === kind);
@@ -196,4 +211,29 @@ export function makeItemSlug(prefix: string, title: string): string {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
   return slug.length > 2 ? `${prefix}-${slug}`.slice(0, 80) : `${prefix}-${Date.now()}`;
+}
+
+export type SitePoem = { slug: string; lang: string; title: string; text: string };
+
+export function usePoems(lang: string): SitePoem[] {
+  return useItems("poem")
+    .map((item) => ({
+      slug: item.slug,
+      lang: (item.data["lang"] ?? "").trim(),
+      title: item.data["title"] ?? "",
+      text: item.data["text"] ?? "",
+    }))
+    .filter((poem) => poem.lang === lang);
+}
+
+export type SitePhoto = { slug: string; caption: string; imageUrl: string; ratio: string; isDefault: boolean };
+
+export function usePhotos(): SitePhoto[] {
+  return useItems("photo").map((item) => ({
+    slug: item.slug,
+    caption: item.data["caption"] ?? "",
+    imageUrl: item.data["imageUrl"] ?? "",
+    ratio: item.data["ratio"] || "aspect-[4/3]",
+    isDefault: item.isDefault,
+  }));
 }

@@ -19,6 +19,8 @@ import { Route as PressRouteImport } from './routes/press'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminConcertsRouteImport } from './routes/admin.concerts'
 import { Route as AdminImagesRouteImport } from './routes/admin.images'
+import { Route as AdminPhotosRouteImport } from './routes/admin.photos'
+import { Route as AdminPoetryRouteImport } from './routes/admin.poetry'
 import { Route as AdminPressRouteImport } from './routes/admin.press'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminTextsRouteImport } from './routes/admin.texts'
@@ -82,6 +84,16 @@ const AdminConcertsRoute = AdminConcertsRouteImport.update({
 const AdminImagesRoute = AdminImagesRouteImport.update({
   id: '/admin/images',
   path: '/admin/images',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPhotosRoute = AdminPhotosRouteImport.update({
+  id: '/admin/photos',
+  path: '/admin/photos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPoetryRoute = AdminPoetryRouteImport.update({
+  id: '/admin/poetry',
+  path: '/admin/poetry',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminPressRoute = AdminPressRouteImport.update({
@@ -166,6 +178,8 @@ export interface FileRoutesByFullPath {
   '/press': typeof PressRoute
   '/admin/concerts': typeof AdminConcertsRoute
   '/admin/images': typeof AdminImagesRoute
+  '/admin/photos': typeof AdminPhotosRoute
+  '/admin/poetry': typeof AdminPoetryRoute
   '/admin/press': typeof AdminPressRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/texts': typeof AdminTextsRoute
@@ -191,6 +205,8 @@ export interface FileRoutesByTo {
   '/press': typeof PressRoute
   '/admin/concerts': typeof AdminConcertsRoute
   '/admin/images': typeof AdminImagesRoute
+  '/admin/photos': typeof AdminPhotosRoute
+  '/admin/poetry': typeof AdminPoetryRoute
   '/admin/press': typeof AdminPressRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/texts': typeof AdminTextsRoute
@@ -218,6 +234,8 @@ export interface FileRoutesById {
   '/press': typeof PressRoute
   '/admin/concerts': typeof AdminConcertsRoute
   '/admin/images': typeof AdminImagesRoute
+  '/admin/photos': typeof AdminPhotosRoute
+  '/admin/poetry': typeof AdminPoetryRoute
   '/admin/press': typeof AdminPressRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/texts': typeof AdminTextsRoute
@@ -246,6 +264,8 @@ export interface FileRouteTypes {
     | '/press'
     | '/admin/concerts'
     | '/admin/images'
+    | '/admin/photos'
+    | '/admin/poetry'
     | '/admin/press'
     | '/admin/settings'
     | '/admin/texts'
@@ -271,6 +291,8 @@ export interface FileRouteTypes {
     | '/press'
     | '/admin/concerts'
     | '/admin/images'
+    | '/admin/photos'
+    | '/admin/poetry'
     | '/admin/press'
     | '/admin/settings'
     | '/admin/texts'
@@ -297,6 +319,8 @@ export interface FileRouteTypes {
     | '/press'
     | '/admin/concerts'
     | '/admin/images'
+    | '/admin/photos'
+    | '/admin/poetry'
     | '/admin/press'
     | '/admin/settings'
     | '/admin/texts'
@@ -324,6 +348,8 @@ export interface RootRouteChildren {
   PressRoute: typeof PressRoute
   AdminConcertsRoute: typeof AdminConcertsRoute
   AdminImagesRoute: typeof AdminImagesRoute
+  AdminPhotosRoute: typeof AdminPhotosRoute
+  AdminPoetryRoute: typeof AdminPoetryRoute
   AdminPressRoute: typeof AdminPressRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminTextsRoute: typeof AdminTextsRoute
@@ -405,6 +431,20 @@ declare module '@tanstack/react-router' {
       path: '/admin/images'
       fullPath: '/admin/images'
       preLoaderRoute: typeof AdminImagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/photos': {
+      id: '/admin/photos'
+      path: '/admin/photos'
+      fullPath: '/admin/photos'
+      preLoaderRoute: typeof AdminPhotosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/poetry': {
+      id: '/admin/poetry'
+      path: '/admin/poetry'
+      fullPath: '/admin/poetry'
+      preLoaderRoute: typeof AdminPoetryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/press': {
@@ -538,6 +578,8 @@ const rootRouteChildren: RootRouteChildren = {
   PressRoute: PressRoute,
   AdminConcertsRoute: AdminConcertsRoute,
   AdminImagesRoute: AdminImagesRoute,
+  AdminPhotosRoute: AdminPhotosRoute,
+  AdminPoetryRoute: AdminPoetryRoute,
   AdminPressRoute: AdminPressRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   AdminTextsRoute: AdminTextsRoute,

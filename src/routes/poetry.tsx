@@ -5,6 +5,7 @@ import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { useLanguage, type DictKey } from "@/lib/i18n";
 import { useSiteImage } from "@/lib/site-images";
+import { usePoems } from "@/lib/site-items";
 import { poetryLangs } from "@/lib/site-data";
 
 export const Route = createFileRoute("/poetry")({
@@ -49,30 +50,44 @@ function PoetryPage() {
           </Reveal>
 
           {poetryLangs.map((group) => (
-            <section key={group.id} id={group.id} className="mb-24 scroll-mt-24 last:mb-0">
-              <Reveal>
-                <h2 className="text-center font-display text-3xl leading-none md:text-5xl">{t(langLabelKey[group.id]!)}</h2>
-                <DecoChevronRule tone="light" className="mx-auto mt-8 max-w-[720px] opacity-80" />
-              </Reveal>
-
-              <ul className="mt-12 grid gap-8 md:grid-cols-2">
-                {[0, 1].map((index) => (
-                  <Reveal as="li" key={index} delay={index * 70}>
-                    <article className="deco-card flex h-full flex-col justify-between gap-8 p-9 md:p-10">
-                      <DecoCornerPlate tone="light" className="pointer-events-none absolute left-3 top-3 h-9 w-9 opacity-55" />
-                      <DecoCornerPlate tone="light" flipX flipY className="pointer-events-none absolute bottom-3 right-3 h-9 w-9 opacity-55" />
-                      <div className="relative text-center">
-                        <h3 className="font-deco text-2xl leading-snug md:text-3xl">{t("poemSampleTitle")}</h3>
-                        <p className="mt-5 text-lg leading-relaxed text-muted-foreground">{t("poemSampleText")}</p>
-                      </div>
-                    </article>
-                  </Reveal>
-                ))}
-              </ul>
-            </section>
+            <PoetrySection key={group.id} id={group.id} />
           ))}
         </div>
       </section>
     </PageShell>
   );
 }
+
+function PoetrySection({ id }: { id: string }) {
+  const { t } = useLanguage();
+  const poems = usePoems(id);
+  const cards =
+    poems.length > 0
+      ? poems.map((poem) => ({ key: poem.slug, title: poem.title, text: poem.text }))
+      : [0, 1].map((index) => ({ key: `sample-${index}`, title: t("poemSampleTitle"), text: t("poemSampleText") }));
+
+  return (
+    <section id={id} className="mb-24 scroll-mt-24 last:mb-0">
+      <Reveal>
+        <h2 className="text-center font-display text-3xl leading-none md:text-5xl">{t(langLabelKey[id]!)}</h2>
+        <DecoChevronRule tone="light" className="mx-auto mt-8 max-w-[720px] opacity-80" />
+      </Reveal>
+
+      <ul className="mt-12 grid gap-8 md:grid-cols-2">
+        {cards.map((card, index) => (
+          <Reveal as="li" key={card.key} delay={index * 70}>
+            <article className="deco-card flex h-full flex-col justify-between gap-8 p-9 md:p-10">
+              <DecoCornerPlate tone="light" className="pointer-events-none absolute left-3 top-3 h-9 w-9 opacity-55" />
+              <DecoCornerPlate tone="light" flipX flipY className="pointer-events-none absolute bottom-3 right-3 h-9 w-9 opacity-55" />
+              <div className="relative text-center">
+                <h3 className="font-deco text-2xl leading-snug md:text-3xl">{card.title}</h3>
+                <p className="mt-5 whitespace-pre-line text-lg leading-relaxed text-muted-foreground">{card.text}</p>
+              </div>
+            </article>
+          </Reveal>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
