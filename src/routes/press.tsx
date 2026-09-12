@@ -24,6 +24,7 @@ export const Route = createFileRoute("/press")({
 
 function PressPage() {
   const { t } = useLanguage();
+  const stage = useSiteImage("stage");
 
   return (
     <PageShell title={t("pressTitle")} lead={t("pressLead")} image={stage}>

@@ -23,6 +23,7 @@ export const Route = createFileRoute("/concerts/$slug")({
 function ConcertPage() {
   const { slug } = Route.useParams();
   const { t } = useLanguage();
+  const cathedral = useSiteImage("venueCathedral");
   const concert = findConcert(slug);
 
   if (!concert) throw notFound();

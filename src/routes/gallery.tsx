@@ -39,6 +39,8 @@ const speeds = [0, -46, 26];
 
 function GalleryPage() {
   const { t } = useLanguage();
+  const img = useSiteImages();
+  const photos = photoSlots.map((slot) => ({ ...slot, src: img[slot.key] }));
   const [active, setActive] = useState<number | null>(null);
   const [origin, setOrigin] = useState<{ x: number; y: number; scale: number } | null>(null);
   const [zoomed, setZoomed] = useState(false);

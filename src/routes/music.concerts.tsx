@@ -24,6 +24,7 @@ export const Route = createFileRoute("/music/concerts")({
 
 function ConcertVideoPage() {
   const { t } = useLanguage();
+  const stage = useSiteImage("stage");
 
   return (
     <PageShell title={t("concertsVideoTitle")} lead={t("concertsVideoLead")} image={stage}>

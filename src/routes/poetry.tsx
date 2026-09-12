@@ -30,6 +30,7 @@ const langLabelKey: Record<string, DictKey> = {
 
 function PoetryPage() {
   const { t } = useLanguage();
+  const piano = useSiteImage("piano");
 
   return (
     <PageShell title={t("poetryTitle")} lead={t("poetryLead")} image={piano}>

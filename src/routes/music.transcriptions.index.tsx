@@ -24,6 +24,7 @@ export const Route = createFileRoute("/music/transcriptions/")({
 
 function TranscriptionsPage() {
   const { t } = useLanguage();
+  const organ = useSiteImage("organWide");
   const selection = videos.filter((video) => /transcription|Chopin|Scriabin|Rachmaninoff|Mosolov/i.test(video.title));
 
   return (

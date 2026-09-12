@@ -59,6 +59,7 @@ function Timeline() {
 
 function AboutPage() {
   const { t } = useLanguage();
+  const img = useSiteImages();
 
   return (
     <PageShell title={t("aboutTitle")} lead={t("aboutLead")} image={img.organWide}>

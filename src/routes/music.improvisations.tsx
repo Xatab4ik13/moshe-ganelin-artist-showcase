@@ -24,6 +24,7 @@ export const Route = createFileRoute("/music/improvisations")({
 
 function ImprovisationsPage() {
   const { t } = useLanguage();
+  const consoleImg = useSiteImage("console");
   const selection = videos.filter((video) => /improvis/i.test(video.title)).concat(videos.slice(0, 3)).slice(0, 4);
 
   return (

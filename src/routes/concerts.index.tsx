@@ -74,6 +74,8 @@ function MonthCalendar({
 
 function ConcertsPage() {
   const { t } = useLanguage();
+  const img = useSiteImages();
+  const archiveImages = [img.venueCathedral, img.venuePetrikirche, img.venueHall];
   const [thumb, setThumb] = useState<{ src: string; x: number; y: number } | null>(null);
   const frame = useRef(0);
 

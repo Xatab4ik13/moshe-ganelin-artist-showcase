@@ -31,6 +31,7 @@ const categoryTitleKey: Record<WorkCategoryId, DictKey> = {
 
 function MusicIndexPage() {
   const { t } = useLanguage();
+  const piano = useSiteImage("piano");
 
   return (
     <PageShell title={t("navGanelinMusic")} lead={t("musicLead")} image={piano}>
