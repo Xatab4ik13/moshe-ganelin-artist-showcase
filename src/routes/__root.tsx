@@ -107,12 +107,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
   }),
   loader: async () => {
-    const [texts, images, concerts] = await Promise.all([
+    const [texts, images, concerts, items] = await Promise.all([
       getTextOverrides(),
       getImageOverrides(),
       getConcertOverrides(),
+      getItemOverrides(),
     ]);
-    return { texts, images, concerts };
+    return { texts, images, concerts, items };
   },
   shellComponent: RootShell,
   component: RootComponent,
@@ -136,7 +137,7 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const { texts, images, concerts } = Route.useLoaderData();
+  const { texts, images, concerts, items } = Route.useLoaderData();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
@@ -144,10 +145,12 @@ function RootComponent() {
       <LanguageProvider overrides={texts}>
         <ImagesProvider overrides={images}>
         <ConcertsProvider overrides={concerts}>
+        <ItemsProvider overrides={items}>
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <div key={pathname} className="route-fade">
           <Outlet />
         </div>
+        </ItemsProvider>
         </ConcertsProvider>
         </ImagesProvider>
       </LanguageProvider>
