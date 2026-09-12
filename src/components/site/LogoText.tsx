@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import logoAsset from "@/assets/logo-ganelin.webp.asset.json";
+import logoAsset from "@/assets/moshe-ganelin-logo.png.asset.json";
 
 interface LogoTextProps {
   variant?: "brass" | "light";
