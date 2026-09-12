@@ -48,7 +48,7 @@ function PressPage() {
                   <p className="relative text-center text-xs uppercase tracking-[0.32em] text-petrol">
                     {item.outlet} · {item.date}
                   </p>
-                  <h2 className="relative mt-5 text-center font-display text-2xl leading-snug md:text-3xl">{item.title}</h2>
+                  <h2 className="relative mt-5 text-center font-deco font-black text-2xl leading-snug md:text-3xl">{item.title}</h2>
                   <blockquote className="relative mx-auto mt-6 max-w-xl text-center text-base italic leading-relaxed text-muted-foreground md:text-lg">
                     {item.quote}
                   </blockquote>

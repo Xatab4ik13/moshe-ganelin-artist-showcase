@@ -143,7 +143,7 @@ function Index() {
                   <p className="text-xs uppercase tracking-[0.32em] text-petrol">
                     {item.outlet} · {item.date}
                   </p>
-                  <h3 className="mt-4 font-display text-xl leading-snug md:text-2xl">{item.title}</h3>
+                  <h3 className="mt-4 font-deco font-black text-xl leading-snug md:text-2xl">{item.title}</h3>
                   <p className="mt-4 text-base italic leading-relaxed text-muted-foreground">{item.quote}</p>
                 </article>
               </Reveal>
