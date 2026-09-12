@@ -110,3 +110,46 @@ cd /var/www/moshe && git pull && npm install && npm run build && systemctl resta
 ## Медиа
 
 Все видео и фото лежат в репозитории в `public/media/` и попадают в сборку — внешние CDN не нужны.
+
+## 7. Админ-панель /admin (этап 1)
+
+### PostgreSQL
+
+```bash
+apt install -y postgresql
+sudo -u postgres psql -c "CREATE USER moshe WITH PASSWORD 'ПРИДУМАЙТЕ_ПАРОЛЬ';"
+sudo -u postgres psql -c "CREATE DATABASE moshe OWNER moshe;"
+```
+
+Применить миграции (после каждого `git pull` повторять — файлы идемпотентные):
+
+```bash
+cd /var/www/moshe
+PGPASSWORD='ПРИДУМАЙТЕ_ПАРОЛЬ' psql -h 127.0.0.1 -U moshe -d moshe -f db/migrations/001_admin.sql
+```
+
+### Переменные окружения
+
+Сгенерировать секрет сессии:
+
+```bash
+openssl rand -hex 32
+```
+
+Добавить в `/etc/systemd/system/moshe.service` в секцию `[Service]`:
+
+```ini
+Environment=DATABASE_URL=postgres://moshe:ПРИДУМАЙТЕ_ПАРОЛЬ@127.0.0.1:5432/moshe
+Environment=SESSION_SECRET=ВСТАВИТЬ_РЕЗУЛЬТАТ_openssl_rand
+```
+
+Затем:
+
+```bash
+systemctl daemon-reload && systemctl restart moshe
+```
+
+### Вход
+
+`https://moshearielganelin.com/admin` — почта `moshearielganelin@gmail.com`, пароль `Qwerty123!`
+(сразу смените его в разделе «Настройки и пароль»).
