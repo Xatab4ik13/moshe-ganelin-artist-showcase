@@ -200,10 +200,16 @@ export function AdminItems({
           </h3>
           <div className="mt-5 grid gap-4 md:grid-cols-2">
             {fields.map((field) => (
-              <label key={field.name} className={field.textarea ? "block md:col-span-2" : "block"}>
+              <label key={field.name} className={field.textarea || field.image ? "block md:col-span-2" : "block"}>
                 <span className="text-base font-semibold text-[#123a6b]">{field.label}</span>
                 {field.hint ? <span className="mt-1 block text-sm text-[#5b7290]">{field.hint}</span> : null}
-                {field.options ? (
+                {field.image ? (
+                  <ImageField
+                    value={form.data[field.name] ?? ""}
+                    slugPrefix={slugPrefix}
+                    onChange={(url) => setForm({ ...form, data: { ...form.data, [field.name]: url } })}
+                  />
+                ) : field.options ? (
                   <select
                     value={form.data[field.name] ?? ""}
                     onChange={(event) =>
