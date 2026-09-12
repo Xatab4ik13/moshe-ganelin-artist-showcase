@@ -106,6 +106,21 @@ function AdminTexts() {
 
   return (
     <AdminShell title="Тексты сайта">
+      <nav
+        aria-label="Разделы текстов"
+        className="sticky top-0 z-10 -mx-2 flex gap-2 overflow-x-auto rounded-xl border border-[#bcd6f3] bg-[#eaf3fd] p-2 shadow-sm"
+      >
+        {adminGroups.map((group) => (
+          <a
+            key={group.id}
+            href={`#texts-${group.id}`}
+            className="shrink-0 rounded-lg bg-white px-4 py-2 text-base font-semibold text-[#0d3f8f] outline-none transition hover:bg-[#1b63d8] hover:text-white focus-visible:bg-[#1b63d8] focus-visible:text-white"
+          >
+            {group.title}
+          </a>
+        ))}
+      </nav>
+
       {rows.isLoading ? <p className="text-base text-[#41566f]">Загрузка…</p> : null}
       {rows.error ? (
         <AdminCard>
@@ -115,7 +130,7 @@ function AdminTexts() {
 
       {rows.data
         ? adminGroups.map((group) => (
-            <section key={group.id} className="space-y-4">
+            <section key={group.id} id={`texts-${group.id}`} className="scroll-mt-24 space-y-4">
               <div>
                 <h2 className="text-2xl font-bold text-[#0d3f8f]">{group.title}</h2>
                 <p className="mt-1 text-base text-[#41566f]">{group.description}</p>
