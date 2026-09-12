@@ -3,12 +3,14 @@ import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 
 import { PageShell, Placeholder } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
-import { allWorks } from "@/lib/site-data";
+import { getItemOverrides } from "@/lib/items.functions";
+import { worksFrom } from "@/lib/site-items";
 import { useLanguage } from "@/lib/i18n";
 
 export const Route = createFileRoute("/music/works/$slug")({
-  loader: ({ params }) => {
-    const work = allWorks.find((item) => item.slug === params.slug);
+  loader: async ({ params }) => {
+    const overrides = await getItemOverrides();
+    const work = worksFrom(overrides).find((item) => item.slug === params.slug);
     if (!work) throw notFound();
     return { work };
   },
