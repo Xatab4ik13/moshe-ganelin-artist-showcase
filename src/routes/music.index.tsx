@@ -3,9 +3,10 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { DecoChevronRule, DecoPilaster, DecoScales } from "@/components/site/Deco";
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
-import { workCategories, type WorkCategoryId } from "@/lib/site-data";
+import { type WorkCategoryId } from "@/lib/site-data";
 import { useLanguage, type DictKey } from "@/lib/i18n";
 import { useSiteImage } from "@/lib/site-images";
+import { useWorkGroups } from "@/lib/site-items";
 
 export const Route = createFileRoute("/music/")({
   head: () => ({
