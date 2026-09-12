@@ -84,14 +84,6 @@ function AdminSettings() {
           </AdminButton>
         </form>
       </AdminCard>
-
-      <AdminCard>
-        <h2 className="text-xl font-bold text-[#0d3f8f]">Восстановление пароля</h2>
-        <p className="mt-2 text-base text-[#41566f]">
-          Письмо для восстановления подключим, когда появится почтовый ящик для рассылки. Пока пароль меняется
-          здесь.
-        </p>
-      </AdminCard>
     </AdminShell>
   );
 }
