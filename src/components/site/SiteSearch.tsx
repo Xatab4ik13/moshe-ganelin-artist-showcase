@@ -3,7 +3,8 @@ import { createPortal } from "react-dom";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { useLanguage, type DictKey } from "@/lib/i18n";
-import { allWorks, pressItems } from "@/lib/site-data";
+import { allWorks } from "@/lib/site-data";
+import { usePress } from "@/lib/site-items";
 import { useConcerts } from "@/lib/site-concerts";
 
 
@@ -35,6 +36,7 @@ export function SearchButton({ className = "" }: { className?: string }) {
 }
 
 function SearchOverlay({ onClose }: { onClose: () => void }) {
+  const pressItems = usePress();
   const { t } = useLanguage();
   const concerts = useConcerts();
   const [query, setQuery] = useState("");

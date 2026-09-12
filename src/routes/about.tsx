@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { DecoArch, DecoChevronRule, DecoCornerPlate, DecoPilaster, DecoScales } from "@/components/site/Deco";
 import { PageShell, Placeholder } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
-import { publications } from "@/lib/site-data";
+import { usePublications } from "@/lib/site-items";
 import { useLanguage } from "@/lib/i18n";
 import { useSiteImages } from "@/lib/site-images";
 
@@ -58,6 +58,7 @@ function Timeline() {
 }
 
 function AboutPage() {
+  const publications = usePublications();
   const { t } = useLanguage();
   const img = useSiteImages();
 
