@@ -3,8 +3,7 @@ import { createPortal } from "react-dom";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { useLanguage, type DictKey } from "@/lib/i18n";
-import { allWorks } from "@/lib/site-data";
-import { usePress } from "@/lib/site-items";
+import { usePress, useWorks } from "@/lib/site-items";
 import { useConcerts } from "@/lib/site-concerts";
 
 
