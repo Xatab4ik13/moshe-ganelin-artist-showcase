@@ -187,6 +187,8 @@ export type SiteWork = {
   premiere: string;
   videoId?: string | undefined;
   description?: string | undefined;
+  descriptionEs?: string | undefined;
+  descriptionPt?: string | undefined;
 };
 
 const categoryOrder: WorkCategoryId[] = ["symphonic", "organ", "vocal", "choir", "chamber"];
@@ -203,6 +205,8 @@ function toWork(item: SiteItem): SiteWork {
     premiere: item.data["premiere"] ?? "",
     videoId: item.data["videoId"] || undefined,
     description: item.data["description"] || undefined,
+    descriptionEs: item.data["description_es"] || undefined,
+    descriptionPt: item.data["description_pt"] || undefined,
   };
 }
 

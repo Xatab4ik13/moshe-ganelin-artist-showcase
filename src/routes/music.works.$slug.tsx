@@ -48,8 +48,12 @@ function WorkNotFound() {
 }
 
 function WorkPage() {
-  const { t } = useLanguage();
-  const { work } = Route.useLoaderData();
+  const { t, lang } = useLanguage();
+  const { work: baseWork } = Route.useLoaderData();
+  const localized =
+    (lang === "es" ? baseWork.descriptionEs : lang === "pt" ? baseWork.descriptionPt : undefined) ||
+    baseWork.description;
+  const work = { ...baseWork, description: localized };
 
   return (
     <PageShell title={work.title} lead={`${work.year} · ${work.duration}`}>
