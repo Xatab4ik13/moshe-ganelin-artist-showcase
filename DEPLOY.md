@@ -104,7 +104,7 @@ certbot --nginx -d moshearielganelin.com -d www.moshearielganelin.com
 ## 6. Обновление сайта
 
 ```bash
-cd /var/www/moshe && git pull && npm install && npm run build && systemctl restart moshe
+cd /var/www/moshe && git pull && npm install && for migration in db/migrations/*.sql; do PGPASSWORD='ВАШ_ПАРОЛЬ_БАЗЫ' psql -v ON_ERROR_STOP=1 -h 127.0.0.1 -U moshe -d moshe -f "$migration" || exit 1; done && npm run build && sudo systemctl restart moshe && sudo systemctl reload nginx
 ```
 
 ## Медиа
@@ -121,12 +121,13 @@ sudo -u postgres psql -c "CREATE USER moshe WITH PASSWORD 'ПРИДУМАЙТЕ_
 sudo -u postgres psql -c "CREATE DATABASE moshe OWNER moshe;"
 ```
 
-Применить миграции (после каждого `git pull` повторять — файлы идемпотентные):
+Применить все миграции (после каждого `git pull` повторять — файлы идемпотентные):
 
 ```bash
 cd /var/www/moshe
-PGPASSWORD='ПРИДУМАЙТЕ_ПАРОЛЬ' psql -h 127.0.0.1 -U moshe -d moshe -f db/migrations/001_admin.sql
-PGPASSWORD='ПРИДУМАЙТЕ_ПАРОЛЬ' psql -h 127.0.0.1 -U moshe -d moshe -f db/migrations/002_images.sql
+for migration in db/migrations/*.sql; do
+  PGPASSWORD='ПРИДУМАЙТЕ_ПАРОЛЬ' psql -v ON_ERROR_STOP=1 -h 127.0.0.1 -U moshe -d moshe -f "$migration" || exit 1
+done
 ```
 
 ### Папка для загруженных файлов

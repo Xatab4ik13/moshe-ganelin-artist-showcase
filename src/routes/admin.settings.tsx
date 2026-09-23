@@ -41,15 +41,21 @@ function AdminSettings() {
             }
             setBusy(true);
             setMessage(null);
-            const result = await changePassword({ data: { current, next } });
-            setBusy(false);
-            if (result.ok) {
-              setMessage({ kind: "ok", text: "Пароль изменён." });
-              setCurrent("");
-              setNext("");
-              setRepeat("");
-            } else {
-              setMessage({ kind: "error", text: result.error ?? "Не удалось изменить пароль." });
+            try {
+              const result = await changePassword({ data: { current, next } });
+              if (result.ok) {
+                setMessage({ kind: "ok", text: "Пароль изменён." });
+                setCurrent("");
+                setNext("");
+                setRepeat("");
+              } else {
+                setMessage({ kind: "error", text: result.error ?? "Не удалось изменить пароль." });
+              }
+            } catch (saveError) {
+              console.error(saveError);
+              setMessage({ kind: "error", text: "Не удалось сохранить. Проверьте подключение базы данных." });
+            } finally {
+              setBusy(false);
             }
           }}
         >

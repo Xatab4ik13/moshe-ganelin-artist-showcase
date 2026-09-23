@@ -288,31 +288,37 @@ function AdminConcerts() {
     setError(null);
     setMessage(null);
     const slug = form.originalSlug || makeConcertSlug(form);
-    const result = await save({
-      data: {
-        slug,
-        originalSlug: form.originalSlug,
-        kind: form.kind,
-        day: form.day,
-        month: form.month,
-        year: form.year,
-        city: form.city,
-        venue: form.venue,
-        title: form.title,
-        description: form.description,
-        videoId: form.videoId,
-        image: form.image,
-        position: 0,
-        hidden: false,
-      },
-    });
-    setBusy(false);
-    if (result.ok) {
-      setForm(null);
-      setMessage("Готово. Концерт сохранён и уже виден на сайте.");
-      query.refetch();
-    } else {
-      setError(result.error ?? "Не удалось сохранить.");
+    try {
+      const result = await save({
+        data: {
+          slug,
+          originalSlug: form.originalSlug,
+          kind: form.kind,
+          day: form.day,
+          month: form.month,
+          year: form.year,
+          city: form.city,
+          venue: form.venue,
+          title: form.title,
+          description: form.description,
+          videoId: form.videoId,
+          image: form.image,
+          position: 0,
+          hidden: false,
+        },
+      });
+      if (result.ok) {
+        setForm(null);
+        setMessage("Готово. Концерт сохранён и уже виден на сайте.");
+        void query.refetch();
+      } else {
+        setError(result.error ?? "Не удалось сохранить.");
+      }
+    } catch (saveError) {
+      console.error(saveError);
+      setError("Не удалось сохранить. Проверьте подключение базы данных и миграции на сервере.");
+    } finally {
+      setBusy(false);
     }
   };
 
