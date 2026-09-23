@@ -12,7 +12,12 @@ function getPool(): Pool {
     throw new Error("DATABASE_URL не задан: база данных не подключена.");
   }
   if (!pool) {
-    pool = new Pool({ connectionString: url, max: 5 });
+    pool = new Pool({
+      connectionString: url,
+      max: 5,
+      connectionTimeoutMillis: 10_000,
+      query_timeout: 15_000,
+    });
   }
   return pool;
 }

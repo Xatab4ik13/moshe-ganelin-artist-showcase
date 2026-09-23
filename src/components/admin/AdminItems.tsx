@@ -150,16 +150,22 @@ export function AdminItems({
     setError(null);
     setMessage(null);
     const slug = form.originalSlug || makeItemSlug(slugPrefix, titleValue);
-    const result = await save({
-      data: { kind, slug, originalSlug: form.originalSlug, data: form.data, position: list.length },
-    });
-    setBusy(false);
-    if (result.ok) {
-      setForm(null);
-      setMessage("Готово. Изменения уже видны на сайте.");
-      query.refetch();
-    } else {
-      setError(result.error ?? "Не удалось сохранить.");
+    try {
+      const result = await save({
+        data: { kind, slug, originalSlug: form.originalSlug, data: form.data, position: list.length },
+      });
+      if (result.ok) {
+        setForm(null);
+        setMessage("Готово. Изменения уже видны на сайте.");
+        void query.refetch();
+      } else {
+        setError(result.error ?? "Не удалось сохранить.");
+      }
+    } catch (saveError) {
+      console.error(saveError);
+      setError("Не удалось сохранить. Проверьте подключение базы данных и миграции на сервере.");
+    } finally {
+      setBusy(false);
     }
   };
 
