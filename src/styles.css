@@ -517,6 +517,12 @@ html, body, * {
 }
 ::-webkit-scrollbar { width: 0; height: 0; display: none; }
 
+/* Панель управления: обычная полоса прокрутки страницы справа */
+html.admin-scroll { scrollbar-width: auto; scrollbar-color: #1b63d8 #dbeafe; }
+html.admin-scroll::-webkit-scrollbar { display: block; width: 14px; }
+html.admin-scroll::-webkit-scrollbar-track { background: #dbeafe; }
+html.admin-scroll::-webkit-scrollbar-thumb { background: #1b63d8; border-radius: 7px; border: 3px solid #dbeafe; }
+
 /* --- Мобильные анимации: короче, мягче, без «прилипания» --- */
 @media (max-width: 767px) {
   .reveal { transform: translateY(16px); transition-duration: 620ms; }

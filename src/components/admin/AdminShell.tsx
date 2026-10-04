@@ -1,7 +1,7 @@
 import { Link, useNavigate, useRouter } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import { adminLogin, adminLogout, adminStatus } from "@/lib/admin.functions";
 
@@ -118,6 +118,11 @@ export function AdminShell({ title, children }: { title: string; children: React
   const queryClient = useQueryClient();
   const logout = useServerFn(adminLogout);
   const status = useQuery({ queryKey: ["admin-status"], queryFn: () => adminStatus(), staleTime: 0 });
+
+  useEffect(() => {
+    document.documentElement.classList.add("admin-scroll");
+    return () => document.documentElement.classList.remove("admin-scroll");
+  }, []);
 
   if (status.isLoading) {
     return (
