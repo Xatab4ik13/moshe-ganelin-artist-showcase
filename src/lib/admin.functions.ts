@@ -192,6 +192,7 @@ export type AdminConcertInput = {
   description: string;
   videoId: string;
   image: string;
+  extra?: Record<string, string>;
   position: number;
   hidden: boolean;
 };
@@ -222,12 +223,12 @@ export const adminSaveConcert = createServerFn({ method: "POST" })
     }
 
     await dbQuery(
-      `INSERT INTO concerts (slug, kind, day, month, year, city, venue, title, description, video_id, image_url, position, hidden)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
+      `INSERT INTO concerts (slug, kind, day, month, year, city, venue, title, description, video_id, image_url, position, hidden, extra)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14::jsonb)
        ON CONFLICT (slug) DO UPDATE SET kind = EXCLUDED.kind, day = EXCLUDED.day, month = EXCLUDED.month,
          year = EXCLUDED.year, city = EXCLUDED.city, venue = EXCLUDED.venue, title = EXCLUDED.title,
          description = EXCLUDED.description, video_id = EXCLUDED.video_id, image_url = EXCLUDED.image_url,
-         position = EXCLUDED.position,
+         position = EXCLUDED.position, extra = EXCLUDED.extra,
          hidden = EXCLUDED.hidden, updated_at = now()`,
       [
         slug,
@@ -243,6 +244,11 @@ export const adminSaveConcert = createServerFn({ method: "POST" })
         (data.image ?? "").trim(),
         Number.isFinite(data.position) ? data.position : 0,
         Boolean(data.hidden),
+        JSON.stringify(
+          Object.fromEntries(
+            Object.entries(data.extra ?? {}).map(([key, value]) => [key, typeof value === "string" ? value.trim() : ""]),
+          ),
+        ),
       ],
     );
     return { ok: true, slug };
