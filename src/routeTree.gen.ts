@@ -19,11 +19,13 @@ import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminConcertsRouteImport } from './routes/admin.concerts'
 import { Route as AdminContactsRouteImport } from './routes/admin.contacts'
 import { Route as AdminImagesRouteImport } from './routes/admin.images'
+import { Route as AdminImprovisationsRouteImport } from './routes/admin.improvisations'
 import { Route as AdminPhotosRouteImport } from './routes/admin.photos'
 import { Route as AdminPoetryRouteImport } from './routes/admin.poetry'
 import { Route as AdminPressRouteImport } from './routes/admin.press'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminTextsRouteImport } from './routes/admin.texts'
+import { Route as AdminTranscriptionsRouteImport } from './routes/admin.transcriptions'
 import { Route as AdminVideosRouteImport } from './routes/admin.videos'
 import { Route as AdminWorksRouteImport } from './routes/admin.works'
 import { Route as ConcertsIndexRouteImport } from './routes/concerts.index'
@@ -88,6 +90,11 @@ const AdminImagesRoute = AdminImagesRouteImport.update({
   path: '/admin/images',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminImprovisationsRoute = AdminImprovisationsRouteImport.update({
+  id: '/admin/improvisations',
+  path: '/admin/improvisations',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminPhotosRoute = AdminPhotosRouteImport.update({
   id: '/admin/photos',
   path: '/admin/photos',
@@ -111,6 +118,11 @@ const AdminSettingsRoute = AdminSettingsRouteImport.update({
 const AdminTextsRoute = AdminTextsRouteImport.update({
   id: '/admin/texts',
   path: '/admin/texts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminTranscriptionsRoute = AdminTranscriptionsRouteImport.update({
+  id: '/admin/transcriptions',
+  path: '/admin/transcriptions',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminVideosRoute = AdminVideosRouteImport.update({
@@ -190,11 +202,13 @@ export interface FileRoutesByFullPath {
   '/admin/concerts': typeof AdminConcertsRoute
   '/admin/contacts': typeof AdminContactsRoute
   '/admin/images': typeof AdminImagesRoute
+  '/admin/improvisations': typeof AdminImprovisationsRoute
   '/admin/photos': typeof AdminPhotosRoute
   '/admin/poetry': typeof AdminPoetryRoute
   '/admin/press': typeof AdminPressRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/texts': typeof AdminTextsRoute
+  '/admin/transcriptions': typeof AdminTranscriptionsRoute
   '/admin/videos': typeof AdminVideosRoute
   '/admin/works': typeof AdminWorksRoute
   '/concerts/$slug': typeof ConcertsSlugRoute
@@ -219,11 +233,13 @@ export interface FileRoutesByTo {
   '/admin/concerts': typeof AdminConcertsRoute
   '/admin/contacts': typeof AdminContactsRoute
   '/admin/images': typeof AdminImagesRoute
+  '/admin/improvisations': typeof AdminImprovisationsRoute
   '/admin/photos': typeof AdminPhotosRoute
   '/admin/poetry': typeof AdminPoetryRoute
   '/admin/press': typeof AdminPressRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/texts': typeof AdminTextsRoute
+  '/admin/transcriptions': typeof AdminTranscriptionsRoute
   '/admin/videos': typeof AdminVideosRoute
   '/admin/works': typeof AdminWorksRoute
   '/concerts/$slug': typeof ConcertsSlugRoute
@@ -250,11 +266,13 @@ export interface FileRoutesById {
   '/admin/concerts': typeof AdminConcertsRoute
   '/admin/contacts': typeof AdminContactsRoute
   '/admin/images': typeof AdminImagesRoute
+  '/admin/improvisations': typeof AdminImprovisationsRoute
   '/admin/photos': typeof AdminPhotosRoute
   '/admin/poetry': typeof AdminPoetryRoute
   '/admin/press': typeof AdminPressRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/texts': typeof AdminTextsRoute
+  '/admin/transcriptions': typeof AdminTranscriptionsRoute
   '/admin/videos': typeof AdminVideosRoute
   '/admin/works': typeof AdminWorksRoute
   '/concerts/$slug': typeof ConcertsSlugRoute
@@ -282,11 +300,13 @@ export interface FileRouteTypes {
     | '/admin/concerts'
     | '/admin/contacts'
     | '/admin/images'
+    | '/admin/improvisations'
     | '/admin/photos'
     | '/admin/poetry'
     | '/admin/press'
     | '/admin/settings'
     | '/admin/texts'
+    | '/admin/transcriptions'
     | '/admin/videos'
     | '/admin/works'
     | '/concerts/$slug'
@@ -311,11 +331,13 @@ export interface FileRouteTypes {
     | '/admin/concerts'
     | '/admin/contacts'
     | '/admin/images'
+    | '/admin/improvisations'
     | '/admin/photos'
     | '/admin/poetry'
     | '/admin/press'
     | '/admin/settings'
     | '/admin/texts'
+    | '/admin/transcriptions'
     | '/admin/videos'
     | '/admin/works'
     | '/concerts/$slug'
@@ -341,11 +363,13 @@ export interface FileRouteTypes {
     | '/admin/concerts'
     | '/admin/contacts'
     | '/admin/images'
+    | '/admin/improvisations'
     | '/admin/photos'
     | '/admin/poetry'
     | '/admin/press'
     | '/admin/settings'
     | '/admin/texts'
+    | '/admin/transcriptions'
     | '/admin/videos'
     | '/admin/works'
     | '/concerts/$slug'
@@ -372,11 +396,13 @@ export interface RootRouteChildren {
   AdminConcertsRoute: typeof AdminConcertsRoute
   AdminContactsRoute: typeof AdminContactsRoute
   AdminImagesRoute: typeof AdminImagesRoute
+  AdminImprovisationsRoute: typeof AdminImprovisationsRoute
   AdminPhotosRoute: typeof AdminPhotosRoute
   AdminPoetryRoute: typeof AdminPoetryRoute
   AdminPressRoute: typeof AdminPressRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminTextsRoute: typeof AdminTextsRoute
+  AdminTranscriptionsRoute: typeof AdminTranscriptionsRoute
   AdminVideosRoute: typeof AdminVideosRoute
   AdminWorksRoute: typeof AdminWorksRoute
   ConcertsSlugRoute: typeof ConcertsSlugRoute
@@ -459,6 +485,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminImagesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/improvisations': {
+      id: '/admin/improvisations'
+      path: '/admin/improvisations'
+      fullPath: '/admin/improvisations'
+      preLoaderRoute: typeof AdminImprovisationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/photos': {
       id: '/admin/photos'
       path: '/admin/photos'
@@ -492,6 +525,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/texts'
       fullPath: '/admin/texts'
       preLoaderRoute: typeof AdminTextsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/transcriptions': {
+      id: '/admin/transcriptions'
+      path: '/admin/transcriptions'
+      fullPath: '/admin/transcriptions'
+      preLoaderRoute: typeof AdminTranscriptionsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/videos': {
@@ -618,11 +658,13 @@ const rootRouteChildren: RootRouteChildren = {
   AdminConcertsRoute: AdminConcertsRoute,
   AdminContactsRoute: AdminContactsRoute,
   AdminImagesRoute: AdminImagesRoute,
+  AdminImprovisationsRoute: AdminImprovisationsRoute,
   AdminPhotosRoute: AdminPhotosRoute,
   AdminPoetryRoute: AdminPoetryRoute,
   AdminPressRoute: AdminPressRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   AdminTextsRoute: AdminTextsRoute,
+  AdminTranscriptionsRoute: AdminTranscriptionsRoute,
   AdminVideosRoute: AdminVideosRoute,
   AdminWorksRoute: AdminWorksRoute,
   ConcertsSlugRoute: ConcertsSlugRoute,
