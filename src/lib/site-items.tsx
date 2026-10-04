@@ -2,7 +2,7 @@ import { createContext, useContext, type ReactNode } from "react";
 
 import { galleryPhotos, pressItems, publications, videos, workCategories, type WorkCategoryId } from "./site-data";
 
-export type ItemKind = "video" | "press" | "publication" | "work" | "poem" | "photo" | "social" | "contact";
+export type ItemKind = "video" | "press" | "publication" | "work" | "poem" | "photo" | "social" | "contact" | "transcription" | "improvisation";
 
 
 /** Запись из панели управления. Пустое значение поля означает «оставить как на сайте». */
@@ -57,6 +57,18 @@ function defaults(kind: ItemKind): SiteItem[] {
       })),
     );
   }
+  if (kind === "transcription" || kind === "improvisation") {
+    const list =
+      kind === "transcription"
+        ? videos.filter((video) => /transcription|Chopin|Scriabin|Rachmaninoff|Mosolov/i.test(video.title))
+        : videos.filter((video) => /improvis/i.test(video.title)).concat(videos.slice(0, 3)).slice(0, 4);
+    return list.map((video) => ({
+      kind,
+      slug: video.id,
+      data: { title: video.title, videoId: video.id, description: "" },
+      isDefault: true,
+    }));
+  }
   if (kind === "poem") {
     return [];
   }
@@ -99,7 +111,18 @@ export const defaultItems: Record<ItemKind, SiteItem[]> = {
   photo: defaults("photo"),
   social: defaults("social"),
   contact: defaults("contact"),
+  transcription: defaults("transcription"),
+  improvisation: defaults("improvisation"),
 };
+
+/** Текст поля на выбранном языке: field_es / field_pt, иначе английский вариант. */
+export function localized(data: Record<string, string>, field: string, lang: string): string {
+  if (lang === "es" || lang === "pt") {
+    const value = (data[`${field}_${lang}`] ?? "").trim();
+    if (value.length > 0) return value;
+  }
+  return data[field] ?? "";
+}
 
 
 function merge(kind: ItemKind, overrides: ItemOverride[]): SiteItem[] {
@@ -154,7 +177,15 @@ export function useVideos(): SiteVideo[] {
     .filter((video) => video.id.length > 0);
 }
 
-export type SitePressItem = { slug: string; outlet: string; title: string; date: string; quote: string; url?: string | undefined };
+export type SitePressItem = {
+  slug: string;
+  outlet: string;
+  title: string;
+  date: string;
+  quote: string;
+  url?: string | undefined;
+  data: Record<string, string>;
+};
 
 export function usePress(): SitePressItem[] {
   return useItems("press").map((item) => ({
@@ -164,6 +195,19 @@ export function usePress(): SitePressItem[] {
     date: item.data["date"] ?? "",
     quote: item.data["quote"] ?? "",
     url: item.data["url"] || undefined,
+    data: item.data,
+  }));
+}
+
+export type SiteVideoEntry = { slug: string; title: string; videoId: string; data: Record<string, string> };
+
+/** Транскрипции и импровизации из панели управления. */
+export function useVideoEntries(kind: "transcription" | "improvisation"): SiteVideoEntry[] {
+  return useItems(kind).map((item) => ({
+    slug: item.slug,
+    title: item.data["title"] ?? "",
+    videoId: (item.data["videoId"] ?? "").trim(),
+    data: item.data,
   }));
 }
 
