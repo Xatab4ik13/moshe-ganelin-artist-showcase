@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { DecoChevronRule, DecoPilaster, DecoScales } from "@/components/site/Deco";
 import { PageShell, Placeholder } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
-import { useVideos } from "@/lib/site-items";
+import { localized, useVideoEntries } from "@/lib/site-items";
 import { useLanguage } from "@/lib/i18n";
 import { useSiteImage } from "@/lib/site-images";
 
@@ -23,10 +23,10 @@ export const Route = createFileRoute("/music/improvisations")({
 });
 
 function ImprovisationsPage() {
-  const videos = useVideos();
-  const { t } = useLanguage();
+  const entries = useVideoEntries("improvisation");
+  const { t, lang } = useLanguage();
   const consoleImg = useSiteImage("console");
-  const selection = videos.filter((video) => /improvis/i.test(video.title)).concat(videos.slice(0, 3)).slice(0, 4);
+  const selection = entries.filter((entry) => entry.videoId.length > 0);
 
   return (
     <PageShell title={t("improvisationsTitle")} lead={t("improvisationsLead")} image={consoleImg}>
@@ -42,11 +42,11 @@ function ImprovisationsPage() {
 
         <div className="relative mt-14 grid gap-10 md:grid-cols-2">
           {selection.map((video, index) => (
-            <Reveal key={video.id} delay={index * 70}>
+            <Reveal key={video.slug} delay={index * 70}>
               <article className="deco-card p-4">
                 <div className="aspect-video w-full overflow-hidden">
                   <iframe
-                    src={`https://www.youtube-nocookie.com/embed/${video.id}`}
+                    src={`https://www.youtube-nocookie.com/embed/${video.videoId}`}
                     title={video.title}
                     loading="lazy"
                     allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"
@@ -55,6 +55,11 @@ function ImprovisationsPage() {
                   />
                 </div>
                 <h2 className="mt-5 font-deco text-xl leading-snug md:text-2xl">{video.title}</h2>
+                {localized(video.data, "description", lang) ? (
+                  <p className="mt-3 whitespace-pre-line text-base leading-relaxed text-muted-foreground md:text-lg">
+                    {localized(video.data, "description", lang)}
+                  </p>
+                ) : null}
               </article>
             </Reveal>
           ))}

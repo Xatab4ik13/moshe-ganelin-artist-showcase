@@ -3,7 +3,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { DecoChevronRule, DecoPilaster, DecoScales } from "@/components/site/Deco";
 import { PageShell, Placeholder } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
-import { useVideos } from "@/lib/site-items";
+import { useVideoEntries } from "@/lib/site-items";
 import { useLanguage } from "@/lib/i18n";
 import { useSiteImage } from "@/lib/site-images";
 
@@ -23,10 +23,9 @@ export const Route = createFileRoute("/music/transcriptions/")({
 });
 
 function TranscriptionsPage() {
-  const videos = useVideos();
+  const selection = useVideoEntries("transcription");
   const { t } = useLanguage();
   const organ = useSiteImage("organWide");
-  const selection = videos.filter((video) => /transcription|Chopin|Scriabin|Rachmaninoff|Mosolov/i.test(video.title));
 
   return (
     <PageShell title={t("transcriptionsTitle")} lead={t("transcriptionsLead")} image={organ}>
@@ -42,10 +41,10 @@ function TranscriptionsPage() {
 
         <ul className="relative mt-14 border-t border-border">
           {selection.map((video, index) => (
-            <Reveal as="li" key={video.id} delay={index * 60}>
+            <Reveal as="li" key={video.slug} delay={index * 60}>
               <Link
                 to="/music/transcriptions/$id"
-                params={{ id: video.id }}
+                params={{ id: video.slug }}
                 className="group flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2 border-b border-border py-6 transition-colors hover:text-brass"
               >
                 <span className="font-deco text-xl leading-snug transition-colors group-hover:text-brass md:text-3xl">
