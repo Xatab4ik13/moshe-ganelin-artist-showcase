@@ -9,7 +9,7 @@ import { SiteMenu } from "@/components/site/SiteMenu";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SitePreloader } from "@/components/site/SitePreloader";
 import { youtubeChannelUrl } from "@/lib/site-data";
-import { usePress, useVideos } from "@/lib/site-items";
+import { localized, usePress, useVideos } from "@/lib/site-items";
 import { useConcerts } from "@/lib/site-concerts";
 import { useLanguage } from "@/lib/i18n";
 import { useSiteImage } from "@/lib/site-images";
@@ -36,7 +36,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   const videos = useVideos();
   const pressItems = usePress();
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const concerts = useConcerts();
   const heroPoster = useSiteImage("heroPoster");
   const heroVideoRef = useRef<HTMLVideoElement>(null);
@@ -143,15 +143,20 @@ function Index() {
           <div className="mt-10 grid gap-8 md:mt-14 md:grid-cols-2 lg:grid-cols-4">
             {pressItems.map((item, index) => (
               <Reveal key={item.slug} delay={index * 60}>
-                <article className="relative h-full border border-border bg-background p-7">
+                <Link to="/press/$slug" params={{ slug: item.slug }} className="group block h-full">
+                <article className="relative h-full border border-border bg-background p-7 transition-colors group-hover:border-brass">
                   <DecoCornerPlate tone="light" className="pointer-events-none absolute left-0 top-0 h-9 w-9 opacity-70" />
                   <DecoCornerPlate tone="light" flipX flipY className="pointer-events-none absolute bottom-0 right-0 h-9 w-9 opacity-70" />
                   <p className="text-xs uppercase tracking-[0.32em] text-petrol">
                     {item.outlet} · {item.date}
                   </p>
                   <h3 className="mt-4 font-deco font-black text-xl leading-snug md:text-2xl">{item.title}</h3>
-                  <p className="mt-4 text-base italic leading-relaxed text-muted-foreground">{item.quote}</p>
+                  <p className="mt-4 text-base italic leading-relaxed text-muted-foreground">{localized(item.data, "quote", lang)}</p>
+                  <p className="mt-5 text-sm uppercase tracking-[0.28em] text-petrol underline underline-offset-4 group-hover:text-brass">
+                    {t("pressReadMore")}
+                  </p>
                 </article>
+                </Link>
               </Reveal>
             ))}
           </div>

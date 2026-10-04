@@ -2,7 +2,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 
 import { PageShell, Placeholder } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
-import { useVideos } from "@/lib/site-items";
+import { localized, useVideoEntries } from "@/lib/site-items";
 import { useLanguage } from "@/lib/i18n";
 
 export const Route = createFileRoute("/music/transcriptions/$id")({
@@ -20,10 +20,11 @@ export const Route = createFileRoute("/music/transcriptions/$id")({
 });
 
 function TranscriptionPage() {
-  const videos = useVideos();
-  const { t } = useLanguage();
+  const entries = useVideoEntries("transcription");
+  const { t, lang } = useLanguage();
   const { id } = Route.useParams();
-  const video = videos.find((item) => item.id === id);
+  const video = entries.find((item) => item.slug === id);
+  const description = video ? localized(video.data, "description", lang) : "";
 
   return (
     <PageShell title={video?.title ?? t("transcriptionsTitle")}>
@@ -36,15 +37,19 @@ function TranscriptionPage() {
 
         <Reveal delay={80}>
           <div className="mt-10">
-            <Placeholder>{t("sectionDescription")}</Placeholder>
+            {description ? (
+              <p className="whitespace-pre-line text-lg leading-relaxed text-muted-foreground md:text-xl">{description}</p>
+            ) : (
+              <Placeholder>{t("sectionDescription")}</Placeholder>
+            )}
           </div>
         </Reveal>
 
-        {video ? (
+        {video && video.videoId ? (
           <Reveal delay={140}>
             <div className="mt-10 aspect-video w-full overflow-hidden border border-border bg-card">
               <iframe
-                src={`https://www.youtube-nocookie.com/embed/${video.id}`}
+                src={`https://www.youtube-nocookie.com/embed/${video.videoId}`}
                 title={video.title}
                 loading="lazy"
                 allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"

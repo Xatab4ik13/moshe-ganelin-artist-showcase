@@ -1,7 +1,7 @@
 import { Link, useNavigate, useRouter } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import { adminLogin, adminLogout, adminStatus } from "@/lib/admin.functions";
 
@@ -98,11 +98,14 @@ function LoginScreen({ onDone }: { onDone: () => void }) {
 const navItems = [
   { to: "/admin", label: "Главная панели" },
   { to: "/admin/texts", label: "Тексты сайта" },
+  { to: "/admin/biography", label: "Биография" },
   { to: "/admin/images", label: "Фотографии и логотип" },
   { to: "/admin/concerts", label: "Концерты" },
   { to: "/admin/videos", label: "Видео" },
   { to: "/admin/press", label: "Пресса и публикации" },
   { to: "/admin/works", label: "Сочинения" },
+  { to: "/admin/transcriptions", label: "Транскрипции" },
+  { to: "/admin/improvisations", label: "Импровизации" },
   { to: "/admin/poetry", label: "Стихи" },
   { to: "/admin/photos", label: "Фотогалерея" },
   { to: "/admin/contacts", label: "Контакты и соцсети" },
@@ -115,6 +118,11 @@ export function AdminShell({ title, children }: { title: string; children: React
   const queryClient = useQueryClient();
   const logout = useServerFn(adminLogout);
   const status = useQuery({ queryKey: ["admin-status"], queryFn: () => adminStatus(), staleTime: 0 });
+
+  useEffect(() => {
+    document.documentElement.classList.add("admin-scroll");
+    return () => document.documentElement.classList.remove("admin-scroll");
+  }, []);
 
   if (status.isLoading) {
     return (

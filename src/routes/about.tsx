@@ -22,16 +22,14 @@ export const Route = createFileRoute("/about")({
   component: AboutPage,
 });
 
-const milestones = [
-  { title: "Milestone heading — sample", text: "Milestone text — sample, to be replaced." },
-  { title: "Milestone heading — sample", text: "Milestone text — sample, to be replaced." },
-  { title: "Milestone heading — sample", text: "Milestone text — sample, to be replaced." },
-  { title: "Milestone heading — sample", text: "Milestone text — sample, to be replaced." },
-];
-
-
-
 function Timeline() {
+  const { t } = useLanguage();
+  const milestones = [
+    { title: t("bioM1Title"), text: t("bioM1Text") },
+    { title: t("bioM2Title"), text: t("bioM2Text") },
+    { title: t("bioM3Title"), text: t("bioM3Text") },
+    { title: t("bioM4Title"), text: t("bioM4Text") },
+  ];
   return (
     <div className="relative mt-14">
       <ul className="space-y-10 md:space-y-16">
@@ -48,7 +46,7 @@ function Timeline() {
               <DecoCornerPlate tone="dark" className="pointer-events-none absolute left-2 top-2 h-9 w-9 opacity-55" />
               <DecoCornerPlate tone="dark" flipX flipY className="pointer-events-none absolute bottom-2 right-2 h-9 w-9 opacity-55" />
               <h3 className="font-display text-2xl md:text-3xl">{item.title}</h3>
-              <p className="mt-4 text-base leading-relaxed text-background/80">{item.text}</p>
+              <p className="mt-4 whitespace-pre-line text-base leading-relaxed text-background/80">{item.text}</p>
             </div>
           </Reveal>
         ))}
@@ -72,23 +70,17 @@ function AboutPage() {
           <div className="space-y-6">
             <Reveal>
               <p className="font-display text-2xl leading-snug md:text-3xl">
-                Opening paragraph of the biography — sample text. The main idea about the musician will go here.
+                {t("bioIntro")}
               </p>
             </Reveal>
             <Reveal delay={80}>
-              <Placeholder>
-                Main biography text — sample. A paragraph about education, key teachers and artistic development.
-              </Placeholder>
+              <Placeholder>{t("bioP1")}</Placeholder>
             </Reveal>
             <Reveal delay={140}>
-              <Placeholder>
-                Second paragraph — sample. Concert activity, repertoire, collaborations with orchestras and halls.
-              </Placeholder>
+              <Placeholder>{t("bioP2")}</Placeholder>
             </Reveal>
             <Reveal delay={200}>
-              <Placeholder>
-                Third paragraph — sample. Composing, recordings, awards and projects.
-              </Placeholder>
+              <Placeholder>{t("bioP3")}</Placeholder>
             </Reveal>
           </div>
           <Reveal delay={120} className="media-zoom overflow-hidden">
@@ -103,7 +95,7 @@ function AboutPage() {
         <div className="relative mx-auto max-w-4xl pt-28 md:pt-36">
           <Reveal>
             <blockquote className="font-display text-[clamp(1.7rem,4.4vw,3.4rem)] leading-[1.15]">
-              “A quote from the musician — sample text, to be replaced with the final version.”
+              {t("bioQuote")}
             </blockquote>
             <p className="mt-8 text-base tracking-wide text-background/60">Moshe Ariel Ganelin</p>
             <DecoChevronRule tone="dark" className="mt-12 opacity-80" />

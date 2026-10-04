@@ -15,16 +15,18 @@ import { Route as ContactsRouteImport } from './routes/contacts'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as MusicRouteImport } from './routes/music'
 import { Route as PoetryRouteImport } from './routes/poetry'
-import { Route as PressRouteImport } from './routes/press'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminBiographyRouteImport } from './routes/admin.biography'
 import { Route as AdminConcertsRouteImport } from './routes/admin.concerts'
 import { Route as AdminContactsRouteImport } from './routes/admin.contacts'
 import { Route as AdminImagesRouteImport } from './routes/admin.images'
+import { Route as AdminImprovisationsRouteImport } from './routes/admin.improvisations'
 import { Route as AdminPhotosRouteImport } from './routes/admin.photos'
 import { Route as AdminPoetryRouteImport } from './routes/admin.poetry'
 import { Route as AdminPressRouteImport } from './routes/admin.press'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminTextsRouteImport } from './routes/admin.texts'
+import { Route as AdminTranscriptionsRouteImport } from './routes/admin.transcriptions'
 import { Route as AdminVideosRouteImport } from './routes/admin.videos'
 import { Route as AdminWorksRouteImport } from './routes/admin.works'
 import { Route as ConcertsIndexRouteImport } from './routes/concerts.index'
@@ -32,6 +34,8 @@ import { Route as ConcertsSlugRouteImport } from './routes/concerts.$slug'
 import { Route as MusicIndexRouteImport } from './routes/music.index'
 import { Route as MusicConcertsRouteImport } from './routes/music.concerts'
 import { Route as MusicImprovisationsRouteImport } from './routes/music.improvisations'
+import { Route as PressIndexRouteImport } from './routes/press.index'
+import { Route as PressSlugRouteImport } from './routes/press.$slug'
 import { Route as MusicTranscriptionsIndexRouteImport } from './routes/music.transcriptions.index'
 import { Route as MusicTranscriptionsIdRouteImport } from './routes/music.transcriptions.$id'
 import { Route as MusicWorksSlugRouteImport } from './routes/music.works.$slug'
@@ -67,14 +71,14 @@ const PoetryRoute = PoetryRouteImport.update({
   path: '/poetry',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PressRoute = PressRouteImport.update({
-  id: '/press',
-  path: '/press',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminBiographyRoute = AdminBiographyRouteImport.update({
+  id: '/admin/biography',
+  path: '/admin/biography',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminConcertsRoute = AdminConcertsRouteImport.update({
@@ -90,6 +94,11 @@ const AdminContactsRoute = AdminContactsRouteImport.update({
 const AdminImagesRoute = AdminImagesRouteImport.update({
   id: '/admin/images',
   path: '/admin/images',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminImprovisationsRoute = AdminImprovisationsRouteImport.update({
+  id: '/admin/improvisations',
+  path: '/admin/improvisations',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminPhotosRoute = AdminPhotosRouteImport.update({
@@ -115,6 +124,11 @@ const AdminSettingsRoute = AdminSettingsRouteImport.update({
 const AdminTextsRoute = AdminTextsRouteImport.update({
   id: '/admin/texts',
   path: '/admin/texts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminTranscriptionsRoute = AdminTranscriptionsRouteImport.update({
+  id: '/admin/transcriptions',
+  path: '/admin/transcriptions',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminVideosRoute = AdminVideosRouteImport.update({
@@ -152,6 +166,16 @@ const MusicImprovisationsRoute = MusicImprovisationsRouteImport.update({
   path: '/improvisations',
   getParentRoute: () => MusicRoute,
 } as any)
+const PressIndexRoute = PressIndexRouteImport.update({
+  id: '/press/',
+  path: '/press/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PressSlugRoute = PressSlugRouteImport.update({
+  id: '/press/$slug',
+  path: '/press/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MusicTranscriptionsIndexRoute =
   MusicTranscriptionsIndexRouteImport.update({
     id: '/transcriptions/',
@@ -181,23 +205,27 @@ export interface FileRoutesByFullPath {
   '/gallery': typeof GalleryRoute
   '/music': typeof MusicRouteWithChildren
   '/poetry': typeof PoetryRoute
-  '/press': typeof PressRoute
+  '/admin/biography': typeof AdminBiographyRoute
   '/admin/concerts': typeof AdminConcertsRoute
   '/admin/contacts': typeof AdminContactsRoute
   '/admin/images': typeof AdminImagesRoute
+  '/admin/improvisations': typeof AdminImprovisationsRoute
   '/admin/photos': typeof AdminPhotosRoute
   '/admin/poetry': typeof AdminPoetryRoute
   '/admin/press': typeof AdminPressRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/texts': typeof AdminTextsRoute
+  '/admin/transcriptions': typeof AdminTranscriptionsRoute
   '/admin/videos': typeof AdminVideosRoute
   '/admin/works': typeof AdminWorksRoute
   '/concerts/$slug': typeof ConcertsSlugRoute
   '/music/concerts': typeof MusicConcertsRoute
   '/music/improvisations': typeof MusicImprovisationsRoute
+  '/press/$slug': typeof PressSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/concerts/': typeof ConcertsIndexRoute
   '/music/': typeof MusicIndexRoute
+  '/press/': typeof PressIndexRoute
   '/music/transcriptions/$id': typeof MusicTranscriptionsIdRoute
   '/music/works/$slug': typeof MusicWorksSlugRoute
   '/music/transcriptions/': typeof MusicTranscriptionsIndexRoute
@@ -209,23 +237,27 @@ export interface FileRoutesByTo {
   '/contacts': typeof ContactsRoute
   '/gallery': typeof GalleryRoute
   '/poetry': typeof PoetryRoute
-  '/press': typeof PressRoute
+  '/admin/biography': typeof AdminBiographyRoute
   '/admin/concerts': typeof AdminConcertsRoute
   '/admin/contacts': typeof AdminContactsRoute
   '/admin/images': typeof AdminImagesRoute
+  '/admin/improvisations': typeof AdminImprovisationsRoute
   '/admin/photos': typeof AdminPhotosRoute
   '/admin/poetry': typeof AdminPoetryRoute
   '/admin/press': typeof AdminPressRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/texts': typeof AdminTextsRoute
+  '/admin/transcriptions': typeof AdminTranscriptionsRoute
   '/admin/videos': typeof AdminVideosRoute
   '/admin/works': typeof AdminWorksRoute
   '/concerts/$slug': typeof ConcertsSlugRoute
   '/music/concerts': typeof MusicConcertsRoute
   '/music/improvisations': typeof MusicImprovisationsRoute
+  '/press/$slug': typeof PressSlugRoute
   '/admin': typeof AdminIndexRoute
   '/concerts': typeof ConcertsIndexRoute
   '/music': typeof MusicIndexRoute
+  '/press': typeof PressIndexRoute
   '/music/transcriptions/$id': typeof MusicTranscriptionsIdRoute
   '/music/works/$slug': typeof MusicWorksSlugRoute
   '/music/transcriptions': typeof MusicTranscriptionsIndexRoute
@@ -239,23 +271,27 @@ export interface FileRoutesById {
   '/gallery': typeof GalleryRoute
   '/music': typeof MusicRouteWithChildren
   '/poetry': typeof PoetryRoute
-  '/press': typeof PressRoute
+  '/admin/biography': typeof AdminBiographyRoute
   '/admin/concerts': typeof AdminConcertsRoute
   '/admin/contacts': typeof AdminContactsRoute
   '/admin/images': typeof AdminImagesRoute
+  '/admin/improvisations': typeof AdminImprovisationsRoute
   '/admin/photos': typeof AdminPhotosRoute
   '/admin/poetry': typeof AdminPoetryRoute
   '/admin/press': typeof AdminPressRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/texts': typeof AdminTextsRoute
+  '/admin/transcriptions': typeof AdminTranscriptionsRoute
   '/admin/videos': typeof AdminVideosRoute
   '/admin/works': typeof AdminWorksRoute
   '/concerts/$slug': typeof ConcertsSlugRoute
   '/music/concerts': typeof MusicConcertsRoute
   '/music/improvisations': typeof MusicImprovisationsRoute
+  '/press/$slug': typeof PressSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/concerts/': typeof ConcertsIndexRoute
   '/music/': typeof MusicIndexRoute
+  '/press/': typeof PressIndexRoute
   '/music/transcriptions/$id': typeof MusicTranscriptionsIdRoute
   '/music/works/$slug': typeof MusicWorksSlugRoute
   '/music/transcriptions/': typeof MusicTranscriptionsIndexRoute
@@ -270,23 +306,27 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/music'
     | '/poetry'
-    | '/press'
+    | '/admin/biography'
     | '/admin/concerts'
     | '/admin/contacts'
     | '/admin/images'
+    | '/admin/improvisations'
     | '/admin/photos'
     | '/admin/poetry'
     | '/admin/press'
     | '/admin/settings'
     | '/admin/texts'
+    | '/admin/transcriptions'
     | '/admin/videos'
     | '/admin/works'
     | '/concerts/$slug'
     | '/music/concerts'
     | '/music/improvisations'
+    | '/press/$slug'
     | '/admin/'
     | '/concerts/'
     | '/music/'
+    | '/press/'
     | '/music/transcriptions/$id'
     | '/music/works/$slug'
     | '/music/transcriptions/'
@@ -298,23 +338,27 @@ export interface FileRouteTypes {
     | '/contacts'
     | '/gallery'
     | '/poetry'
-    | '/press'
+    | '/admin/biography'
     | '/admin/concerts'
     | '/admin/contacts'
     | '/admin/images'
+    | '/admin/improvisations'
     | '/admin/photos'
     | '/admin/poetry'
     | '/admin/press'
     | '/admin/settings'
     | '/admin/texts'
+    | '/admin/transcriptions'
     | '/admin/videos'
     | '/admin/works'
     | '/concerts/$slug'
     | '/music/concerts'
     | '/music/improvisations'
+    | '/press/$slug'
     | '/admin'
     | '/concerts'
     | '/music'
+    | '/press'
     | '/music/transcriptions/$id'
     | '/music/works/$slug'
     | '/music/transcriptions'
@@ -327,23 +371,27 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/music'
     | '/poetry'
-    | '/press'
+    | '/admin/biography'
     | '/admin/concerts'
     | '/admin/contacts'
     | '/admin/images'
+    | '/admin/improvisations'
     | '/admin/photos'
     | '/admin/poetry'
     | '/admin/press'
     | '/admin/settings'
     | '/admin/texts'
+    | '/admin/transcriptions'
     | '/admin/videos'
     | '/admin/works'
     | '/concerts/$slug'
     | '/music/concerts'
     | '/music/improvisations'
+    | '/press/$slug'
     | '/admin/'
     | '/concerts/'
     | '/music/'
+    | '/press/'
     | '/music/transcriptions/$id'
     | '/music/works/$slug'
     | '/music/transcriptions/'
@@ -357,20 +405,24 @@ export interface RootRouteChildren {
   GalleryRoute: typeof GalleryRoute
   MusicRoute: typeof MusicRouteWithChildren
   PoetryRoute: typeof PoetryRoute
-  PressRoute: typeof PressRoute
+  AdminBiographyRoute: typeof AdminBiographyRoute
   AdminConcertsRoute: typeof AdminConcertsRoute
   AdminContactsRoute: typeof AdminContactsRoute
   AdminImagesRoute: typeof AdminImagesRoute
+  AdminImprovisationsRoute: typeof AdminImprovisationsRoute
   AdminPhotosRoute: typeof AdminPhotosRoute
   AdminPoetryRoute: typeof AdminPoetryRoute
   AdminPressRoute: typeof AdminPressRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminTextsRoute: typeof AdminTextsRoute
+  AdminTranscriptionsRoute: typeof AdminTranscriptionsRoute
   AdminVideosRoute: typeof AdminVideosRoute
   AdminWorksRoute: typeof AdminWorksRoute
   ConcertsSlugRoute: typeof ConcertsSlugRoute
+  PressSlugRoute: typeof PressSlugRoute
   AdminIndexRoute: typeof AdminIndexRoute
   ConcertsIndexRoute: typeof ConcertsIndexRoute
+  PressIndexRoute: typeof PressIndexRoute
   ApiPublicUploadsSplatRoute: typeof ApiPublicUploadsSplatRoute
 }
 
@@ -418,18 +470,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PoetryRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/press': {
-      id: '/press'
-      path: '/press'
-      fullPath: '/press'
-      preLoaderRoute: typeof PressRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/admin/': {
       id: '/admin/'
       path: '/admin'
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/biography': {
+      id: '/admin/biography'
+      path: '/admin/biography'
+      fullPath: '/admin/biography'
+      preLoaderRoute: typeof AdminBiographyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/concerts': {
@@ -451,6 +503,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/images'
       fullPath: '/admin/images'
       preLoaderRoute: typeof AdminImagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/improvisations': {
+      id: '/admin/improvisations'
+      path: '/admin/improvisations'
+      fullPath: '/admin/improvisations'
+      preLoaderRoute: typeof AdminImprovisationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/photos': {
@@ -486,6 +545,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/texts'
       fullPath: '/admin/texts'
       preLoaderRoute: typeof AdminTextsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/transcriptions': {
+      id: '/admin/transcriptions'
+      path: '/admin/transcriptions'
+      fullPath: '/admin/transcriptions'
+      preLoaderRoute: typeof AdminTranscriptionsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/videos': {
@@ -536,6 +602,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/music/improvisations'
       preLoaderRoute: typeof MusicImprovisationsRouteImport
       parentRoute: typeof MusicRoute
+    }
+    '/press/': {
+      id: '/press/'
+      path: '/press'
+      fullPath: '/press/'
+      preLoaderRoute: typeof PressIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/press/$slug': {
+      id: '/press/$slug'
+      path: '/press/$slug'
+      fullPath: '/press/$slug'
+      preLoaderRoute: typeof PressSlugRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/music/transcriptions/': {
       id: '/music/transcriptions/'
@@ -595,20 +675,24 @@ const rootRouteChildren: RootRouteChildren = {
   GalleryRoute: GalleryRoute,
   MusicRoute: MusicRouteWithChildren,
   PoetryRoute: PoetryRoute,
-  PressRoute: PressRoute,
+  AdminBiographyRoute: AdminBiographyRoute,
   AdminConcertsRoute: AdminConcertsRoute,
   AdminContactsRoute: AdminContactsRoute,
   AdminImagesRoute: AdminImagesRoute,
+  AdminImprovisationsRoute: AdminImprovisationsRoute,
   AdminPhotosRoute: AdminPhotosRoute,
   AdminPoetryRoute: AdminPoetryRoute,
   AdminPressRoute: AdminPressRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   AdminTextsRoute: AdminTextsRoute,
+  AdminTranscriptionsRoute: AdminTranscriptionsRoute,
   AdminVideosRoute: AdminVideosRoute,
   AdminWorksRoute: AdminWorksRoute,
   ConcertsSlugRoute: ConcertsSlugRoute,
+  PressSlugRoute: PressSlugRoute,
   AdminIndexRoute: AdminIndexRoute,
   ConcertsIndexRoute: ConcertsIndexRoute,
+  PressIndexRoute: PressIndexRoute,
   ApiPublicUploadsSplatRoute: ApiPublicUploadsSplatRoute,
 }
 export const routeTree = rootRouteImport

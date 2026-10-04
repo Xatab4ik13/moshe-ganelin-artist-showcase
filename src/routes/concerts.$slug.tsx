@@ -3,6 +3,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { useConcert } from "@/lib/site-concerts";
+import { localized } from "@/lib/site-items";
 import { useLanguage } from "@/lib/i18n";
 import { useSiteImage } from "@/lib/site-images";
 
@@ -22,11 +23,16 @@ export const Route = createFileRoute("/concerts/$slug")({
 
 function ConcertPage() {
   const { slug } = Route.useParams();
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const cathedral = useSiteImage("venueCathedral");
   const concert = useConcert(slug);
 
   if (!concert) throw notFound();
+  const text = { ...concert.extra, description: concert.description ?? "" };
+  const description = localized(text, "description", lang);
+  const programme = localized(text, "programme", lang);
+  const tickets = localized(text, "tickets", lang);
+  const ticketsUrl = (concert.extra["ticketsUrl"] ?? "").trim();
 
   return (
     <PageShell
@@ -45,15 +51,15 @@ function ConcertPage() {
           <div>
             <Reveal>
               <h2 className="font-display text-3xl leading-tight md:text-5xl">{t("concertAbout")}</h2>
-              <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-                {concert.description ?? t("concertDetailsText")}
+              <p className="mt-6 max-w-3xl whitespace-pre-line text-lg leading-relaxed text-muted-foreground md:text-xl">
+                {description || t("concertDetailsText")}
               </p>
             </Reveal>
 
             <Reveal>
               <h3 className="mt-14 font-display text-2xl leading-tight md:text-4xl">{t("concertProgram")}</h3>
-              <p className="mt-5 max-w-3xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-                {t("programNote")}
+              <p className="mt-5 max-w-3xl whitespace-pre-line text-lg leading-relaxed text-muted-foreground md:text-xl">
+                {programme || t("programNote")}
               </p>
             </Reveal>
 
@@ -85,7 +91,17 @@ function ConcertPage() {
             </div>
             <div>
               <p className="text-sm uppercase tracking-[0.28em] text-petrol">{t("concertTickets")}</p>
-              <p className="mt-2 text-lg text-muted-foreground md:text-xl">{t("blockNote")}</p>
+              <p className="mt-2 whitespace-pre-line text-lg text-muted-foreground md:text-xl">{tickets || t("blockNote")}</p>
+              {ticketsUrl ? (
+                <a
+                  href={ticketsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-4 inline-block break-all text-lg text-petrol underline underline-offset-4 hover:text-brass md:text-xl"
+                >
+                  {t("concertTickets")}
+                </a>
+              ) : null}
             </div>
           </aside>
         </div>

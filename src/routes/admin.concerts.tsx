@@ -43,6 +43,7 @@ type FormState = {
   description: string;
   videoId: string;
   image: string;
+  extra: Record<string, string>;
   isDefault: boolean;
 };
 
@@ -59,8 +60,22 @@ const emptyForm: FormState = {
   description: "",
   videoId: "",
   image: "",
+  extra: {},
   isDefault: false,
 };
+
+const sameEn = "Если пусто — будет английский текст.";
+const extraFields: { name: string; label: string; hint?: string; textarea: boolean }[] = [
+  { name: "description_es", label: "Описание концерта — ES (испанский)", hint: sameEn, textarea: true },
+  { name: "description_pt", label: "Описание концерта — POR (португальский)", hint: sameEn, textarea: true },
+  { name: "programme", label: "Программа (Programme) — EN", hint: "Каждое произведение можно писать с новой строки.", textarea: true },
+  { name: "programme_es", label: "Программа — ES", hint: sameEn, textarea: true },
+  { name: "programme_pt", label: "Программа — POR", hint: sameEn, textarea: true },
+  { name: "tickets", label: "Билеты и бронирование (Tickets and booking) — EN", hint: "Цены, кассы, телефон и т.п.", textarea: true },
+  { name: "tickets_es", label: "Билеты и бронирование — ES", hint: sameEn, textarea: true },
+  { name: "tickets_pt", label: "Билеты и бронирование — POR", hint: sameEn, textarea: true },
+  { name: "ticketsUrl", label: "Ссылка на покупку билетов", hint: "Необязательно. Полный адрес, начиная с https:// — на сайте появится кнопка-ссылка.", textarea: false },
+];
 
 const inputClass =
   "mt-1 w-full rounded-lg border border-[#bcd6f3] bg-white px-4 py-3 text-base text-[#0f2744] outline-none focus:border-[#1b63d8]";
@@ -225,12 +240,24 @@ function ConcertForm({
       </div>
       <div className="mt-4">
         <Field
-          label="Описание концерта"
+          label="Описание концерта — EN (английский)"
           hint="Показывается на странице концерта. Если оставить пустым, будет стандартный текст сайта."
           value={form.description}
           onChange={set("description")}
           textarea
         />
+      </div>
+      <div className="mt-4 space-y-4">
+        {extraFields.map((field) => (
+          <Field
+            key={field.name}
+            label={field.label}
+            {...(field.hint ? { hint: field.hint } : {})}
+            value={form.extra[field.name] ?? ""}
+            onChange={(value) => setForm({ ...form, extra: { ...form.extra, [field.name]: value } })}
+            textarea={field.textarea}
+          />
+        ))}
       </div>
       <div className="mt-5 flex flex-wrap gap-3">
         <AdminButton onClick={onSave} disabled={busy}>
@@ -278,6 +305,7 @@ function AdminConcerts() {
       description: concert.description ?? "",
       videoId: concert.videoId ?? "",
       image: concert.image ?? "",
+      extra: { ...concert.extra },
       isDefault: concert.isDefault,
     });
   };
@@ -303,6 +331,7 @@ function AdminConcerts() {
           description: form.description,
           videoId: form.videoId,
           image: form.image,
+          extra: form.extra,
           position: 0,
           hidden: false,
         },
