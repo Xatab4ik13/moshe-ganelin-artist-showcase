@@ -1,13 +1,13 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 
 import { DecoChevronRule, DecoCornerPlate, DecoPilaster, DecoScales } from "@/components/site/Deco";
 import { PageShell } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
-import { usePress } from "@/lib/site-items";
+import { localized, usePress } from "@/lib/site-items";
 import { useLanguage } from "@/lib/i18n";
 import { useSiteImage } from "@/lib/site-images";
 
-export const Route = createFileRoute("/press")({
+export const Route = createFileRoute("/press/")({
   head: () => ({
     meta: [
       { title: "Press — Moshe Ariel Ganelin" },
@@ -24,7 +24,7 @@ export const Route = createFileRoute("/press")({
 
 function PressPage() {
   const pressItems = usePress();
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const stage = useSiteImage("stage");
 
   return (
@@ -44,7 +44,8 @@ function PressPage() {
           <div className="mt-16 grid gap-8 md:grid-cols-2">
             {pressItems.map((item, index) => (
               <Reveal key={item.slug} delay={index * 70}>
-                <article className="deco-card h-full p-9 md:p-10">
+                <Link to="/press/$slug" params={{ slug: item.slug }} className="group block h-full">
+                <article className="deco-card h-full p-9 transition-colors group-hover:border-brass md:p-10">
                   <DecoCornerPlate tone="light" className="pointer-events-none absolute left-3 top-3 h-9 w-9 opacity-55" />
                   <DecoCornerPlate tone="light" flipX flipY className="pointer-events-none absolute bottom-3 right-3 h-9 w-9 opacity-55" />
                   <p className="relative text-center text-xs uppercase tracking-[0.32em] text-petrol">
@@ -52,9 +53,13 @@ function PressPage() {
                   </p>
                   <h2 className="relative mt-5 text-center font-deco font-black text-2xl leading-snug md:text-3xl">{item.title}</h2>
                   <blockquote className="relative mx-auto mt-6 max-w-xl text-center text-base italic leading-relaxed text-muted-foreground md:text-lg">
-                    {item.quote}
+                    {localized(item.data, "quote", lang)}
                   </blockquote>
+                  <p className="relative mt-6 text-center text-sm uppercase tracking-[0.28em] text-petrol underline underline-offset-4 group-hover:text-brass">
+                    {t("pressReadMore")}
+                  </p>
                 </article>
+                </Link>
               </Reveal>
             ))}
           </div>
