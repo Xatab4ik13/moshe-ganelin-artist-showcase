@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { DecoArch, DecoChevronRule, DecoCornerPlate, DecoPilaster, DecoScales } from "@/components/site/Deco";
-import { PageShell } from "@/components/site/PageShell";
+import { PageShell, Placeholder } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { usePublications } from "@/lib/site-items";
 import { useLanguage } from "@/lib/i18n";
@@ -74,13 +74,13 @@ function AboutPage() {
               </p>
             </Reveal>
             <Reveal delay={80}>
-              <p className="whitespace-pre-line text-lg leading-relaxed text-muted-foreground md:text-xl">{t("bioP1")}</p>
+              <Placeholder>{t("bioP1")}</Placeholder>
             </Reveal>
             <Reveal delay={140}>
-              <p className="whitespace-pre-line text-lg leading-relaxed text-muted-foreground md:text-xl">{t("bioP2")}</p>
+              <Placeholder>{t("bioP2")}</Placeholder>
             </Reveal>
             <Reveal delay={200}>
-              <p className="whitespace-pre-line text-lg leading-relaxed text-muted-foreground md:text-xl">{t("bioP3")}</p>
+              <Placeholder>{t("bioP3")}</Placeholder>
             </Reveal>
           </div>
           <Reveal delay={120} className="media-zoom overflow-hidden">
