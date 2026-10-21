@@ -127,6 +127,10 @@ export const adminGroups: AdminGroup[] = [
       f("transcriptionsLead", "Текст страницы транскрипций", undefined, true),
       f("concertsVideoTitle", "Заголовок «Видео концертов»"),
       f("concertsVideoLead", "Текст страницы видео концертов", undefined, true),
+      f("improvisationsDescription", "Описание раздела — Импровизации", "Текст на светлом фоне под шапкой.", true),
+      f("transcriptionsDescription", "Описание раздела — Транскрипции (список)", "Текст на светлом фоне под шапкой.", true),
+      f("transcriptionDetailDescription", "Описание — страница отдельной транскрипции", "Текст над видео.", true),
+      f("concertsVideoDescription", "Описание раздела — Видео концертов", "Текст на светлом фоне под шапкой.", true),
     ],
   },
   {
@@ -149,6 +153,7 @@ export const adminGroups: AdminGroup[] = [
     fields: [
       f("pressTitle", "Заголовок страницы"),
       f("pressLead", "Вступительный текст страницы", undefined, true),
+      f("pressDescription", "Описание раздела", "Текст на светлом фоне под шапкой.", true),
       f("pressQuotes", "Заголовок «В прессе»"),
       f("pressQuoteText", "Цитата из рецензии", undefined, true),
       f("pressQuoteSource", "Название издания"),
@@ -174,6 +179,9 @@ export const adminGroups: AdminGroup[] = [
       f("contactsBooking", "Подпись «Концерты и бронирование»"),
       f("contactsPress", "Подпись «Пресса»"),
       f("contactsScores", "Подпись «Ноты и издания»"),
+      f("contactsBookingNote", "Описание в карточке «Концерты и бронирование»", undefined, true),
+      f("contactsPressNote", "Описание в карточке «Пресса»", undefined, true),
+      f("contactsScoresNote", "Описание в карточке «Ноты и издания»", undefined, true),
       f("contactsManagement", "Подпись «Менеджмент»"),
       f("contactsManagementText", "Текст о менеджменте и условиях", undefined, true),
       f("contactsFollow", "Надпись «Следите за Moshe Ariel Ganelin»"),

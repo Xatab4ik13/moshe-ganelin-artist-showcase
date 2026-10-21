@@ -36,7 +36,7 @@ function PressPage() {
         <div className="relative mx-auto max-w-[1400px]">
           <Reveal>
             <p className="mx-auto max-w-3xl text-center text-lg leading-relaxed text-muted-foreground md:text-xl">
-              {t("sectionDescription")}
+              {t("pressDescription")}
             </p>
             <DecoChevronRule tone="light" className="mx-auto mt-12 max-w-[1000px]" />
           </Reveal>

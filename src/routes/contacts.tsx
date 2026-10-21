@@ -27,6 +27,12 @@ const contactTitleKeys: Record<string, DictKey> = {
   scores: "contactsScores",
 };
 
+const contactNoteKeys: Record<string, DictKey> = {
+  booking: "contactsBookingNote",
+  press: "contactsPressNote",
+  scores: "contactsScoresNote",
+};
+
 function ContactsPage() {
   const { t } = useLanguage();
   const contacts = useContacts();
@@ -35,6 +41,7 @@ function ContactsPage() {
   const blocks = contacts.map((contact) => ({
     title: contactTitleKeys[contact.slug] ? t(contactTitleKeys[contact.slug]!) : contact.label || contact.email,
     value: contact.email,
+    note: contactNoteKeys[contact.slug] ? t(contactNoteKeys[contact.slug]!) : t("blockNote"),
   }));
 
   return (
@@ -53,7 +60,7 @@ function ContactsPage() {
                   <h2 className="relative text-center font-display text-3xl leading-snug md:text-4xl">{block.title}</h2>
                   <div className="relative text-center">
                     <a href={`mailto:${block.value}`} className="line-link text-lg text-petrol md:text-xl">{block.value}</a>
-                    <p className="mt-3 text-lg text-muted-foreground md:text-xl">{t("blockNote")}</p>
+                    <p className="mt-3 text-lg text-muted-foreground md:text-xl">{block.note}</p>
                   </div>
                 </article>
               </Reveal>
