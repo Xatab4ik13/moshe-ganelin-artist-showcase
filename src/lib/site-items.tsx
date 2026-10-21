@@ -211,13 +211,15 @@ export function useVideoEntries(kind: "transcription" | "improvisation"): SiteVi
   }));
 }
 
-export type SitePublication = { title: string; source: string; year: string };
+export type SitePublication = { title: string; source: string; year: string; data: Record<string, string> };
 
+/** Хронология в биографии: title — дата, source — текст события, year — город. */
 export function usePublications(): SitePublication[] {
   return useItems("publication").map((item) => ({
     title: item.data["title"] ?? "",
     source: item.data["source"] ?? "",
     year: item.data["year"] ?? "",
+    data: item.data,
   }));
 }
 

@@ -67,7 +67,7 @@ export const adminGroups: AdminGroup[] = [
       f("aboutTitle", "Заголовок страницы"),
       f("aboutLead", "Вступительный текст о музыканте", "Основной текст под заголовком.", true),
       f("aboutMilestones", "Заголовок «Этапы пути»"),
-      f("aboutPublications", "Заголовок «Публикации»"),
+      f("aboutPublications", "Заголовок «Хронология» (Chronology)"),
       f("bioIntro", "Первый абзац биографии (крупный)", "Крупный текст в начале биографии.", true),
       f("bioP1", "Биография — абзац 1", undefined, true),
       f("bioP2", "Биография — абзац 2", undefined, true),

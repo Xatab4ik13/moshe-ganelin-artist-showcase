@@ -50,7 +50,7 @@ function TranscriptionsPage() {
                 <span className="font-deco text-xl leading-snug transition-colors group-hover:text-brass md:text-3xl">
                   {video.title}
                 </span>
-                <span className="text-base uppercase tracking-[0.28em] text-muted-foreground md:text-lg">{t("homeWatch")}</span>
+                <span className="text-base uppercase tracking-[0.28em] text-muted-foreground md:text-lg">{video.data["label"]?.trim() || t("homeWatch")}</span>
               </Link>
             </Reveal>
           ))}

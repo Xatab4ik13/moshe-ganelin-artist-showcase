@@ -108,10 +108,10 @@ export const pressItems: PressItem[] = [
 export const youtubeChannelUrl = "https://www.youtube.com/@mosheganelin";
 
 export const publications: { title: string; source: string; year: string }[] = [
-  { title: "Publication title — sample text", source: "Source / journal — sample", year: "2025" },
-  { title: "Publication title — sample text", source: "Source / journal — sample", year: "2024" },
-  { title: "Publication title — sample text", source: "Source / journal — sample", year: "2023" },
-  { title: "Publication title — sample text", source: "Source / journal — sample", year: "2022" },
+  { title: "2025, May", source: "Event text — sample", year: "City" },
+  { title: "2024, October", source: "Event text — sample", year: "City" },
+  { title: "2023, March", source: "Event text — sample", year: "City" },
+  { title: "2022, June", source: "Event text — sample", year: "City" },
 ];
 
 export type PoetryLangId = "russian" | "english" | "spanish" | "portuguese";
