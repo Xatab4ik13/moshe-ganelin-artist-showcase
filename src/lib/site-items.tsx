@@ -125,7 +125,7 @@ export function localized(data: Record<string, string>, field: string, lang: str
 }
 
 
-function merge(kind: ItemKind, overrides: ItemOverride[]): SiteItem[] {
+export function merge(kind: ItemKind, overrides: ItemOverride[]): SiteItem[] {
   const rows = overrides.filter((row) => row.kind === kind);
   const bySlug = new Map(rows.map((row) => [row.slug, row]));
   const result: SiteItem[] = [];
