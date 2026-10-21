@@ -214,7 +214,7 @@ export const adminSaveConcert = createServerFn({ method: "POST" })
     const { dbQuery } = await import("./db.server");
     await requireAdmin();
 
-    const slug = data.slug.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+    const slug = data.originalSlug ? data.originalSlug : data.slug.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
     if (slug.length < 3) return { ok: false, error: "Не удалось составить адрес страницы концерта." };
     if (data.title.trim().length === 0) return { ok: false, error: "Впишите название концерта." };
 
@@ -309,7 +309,7 @@ export const adminSaveItem = createServerFn({ method: "POST" })
     const { dbQuery } = await import("./db.server");
     await requireAdmin();
 
-    const slug = data.slug.trim().toLowerCase().replace(/[^a-z0-9-]+/g, "-").replace(/^-+|-+$/g, "");
+    const slug = data.originalSlug ? data.originalSlug : data.slug.trim().toLowerCase().replace(/[^a-z0-9-]+/g, "-").replace(/^-+|-+$/g, "");
     if (slug.length < 2) return { ok: false, error: "Не удалось составить адрес записи." };
 
     const clean: Record<string, string> = {};

@@ -35,7 +35,7 @@ function ConcertVideoPage() {
         <DecoPilaster tone="light" className="pointer-events-none absolute left-0 top-16 hidden h-[70%] w-10 opacity-40 lg:block" />
         <DecoPilaster tone="light" className="pointer-events-none absolute right-0 top-16 hidden h-[70%] w-10 -scale-x-100 opacity-40 lg:block" />
         <Reveal>
-          <Placeholder>{t("sectionDescription")}</Placeholder>
+          <Placeholder>{t("concertsVideoDescription")}</Placeholder>
           <DecoChevronRule tone="light" className="mx-auto mt-12 max-w-[900px]" />
         </Reveal>
 

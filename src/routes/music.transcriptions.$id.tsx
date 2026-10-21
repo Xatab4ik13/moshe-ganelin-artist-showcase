@@ -40,7 +40,7 @@ function TranscriptionPage() {
             {description ? (
               <p className="whitespace-pre-line text-lg leading-relaxed text-muted-foreground md:text-xl">{description}</p>
             ) : (
-              <Placeholder>{t("sectionDescription")}</Placeholder>
+              <Placeholder>{t("transcriptionDetailDescription")}</Placeholder>
             )}
           </div>
         </Reveal>
