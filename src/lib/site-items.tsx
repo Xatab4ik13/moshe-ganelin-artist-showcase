@@ -146,8 +146,17 @@ export function merge(kind: ItemKind, overrides: ItemOverride[]): SiteItem[] {
     .sort((a, b) => a.position - b.position)
     .map((row) => ({ kind, slug: row.slug, data: { ...row.data }, isDefault: false }));
 
-  return [...result, ...added];
+  const all = [...result, ...added];
+  // Порядок, заданный кнопками «Выше/Ниже» в панели (служебная запись __order).
+  if (!rows.some((row) => row.slug === ORDER_MARKER)) return all;
+  const positions = new Map(rows.map((row) => [row.slug, row.position]));
+  return all
+    .map((item, index) => ({ item, pos: positions.get(item.slug) ?? index }))
+    .sort((a, b) => a.pos - b.pos)
+    .map(({ item }) => item);
 }
+
+export const ORDER_MARKER = "__order";
 
 const ItemsContext = createContext<ItemOverride[]>([]);
 
