@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { DecoArch, DecoChevronRule, DecoCornerPlate, DecoPilaster, DecoScales } from "@/components/site/Deco";
 import { PageShell, Placeholder } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
-import { usePublications } from "@/lib/site-items";
+import { localized, usePublications } from "@/lib/site-items";
 import { useLanguage } from "@/lib/i18n";
 import { useSiteImages } from "@/lib/site-images";
 
@@ -57,7 +57,7 @@ function Timeline() {
 
 function AboutPage() {
   const publications = usePublications();
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const img = useSiteImages();
 
   return (
@@ -127,9 +127,9 @@ function AboutPage() {
           {publications.map((item, index) => (
             <Reveal as="li" key={index} delay={index * 60}>
               <div className="row-item grid items-baseline gap-3 border-b border-border/60 px-3 py-7 md:grid-cols-[1.4fr_1fr_6rem]">
-                <span className="font-deco text-lg leading-snug md:text-xl">{item.title}</span>
-                <span className="text-base text-muted-foreground">{item.source}</span>
-                <span className="text-base text-muted-foreground md:text-right">{item.year}</span>
+                <span className="font-deco text-lg leading-snug md:text-xl">{localized(item.data, "title", lang)}</span>
+                <span className="whitespace-pre-line text-base text-muted-foreground">{localized(item.data, "source", lang)}</span>
+                <span className="text-base text-muted-foreground md:text-right">{localized(item.data, "year", lang)}</span>
               </div>
             </Reveal>
           ))}

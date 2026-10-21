@@ -27,6 +27,12 @@ function AdminPage() {
         fields={[
           { name: "title", label: "Название" },
           {
+            name: "label",
+            label: "Подпись справа в списке",
+            hint: "Например, год. Если пусто — будет слово WATCH.",
+            placeholder: "2024",
+          },
+          {
             name: "videoId",
             label: "Код видео на YouTube",
             hint: "Только код после v= в адресе ролика.",
