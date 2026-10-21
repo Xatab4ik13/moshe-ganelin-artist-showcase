@@ -97,7 +97,7 @@ function AboutPage() {
             <blockquote className="font-display text-[clamp(1.7rem,4.4vw,3.4rem)] leading-[1.15]">
               {t("bioQuote")}
             </blockquote>
-            <p className="mt-8 text-base tracking-wide text-background/60">Moshe Ariel Ganelin</p>
+            <p className="mt-8 text-base tracking-wide text-background/60">{t("bioQuoteAuthor")}</p>
             <DecoChevronRule tone="dark" className="mt-12 opacity-80" />
           </Reveal>
         </div>

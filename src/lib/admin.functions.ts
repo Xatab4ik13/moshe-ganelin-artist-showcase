@@ -331,6 +331,28 @@ export const adminSaveItem = createServerFn({ method: "POST" })
     return { ok: true, slug };
   });
 
+/** Порядок записей в разделе: сохраняет позиции по списку адресов. */
+export const adminReorderItems = createServerFn({ method: "POST" })
+  .inputValidator((data: { kind: string; slugs: string[] }) => data)
+  .handler(async ({ data }) => {
+    const { requireAdmin } = await import("./admin-auth.server");
+    const { dbQuery } = await import("./db.server");
+    await requireAdmin();
+    await dbQuery(
+      `INSERT INTO site_items (kind, slug, hidden) VALUES ($1, '__order', true)
+       ON CONFLICT (kind, slug) DO UPDATE SET hidden = true`,
+      [data.kind],
+    );
+    for (const [index, slug] of data.slugs.entries()) {
+      await dbQuery(
+        `INSERT INTO site_items (kind, slug, position, hidden) VALUES ($1, $2, $3, false)
+         ON CONFLICT (kind, slug) DO UPDATE SET position = EXCLUDED.position, updated_at = now()`,
+        [data.kind, slug, index],
+      );
+    }
+    return { ok: true as const };
+  });
+
 /** Скрыть исходную запись сайта или удалить добавленную. */
 export const adminDeleteItem = createServerFn({ method: "POST" })
   .inputValidator((data: { kind: string; slug: string; isDefault: boolean }) => data)

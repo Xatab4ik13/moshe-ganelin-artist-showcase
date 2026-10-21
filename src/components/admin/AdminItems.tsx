@@ -3,10 +3,11 @@ import { useServerFn } from "@tanstack/react-start";
 import { useMemo, useState } from "react";
 
 import { AdminButton, AdminCard } from "./AdminShell";
-import { adminDeleteItem, adminGetItems, adminResetItem, adminSaveItem, adminUploadFile } from "@/lib/admin.functions";
+import { adminDeleteItem, adminGetItems, adminReorderItems, adminResetItem, adminSaveItem, adminUploadFile } from "@/lib/admin.functions";
 import {
   defaultItems,
   makeItemSlug,
+  merge,
   type ItemKind,
   type ItemOverride,
   type SiteItem,
@@ -105,6 +106,7 @@ export function AdminItems({
   const save = useServerFn(adminSaveItem);
   const remove = useServerFn(adminDeleteItem);
   const reset = useServerFn(adminResetItem);
+  const reorder = useServerFn(adminReorderItems);
 
   const query = useQuery({ queryKey: ["admin-items"], queryFn: () => load(), staleTime: 0 });
   const [form, setForm] = useState<FormState | null>(null);
@@ -113,25 +115,7 @@ export function AdminItems({
   const [error, setError] = useState<string | null>(null);
 
   const overrides = (query.data ?? []) as ItemOverride[];
-  const list = useMemo(() => {
-    const rows = overrides.filter((row) => row.kind === kind);
-    const bySlug = new Map(rows.map((row) => [row.slug, row]));
-    const result: SiteItem[] = [];
-    for (const base of defaultItems[kind]) {
-      const row = bySlug.get(base.slug);
-      bySlug.delete(base.slug);
-      if (row?.hidden) continue;
-      const data = { ...base.data };
-      for (const [key, value] of Object.entries(row?.data ?? {})) {
-        if (value.trim().length > 0) data[key] = value;
-      }
-      result.push({ kind, slug: base.slug, data, isDefault: true });
-    }
-    for (const row of [...bySlug.values()].filter((row) => !row.hidden)) {
-      result.push({ kind, slug: row.slug, data: { ...row.data }, isDefault: false });
-    }
-    return result;
-  }, [overrides, kind]);
+  const list = useMemo(() => merge(kind, overrides), [overrides, kind]);
 
   const hiddenDefaults = overrides.filter(
     (row) => row.kind === kind && row.hidden && defaultItems[kind].some((item) => item.slug === row.slug),
@@ -152,7 +136,13 @@ export function AdminItems({
     const slug = form.originalSlug || makeItemSlug(slugPrefix, titleValue);
     try {
       const result = await save({
-        data: { kind, slug, originalSlug: form.originalSlug, data: form.data, position: list.length },
+        data: {
+            kind,
+            slug,
+            originalSlug: form.originalSlug,
+            data: form.data,
+            position: form.originalSlug ? Math.max(0, list.findIndex((item) => item.slug === form.originalSlug)) : list.length,
+          },
       });
       if (result.ok) {
         setForm(null);
@@ -177,6 +167,26 @@ export function AdminItems({
     await remove({ data: { kind, slug: item.slug, isDefault: item.isDefault } });
     setMessage(item.isDefault ? "Запись скрыта с сайта." : "Запись удалена.");
     query.refetch();
+  };
+
+  const onMove = async (index: number, delta: number) => {
+    const target = index + delta;
+    if (target < 0 || target >= list.length) return;
+    const slugs = list.map((item) => item.slug);
+    [slugs[index], slugs[target]] = [slugs[target]!, slugs[index]!];
+    setBusy(true);
+    setError(null);
+    setMessage(null);
+    try {
+      await reorder({ data: { kind, slugs } });
+      await query.refetch();
+      setMessage("Порядок сохранён.");
+    } catch (moveError) {
+      console.error(moveError);
+      setError("Не удалось изменить порядок. Проверьте подключение базы данных.");
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (
@@ -271,7 +281,7 @@ export function AdminItems({
         <h3 className="text-xl font-bold text-[#0d3f8f]">Список на сайте</h3>
         {list.length === 0 ? <p className="mt-3 text-base text-[#41566f]">Пока пусто.</p> : null}
         <ul className="mt-4 space-y-3">
-          {list.map((item) => (
+          {list.map((item, index) => (
             <li
               key={item.slug}
               className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-[#dbe8f8] bg-[#f7fbff] px-4 py-3"
@@ -283,6 +293,12 @@ export function AdminItems({
                 ) : null}
               </div>
               <div className="flex flex-wrap gap-2">
+                <AdminButton tone="quiet" disabled={busy || index === 0} onClick={() => onMove(index, -1)}>
+                  ↑ Выше
+                </AdminButton>
+                <AdminButton tone="quiet" disabled={busy || index === list.length - 1} onClick={() => onMove(index, 1)}>
+                  ↓ Ниже
+                </AdminButton>
                 <AdminButton
                   tone="quiet"
                   onClick={() => {
