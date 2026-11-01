@@ -41,6 +41,7 @@ function GalleryPage() {
   const [active, setActive] = useState<number | null>(null);
   const [origin, setOrigin] = useState<{ x: number; y: number; scale: number } | null>(null);
   const [zoomed, setZoomed] = useState(false);
+  const activePhoto = active === null ? undefined : photos[active];
   const columnRefs = useRef<(HTMLDivElement | null)[]>([]);
   const touchStart = useRef<number | null>(null);
 
@@ -150,7 +151,7 @@ function GalleryPage() {
       </section>
 
 
-      {active !== null && (
+      {activePhoto && (
         <div
           className="fixed inset-0 z-[100] flex animate-fade-in items-center justify-center bg-hero/95 p-4 md:p-10"
           onClick={() => setActive(null)}
@@ -174,7 +175,7 @@ function GalleryPage() {
           </button>
 
           <figure
-            className="lightbox-figure max-h-full"
+            className="lightbox-figure flex max-h-full w-full min-w-0 flex-col items-center"
             onClick={(event) => event.stopPropagation()}
             style={
               zoomed || !origin
@@ -183,12 +184,12 @@ function GalleryPage() {
             }
           >
             <img
-              src={photos[active]!.src}
-              alt={photos[active]!.alt}
-              className="max-h-[78vh] w-auto max-w-full object-contain"
+              src={activePhoto.src}
+              alt={activePhoto.alt}
+              className="max-h-[70svh] w-auto max-w-full shrink-0 object-contain"
             />
-            <figcaption className="mt-5 text-center text-lg leading-relaxed text-background/85 md:text-2xl">
-              {photos[active]!.alt}
+            <figcaption className="mt-5 max-h-[15svh] w-full overflow-y-auto whitespace-pre-line break-words text-center text-lg leading-relaxed text-background/85 md:text-2xl">
+              {activePhoto.alt}
             </figcaption>
           </figure>
 

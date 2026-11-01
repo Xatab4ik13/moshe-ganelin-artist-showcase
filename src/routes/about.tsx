@@ -90,7 +90,7 @@ function AboutPage() {
         <DecoChevronRule tone="light" className="relative mx-auto mt-20 max-w-[1200px]" />
       </section>
 
-      <section className="relative flex min-h-[80svh] items-center bg-hero px-5 py-24 text-background md:px-10 lg:px-16">
+      <section className="relative flex items-center bg-hero px-5 pb-12 pt-24 text-background md:px-10 lg:px-16">
         <DecoArch tone="dark" className="pointer-events-none absolute left-1/2 top-8 w-[min(56vw,320px)] -translate-x-1/2 opacity-40 md:top-12" />
         <div className="relative mx-auto max-w-4xl pt-28 md:pt-36">
           <Reveal>
@@ -103,7 +103,7 @@ function AboutPage() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden py-24 text-background lg:py-32">
+      <section className="relative overflow-hidden pb-24 pt-12 text-background lg:pb-32">
         <img src={img.piano} alt="" aria-hidden="true" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-hero/82" />
         <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-hero via-hero/55 to-transparent md:h-56" />
@@ -126,7 +126,7 @@ function AboutPage() {
         <ul className="mt-12 border-t border-border/60">
           {publications.map((item, index) => (
             <Reveal as="li" key={index} delay={index * 60}>
-              <div className="row-item grid items-baseline gap-3 border-b border-border/60 px-3 py-7 md:grid-cols-[1.4fr_1fr_6rem]">
+              <div className="row-item grid items-baseline gap-3 border-b border-border/60 px-3 py-7 md:grid-cols-[minmax(0,1fr)_minmax(0,3.5fr)_6rem] md:gap-x-6">
                 <span className="font-deco text-lg leading-snug md:text-xl">{localized(item.data, "title", lang)}</span>
                 <span className="whitespace-pre-line text-base text-muted-foreground">{localized(item.data, "source", lang)}</span>
                 <span className="text-base text-muted-foreground md:text-right">{localized(item.data, "year", lang)}</span>

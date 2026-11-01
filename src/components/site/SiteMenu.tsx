@@ -35,7 +35,7 @@ const menuItems: MenuItem[] = [
   {
     labelKey: "navPoetry",
     children: [
-      { labelKey: "navGanelinPoetry", to: "/poetry", hash: "poetry-intro" },
+      { labelKey: "navGanelinPoetry", to: "/poetry" },
       { labelKey: "langRussian", to: "/poetry", hash: "russian" },
       { labelKey: "langEnglish", to: "/poetry", hash: "english" },
       { labelKey: "langSpanish", to: "/poetry", hash: "spanish" },
@@ -152,10 +152,10 @@ export function SiteMenu({ tone = "dark", home = false }: { tone?: "dark" | "lig
         className={`group menu-burger fixed right-[calc(0.75rem_+_var(--scrollbar-width))] top-2 z-50 flex w-[8rem] flex-col items-center p-2 opacity-90 transition-opacity duration-300 hover:opacity-100 focus:outline-none md:right-[calc(1.5rem_+_var(--scrollbar-width))] md:top-5 md:w-[14rem] md:p-3 ${barTone}`}
       >
         <span className="relative block h-10 w-10 md:h-12 md:w-12" aria-hidden="true">
-          <span className={`absolute inset-0 flex flex-col items-center justify-center transition-all duration-300 ${menuOpen ? "gap-0" : "gap-[7px]"}`}>
-            <span className={`h-[3.5px] w-full bg-current transition-all duration-300 ${menuOpen ? "rotate-45" : ""}`} />
-            <span className={`h-[3.5px] w-full bg-current transition-all duration-300 ${menuOpen ? "opacity-0" : "opacity-100"}`} />
-            <span className={`h-[3.5px] w-full bg-current transition-all duration-300 ${menuOpen ? "-rotate-45" : ""}`} />
+          <span className="absolute inset-0">
+            <span className={`absolute left-1/2 top-1/2 h-[3.5px] -translate-x-1/2 -translate-y-1/2 bg-current transition-all duration-300 ${menuOpen ? "w-[calc(141.421%_-_3.5px)] rotate-45" : "w-full translate-y-[-12.25px]"}`} />
+            <span className={`absolute left-1/2 top-1/2 h-[3.5px] w-full -translate-x-1/2 -translate-y-1/2 bg-current transition-all duration-300 ${menuOpen ? "opacity-0" : "opacity-100"}`} />
+            <span className={`absolute left-1/2 top-1/2 h-[3.5px] -translate-x-1/2 -translate-y-1/2 bg-current transition-all duration-300 ${menuOpen ? "w-[calc(141.421%_-_3.5px)] -rotate-45" : "w-full translate-y-[8.75px]"}`} />
           </span>
         </span>
         <span className="mt-1.5 inline-block whitespace-nowrap text-center font-display text-[1.05rem] uppercase leading-none tracking-[0.28em] mr-[-0.28em] md:text-[1.35rem] md:tracking-[0.3em] md:mr-[-0.3em]">

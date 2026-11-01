@@ -8,3 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Reuse PageShell's Placeholder for ruled introductory prose; it keeps full-width text and the gold paragraph line consistent across sections.
+- Gallery lightbox figures center their image separately from caption width; long editable captions must never shift the photo.
