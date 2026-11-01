@@ -1,7 +1,7 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 
 import { DecoChevronRule, DecoPilaster, DecoScales } from "@/components/site/Deco";
-import { PageShell } from "@/components/site/PageShell";
+import { PageShell, Placeholder } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { type WorkCategoryId } from "@/lib/site-data";
 import { useLanguage, type DictKey } from "@/lib/i18n";
@@ -45,7 +45,7 @@ function MusicIndexPage() {
 
         <Reveal>
           <h2 className="font-display text-3xl leading-none md:text-5xl">{t("musicIntroTitle")}</h2>
-          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground md:text-xl">{t("musicIntroText")}</p>
+          <div className="mt-6 whitespace-pre-line"><Placeholder>{t("musicIntroText")}</Placeholder></div>
         </Reveal>
 
         <Reveal>
