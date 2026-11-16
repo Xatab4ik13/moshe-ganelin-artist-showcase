@@ -53,6 +53,8 @@ function WorkPage() {
   const localized =
     (lang === "es" ? baseWork.descriptionEs : lang === "pt" ? baseWork.descriptionPt : undefined) ||
     baseWork.description;
+  const quote =
+    (lang === "es" ? baseWork.quoteEs : lang === "pt" ? baseWork.quotePt : undefined) || baseWork.quote;
   const work = { ...baseWork, description: localized };
 
   return (
@@ -74,13 +76,17 @@ function WorkPage() {
               </div>
             </Reveal>
 
+            {quote ? (
             <Reveal>
               <h2 className="mt-20 font-display text-2xl uppercase tracking-[0.14em] text-petrol md:text-3xl">{t("workQuotes")}</h2>
               <blockquote className="mt-6 border-l-2 border-brass/70 pl-6 text-lg italic leading-relaxed text-muted-foreground md:text-xl">
-                {t("pressQuoteText")}
-                <footer className="mt-4 text-sm not-italic uppercase tracking-[0.28em]">{t("pressQuoteSource")}</footer>
+                <span className="whitespace-pre-line">{quote}</span>
+                {work.quoteSource ? (
+                  <footer className="mt-4 text-sm not-italic uppercase tracking-[0.28em]">{work.quoteSource}</footer>
+                ) : null}
               </blockquote>
             </Reveal>
+            ) : null}
 
             {work.videoId ? (
               <Reveal>

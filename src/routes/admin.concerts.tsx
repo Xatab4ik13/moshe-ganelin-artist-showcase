@@ -9,6 +9,7 @@ import {
   adminGetConcerts,
   adminResetConcert,
   adminSaveConcert,
+  adminReorderConcerts,
   adminUploadFile,
 } from "@/lib/admin.functions";
 import {
@@ -276,6 +277,7 @@ function AdminConcerts() {
   const save = useServerFn(adminSaveConcert);
   const remove = useServerFn(adminDeleteConcert);
   const reset = useServerFn(adminResetConcert);
+  const reorder = useServerFn(adminReorderConcerts);
 
   const query = useQuery({ queryKey: ["admin-concerts"], queryFn: () => load(), staleTime: 0 });
   const [form, setForm] = useState<FormState | null>(null);
@@ -332,7 +334,11 @@ function AdminConcerts() {
           videoId: form.videoId,
           image: form.image,
           extra: form.extra,
-          position: 0,
+          position: form.originalSlug
+            ? (merged.all.find((item) => item.slug === form.originalSlug)?.position ?? 0) % 100000 === merged.all.find((item) => item.slug === form.originalSlug)?.position
+              ? (merged.all.find((item) => item.slug === form.originalSlug)?.position ?? 0)
+              : 0
+            : 0,
           hidden: false,
         },
       });
@@ -363,12 +369,34 @@ function AdminConcerts() {
     query.refetch();
   };
 
+  const onMove = async (list: SiteConcert[], index: number, delta: number) => {
+    const target = index + delta;
+    if (target < 0 || target >= list.length) return;
+    const order = [...merged.all];
+    const a = order.indexOf(list[index]!);
+    const b = order.indexOf(list[target]!);
+    [order[a], order[b]] = [order[b]!, order[a]!];
+    setBusy(true);
+    setError(null);
+    setMessage(null);
+    try {
+      await reorder({ data: { items: order.map((item) => ({ slug: item.slug, kind: item.kind })) } });
+      await query.refetch();
+      setMessage("Порядок сохранён.");
+    } catch (moveError) {
+      console.error(moveError);
+      setError("Не удалось изменить порядок. Проверьте подключение базы данных.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const section = (title: string, list: SiteConcert[]) => (
     <AdminCard className="mt-6">
       <h2 className="text-xl font-bold text-[#0d3f8f]">{title}</h2>
       {list.length === 0 ? <p className="mt-3 text-base text-[#41566f]">Пока пусто.</p> : null}
       <ul className="mt-4 space-y-3">
-        {list.map((concert) => (
+        {list.map((concert, index) => (
           <li
             key={concert.slug}
             className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-[#dbe8f8] bg-[#f7fbff] px-4 py-3"
@@ -380,6 +408,12 @@ function AdminConcerts() {
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
+              <AdminButton tone="quiet" disabled={busy || index === 0} onClick={() => onMove(list, index, -1)}>
+                ↑ Выше
+              </AdminButton>
+              <AdminButton tone="quiet" disabled={busy || index === list.length - 1} onClick={() => onMove(list, index, 1)}>
+                ↓ Ниже
+              </AdminButton>
               <AdminButton tone="quiet" onClick={() => startEdit(concert)}>
                 Изменить
               </AdminButton>

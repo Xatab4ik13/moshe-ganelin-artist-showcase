@@ -69,6 +69,25 @@ function AdminWorks() {
             hint: "Необязательно. Если пусто — на португальской версии будет английский текст.",
             textarea: true,
           },
+          {
+            name: "quote",
+            label: "Цитата (Quotes) — EN",
+            hint: "Необязательно. Если пусто — блок Quotes на странице сочинения не показывается.",
+            textarea: true,
+          },
+          {
+            name: "quote_es",
+            label: "Цитата (Quotes) — ES",
+            hint: "Необязательно. Если пусто — будет английский текст.",
+            textarea: true,
+          },
+          {
+            name: "quote_pt",
+            label: "Цитата (Quotes) — POR",
+            hint: "Необязательно. Если пусто — будет английский текст.",
+            textarea: true,
+          },
+          { name: "quoteSource", label: "Подпись под цитатой", hint: "Например, название издания.", placeholder: "The Organ Magazine" },
         ]}
       />
     </AdminShell>
