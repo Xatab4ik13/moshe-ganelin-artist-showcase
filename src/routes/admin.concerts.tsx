@@ -334,11 +334,10 @@ function AdminConcerts() {
           videoId: form.videoId,
           image: form.image,
           extra: form.extra,
-          position: form.originalSlug
-            ? (merged.all.find((item) => item.slug === form.originalSlug)?.position ?? 0) % 100000 === merged.all.find((item) => item.slug === form.originalSlug)?.position
-              ? (merged.all.find((item) => item.slug === form.originalSlug)?.position ?? 0)
-              : 0
-            : 0,
+          position: (() => {
+            const current = merged.all.find((item) => item.slug === form.originalSlug)?.position ?? 0;
+            return current < 100000 ? current : 0;
+          })(),
           hidden: false,
         },
       });
