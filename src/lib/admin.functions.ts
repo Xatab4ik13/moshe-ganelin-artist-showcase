@@ -254,6 +254,23 @@ export const adminSaveConcert = createServerFn({ method: "POST" })
     return { ok: true, slug };
   });
 
+/** Новый порядок концертов: позиции 1..n в переданном порядке. */
+export const adminReorderConcerts = createServerFn({ method: "POST" })
+  .inputValidator((data: { items: { slug: string; kind: string }[] }) => data)
+  .handler(async ({ data }) => {
+    const { requireAdmin } = await import("./admin-auth.server");
+    const { dbQuery } = await import("./db.server");
+    await requireAdmin();
+    for (const [index, item] of data.items.entries()) {
+      await dbQuery(
+        `INSERT INTO concerts (slug, kind, position, hidden) VALUES ($1, $2, $3, false)
+         ON CONFLICT (slug) DO UPDATE SET position = EXCLUDED.position, updated_at = now()`,
+        [item.slug, item.kind === "archive" ? "archive" : "upcoming", index + 1],
+      );
+    }
+    return { ok: true as const };
+  });
+
 /** Скрыть исходный концерт сайта или полностью удалить добавленный. */
 export const adminDeleteConcert = createServerFn({ method: "POST" })
   .inputValidator((data: { slug: string; isDefault: boolean }) => data)

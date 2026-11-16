@@ -244,6 +244,10 @@ export type SiteWork = {
   description?: string | undefined;
   descriptionEs?: string | undefined;
   descriptionPt?: string | undefined;
+  quote?: string | undefined;
+  quoteEs?: string | undefined;
+  quotePt?: string | undefined;
+  quoteSource?: string | undefined;
 };
 
 function toWork(item: SiteItem): SiteWork {
@@ -260,6 +264,10 @@ function toWork(item: SiteItem): SiteWork {
     description: item.data["description"] || undefined,
     descriptionEs: item.data["description_es"] || undefined,
     descriptionPt: item.data["description_pt"] || undefined,
+    quote: item.data["quote"] || undefined,
+    quoteEs: item.data["quote_es"] || undefined,
+    quotePt: item.data["quote_pt"] || undefined,
+    quoteSource: item.data["quoteSource"] || undefined,
   };
 }
 

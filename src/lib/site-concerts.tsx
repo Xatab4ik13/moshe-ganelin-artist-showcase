@@ -36,6 +36,8 @@ export type SiteConcert = {
   image?: string | undefined;
   extra: Record<string, string>;
   isDefault: boolean;
+  /** Ключ сортировки: сохранённая позиция или исходный порядок. */
+  position: number;
 };
 
 export type ConcertsData = {
@@ -57,6 +59,7 @@ function withDefaults(list: Concert[], kind: ConcertKind): SiteConcert[] {
     kind,
     extra: {},
     isDefault: true,
+    position: 0,
   }));
 }
 
@@ -93,6 +96,7 @@ export function mergeConcerts(overrides: ConcertOverride[] = []): ConcertsData {
       image: pick(row?.image, base.image) || undefined,
       extra: row?.extra ?? {},
       isDefault: true,
+      position: row && row.position > 0 ? row.position : 100000 + merged.length,
     });
   }
 
@@ -112,8 +116,10 @@ export function mergeConcerts(overrides: ConcertOverride[] = []): ConcertsData {
       image: row.image || undefined,
       extra: row.extra ?? {},
       isDefault: false,
+      position: row.position > 0 ? row.position : 200000 + merged.length,
     });
   }
+  merged.sort((a, b) => a.position - b.position);
 
   const upcoming = merged.filter((item) => item.kind === "upcoming");
   const archive = merged.filter((item) => item.kind === "archive");
