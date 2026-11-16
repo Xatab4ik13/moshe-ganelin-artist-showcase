@@ -25,6 +25,7 @@ function AdminWorks() {
         slugPrefix="work"
         titleField="title"
         subtitleField="year"
+        groupField="category"
         fields={[
           { name: "title", label: "Название сочинения", placeholder: "“Reger in Harlem” op. 50" },
           {

@@ -92,6 +92,7 @@ export function AdminItems({
   titleField,
   subtitleField,
   slugPrefix,
+  groupField,
 }: {
   kind: ItemKind;
   title: string;
@@ -101,6 +102,8 @@ export function AdminItems({
   titleField: string;
   subtitleField?: string;
   slugPrefix: string;
+  /** Поле с вариантами: список делится на подразделы, порядок меняется внутри подраздела. */
+  groupField?: string;
 }) {
   const load = useServerFn(adminGetItems);
   const save = useServerFn(adminSaveItem);
@@ -169,10 +172,30 @@ export function AdminItems({
     query.refetch();
   };
 
-  const onMove = async (index: number, delta: number) => {
-    const target = index + delta;
-    if (target < 0 || target >= list.length) return;
-    const slugs = list.map((item) => item.slug);
+  const groupOptions = groupField ? fields.find((field) => field.name === groupField)?.options ?? [] : [];
+  const groups = groupField
+    ? [
+        ...groupOptions.map((option) => ({ key: option.value, label: option.label })),
+        { key: "", label: "Без раздела" },
+      ]
+        .map((group) => ({
+          ...group,
+          items: list.filter((item) =>
+            group.key
+              ? item.data[groupField] === group.key
+              : !groupOptions.some((option) => option.value === item.data[groupField]),
+          ),
+        }))
+        .filter((group) => group.items.length > 0)
+    : [{ key: "all", label: "", items: list }];
+
+  const onMove = async (item: SiteItem, siblings: SiteItem[], delta: number) => {
+    const local = siblings.findIndex((entry) => entry.slug === item.slug);
+    const neighbour = siblings[local + delta];
+    if (!neighbour) return;
+    const slugs = list.map((entry) => entry.slug);
+    const index = slugs.indexOf(item.slug);
+    const target = slugs.indexOf(neighbour.slug);
     [slugs[index], slugs[target]] = [slugs[target]!, slugs[index]!];
     setBusy(true);
     setError(null);
@@ -280,8 +303,11 @@ export function AdminItems({
       <AdminCard>
         <h3 className="text-xl font-bold text-[#0d3f8f]">Список на сайте</h3>
         {list.length === 0 ? <p className="mt-3 text-base text-[#41566f]">Пока пусто.</p> : null}
-        <ul className="mt-4 space-y-3">
-          {list.map((item, index) => (
+        {groups.map((group) => (
+        <div key={group.key} className="mt-4">
+        {group.label ? <h4 className="mt-6 text-lg font-bold text-[#123a6b]">{group.label}</h4> : null}
+        <ul className="mt-3 space-y-3">
+          {group.items.map((item, index) => (
             <li
               key={item.slug}
               className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-[#dbe8f8] bg-[#f7fbff] px-4 py-3"
@@ -293,10 +319,10 @@ export function AdminItems({
                 ) : null}
               </div>
               <div className="flex flex-wrap gap-2">
-                <AdminButton tone="quiet" disabled={busy || index === 0} onClick={() => onMove(index, -1)}>
+                <AdminButton tone="quiet" disabled={busy || index === 0} onClick={() => onMove(item, group.items, -1)}>
                   ↑ Выше
                 </AdminButton>
-                <AdminButton tone="quiet" disabled={busy || index === list.length - 1} onClick={() => onMove(index, 1)}>
+                <AdminButton tone="quiet" disabled={busy || index === group.items.length - 1} onClick={() => onMove(item, group.items, 1)}>
                   ↓ Ниже
                 </AdminButton>
                 <AdminButton
@@ -316,6 +342,8 @@ export function AdminItems({
             </li>
           ))}
         </ul>
+        </div>
+        ))}
       </AdminCard>
 
       {hiddenDefaults.length > 0 ? (
