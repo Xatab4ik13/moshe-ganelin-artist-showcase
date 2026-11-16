@@ -11,3 +11,4 @@
 
 - Reuse PageShell's Placeholder for ruled introductory prose; it keeps full-width text and the gold paragraph line consistent across sections.
 - Gallery lightbox figures center their image separately from caption width; long editable captions must never shift the photo.
+- Keep work category order in site-data and reuse it for grouping and category validation so new categories remain selectable and visible consistently.

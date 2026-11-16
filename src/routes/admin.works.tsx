@@ -34,6 +34,7 @@ function AdminWorks() {
             options: [
               { value: "symphonic", label: "Symphonic music" },
               { value: "organ", label: "Organ music" },
+              { value: "piano", label: "Piano music" },
               { value: "vocal", label: "Vocal music" },
               { value: "choir", label: "Choir music" },
               { value: "chamber", label: "Chamber music" },
