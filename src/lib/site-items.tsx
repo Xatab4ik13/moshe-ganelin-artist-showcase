@@ -1,6 +1,6 @@
 import { createContext, useContext, type ReactNode } from "react";
 
-import { galleryPhotos, pressItems, publications, videos, workCategories, type WorkCategoryId } from "./site-data";
+import { galleryPhotos, pressItems, publications, videos, workCategories, categoryOrder, type WorkCategoryId } from "./site-data";
 
 export type ItemKind = "video" | "press" | "publication" | "work" | "poem" | "photo" | "social" | "contact" | "transcription" | "improvisation";
 
@@ -245,8 +245,6 @@ export type SiteWork = {
   descriptionEs?: string | undefined;
   descriptionPt?: string | undefined;
 };
-
-const categoryOrder: WorkCategoryId[] = ["symphonic", "organ", "vocal", "choir", "chamber"];
 
 function toWork(item: SiteItem): SiteWork {
   const category = (item.data["category"] ?? "").trim() as WorkCategoryId;

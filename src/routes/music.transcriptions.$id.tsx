@@ -31,17 +31,16 @@ function TranscriptionPage() {
       <div className="mx-auto max-w-[1100px] px-5 py-16 md:px-10 lg:px-16 lg:py-24">
         <Reveal>
           <Link to="/music/transcriptions" className="line-link text-base uppercase tracking-[0.28em] text-petrol md:text-lg">
-            {t("transcriptionsTitle")}
+            {t("transcriptionBack")}
           </Link>
         </Reveal>
 
         <Reveal delay={80}>
           <div className="mt-10">
-            {description ? (
-              <p className="whitespace-pre-line text-lg leading-relaxed text-muted-foreground md:text-xl">{description}</p>
-            ) : (
-              <Placeholder>{t("transcriptionDetailDescription")}</Placeholder>
-            )}
+            <h2 className="font-display text-2xl uppercase tracking-[0.14em] text-petrol md:text-3xl">{t("transcriptionAbout")}</h2>
+            <div className="mt-6 whitespace-pre-line">
+              <Placeholder>{description || t("transcriptionDetailDescription")}</Placeholder>
+            </div>
           </div>
         </Reveal>
 

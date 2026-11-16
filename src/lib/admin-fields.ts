@@ -124,6 +124,8 @@ export const adminGroups: AdminGroup[] = [
       f("improvisationsTitle", "Заголовок «Импровизации»"),
       f("improvisationsLead", "Текст страницы импровизаций", undefined, true),
       f("transcriptionsTitle", "Заголовок «Транскрипции»"),
+      f("transcriptionAbout", "Заголовок описания отдельной транскрипции"),
+      f("transcriptionBack", "Ссылка «Назад к транскрипциям»"),
       f("transcriptionsLead", "Текст страницы транскрипций", undefined, true),
       f("concertsVideoTitle", "Заголовок «Видео концертов»"),
       f("concertsVideoLead", "Текст страницы видео концертов", undefined, true),

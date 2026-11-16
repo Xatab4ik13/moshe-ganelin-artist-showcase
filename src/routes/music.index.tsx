@@ -26,6 +26,7 @@ export const Route = createFileRoute("/music/")({
 const categoryTitleKey: Record<WorkCategoryId, DictKey> = {
   symphonic: "catSymphonic",
   organ: "catOrgan",
+  piano: "musicPiano",
   vocal: "catVocal",
   choir: "catChoir",
   chamber: "catChamber",

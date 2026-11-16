@@ -46,7 +46,9 @@ export function findConcert(slug: string): Concert | undefined {
   return allConcerts.find((concert) => concert.slug === slug);
 }
 
-export type WorkCategoryId = "symphonic" | "organ" | "vocal" | "choir" | "chamber";
+export type WorkCategoryId = "symphonic" | "organ" | "piano" | "vocal" | "choir" | "chamber";
+
+export const categoryOrder: WorkCategoryId[] = ["symphonic", "organ", "piano", "vocal", "choir", "chamber"];
 
 export type CatalogWork = {
   slug: string;
