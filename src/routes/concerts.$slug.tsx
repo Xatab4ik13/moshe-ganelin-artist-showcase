@@ -78,7 +78,7 @@ function ConcertPage() {
             </Reveal>
           </div>
 
-          <aside className="space-y-6 border border-border bg-card p-7">
+          <aside className="space-y-6 border border-border bg-card p-7 lg:self-start">
             <div>
               <p className="text-sm uppercase tracking-[0.28em] text-petrol">{t("concertWhen")}</p>
               <p className="mt-2 font-display text-2xl md:text-3xl">
