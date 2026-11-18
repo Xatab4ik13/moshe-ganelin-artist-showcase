@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
-import { PageShell } from "@/components/site/PageShell";
+import { PageShell, Placeholder } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { useConcert } from "@/lib/site-concerts";
 import { localized } from "@/lib/site-items";
@@ -51,9 +51,9 @@ function ConcertPage() {
           <div>
             <Reveal>
               <h2 className="font-display text-3xl leading-tight md:text-5xl">{t("concertAbout")}</h2>
-              <p className="mt-6 max-w-3xl whitespace-pre-line text-lg leading-relaxed text-muted-foreground md:text-xl">
-                {description || t("concertDetailsText")}
-              </p>
+              <div className="mt-6 max-w-3xl whitespace-pre-line">
+                <Placeholder>{description || t("concertDetailsText")}</Placeholder>
+              </div>
             </Reveal>
 
             <Reveal>
