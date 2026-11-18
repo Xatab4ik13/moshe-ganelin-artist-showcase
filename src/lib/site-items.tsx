@@ -1,6 +1,7 @@
 import { createContext, useContext, type ReactNode } from "react";
 
 import { galleryPhotos, pressItems, publications, videos, workCategories, categoryOrder, type WorkCategoryId } from "./site-data";
+import { useLanguage } from "./i18n";
 
 export type ItemKind = "video" | "press" | "publication" | "work" | "poem" | "photo" | "social" | "contact" | "transcription" | "improvisation";
 
@@ -236,6 +237,8 @@ export type SiteWork = {
   slug: string;
   category: WorkCategoryId;
   title: string;
+  titleEs?: string | undefined;
+  titlePt?: string | undefined;
   year: string;
   duration: string;
   scoring: string;
@@ -258,6 +261,8 @@ function toWork(item: SiteItem): SiteWork {
     title: item.data["title"] ?? "",
     year: item.data["year"] ?? "",
     duration: item.data["duration"] ?? "",
+    titleEs: item.data["title_es"] || undefined,
+    titlePt: item.data["title_pt"] || undefined,
     scoring: item.data["scoring"] ?? "",
     premiere: item.data["premiere"] ?? "",
     videoId: item.data["videoId"] || undefined,
@@ -276,8 +281,14 @@ export function worksFrom(overrides: ItemOverride[]): SiteWork[] {
   return merge("work", overrides).map(toWork);
 }
 
+export function workTitle(work: SiteWork, lang: string): string {
+  const translation = lang === "es" ? work.titleEs : lang === "pt" ? work.titlePt : undefined;
+  return translation?.trim() || work.title;
+}
+
 export function useWorks(): SiteWork[] {
-  return useItems("work").map(toWork);
+  const { lang } = useLanguage();
+  return useItems("work").map(toWork).map((work) => ({ ...work, title: workTitle(work, lang) }));
 }
 
 export function useWorkGroups(): { id: WorkCategoryId; works: SiteWork[] }[] {

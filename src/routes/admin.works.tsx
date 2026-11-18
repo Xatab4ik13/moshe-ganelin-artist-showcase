@@ -27,7 +27,9 @@ function AdminWorks() {
         subtitleField="year"
         groupField="category"
         fields={[
-          { name: "title", label: "Название сочинения", placeholder: "“Reger in Harlem” op. 50" },
+          { name: "title", label: "Название сочинения — EN (английский)", placeholder: "“Reger in Harlem” op. 50" },
+          { name: "title_es", label: "Название сочинения — ES (испанский)", hint: "Необязательно. Если пусто — будет английское название." },
+          { name: "title_pt", label: "Название сочинения — POR (португальский)", hint: "Необязательно. Если пусто — будет английское название." },
           {
             name: "category",
             label: "Раздел списка",

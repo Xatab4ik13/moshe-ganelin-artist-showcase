@@ -4,7 +4,7 @@ import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { PageShell, Placeholder } from "@/components/site/PageShell";
 import { Reveal } from "@/components/site/Reveal";
 import { getItemOverrides } from "@/lib/items.functions";
-import { worksFrom } from "@/lib/site-items";
+import { worksFrom, workTitle } from "@/lib/site-items";
 import { useLanguage } from "@/lib/i18n";
 
 export const Route = createFileRoute("/music/works/$slug")({
@@ -55,7 +55,7 @@ function WorkPage() {
     baseWork.description;
   const quote =
     (lang === "es" ? baseWork.quoteEs : lang === "pt" ? baseWork.quotePt : undefined) || baseWork.quote;
-  const work = { ...baseWork, description: localized };
+  const work = { ...baseWork, title: workTitle(baseWork, lang), description: localized };
 
   return (
     <PageShell title={work.title} lead={`${work.year} · ${work.duration}`}>

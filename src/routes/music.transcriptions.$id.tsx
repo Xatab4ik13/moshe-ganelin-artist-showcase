@@ -28,15 +28,11 @@ function TranscriptionPage() {
 
   return (
     <PageShell title={video?.title ?? t("transcriptionsTitle")}>
-      <div className="mx-auto max-w-[1100px] px-5 py-16 md:px-10 lg:px-16 lg:py-24">
+      <div className="mx-auto max-w-[1400px] px-5 pb-28 md:px-10 lg:px-16">
+        <div className="grid gap-16 lg:grid-cols-[1.4fr_0.6fr]">
+          <div>
         <Reveal>
-          <Link to="/music/transcriptions" className="line-link text-base uppercase tracking-[0.28em] text-petrol md:text-lg">
-            {t("transcriptionBack")}
-          </Link>
-        </Reveal>
-
-        <Reveal delay={80}>
-          <div className="mt-10">
+          <div>
             <h2 className="font-display text-2xl uppercase tracking-[0.14em] text-petrol md:text-3xl">{t("transcriptionAbout")}</h2>
             <div className="mt-6 whitespace-pre-line">
               <Placeholder>{description || t("transcriptionDetailDescription")}</Placeholder>
@@ -58,6 +54,15 @@ function TranscriptionPage() {
             </div>
           </Reveal>
         ) : null}
+          </div>
+          <aside>
+            <Reveal>
+              <Link to="/music/transcriptions" className="line-link inline-block text-petrol">
+                {t("transcriptionBack")}
+              </Link>
+            </Reveal>
+          </aside>
+        </div>
       </div>
     </PageShell>
   );
